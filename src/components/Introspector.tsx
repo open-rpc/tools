@@ -14,7 +14,6 @@ const Introspector: React.FC<IProps> = (props) => {
     return(
         <div>
             <Typography>
-                You are now Bob's nephew.
                 {JSON.stringify(props.logs)}
             </Typography>
         </div>
