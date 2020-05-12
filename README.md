@@ -1,18 +1,5 @@
 # Introspector
 
-<center>
-  <span>
-    <img alt="CircleCI branch" src="https://img.shields.io/circleci/project/github/open-rpc/introspector/master.svg">
-    <img src="https://codecov.io/gh/open-rpc/introspector/branch/master/graph/badge.svg" />
-    <img alt="Dependabot status" src="https://api.dependabot.com/badges/status?host=github&repo=open-rpc/introspector" />
-    <img alt="npm" src="https://img.shields.io/npm/dt/@open-rpc/introspector.svg" />
-    <img alt="GitHub release" src="https://img.shields.io/github/release/open-rpc/introspector.svg" />
-    <img alt="GitHub commits since latest release" src="https://img.shields.io/github/commits-since/open-rpc/introspector/latest.svg" />
-    <img alt="js badge" src="https://img.shields.io/badge/js-javascript-yellow.svg" />
-    <img alt="rs badge" src="https://img.shields.io/badge/rs-rust-brown.svg" />
-  </span>
-</center>
-
 ## What is Introspector?
 
 This project is a React Component that displays a list of JSON-RPC Requests and Responses.
