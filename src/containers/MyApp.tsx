@@ -6,10 +6,13 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { lightTheme, darkTheme } from "../themes/theme";
 import "./MyApp.css";
 import Introspector, {IJSONRPCLog} from "../components/Introspector";
+import useWebRequest from "../hooks/useWebRequest";
 
 const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
+  const [history] = useWebRequest();
+  console.log(history);
 
   const logs: IJSONRPCLog[] = [{
     timestamp: new Date(),

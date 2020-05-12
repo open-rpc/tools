@@ -1,7 +1,6 @@
 {
   "name": "@open-rpc/introspector",
   "version": "0.0.0-development",
-  "homepage": "https://github.com/open-rpc/introspector",
   "description": "",
   "main": "package/index.js",
   "files": [
@@ -42,6 +41,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
+    "@types/chrome": "0.0.108",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
