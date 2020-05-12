@@ -46,7 +46,6 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-i18next": "^10.13.1",
-    "reactotron-react-js": "^3.3.7",
     "use-dark-mode": "^2.3.1"
   }
 }
