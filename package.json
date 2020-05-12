@@ -1,7 +1,7 @@
 {
-  "name": "@etclabscore/pristine-typescript-react-material-ui",
+  "name": "@open-rpc/introspector",
   "version": "0.0.0-development",
-  "homepage": "https://etclabscore.github.io/pristine-typescript-react-material-ui/",
+  "homepage": "https://github.com/open-rpc/introspector",
   "description": "",
   "main": "package/index.js",
   "files": [
@@ -15,15 +15,14 @@
     "build": "react-scripts build",
     "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js",
     "lint": "tslint --fix -p .",
-    "test": "npm run lint && react-scripts test --coverage --passWithNoTests"
+    "test": "npm run lint && CI=true react-scripts test --coverage --passWithNoTests"
   },
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "@types/react-dom": "^16.8.4",
-    "jest": "24.7.1",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^3.4.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "typescript": "^3.5.1"
@@ -43,12 +42,11 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
-    "i18next": "^17.3.0",
-    "i18next-browser-languagedetector": "^4.0.0",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-i18next": "^10.13.1",
+    "reactotron-react-js": "^3.3.7",
     "use-dark-mode": "^2.3.1"
   }
 }

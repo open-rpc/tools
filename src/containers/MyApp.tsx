@@ -4,23 +4,19 @@ import useDarkMode from "use-dark-mode";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { lightTheme, darkTheme } from "../themes/theme";
-import { useTranslation } from "react-i18next";
-import LanguageMenu from "./LanguageMenu";
-
 import "./MyApp.css";
-import Introspector, {JSONRPCLog} from "../components/Introspector";
+import Introspector, {IJSONRPCLog} from "../components/Introspector";
 
 const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
-  const { t } = useTranslation();
   const theme = darkMode.value ? darkTheme : lightTheme;
 
-  const logs: JSONRPCLog[] = [{
+  const logs: IJSONRPCLog[] = [{
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
-        method: "foo"
-    }
+        method: "foo",
+    },
   }];
 
   return (
@@ -28,11 +24,10 @@ const MyApp: React.FC = () => {
       <AppBar position="sticky" color="default" elevation={0}>
         <Toolbar>
           <Grid container alignContent="center" alignItems="center" justify="space-between">
-            <Typography variant="h6">{t("Pristine")}</Typography>
+            <Typography variant="h6">{"Introspector"}</Typography>
             <Typography variant="caption">typescript-react-material-ui</Typography>
             <Grid item>
-              <LanguageMenu />
-              <Tooltip title={t("Toggle Dark Mode")}>
+              <Tooltip title={"Toggle Dark Mode"}>
                 <IconButton onClick={darkMode.toggle}>
                   {darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
                 </IconButton>
@@ -44,10 +39,7 @@ const MyApp: React.FC = () => {
       <div>
         <CssBaseline />
         <Grid container alignContent="center" alignItems="center" justify="center" direction="column">
-          <Introspector logs={logs}/>
-          <Typography variant="caption" style={{ position: "absolute", bottom: "10px" }}>
-            {t("Date", { date: new Date() })}
-          </Typography>
+          <Introspector logs={logs} />
         </Grid>
       </div>
     </MuiThemeProvider >
