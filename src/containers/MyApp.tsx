@@ -23,7 +23,7 @@ const MyApp: React.FC = () => {
   chrome.devtools.panels.create("Introspector",
         "",
         "index.html",
-        function(panel) {}
+        (panel) => { return }
   );
 
   return (
