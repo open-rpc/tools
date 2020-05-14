@@ -12,10 +12,8 @@ interface IProps {
 }
 
 const Introspector: React.FC<IProps> = (props) => {
-    // get listener traffic if no logs were passed in
-    if (props.logs === undefined || props.logs.length === 0) {
-        const [history] = useWebRequest();
-    }
+    // get listener traffic
+    const [history] = useWebRequest();
 
     return(
         <div>
