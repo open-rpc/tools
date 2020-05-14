@@ -20,7 +20,8 @@ const useWebRequest = () => {
         chrome.devtools.network.onRequestFinished.addListener(request => {
             const requestBody = request.request.postData?.text;
             request.getContent((responseBody) => {
-                if (request.request && request.request.url && requestBody && isJsonRpc(requestBody) && isJsonRpc(responseBody)) {
+                if (request.request && request.request.url && requestBody
+                    && isJsonRpc(requestBody) && isJsonRpc(responseBody)) {
                     const requestObj: IJSONRPCLog = {
                         timestamp: new Date(request.startedDateTime),
                         payload: JSON.parse(requestBody)
@@ -31,7 +32,6 @@ const useWebRequest = () => {
                         payload: JSON.parse(responseBody)
                     }
                     setHistory(history.concat([requestObj, responseObj]))
-                    console.log([history])
                 }
             });
           });

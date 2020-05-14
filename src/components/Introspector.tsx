@@ -13,7 +13,6 @@ interface IProps {
 
 const Introspector: React.FC<IProps> = (props) => {
     // get listener traffic
-    // TODO implement RING BUFFER
     const [history] = useWebRequest();
 
     return(
