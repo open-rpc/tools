@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
+import useWebRequest from "../hooks/useWebRequest";
 
 export interface IJSONRPCLog {
     timestamp: Date;
@@ -11,13 +12,16 @@ interface IProps {
 }
 
 const Introspector: React.FC<IProps> = (props) => {
-    //USE EFFECT for if Logs are given
-    //USE EFFECT for if logs are not given -> monitor page traffic
+    // get listener traffic
+    // TODO implement RING BUFFER
+    var [history] = useWebRequest();
+    console.log(history);
 
     return(
         <div>
             <Typography>
                 {JSON.stringify(props.logs)}
+                {JSON.stringify(history)}
             </Typography>
         </div>
     );

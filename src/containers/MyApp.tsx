@@ -6,13 +6,10 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { lightTheme, darkTheme } from "../themes/theme";
 import "./MyApp.css";
 import Introspector, {IJSONRPCLog} from "../components/Introspector";
-import useWebRequest from "../hooks/useWebRequest";
 
 const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
-  const [history] = useWebRequest();
-  console.log(history);
 
   const logs: IJSONRPCLog[] = [{
     timestamp: new Date(),
@@ -21,6 +18,13 @@ const MyApp: React.FC = () => {
         method: "foo",
     },
   }];
+
+  // Create devtools panel for introspector extension
+  chrome.devtools.panels.create("Introspector",
+        "",
+        "index.html",
+        function(panel) {}
+  );
 
   return (
     <MuiThemeProvider theme={theme}>
