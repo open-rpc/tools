@@ -11,19 +11,20 @@ const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
 
-  const logs: IJSONRPCLog[] = [{
+  /*const logs: IJSONRPCLog[] = [{
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
         method: "foo",
     },
-  }];
+  }];*/
+  const logs: IJSONRPCLog[] = [];
 
   // Create devtools panel for introspector extension
   chrome.devtools.panels.create("Introspector",
         "",
         "index.html",
-        (panel) => { return }
+        (panel) => { return; },
   );
 
   return (

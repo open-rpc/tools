@@ -10,7 +10,7 @@ it("renders without crashing", () => {
             timestamp: new Date(),
             payload: {
                 jsonrpc: "2.0",
-                method: "foo",
+                method: "",
             },
         }]
     }
