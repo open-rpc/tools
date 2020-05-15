@@ -19,6 +19,13 @@ const MyApp: React.FC = () => {
     },
   }];
 
+  // Create devtools panel for introspector extension
+  chrome.devtools.panels.create("Introspector",
+        "",
+        "index.html",
+        (panel) => { return; },
+  );
+
   return (
     <MuiThemeProvider theme={theme}>
       <AppBar position="sticky" color="default" elevation={0}>
