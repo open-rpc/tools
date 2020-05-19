@@ -23,18 +23,20 @@ const useWebRequest = () => {
                 if (request.request && request.request.url && requestBody
                     && isJsonRpc(requestBody) && isJsonRpc(responseBody)) {
                     const requestObj: IJSONRPCLog = {
+                        type: "request",
                         timestamp: new Date(request.startedDateTime),
                         payload: JSON.parse(requestBody),
                     };
 
                     const responseObj: IJSONRPCLog = {
+                        type: "response",
                         timestamp: new Date(request.startedDateTime),
                         payload: JSON.parse(responseBody),
                     };
                     setHistory(history.concat([requestObj, responseObj]));
                 }
             });
-          });
+        });
     }
     return [history];
 };

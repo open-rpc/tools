@@ -11,13 +11,13 @@ const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
 
-  const logs: IJSONRPCLog[] = [{
+  /*const logs: IJSONRPCLog[] = [{
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
         method: "foo",
     },
-  }];
+  }];*/
 
   // Create devtools panel for introspector extension
   chrome.devtools.panels.create("Introspector",
@@ -26,6 +26,7 @@ const MyApp: React.FC = () => {
         (panel) => { return; },
   );
 
+  // do not render monaco if collapsed -> see docs
   return (
     <MuiThemeProvider theme={theme}>
       <AppBar position="sticky" color="default" elevation={0}>
@@ -46,7 +47,7 @@ const MyApp: React.FC = () => {
       <div>
         <CssBaseline />
         <Grid container alignContent="center" alignItems="center" justify="center" direction="column">
-          <Introspector logs={logs} />
+          <Introspector />
         </Grid>
       </div>
     </MuiThemeProvider >
