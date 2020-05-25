@@ -1,2 +1,2 @@
-import Introspector from "./components/Introspector";
-export default Introspector;
+import JSONRPCLogger from "./components/logs-react";
+export default JSONRPCLogger;

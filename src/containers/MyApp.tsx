@@ -5,7 +5,7 @@ import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { lightTheme, darkTheme } from "../themes/theme";
 import "./MyApp.css";
-import Introspector, {IJSONRPCLog} from "../components/Introspector";
+import JSONRPCLogger, {IJSONRPCLog} from "../components/logs-react";
 
 const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
@@ -20,7 +20,7 @@ const MyApp: React.FC = () => {
   }];
 
   // Create devtools panel for introspector extension
-  chrome.devtools.panels.create("Introspector",
+  chrome.devtools.panels.create("JSONRPCLogger",
         "",
         "index.html",
         (panel) => { return; },
@@ -46,7 +46,7 @@ const MyApp: React.FC = () => {
       <div>
         <CssBaseline />
         <Grid container alignContent="center" alignItems="center" justify="center" direction="column">
-          <Introspector logs={logs} />
+          <JSONRPCLogger logs={logs} />
         </Grid>
       </div>
     </MuiThemeProvider >
