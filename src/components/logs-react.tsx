@@ -20,7 +20,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
     return (
         <ScrollToBottom>
             <CardList history={props.logs} />
-        </ScrollToBottom>        
+        </ScrollToBottom>
     )
 };
 
