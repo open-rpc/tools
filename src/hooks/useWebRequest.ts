@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {IJSONRPCLog} from "../components/Introspector";
+import {IJSONRPCLog} from "../components/logs-react";
 
 // checks if the passed string is a JSON-RPC request or response
 const isJsonRpc = (str: string) => {
@@ -28,12 +28,14 @@ const useWebRequest = () => {
                         payload: JSON.parse(requestBody),
                     };
 
+                    var responseTime = new Date(request.startedDateTime)
+                    responseTime.setMilliseconds((responseTime.getMilliseconds() + request.time));
                     const responseObj: IJSONRPCLog = {
                         type: "response",
-                        timestamp: new Date(request.startedDateTime),
+                        timestamp: responseTime,
                         payload: JSON.parse(responseBody),
                     };
-                    setHistory(history.concat([requestObj, responseObj]));
+                    setHistory([...history, requestObj, responseObj]);
                 }
             });
         });
