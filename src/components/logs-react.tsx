@@ -1,8 +1,9 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
-import useWebRequest from "../hooks/useWebRequest";
+import CardList from "./cardList";
 
+// add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
+    type: "response" | "request";
     timestamp: Date;
     payload: any;
 }
@@ -12,16 +13,8 @@ interface IProps {
 }
 
 const JSONRPCLogger: React.FC<IProps> = (props) => {
-    // get listener traffic
-    const [history] = useWebRequest();
-
-    return(
-        <div>
-            <Typography>
-                {JSON.stringify(props.logs)}
-                {JSON.stringify([history])}
-            </Typography>
-        </div>
+    return (
+        <CardList logs={props.logs} />
     );
 };
 
