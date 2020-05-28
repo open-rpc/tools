@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { MuiThemeProvider, AppBar, Toolbar, Typography, IconButton, Tooltip, CssBaseline, Grid } from "@material-ui/core"; //tslint:disable-line
 import useDarkMode from "use-dark-mode";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import { lightTheme, darkTheme } from "../themes/theme";
 import "./MyApp.css";
-import JSONRPCLogger, { IJSONRPCLog } from "../components/logs-react";
+import JSONRPCLogger from "../components/logs-react";
 import useWebRequest from "../hooks/useWebRequest";
 
 const MyApp: React.FC = () => {
