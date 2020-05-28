@@ -1,6 +1,6 @@
-# Introspector
+# Logs-React
 
-## What is Introspector?
+## What is Logs-React?
 
 This project is a React Component that displays a list of JSON-RPC Requests and Responses.
 
@@ -13,14 +13,15 @@ This project is a React Component that displays a list of JSON-RPC Requests and 
 
 ##### Installation:
 ```
-npm install --save @open-rpc/introspector
+npm install --save @open-rpc/logs-react
 ```
 ##### Usage:
 ```
-import Introspector, {JSONRPCLog} from "@open-rpc/introspector";
+import JSONRPCLogger, {JSONRPCLog} from "@open-rpc/logs-react";
 
 // Get these logs how ever you want
 const logs: JSONRPCLog[] = [{
+    type: "request",
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
@@ -28,7 +29,7 @@ const logs: JSONRPCLog[] = [{
     }
 }];
 
-<Introspector logs={logs} />
+<JSONRPCLogger logs={logs} />
 ```
 
 ##### Example in a new project:
@@ -42,16 +43,17 @@ npx create-react-app <appname> --typescript
 ```
 cd <appname>
 npm install .
-npm install @open-rpc/introspector --save
+npm install @open-rpc/logs-react --save
 ```
 
 ###### index.ts
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Introspector, {JSONRPCLog} from "@open-rpc/introspector";
+import JSONRPCLogger, {JSONRPCLog} from "@open-rpc/logs-react";
 
 const logs: JSONRPCLog[] = [{
+    type: "request",
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
@@ -59,7 +61,7 @@ const logs: JSONRPCLog[] = [{
     }
 }];
 
-ReactDOM.render(<Introspector logs={logs} />, document.getElementById("root"));
+ReactDOM.render(<JSONRPCLogger logs={logs} />, document.getElementById("root"));
 
 ```
 

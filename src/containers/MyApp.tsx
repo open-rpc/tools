@@ -23,6 +23,7 @@ const MyApp: React.FC = () => {
     "",
     "index.html",
     (panel) => { return; },
+
   );
 
   const [newHistory] = useWebRequest();
