@@ -21,6 +21,7 @@ import JSONRPCLogger, {JSONRPCLog} from "@open-rpc/logs-react";
 
 // Get these logs how ever you want
 const logs: JSONRPCLog[] = [{
+    type: "request",
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
@@ -52,6 +53,7 @@ import ReactDOM from 'react-dom';
 import JSONRPCLogger, {JSONRPCLog} from "@open-rpc/logs-react";
 
 const logs: JSONRPCLog[] = [{
+    type: "request",
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
