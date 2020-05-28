@@ -27,27 +27,11 @@ const MyApp: React.FC = () => {
     (panel) => { return; },
   );
 
-
   const [newHistory] = useWebRequest();
 
   // do not render monaco if collapsed -> see docs
   return (
     <MuiThemeProvider theme={theme}>
-      <AppBar position="sticky" color="default" elevation={0}>
-        <Toolbar>
-          <Grid container alignContent="center" alignItems="center" justify="space-between">
-            <Typography variant="h6">{"JSONRPCLogger"}</Typography>
-            <Typography variant="caption">typescript-react-material-ui</Typography>
-            <Grid item>
-              <Tooltip title={"Toggle Dark Mode"}>
-                <IconButton onClick={darkMode.toggle}>
-                  {darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
       <div>
         <CssBaseline />
         <JSONRPCLogger logs={newHistory} />

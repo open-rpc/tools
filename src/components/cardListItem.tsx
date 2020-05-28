@@ -19,8 +19,7 @@ const CardListItem: React.FC<IProps> = (props) => {
             <CardContent>
                 <ExpansionPanel 
                     TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}>
-                    <ExpansionPanelSummary
-                        expandIcon={<ExpandMoreIcon />}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography>Payload</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
