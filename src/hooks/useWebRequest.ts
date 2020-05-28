@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {IJSONRPCLog} from "../components/Introspector";
+import {IJSONRPCLog} from "../components/logs-react";
 
 // checks if the passed string is a JSON-RPC request or response
 const isJsonRpc = (str: string) => {

@@ -11,7 +11,7 @@ interface IProps {
     logs: IJSONRPCLog[];
 }
 
-const Introspector: React.FC<IProps> = (props) => {
+const JSONRPCLogger: React.FC<IProps> = (props) => {
     // get listener traffic
     const [history] = useWebRequest();
 
@@ -25,4 +25,4 @@ const Introspector: React.FC<IProps> = (props) => {
     );
 };
 
-export default Introspector;
+export default JSONRPCLogger;
