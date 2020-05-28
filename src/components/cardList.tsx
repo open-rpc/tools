@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {IJSONRPCLog} from "./logs-react";
 import CardListItem from "./cardListItem";
 
