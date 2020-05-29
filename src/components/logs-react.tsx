@@ -4,6 +4,7 @@ import CardList from "./cardList";
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
     type: "response" | "request";
+    method: string;
     timestamp: Date;
     payload: any;
 }

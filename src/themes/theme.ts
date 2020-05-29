@@ -53,7 +53,7 @@ export const darkTheme = createMuiTheme({
     },
     MuiTypography: {
       root: {
-        color: grey[400],
+        color: grey[50],
       },
     },
   },
