@@ -40,7 +40,7 @@ const MyApp: React.FC = () => {
                 </IconButton>
               </Tooltip>
 		</AppBar>
-		<div>
+		<div style={{width: "600px"}}>
 			<CssBaseline />
 			<JSONRPCLogger logs={newHistory} />
 		</div>
