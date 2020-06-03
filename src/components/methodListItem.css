@@ -1,0 +1,22 @@
+.method-list-item {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+.method-list-item.light:hover {
+	background: #eeeef1;
+	cursor: pointer;
+}
+
+.method-list-item.dark:hover {
+	background: #6c6c6c;
+	cursor: pointer;
+}
+
+.method-title {
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: capitalize;
+	margin: 0;
+}

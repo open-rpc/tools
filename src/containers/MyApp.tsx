@@ -3,7 +3,7 @@ import { MuiThemeProvider, CssBaseline, AppBar, Tooltip, IconButton } from "@mat
 import useDarkMode from "use-dark-mode";
 import { lightTheme, darkTheme } from "../themes/theme";
 import "./MyApp.css";
-import JSONRPCLogger from "../components/logs-react";
+import JSONRPCLogger from "../components/logsReact";
 import useWebRequest from "../hooks/useWebRequest";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
@@ -40,7 +40,7 @@ const MyApp: React.FC = () => {
                 </IconButton>
               </Tooltip>
 		</AppBar>
-		<div style={{width: "600px"}}>
+		<div>
 			<CssBaseline />
 			<JSONRPCLogger logs={newHistory} />
 		</div>

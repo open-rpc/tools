@@ -43,3 +43,7 @@
 	width: 90%;
 	display: flex;
 }
+
+.call-box.hidden {
+	display: none;
+}

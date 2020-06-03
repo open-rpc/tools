@@ -1,2 +1,2 @@
-import JSONRPCLogger from "./components/logs-react";
+import JSONRPCLogger from "./components/logsReact";
 export default JSONRPCLogger;

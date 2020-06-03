@@ -1,5 +1,5 @@
 import React from "react";
-import {IJSONRPCLog} from "./logs-react";
+import {IJSONRPCLog} from "./logsReact";
 import { Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
     ExpansionPanelDetails, ExpansionPanelSummary } from "@material-ui/core";
 import MonacoEditor from "react-monaco-editor";
@@ -8,7 +8,8 @@ import "./cardListItem.css";
 import useDarkMode from "use-dark-mode";
 
 interface IProps {
-    log: IJSONRPCLog;
+	log: IJSONRPCLog;
+	filter: string;
 }
 
 const getCardStyle = (log: IJSONRPCLog) => {
@@ -32,7 +33,8 @@ const CardListItem: React.FC<IProps> = (props) => {
     return (
         <Box m={2} key={JSON.stringify(props.log)} className={[
 			"call-box",
-			`${props.log.type=="response" ? "response" : ""}`
+			`${props.log.type=="response" ? "response" : ""}`,
+			`${props.log.method == props.filter || props.filter == "all" ? "" : "hidden"}`
 		].join(" ")}>
             <Card raised={true} className={callClass} style={{color: "white"}}>
                 <CardHeader
