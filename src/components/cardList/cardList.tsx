@@ -11,17 +11,17 @@ interface IProps {
 
 const CardList: React.FC<IProps> = (props) => {
 
-    return (
-        <div style={{width: "100%"}}>
-        { props.logs.map((call) => (
-            <CardListItem log={call} filter={props.filter}></CardListItem>
-        ))}
-        </div>
-    );
+	return (
+		<div style={{width: "100%"}}>
+		{ props.logs.map((call) => (
+			<CardListItem log={call} filter={props.filter}></CardListItem>
+		))}
+		</div>
+	);
 };
 
 export default props => (
-    <ScrollToBottom>
-        <CardList logs={props.logs} filter={props.filter}/>
-    </ScrollToBottom>
+	<ScrollToBottom>
+		<CardList logs={props.logs} filter={props.filter}/>
+	</ScrollToBottom>
 );

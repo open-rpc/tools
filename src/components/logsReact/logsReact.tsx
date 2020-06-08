@@ -5,14 +5,14 @@ import "./logsReact.css";
 
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
-    type: "response" | "request";
-    method: string;
-    timestamp: Date;
-    payload: any;
+	type: "response" | "request";
+	method: string;
+	timestamp: Date;
+	payload: any;
 }
 
 interface IProps {
-    logs: IJSONRPCLog[];
+	logs: IJSONRPCLog[];
 }
 
 const JSONRPCLogger: React.FC<IProps> = (props) => {
@@ -24,7 +24,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
 		return;
 	};
 
-    return (
+	return (
 		<div className="logs-react">
 			<div className="scrollable sidebar">
 				<MethodList logs={props.logs} active={methodFilter} select={methodClick}/>
@@ -33,7 +33,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
 				<CardList logs={props.logs} filter={methodFilter} />
 			</div>
 		</div>
-    );
+	);
 };
 
 export default JSONRPCLogger;

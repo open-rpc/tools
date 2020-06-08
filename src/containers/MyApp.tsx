@@ -35,10 +35,10 @@ const MyApp: React.FC = () => {
 		<MuiThemeProvider theme={theme}>
 		<AppBar position="sticky" color="default" elevation={0}>
 			<Tooltip title={("Toggle Dark Mode")}>
-                <IconButton onClick={darkMode.toggle}>
-                  {darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
-                </IconButton>
-              </Tooltip>
+				<IconButton onClick={darkMode.toggle}>
+				  	{darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
+				</IconButton>
+			</Tooltip>
 		</AppBar>
 		<div>
 			<CssBaseline />

@@ -14,8 +14,8 @@ const isJsonRpc = (str: string) => {
 };
 
 const useWebRequest = () => {
-    const [history, setHistory] = useState<IJSONRPCLog[]>([]);
-    const listener = (request) => {
+	const [history, setHistory] = useState<IJSONRPCLog[]>([]);
+	const listener = (request) => {
 		const requestBody = request.request.postData?.text;
 		request.getContent((responseBody) => {
 			if (request.request && request.request.url && requestBody

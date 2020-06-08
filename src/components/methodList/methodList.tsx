@@ -13,8 +13,8 @@ interface IProps {
 
 // returns if array is in an array of arrays
 const searchForArray = (haystack: string[][], needle: string[]) => {
-	for (var i = 0; i < haystack.length; ++i) {
-		if (needle.length === haystack[i].length && needle.every(v => haystack[i].includes(v))) {
+	for (const element of haystack) {
+		if (needle.length === element.length && needle.every(v => element.includes(v))) {
 			return true;
 		}
 	}
@@ -23,10 +23,10 @@ const searchForArray = (haystack: string[][], needle: string[]) => {
 
 // Returns array of method names
 const getMethods = (logs: IJSONRPCLog[]) => {
-	var methods: string[][] = [["all"]];
-	for (var x = 0; x < logs.length; x++) {
-		if (!searchForArray(methods, [logs[x].method])){
-			methods.push([logs[x].method]);
+	const methods: string[][] = [["all"]];
+	for (const log of logs) {
+		if (!searchForArray(methods, [log.method])){
+			methods.push([log.method]);
 		}
 	}
 	return methods;
@@ -52,7 +52,7 @@ const MethodList: React.FC<IProps> = (props) => {
 		if (x) {
 			return setCreateFilter((prevCreateFilter) => [...prevCreateFilter, event.target.value]);
 		} else {
-			var array = [...createFilter];
+			const array = [...createFilter];
 			const index = array.indexOf(event.target.value);
 			if (index > -1) {
 				array.splice(index, 1);
