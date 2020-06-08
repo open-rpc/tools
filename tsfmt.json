@@ -1,13 +1,13 @@
 {
-	"extends": [
-		"tslint:recommended"
-	],
-	"rules": {
-		"ordered-imports": false,
-		"indent": [
-			true,
-			"tabs",
-			4
-		]
-	}
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "ordered-imports": false,
+    "indent": [
+      true,
+      "space",
+      2
+    ]
+  }
 }

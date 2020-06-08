@@ -9,8 +9,8 @@ import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 
 const MyApp: React.FC = () => {
-	const darkMode = useDarkMode();
-	const theme = darkMode.value ? darkTheme : lightTheme;
+  const darkMode = useDarkMode();
+  const theme = darkMode.value ? darkTheme : lightTheme;
 
 	/*const logs: IJSONRPCLog[] = [{
 		timestamp: new Date(),
@@ -20,32 +20,32 @@ const MyApp: React.FC = () => {
 		},
 	}];*/
 
-	// Create devtools panel for JSONRPCLogger extension
-	chrome.devtools.panels.create("JSONRPCLogger",
-		"",
-		"index.html",
-		(panel) => { return; },
+  // Create devtools panel for JSONRPCLogger extension
+  chrome.devtools.panels.create("JSONRPCLogger",
+    "",
+    "index.html",
+    (panel) => { return; },
 
-	);
+  );
 
-	const [newHistory] = useWebRequest();
+  const [newHistory] = useWebRequest();
 
-	// do not render monaco if collapsed -> see docs
-	return (
-		<MuiThemeProvider theme={theme}>
-		<AppBar position="sticky" color="default" elevation={0}>
-			<Tooltip title={("Toggle Dark Mode")}>
-				<IconButton onClick={darkMode.toggle}>
-				  	{darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
-				</IconButton>
-			</Tooltip>
-		</AppBar>
-		<div>
-			<CssBaseline />
-			<JSONRPCLogger logs={newHistory} />
-		</div>
-		</MuiThemeProvider >
-	);
+  // do not render monaco if collapsed -> see docs
+  return (
+    <MuiThemeProvider theme={theme}>
+      <AppBar position="sticky" color="default" elevation={0}>
+        <Tooltip title={("Toggle Dark Mode")}>
+          <IconButton onClick={darkMode.toggle}>
+            {darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
+          </IconButton>
+        </Tooltip>
+      </AppBar>
+      <div>
+        <CssBaseline />
+        <JSONRPCLogger logs={newHistory} />
+      </div>
+    </MuiThemeProvider >
+  );
 };
 
 export default MyApp;

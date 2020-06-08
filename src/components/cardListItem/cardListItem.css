@@ -1,49 +1,49 @@
 .call {
-	color: white;
-	width: 350px;
+  color: white;
+  width: 400px;
 }
 
 .call.response-error {
-	background-color: #f44336;
+  background-color: #f44336;
 }
 
 .call.response-error.dark {
-	background-color: #e57373;
+  background-color: #e57373;
 }
 
 .call.request {
-	background-color:#2196f3;
+  background-color:#2196f3;
 }
 
 .call.request.dark {
-	background: #5c6bc0;
+  background: #5c6bc0;
 }
 
 .call.response-success {
-	background-color: #8bc34a;
+  background-color: #8bc34a;
 }
 
 .call.response-success.dark {
-	background-color: #81c784;
+  background-color: #81c784;
 }
 
 .call.rpc-call {
-	background-color: #ffc107;
+  background-color: #ffc107;
 }
 
 .call.rpc-call.dark {
-	background-color: #ff8a65;
+  background-color: #ff8a65;
 }
 
 .call-box.response {
-	justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .call-box {
-	width: 90%;
-	display: flex;
+  width: 90%;
+  display: flex;
 }
 
 .call-box.hidden {
-	display: none;
+  display: none;
 }
