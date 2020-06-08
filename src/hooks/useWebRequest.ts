@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IJSONRPCLog } from "../components/logsReact";
+import { IJSONRPCLog } from "../components/logsReact/logsReact";
 
 // checks if the passed string is a JSON-RPC request or response
 const isJsonRpc = (str: string) => {

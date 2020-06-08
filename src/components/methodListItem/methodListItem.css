@@ -20,3 +20,11 @@
 	text-transform: capitalize;
 	margin: 0;
 }
+
+.active.light {
+	background: #eeeef1;
+}
+
+.active.dark {
+	background: #6c6c6c;
+}

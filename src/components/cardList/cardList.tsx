@@ -1,12 +1,12 @@
 import React from "react";
-import {IJSONRPCLog} from "./logsReact";
-import CardListItem from "./cardListItem";
+import {IJSONRPCLog} from "../logsReact/logsReact";
+import CardListItem from "../cardListItem/cardListItem";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 
 interface IProps {
 	logs: IJSONRPCLog[];
-	filter: string;
+	filter: string[];
 }
 
 const CardList: React.FC<IProps> = (props) => {
