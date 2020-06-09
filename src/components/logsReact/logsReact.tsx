@@ -29,7 +29,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
   const handleHide = () => {
     setChecked((prev) => !prev);
     // Delay column style change until animation complete
-    if(checked) {
+    if (checked) {
       setTimeout(() => setFullScreen((prev) => !prev), 400);
     } else {
       setFullScreen((prev) => !prev);
