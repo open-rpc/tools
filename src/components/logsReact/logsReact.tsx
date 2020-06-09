@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CardList from "../cardList/cardList";
 import MethodList from "../methodList/methodList";
-import { Slide, FormControlLabel, Switch, AppBar, Toolbar, Checkbox } from "@material-ui/core";
+import { Slide, FormControlLabel, Switch, AppBar, Toolbar} from "@material-ui/core";
 import "./logsReact.css";
 
 // add method type so we can attribute cards to different method calls
