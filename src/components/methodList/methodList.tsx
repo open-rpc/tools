@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import MethodListItem from "../methodListItem/methodListItem";
 import { IJSONRPCLog } from "../logsReact/logsReact";
-import { Modal, FormControl, FormGroup, Checkbox, FormControlLabel, Paper } from "@material-ui/core";
-
+import {
+  Modal, FormControl, FormGroup, Checkbox, FormControlLabel, Paper, Button
+} from "@material-ui/core";
 import "./methodList.css";
 
 interface IProps {
@@ -21,9 +22,10 @@ const searchForArray = (haystack: string[][], needle: string[]) => {
   return false;
 };
 
+
 // Returns array of method names
 const getMethods = (logs: IJSONRPCLog[]) => {
-  const methods: string[][] = [["all"]];
+  const methods: string[][] = [];
   for (const log of logs) {
     if (!searchForArray(methods, [log.method])) {
       methods.push([log.method]);
@@ -46,7 +48,7 @@ const MethodList: React.FC<IProps> = (props) => {
   const [createFilter, setCreateFilter] = useState<string[]>([]);
   const methods = getMethods(props.logs);
   const [open, setOpen] = useState(false);
-  const allMethods: string[][] = [...methods, ...filters];
+  const allMethods: string[][] = [["all"], ...methods, ...filters];
 
   const handleChecked = (event, x) => {
     if (x) {
@@ -88,7 +90,13 @@ const MethodList: React.FC<IProps> = (props) => {
           select={props.select}
         />
       ))}
-      <button type="button" onClick={handleOpen}>add new filter</button>
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+        disabled={methods.length > 2 ? false : true}
+      >
+        add new filter
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -106,7 +114,7 @@ const MethodList: React.FC<IProps> = (props) => {
                 />
               ))}
             </FormGroup>
-            <button onClick={handleSubmit}>Submit</button>
+            <Button variant="contained" onClick={handleSubmit}>Submit</Button>
           </FormControl>
         </Paper>
       </Modal>

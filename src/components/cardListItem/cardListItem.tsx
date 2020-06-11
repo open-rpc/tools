@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {
   Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
-  ExpansionPanelDetails, ExpansionPanelSummary
+  ExpansionPanelDetails, ExpansionPanelSummary, Tooltip, IconButton,
+  Snackbar
 } from "@material-ui/core";
 import MonacoEditor from "@etclabscore/react-monaco-editor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import "./cardListItem.css";
+import Alert from "../alert/alert";
 import useDarkMode from "use-dark-mode";
+import copy from "copy-to-clipboard";
 
 interface IProps {
   log: IJSONRPCLog;
@@ -31,10 +35,21 @@ const CardListItem: React.FC<IProps> = (props) => {
 
   const darkMode = useDarkMode();
   const callClass = getCardStyle(props.log) + ` ${darkMode.value ? "dark" : ""}`;
+  const [open, setOpen] = useState(false);
 
   const handleEditorDidMount = (__: any, editor: any) => {
     return;
   };
+
+  const handleCopy = (event, value) => {
+    event.stopPropagation();
+    setOpen(true);
+    copy(JSON.stringify(value, null, 4));
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <Box m={2} key={JSON.stringify(props.log)} className={[
@@ -42,15 +57,24 @@ const CardListItem: React.FC<IProps> = (props) => {
       `${props.log.type === "response" ? "response" : ""}`,
       `${props.filter.includes(props.log.method) || props.filter.includes("all") ? "" : "hidden"}`
     ].join(" ")}>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert severity="success">Payload Copied to Clipboard</Alert>
+      </Snackbar>
       <Card raised={true} className={callClass} style={{ color: "white" }}>
         <CardHeader
           title={props.log.type + " - " + props.log.method}
-          subheader={props.log.timestamp.toISOString()} />
+          subheader={props.log.timestamp.toISOString()}
+        />
         <CardContent>
           <ExpansionPanel
             TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Payload</Typography>
+              <Tooltip title="Copy to clipboard">
+                <IconButton style={{ padding: "4px" }} onClick={(event) => handleCopy(event, props.log.payload)}>
+                  <AssignmentIcon style={{ fontSize: 14 }} />
+                </IconButton>
+              </Tooltip>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <MonacoEditor
