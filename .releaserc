@@ -7,12 +7,14 @@
     "@semantic-release/changelog",
     "@semantic-release/github",
     "@semantic-release/git",
+    "@semantic-release/npm"
   ],
   "verifyConditions": [
     "@semantic-release/changelog",
     "@semantic-release/git",
     "@semantic-release/github",
-    "@qiwi/semantic-release-gh-pages-plugin"
+    "@qiwi/semantic-release-gh-pages-plugin",
+    "@semantic-release/npm"
   ],
   "publish": [
     "@semantic-release/github",
@@ -21,7 +23,8 @@
       "msg": "github pages release",
       "src": "build/",
       "branch": "gh-pages"
-    }
+    },
+    "@semantic-release/npm"
   ],
   "success": [
     "@semantic-release/github"
