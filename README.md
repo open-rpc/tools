@@ -17,11 +17,12 @@ npm install --save @open-rpc/logs-react
 ```
 ##### Usage:
 ```
-import JSONRPCLogger, {JSONRPCLog} from "@open-rpc/logs-react";
+import JSONRPCLogger, {IJSONRPCLog} from "@open-rpc/logs-react";
 
 // Get these logs how ever you want
-const logs: JSONRPCLog[] = [{
+const logs: IJSONRPCLog[] = [{
     type: "request",
+    method: "test",
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
@@ -50,10 +51,11 @@ npm install @open-rpc/logs-react --save
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
-import JSONRPCLogger, {JSONRPCLog} from "@open-rpc/logs-react";
+import JSONRPCLogger, {IJSONRPCLog} from "@open-rpc/logs-react";
 
-const logs: JSONRPCLog[] = [{
+const logs: IJSONRPCLog[] = [{
     type: "request",
+    method: "test",
     timestamp: new Date(),
     payload: {
         jsonrpc: "2.0",
