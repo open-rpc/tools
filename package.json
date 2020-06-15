@@ -27,7 +27,7 @@
     "react-scripts": "^3.4.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.7.3"
   },
   "browserslist": {
     "production": [
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@etclabscore/react-monaco-editor": "^1.0.4",
-    "@material-ui/core": "^4.5.1",
+    "@material-ui/core": "^4.7.2",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.55",
     "@types/chrome": "0.0.108",
