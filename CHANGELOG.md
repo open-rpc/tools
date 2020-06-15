@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/open-rpc/logs-react/compare/1.0.1...1.0.2) (2020-06-15)
+
+
+### Bug Fixes
+
+* update dependencies to match inspector ([0c698fd](https://github.com/open-rpc/logs-react/commit/0c698fdf64d0d402515d49ef583ce9dc4706b8f5)), closes [#44](https://github.com/open-rpc/logs-react/issues/44)
+* update material-ui/labs ([876fd28](https://github.com/open-rpc/logs-react/commit/876fd2803c2e538c39162b8bd5f3fdceb979dee5))
+* upgrade to latest material-ui/core ([9c53645](https://github.com/open-rpc/logs-react/commit/9c53645c010eee4f07d49fc720488eb916bb7dfc))
+
 ## [1.0.1](https://github.com/open-rpc/logs-react/compare/1.0.0...1.0.1) (2020-06-15)
 
 
