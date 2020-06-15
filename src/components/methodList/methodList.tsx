@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MethodListItem from "../methodListItem/methodListItem";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {
-  Modal, FormControl, FormGroup, Checkbox, FormControlLabel, Paper, Button
+  Modal, FormControl, FormGroup, Checkbox, FormControlLabel, Paper, Button,
 } from "@material-ui/core";
 import "./methodList.css";
 
@@ -15,13 +15,12 @@ interface IProps {
 // returns if array is in an array of arrays
 const searchForArray = (haystack: string[][], needle: string[]) => {
   for (const element of haystack) {
-    if (needle.length === element.length && needle.every(v => element.includes(v))) {
+    if (needle.length === element.length && needle.every((v) => element.includes(v))) {
       return true;
     }
   }
   return false;
 };
-
 
 // Returns array of method names
 const getMethods = (logs: IJSONRPCLog[]) => {
@@ -34,10 +33,10 @@ const getMethods = (logs: IJSONRPCLog[]) => {
   return methods;
 };
 
-//TODO button to hide
+// TODO button to hide
 const MethodList: React.FC<IProps> = (props) => {
 
-	/*
+  /*
 	string[][] filters: stores all custom filters created in Modal
 	string[] createFilter: stores current custom filter progress before submit
 	string[][] methods: stores all methods that have been called

@@ -12,7 +12,7 @@ const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
 
-	/*const logs: IJSONRPCLog[] = [{
+  /*const logs: IJSONRPCLog[] = [{
 		timestamp: new Date(),
 		payload: {
 			jsonrpc: "2.0",

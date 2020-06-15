@@ -35,7 +35,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
       setFullScreen((prev) => !prev);
     }
 
-  }
+  };
 
   return (
     <div className={["logs-react", `${fullScreen ? "full-screen" : ""}`].join(" ")}>
