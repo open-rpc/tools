@@ -3,7 +3,7 @@ import { IJSONRPCLog } from "../logsReact/logsReact";
 import {
   Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
   ExpansionPanelDetails, ExpansionPanelSummary, Tooltip, IconButton,
-  Snackbar
+  Snackbar,
 } from "@material-ui/core";
 import MonacoEditor from "@etclabscore/react-monaco-editor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -20,7 +20,7 @@ interface IProps {
 
 const getCardStyle = (log: IJSONRPCLog) => {
   if (log.method.includes("rpc.")) {
-    return "call rpc-call"
+    return "call rpc-call";
   }
   if (log.type === "response") {
     if (log.payload.error) {
@@ -49,13 +49,13 @@ const CardListItem: React.FC<IProps> = (props) => {
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   return (
     <Box m={2} key={JSON.stringify(props.log)} className={[
       "call-box",
       `${props.log.type === "response" ? "response" : ""}`,
-      `${props.filter.includes(props.log.method) || props.filter.includes("all") ? "" : "hidden"}`
+      `${props.filter.includes(props.log.method) || props.filter.includes("all") ? "" : "hidden"}`,
     ].join(" ")}>
       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert severity="success">Payload Copied to Clipboard</Alert>
