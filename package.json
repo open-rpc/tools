@@ -45,7 +45,7 @@
     "@etclabscore/react-monaco-editor": "^1.0.4",
     "@material-ui/core": "^4.7.2",
     "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.55",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@types/chrome": "0.0.108",
     "copy-to-clipboard": "^3.3.1",
     "moment": "^2.24.0",
