@@ -5,3 +5,4 @@ docs
 .DS_Store
 dist
 /**/build
+package
