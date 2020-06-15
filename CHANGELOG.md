@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/open-rpc/logs-react/compare/1.0.0...1.0.1) (2020-06-15)
+
+
+### Bug Fixes
+
+* add npm release target ([f27e094](https://github.com/open-rpc/logs-react/commit/f27e09485c7c6e432d593655272156402f64e055))
+* remove package folder ([4ec84c2](https://github.com/open-rpc/logs-react/commit/4ec84c2e9a1df3e857bb60f8b4d9f36ae204f416))
+
 # 1.0.0 (2020-06-15)
 
 
