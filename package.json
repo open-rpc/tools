@@ -12,7 +12,7 @@
   "scripts": {
     "start": "rescripts start",
     "build": "rescripts build",
-    "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js",
+    "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js && cp src/components/cardListItem/cardListItem.css package/components/cardListItem && cp src/components/logsReact/logsReact.css package/components/logsReact && cp src/components/methodList/methodList.css package/components/methodList && cp src/components/methodListItem/methodListItem.css package/components/methodListItem",
     "lint": "tslint --fix -p .",
     "test": "npm run lint && CI=true rescripts test --coverage --passWithNoTests"
   },
