@@ -1,3 +1,11 @@
+## [1.0.3](https://github.com/open-rpc/logs-react/compare/1.0.2...1.0.3) (2020-06-16)
+
+
+### Bug Fixes
+
+* copy css into package ([a189eec](https://github.com/open-rpc/logs-react/commit/a189eec99541f5f31b6a2f88eac50cd440c7837c))
+* use script to add all component css files ([ce32ea1](https://github.com/open-rpc/logs-react/commit/ce32ea194ae81b6cbe946bc901d7a5ef0dcd6004))
+
 ## [1.0.2](https://github.com/open-rpc/logs-react/compare/1.0.1...1.0.2) (2020-06-15)
 
 
