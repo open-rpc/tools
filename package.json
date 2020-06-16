@@ -12,7 +12,7 @@
   "scripts": {
     "start": "rescripts start",
     "build": "rescripts build",
-    "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js",
+    "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js && find src/components -mindepth 1 -maxdepth 1 -type d -exec sh -c 'for f in {}/*.css; do cp \"$f\" \"package/components/$(basename {})\"; done' {} \\;",
     "lint": "tslint --fix -p .",
     "test": "npm run lint && CI=true rescripts test --coverage --passWithNoTests"
   },
