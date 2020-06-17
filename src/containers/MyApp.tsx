@@ -1,12 +1,10 @@
 import React from "react";
-import { MuiThemeProvider, CssBaseline, AppBar, Tooltip, IconButton } from "@material-ui/core"; //tslint:disable-line
+import { MuiThemeProvider, CssBaseline } from "@material-ui/core"; //tslint:disable-line
 import useDarkMode from "use-dark-mode";
 import { lightTheme, darkTheme } from "../themes/theme";
 import "./MyApp.css";
 import JSONRPCLogger from "../components/logsReact/logsReact";
 import useWebRequest from "../hooks/useWebRequest";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
 
 const MyApp: React.FC = () => {
   const darkMode = useDarkMode();
@@ -33,13 +31,6 @@ const MyApp: React.FC = () => {
   // do not render monaco if collapsed -> see docs
   return (
     <MuiThemeProvider theme={theme}>
-      <AppBar position="sticky" color="default" elevation={0}>
-        <Tooltip title={("Toggle Dark Mode")}>
-          <IconButton onClick={darkMode.toggle}>
-            {darkMode.value ? <Brightness3Icon /> : <WbSunnyIcon />}
-          </IconButton>
-        </Tooltip>
-      </AppBar>
       <div>
         <CssBaseline />
         <JSONRPCLogger logs={newHistory} />
