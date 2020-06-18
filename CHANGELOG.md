@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/open-rpc/logs-react/compare/1.0.3...1.0.4) (2020-06-18)
+
+
+### Bug Fixes
+
+* export JSONRPCLog type ([d5affbc](https://github.com/open-rpc/logs-react/commit/d5affbce65a9a998d4d5641e1b4f2be83c3aa53b))
+
 ## [1.0.3](https://github.com/open-rpc/logs-react/compare/1.0.2...1.0.3) (2020-06-16)
 
 
