@@ -17,12 +17,12 @@
 }
 
 .drawer {
-  width: 240;
+  width: 200;
   flex-shrink: 0;
 }
 
 .drawerPaper {
-  width: 240;
+  width: 200;
 }
 
 .drawerHeader {

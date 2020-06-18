@@ -19,7 +19,7 @@ interface IProps {
   logs: IJSONRPCLog[];
 }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
     },
     menuButton: {
-      color: "black",
       marginRight: theme.spacing(2),
     },
     hide: {
@@ -47,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       width: "100%",
       height: "auto",
+      marginTop: "6%",
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -91,7 +91,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="primary"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -99,7 +99,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap style={{color: "black"}}>
+          <Typography variant="h6" noWrap color="primary">
             JSON-RPC Logger
           </Typography>
         </Toolbar>

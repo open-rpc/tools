@@ -21,6 +21,9 @@ export const lightTheme = createMuiTheme({
     background: {
       default: "#fff",
     },
+    primary: {
+      main: grey[900],
+    },
   },
 });
 
@@ -38,6 +41,9 @@ export const darkTheme = createMuiTheme({
     background: {
       default: grey[900],
       paper: grey[800],
+    },
+    primary: {
+      main: "#fff",
     },
   },
   overrides: {
