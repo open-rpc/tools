@@ -1,15 +1,33 @@
 import React, { useState } from "react";
-import MethodListItem from "../methodListItem/methodListItem";
+import { useTheme } from '@material-ui/core/styles';
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {
-  Modal, FormControl, FormGroup, Checkbox, FormControlLabel, Paper, Button,
+  Modal,
+  FormControl,
+  FormGroup,
+  Checkbox,
+  FormControlLabel,
+  Paper,
+  Button,
+  Drawer,
+  IconButton,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from "@material-ui/core";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import "./methodList.css";
 
 interface IProps {
   logs: IJSONRPCLog[];
   active: string[];
   select: any;
+  isDrawerOpen: boolean;
+  closeDrawer: any;
 }
 
 // returns if array is in an array of arrays
@@ -33,7 +51,6 @@ const getMethods = (logs: IJSONRPCLog[]) => {
   return methods;
 };
 
-// TODO button to hide
 const MethodList: React.FC<IProps> = (props) => {
 
   /*
@@ -46,7 +63,9 @@ const MethodList: React.FC<IProps> = (props) => {
   const [filters, setFilters] = useState<string[][]>([]);
   const [createFilter, setCreateFilter] = useState<string[]>([]);
   const methods = getMethods(props.logs);
-  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const theme = useTheme();
+
   const allMethods: string[][] = [["all"], ...methods, ...filters];
 
   const handleChecked = (event, x) => {
@@ -63,42 +82,58 @@ const MethodList: React.FC<IProps> = (props) => {
   };
 
   const handleSubmit = (event) => {
-    setOpen(false);
+    setModalOpen(false);
     setCreateFilter([]);
     if (!searchForArray(filters, createFilter)) {
       return setFilters([...filters, createFilter]);
     }
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleModalOpen = () => {
+    setModalOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleModalClose = () => {
+    setModalOpen(false);
     setCreateFilter([]);
   };
 
   return (
-    <div className="method-list">
-      {allMethods.map((filter) => (
-        <MethodListItem
-          key={filter.join(" ")}
-          filter={filter}
-          active={searchForArray([filter], props.active)}
-          select={props.select}
-        />
-      ))}
-      <Button
-        variant="contained"
-        onClick={handleOpen}
-        disabled={methods.length > 2 ? false : true}
+    <div className="root">
+      <Drawer
+        className="drawer"
+        variant="persistent"
+        anchor="left"
+        open={props.isDrawerOpen}
+        classes={{
+          paper: "drawerPaper"
+        }}
       >
-        add new filter
-      </Button>
+          <div className="drawerHeader">
+              <IconButton onClick={props.closeDrawer}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              </IconButton>
+          </div>
+          <Divider/>
+          <List>
+            {allMethods.map((filter) => (
+              <ListItem button key={filter.join(" ")} onClick={() => props.select(filter)}>
+                <ListItemText>
+                  {filter.join(", ")}
+                </ListItemText>
+              </ListItem>
+            ))}
+            <ListItem button onClick={handleModalOpen} disabled={methods.length > 2 ? false : true}>
+              <ListItemIcon>{<AddCircleOutlineIcon />}</ListItemIcon>
+              <ListItemText>
+                add new filter
+              </ListItemText>
+            </ListItem>
+          </List>
+      </Drawer>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={modalOpen}
+        onClose={handleModalClose}
         aria-labelledby="modal-label"
       >
         <Paper className="modal">
