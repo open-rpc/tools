@@ -5,6 +5,7 @@ import {
   ExpansionPanelDetails, ExpansionPanelSummary, Tooltip, IconButton,
   Snackbar,
 } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MonacoEditor from "@etclabscore/react-monaco-editor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -17,6 +18,17 @@ interface IProps {
   log: IJSONRPCLog;
   filter: string[];
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    cardHeader: {
+      padding: "0 8 0 8",
+    },
+    cardContent: {
+      padding: "0 8 0 8",
+    }
+  }),
+);
 
 const getCardStyle = (log: IJSONRPCLog) => {
   if (log.method.includes("rpc.")) {
@@ -36,6 +48,7 @@ const CardListItem: React.FC<IProps> = (props) => {
   const darkMode = useDarkMode();
   const callClass = getCardStyle(props.log) + ` ${darkMode.value ? "dark" : ""}`;
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const handleEditorDidMount = (__: any, editor: any) => {
     return;
@@ -62,10 +75,11 @@ const CardListItem: React.FC<IProps> = (props) => {
       </Snackbar>
       <Card raised={true} className={callClass} style={{ color: "white" }}>
         <CardHeader
+          className={classes.cardHeader}
           title={props.log.type + " - " + props.log.method}
           subheader={props.log.timestamp.toISOString()}
         />
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <ExpansionPanel
             TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
