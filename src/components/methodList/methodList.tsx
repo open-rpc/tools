@@ -20,7 +20,7 @@ import {
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import "./methodList.css";
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 interface IProps {
   logs: IJSONRPCLog[];
@@ -29,6 +29,32 @@ interface IProps {
   isDrawerOpen: boolean;
   closeDrawer: any;
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    modal: {
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      position: "absolute",
+      width: 400,
+      padding: "4 8 6",
+    },
+    drawer: {
+      width: 200,
+      flexShrink: 0,
+    },
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+    },
+    drawerPaper: {
+      width: 200,
+      position: "static",
+    },
+  }),
+);
 
 // returns if array is in an array of arrays
 const searchForArray = (haystack: string[][], needle: string[]) => {
@@ -65,6 +91,7 @@ const MethodList: React.FC<IProps> = (props) => {
   const methods = getMethods(props.logs);
   const [modalOpen, setModalOpen] = useState(false);
   const theme = useTheme();
+  const classes = useStyles();
 
   const allMethods: string[][] = [["all"], ...methods, ...filters];
 
@@ -99,17 +126,17 @@ const MethodList: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div className="root">
+    <div>
       <Drawer
-        className="drawer"
+        className={classes.drawer}
         variant="persistent"
         anchor="left"
         open={props.isDrawerOpen}
         classes={{
-          paper: "drawerPaper"
+          paper: classes.drawerPaper
         }}
       >
-          <div className="drawerHeader">
+          <div className={classes.drawerHeader}>
               <IconButton onClick={props.closeDrawer}>
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
@@ -136,7 +163,7 @@ const MethodList: React.FC<IProps> = (props) => {
         onClose={handleModalClose}
         aria-labelledby="modal-label"
       >
-        <Paper className="modal">
+        <Paper className={classes.modal}>
           <FormControl>
             <h2 id="modal-label">Select methods you wish to filter by</h2>
             <FormGroup>

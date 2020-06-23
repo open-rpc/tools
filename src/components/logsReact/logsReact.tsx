@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import CardList from "../cardList/cardList";
 import clsx from 'clsx';
-import MethodList from "../methodList/methodList";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import "./logsReact.css";
+import MethodList from "../methodList/methodList";
+import { IconButton } from '@material-ui/core';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
@@ -23,30 +22,26 @@ const drawerWidth = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    appBar: {
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
+    logsReact: {
+      display: "flex",
+      width: "100%",
+      height: "100vh",
     },
-    appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
+    extendDiv: {
+      width: "15px",
     },
     hide: {
       display: 'none',
     },
+    menuButton: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      marginLeft: 0,
+      marginRight: 0,
+    },
     content: {
       width: "100%",
       height: "auto",
-      marginTop: "6%",
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -54,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: -drawerWidth,
     },
     contentShift: {
+      width: `calc(100% - ${drawerWidth}px)`,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -82,28 +78,16 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
   }
 
   return (
-    <div className="logs-react">
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: drawerOpen,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="primary"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, drawerOpen && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap color="primary">
-            JSON-RPC Logger
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <div className={classes.logsReact}>
+      <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
+        <IconButton
+          aria-label="open filters"
+          onClick={handleDrawerOpen}
+          className={classes.menuButton}
+        >
+          <ChevronRightIcon />
+        </IconButton>
+      </div>
       <MethodList
         logs={props.logs}
         active={methodFilter}
