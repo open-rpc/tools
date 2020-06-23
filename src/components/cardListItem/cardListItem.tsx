@@ -22,7 +22,7 @@ interface IProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cardHeader: {
-      padding: "0 8 0 8",
+      padding: "0 8px 0 8px",
     },
     cardContent: {
       padding: "0 8 0 8",
