@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "4 8 6",
     },
     drawer: {
+      overflow: "hidden",
       width: 200,
       flexShrink: 0,
     },
