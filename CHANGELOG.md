@@ -1,3 +1,14 @@
+## [1.0.5](https://github.com/open-rpc/logs-react/compare/1.0.4...1.0.5) (2020-06-24)
+
+
+### Bug Fixes
+
+* change the sidebar to a material ui drawer ([da3a330](https://github.com/open-rpc/logs-react/commit/da3a330b7ecb452641148bb1d9503ed01ffa39d6)), closes [#48](https://github.com/open-rpc/logs-react/issues/48)
+* remove appbar ([4cc4ba4](https://github.com/open-rpc/logs-react/commit/4cc4ba407f63acdd4f035ac60e5af96cadca769c))
+* remove excessive card padding ([0960e4c](https://github.com/open-rpc/logs-react/commit/0960e4c9826a9c8533e265fe3e1551d2dab985e0))
+* scrolling bug, themes, and drawer width ([d6ce64e](https://github.com/open-rpc/logs-react/commit/d6ce64ed15eb6b6674fd827fa7ad145c430b5927))
+* slide animation is restricted to div ([e3df05f](https://github.com/open-rpc/logs-react/commit/e3df05f520e047a24f6a49bb5bce8d2160883352)), closes [#51](https://github.com/open-rpc/logs-react/issues/51)
+
 ## [1.0.4](https://github.com/open-rpc/logs-react/compare/1.0.3...1.0.4) (2020-06-18)
 
 
