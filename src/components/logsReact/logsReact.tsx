@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     logsReact: {
       display: "flex",
       width: "100%",
-      height: "100vh",
+      height: "100%",
     },
     extendDiv: {
       width: "15px",
