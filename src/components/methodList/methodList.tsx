@@ -92,7 +92,6 @@ const MethodList: React.FC<IProps> = (props) => {
   const [createFilter, setCreateFilter] = useState<string[]>([]);
   const methods = getMethods(props.logs);
   const [modalOpen, setModalOpen] = useState(false);
-  const theme = useTheme();
   const classes = useStyles();
 
   const allMethods: string[][] = [["all"], ...methods, ...filters];
