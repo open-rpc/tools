@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTheme } from '@material-ui/core/styles';
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {
   Modal,
