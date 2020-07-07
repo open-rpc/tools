@@ -5,6 +5,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MethodList from "../methodList/methodList";
 import { IconButton } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
@@ -14,11 +15,19 @@ export interface IJSONRPCLog {
   payload: any;
 }
 
+type AlignString = "right" | "left";
+
 interface IProps {
   logs: IJSONRPCLog[];
+  openRecentPayload?: boolean;
+  sidebarAlign?: AlignString;
+  sidebarOpen?: boolean;
 }
 
 const drawerWidth = 200;
+const defaultOpenRecentPayload = false;
+const defaultSidebarAlign: AlignString = "left";
+const defaultSidebarOpen = true;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
     },
     extendDiv: {
-      width: "15px",
+      width: "25px",
     },
     hide: {
       display: 'none',
@@ -46,7 +55,12 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+    },
+    left: {
       marginLeft: -drawerWidth,
+    },
+    right: {
+      marginRight: -drawerWidth,
     },
     contentShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -55,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
+      marginRight: 0,
     },
   }),
 );
@@ -62,7 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const JSONRPCLogger: React.FC<IProps> = (props) => {
 
   const [methodFilter, setFilter] = useState(["all"]);
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(
+    props.sidebarOpen !== undefined ? props.sidebarOpen : defaultSidebarOpen
+  );
+  const sidebarAlignment: AlignString = props.sidebarAlign !== undefined ? props.sidebarAlign : defaultSidebarAlign;
+  const openRecentPayload = props.openRecentPayload !== undefined ? props.openRecentPayload : defaultOpenRecentPayload;
   const classes = useStyles();
 
   const methodClick = (method: string[]) => {
@@ -78,28 +97,66 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
   }
 
   return (
-    <div className={classes.logsReact}>
-      <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
-        <IconButton
-          aria-label="open filters"
-          onClick={handleDrawerOpen}
-          className={classes.menuButton}
-        >
-          <ChevronRightIcon />
-        </IconButton>
-      </div>
-      <MethodList
-        logs={props.logs}
-        active={methodFilter}
-        select={methodClick}
-        isDrawerOpen={drawerOpen}
-        closeDrawer={handleDrawerClose}
-      />
-      <div className={clsx(classes.content, {
-        [classes.contentShift]: drawerOpen,
-      })}>
-        <CardList logs={props.logs} filter={methodFilter} />
-      </div>
+    <div>
+      { sidebarAlignment === "left" ?
+        <div className={classes.logsReact}>
+          <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
+            <IconButton
+              aria-label="open filters"
+              onClick={handleDrawerOpen}
+              className={classes.menuButton}
+            >
+              <ChevronRightIcon />
+            </IconButton>
+          </div>
+          <MethodList
+            logs={props.logs}
+            alignment={sidebarAlignment}
+            active={methodFilter}
+            select={methodClick}
+            isDrawerOpen={drawerOpen}
+            closeDrawer={handleDrawerClose}
+          />
+          <div className={clsx(classes.content, classes.left, {
+            [classes.contentShift]: drawerOpen,
+          })}>
+            <CardList
+              logs={props.logs}
+              filter={methodFilter}
+              openRecentPayload={openRecentPayload}
+            />
+          </div>
+        </div>
+        :
+        <div className={classes.logsReact}>
+          <div className={clsx(classes.content, classes.right, {
+            [classes.contentShift]: drawerOpen,
+          })}>
+            <CardList
+              logs={props.logs}
+              filter={methodFilter}
+              openRecentPayload={openRecentPayload}
+            />
+          </div>
+          <MethodList
+            logs={props.logs}
+            alignment={sidebarAlignment}
+            active={methodFilter}
+            select={methodClick}
+            isDrawerOpen={drawerOpen}
+            closeDrawer={handleDrawerClose}
+          />
+          <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
+            <IconButton
+              aria-label="open filters"
+              onClick={handleDrawerOpen}
+              className={classes.menuButton}
+            >
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+        </div>
+      }
     </div>
   );
 };
