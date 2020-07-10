@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/open-rpc/logs-react/compare/1.0.5...1.1.0) (2020-07-10)
+
+
+### Bug Fixes
+
+* make logs-react component fit div when imported ([7b36afe](https://github.com/open-rpc/logs-react/commit/7b36afe187651a6eaaaff90692fc26680097dd7f))
+* remove redundant theme variable ([faf99ff](https://github.com/open-rpc/logs-react/commit/faf99ffefed2c5b422fbc64bc286737ae37272ea))
+* remove unused import ([8d5ff48](https://github.com/open-rpc/logs-react/commit/8d5ff489455c572ad99876ef03d8b1d0acc7da71))
+
+
+### Features
+
+* add props for enhanced customization ([b818c3d](https://github.com/open-rpc/logs-react/commit/b818c3de245c3e8c42fc2df96d33b5213769bfdb)), closes [#57](https://github.com/open-rpc/logs-react/issues/57) [#55](https://github.com/open-rpc/logs-react/issues/55)
+* support batched calls ([#60](https://github.com/open-rpc/logs-react/issues/60)) ([c751f5a](https://github.com/open-rpc/logs-react/commit/c751f5acdfb13a6168be8a7d8628e05d39c3ac16)), closes [#30](https://github.com/open-rpc/logs-react/issues/30)
+
 ## [1.0.5](https://github.com/open-rpc/logs-react/compare/1.0.4...1.0.5) (2020-06-24)
 
 
