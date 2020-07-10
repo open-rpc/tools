@@ -17,6 +17,7 @@ import copy from "copy-to-clipboard";
 interface IProps {
   log: IJSONRPCLog;
   filter: string[];
+  open: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,7 +82,9 @@ const CardListItem: React.FC<IProps> = (props) => {
         />
         <CardContent className={classes.cardContent}>
           <ExpansionPanel
-            TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}>
+            defaultExpanded={props.open}
+            TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}
+          >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Payload</Typography>
               <Tooltip title="Copy to clipboard">

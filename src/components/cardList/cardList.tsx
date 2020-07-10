@@ -6,14 +6,23 @@ import ScrollToBottom from "react-scroll-to-bottom";
 interface IProps {
   logs: IJSONRPCLog[];
   filter: string[];
+  openRecentPayload: boolean;
 }
 
 const CardList: React.FC<IProps> = (props) => {
 
+  const cardRender = (call, i) => {
+    if (props.logs.length - 1 === i) {
+      return <CardListItem log={call} filter={props.filter} open={true} />
+    } else {
+      return <CardListItem log={call} filter={props.filter} open={false} />
+    }
+  };
+
   return (
     <div style={{ width: "100%" }}>
-      {props.logs.map((call) => (
-        <CardListItem log={call} filter={props.filter}></CardListItem>
+      {props.logs.map((call, i) => (
+        cardRender(call, i)
       ))}
     </div>
   );
@@ -21,7 +30,10 @@ const CardList: React.FC<IProps> = (props) => {
 
 export default (props) => (
   <ScrollToBottom>
-    <CardList logs={props.logs} filter={props.filter} />
+    <CardList
+      logs={props.logs}
+      filter={props.filter}
+      openRecentPayload={props.openRecentPayload}
+    />
   </ScrollToBottom>
-)
-  ;
+);

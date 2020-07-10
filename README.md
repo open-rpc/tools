@@ -33,6 +33,15 @@ const logs: JSONRPCLog[] = [{
 <JSONRPCLogger logs={logs} />
 ```
 
+##### Props:
+
+| Name              | Type              | Function                                                                                            |
+|-------------------|-------------------|-----------------------------------------------------------------------------------------------------|
+| logs              | JSONRPCLog        | The list of JSON-RPC calls that logs-react will display                                             |
+| openRecentPayload | boolean           | Default: false. If true, the payload of the most recent response will be expanded automatically.    |
+| sidebarAlign      | "left" or "right" | Default: "left". Determines which side of the screen that the method filter sidebar will appear on. |
+| sidebarOpen       | boolean           | Default: true. If true, the filter sidebar will be opened by default, if false it will be closed.   |
+
 ##### Example in a new project:
 
 ###### create a new typescript project with `create-react-app`

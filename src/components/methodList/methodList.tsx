@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTheme } from '@material-ui/core/styles';
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {
   Modal,
@@ -24,6 +23,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 interface IProps {
   logs: IJSONRPCLog[];
+  alignment: "left" | "right";
   active: string[];
   select: any;
   isDrawerOpen: boolean;
@@ -91,7 +91,6 @@ const MethodList: React.FC<IProps> = (props) => {
   const [createFilter, setCreateFilter] = useState<string[]>([]);
   const methods = getMethods(props.logs);
   const [modalOpen, setModalOpen] = useState(false);
-  const theme = useTheme();
   const classes = useStyles();
 
   const allMethods: string[][] = [["all"], ...methods, ...filters];
@@ -131,7 +130,7 @@ const MethodList: React.FC<IProps> = (props) => {
       <Drawer
         className={classes.drawer}
         variant="persistent"
-        anchor="left"
+        anchor={props.alignment}
         open={props.isDrawerOpen}
         classes={{
           paper: classes.drawerPaper
@@ -139,7 +138,7 @@ const MethodList: React.FC<IProps> = (props) => {
       >
           <div className={classes.drawerHeader}>
               <IconButton onClick={props.closeDrawer}>
-                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                {props.alignment === "left" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
           </div>
           <Divider/>
