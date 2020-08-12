@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/open-rpc/logs-react/compare/1.1.0...1.1.1) (2020-08-12)
+
+
+### Bug Fixes
+
+* make add button hidden until needed ([#64](https://github.com/open-rpc/logs-react/issues/64)) ([9273770](https://github.com/open-rpc/logs-react/commit/92737703c54f99154bd267d2c64673e91261b1fa)), closes [#62](https://github.com/open-rpc/logs-react/issues/62)
+
 # [1.1.0](https://github.com/open-rpc/logs-react/compare/1.0.5...1.1.0) (2020-07-10)
 
 
