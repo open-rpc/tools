@@ -3,9 +3,9 @@ import CardList from "../cardList/cardList";
 import clsx from "clsx";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import MethodList from "../methodList/methodList";
-import { IconButton } from '@material-ui/core';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { IconButton } from "@material-ui/core";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
@@ -51,7 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       width: "100%",
-      height: "auto",
+      height: "100%",
+      position: "relative",
+      overflowY: "scroll",
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -79,7 +81,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
 
   const [methodFilter, setFilter] = useState(["all"]);
   const [drawerOpen, setDrawerOpen] = useState(
-    props.sidebarOpen !== undefined ? props.sidebarOpen : defaultSidebarOpen
+    props.sidebarOpen !== undefined ? props.sidebarOpen : defaultSidebarOpen,
   );
   const sidebarAlignment: AlignString = props.sidebarAlign !== undefined ? props.sidebarAlign : defaultSidebarAlign;
   const openRecentPayload = props.openRecentPayload !== undefined ? props.openRecentPayload : defaultOpenRecentPayload;
