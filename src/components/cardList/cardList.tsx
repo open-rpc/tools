@@ -34,7 +34,7 @@ const CardList: React.FC<IProps> = (props) => {
     if (listEndRef && listEndRef.current && atBottom) {
       listEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [props.logs]);
+  }, [props.logs, atBottom]);
 
   return (
     <div
