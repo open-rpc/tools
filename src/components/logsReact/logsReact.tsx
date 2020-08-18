@@ -51,9 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       width: "100%",
-      height: "100%",
-      position: "relative",
-      overflowY: "scroll",
+      height: "auto",
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
