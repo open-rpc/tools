@@ -1,3 +1,15 @@
+## [1.1.3](https://github.com/open-rpc/logs-react/compare/1.1.2...1.1.3) (2020-08-19)
+
+
+### Bug Fixes
+
+* revert merge from fix/remove-scroll-to-bottom ([adac76a](https://github.com/open-rpc/logs-react/commit/adac76aacc73f186143199a789e5edcdc4065509)), closes [#68](https://github.com/open-rpc/logs-react/issues/68)
+
+
+### Reverts
+
+* Revert "chore(release): 1.1.2 [skip ci]" ([bc8b206](https://github.com/open-rpc/logs-react/commit/bc8b2060ca6f2c909cc059ad49e4283acf1a9451))
+
 ## [1.1.1](https://github.com/open-rpc/logs-react/compare/1.1.0...1.1.1) (2020-08-12)
 
 
