@@ -1,12 +1,3 @@
-## [1.1.2](https://github.com/open-rpc/logs-react/compare/1.1.1...1.1.2) (2020-08-18)
-
-
-### Bug Fixes
-
-* add missing hook dependency ([f602ed9](https://github.com/open-rpc/logs-react/commit/f602ed9041e1621bdfd9c5fb1cf9d443e5464386))
-* added conditional scroll to bottom ([24854db](https://github.com/open-rpc/logs-react/commit/24854db17a9deba9236e5002ffaec15bbf999b8d))
-* remove scroll to bottom dependency ([8793359](https://github.com/open-rpc/logs-react/commit/8793359697da4d1a5fbbd09137e3f326cd584b96))
-
 ## [1.1.1](https://github.com/open-rpc/logs-react/compare/1.1.0...1.1.1) (2020-08-12)
 
 
