@@ -88,7 +88,7 @@ const CardListItem: React.FC<IProps> = (props) => {
           }
           <ExpansionPanel
             defaultExpanded={props.open}
-            TransitionProps={{ mountOnEnter: true, unmountOnExit: true }}
+            TransitionProps={{ unmountOnExit: true }}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Payload</Typography>
@@ -100,8 +100,8 @@ const CardListItem: React.FC<IProps> = (props) => {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <MonacoEditor
-                width="350"
-                height="350"
+                width="350px"
+                height="350px"
                 language="json"
                 value={JSON.stringify(props.log.payload, null, 4)}
                 editorDidMount={handleEditorDidMount}
