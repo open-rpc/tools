@@ -13,9 +13,9 @@ const CardList: React.FC<IProps> = (props) => {
 
   const cardRender = (call, i) => {
     if (props.logs.length - 1 === i) {
-      return <CardListItem log={call} filter={props.filter} open={true} />
+      return <CardListItem log={call} filter={props.filter} open={true} />;
     } else {
-      return <CardListItem log={call} filter={props.filter} open={false} />
+      return <CardListItem log={call} filter={props.filter} open={false} />;
     }
   };
 
