@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/open-rpc/logs-react/compare/1.1.6...1.1.7) (2020-10-14)
+
+
+### Bug Fixes
+
+* remove scroll to bottom ([d3607ee](https://github.com/open-rpc/logs-react/commit/d3607ee6f1cc38ecadfefc09aff6f50cc33492fa))
+
 ## [1.1.6](https://github.com/open-rpc/logs-react/compare/1.1.5...1.1.6) (2020-10-14)
 
 
