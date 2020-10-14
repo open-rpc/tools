@@ -1,7 +1,6 @@
 import React from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import CardListItem from "../cardListItem/cardListItem";
-import ScrollToBottom from "react-scroll-to-bottom";
 import "./cardList.css";
 
 interface IProps {
@@ -21,7 +20,7 @@ const CardList: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
       {props.logs.map((call, i) => (
         cardRender(call, i)
       ))}
@@ -29,12 +28,4 @@ const CardList: React.FC<IProps> = (props) => {
   );
 };
 
-export default (props) => (
-  <ScrollToBottom className="scroll-to-bottom">
-    <CardList
-      logs={props.logs}
-      filter={props.filter}
-      openRecentPayload={props.openRecentPayload}
-    />
-  </ScrollToBottom>
-);
+export default CardList;
