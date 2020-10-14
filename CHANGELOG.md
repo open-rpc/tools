@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/open-rpc/logs-react/compare/1.1.4...1.1.5) (2020-10-14)
+
+
+### Bug Fixes
+
+* only use unmountOnExit and set px for monaco height+width ([ba50dc6](https://github.com/open-rpc/logs-react/commit/ba50dc6053da5163c7d9ace642b67400bae291b0))
+
 ## [1.1.4](https://github.com/open-rpc/logs-react/compare/1.1.3...1.1.4) (2020-10-14)
 
 
