@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/open-rpc/logs-react/compare/1.1.3...1.1.4) (2020-10-14)
+
+
+### Bug Fixes
+
+* lock material-ui deps ([070be4f](https://github.com/open-rpc/logs-react/commit/070be4f48a850f9a9ad1debc65b98710fce4c1b9))
+
 ## [1.1.3](https://github.com/open-rpc/logs-react/compare/1.1.2...1.1.3) (2020-08-19)
 
 
