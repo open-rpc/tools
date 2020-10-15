@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import { formatRelative } from "date-fns";
 import {
@@ -16,11 +16,17 @@ import "./cardListItem.css";
 import Alert from "../alert/alert";
 import useDarkMode from "use-dark-mode";
 import copy from "copy-to-clipboard";
+import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
+import { JSONSchema, OpenrpcDocument } from "@open-rpc/meta-schema";
+import * as monaco from "monaco-editor";
+import openrpcDocumentToJSONRPCSchema from "../../helpers/openrpcDocumentToJSONRPCSchema";
+import openrpcDocumentToJSONRPCSchemaResult from "../../helpers/openrpcDocumentToJSONRPCSchemaResult";
 
 interface IProps {
   log: IJSONRPCLog;
   filter: string[];
   open: boolean;
+  openrpcDocument?: OpenrpcDocument;
 }
 const colorTypeMap = {
   // request: "#2196f3",
@@ -58,10 +64,33 @@ const CardListItem: React.FC<IProps> = (props) => {
   const darkMode = useDarkMode();
   const callClass = getCardStyle(props.log) + ` ${darkMode.value ? "dark" : ""}`;
   const [open, setOpen] = useState(false);
+  const [editor, setEditor] = useState();
   const classes = useStyles();
 
-  const handleEditorDidMount = (__: any, editor: any) => {
-    return;
+  useEffect(() => {
+    if (editor === undefined) {
+      return;
+    }
+    let s: JSONSchema;
+
+    if (props.log.type === "request") {
+      s = openrpcDocumentToJSONRPCSchema(props.openrpcDocument);
+    } else {
+      s = openrpcDocumentToJSONRPCSchemaResult(props.log.method, props.openrpcDocument);
+    }
+    const modelName = (props.openrpcDocument && props.openrpcDocument.info) ? props.openrpcDocument.info.title : "inspector";
+    const modelUriString = `inmemory://${modelName}-${Math.random()}.json`;
+    const modelUri = monaco.Uri.parse(modelUriString);
+    const model = monaco.editor.createModel(JSON.stringify(props.log.payload, null, 4) || "", "json", modelUri);
+    (editor as any).setModel(model);
+
+    addDiagnostics(modelUri.toString(), s, monaco);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.openrpcDocument, editor]);
+
+  const handleEditorDidMount = (__: any, ed: any) => {
+    setEditor(ed);
   };
 
   const handleCopy = (event, value) => {
