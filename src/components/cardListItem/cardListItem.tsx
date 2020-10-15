@@ -112,7 +112,7 @@ const CardListItem: React.FC<IProps> = (props) => {
       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert severity="success">Payload Copied to Clipboard</Alert>
       </Snackbar>
-      <Card raised={true} className={callClass} style={{ color: "white" }}>
+      <Card raised={true} className={callClass} style={{ color: "white" }} elevation={8}>
         <CardHeader
           className={classes.cardHeader}
           title={
@@ -151,8 +151,8 @@ const CardListItem: React.FC<IProps> = (props) => {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <MonacoEditor
-                width="350px"
-                height="350px"
+                width="100%"
+                height="250px"
                 language="json"
                 value={JSON.stringify(props.log.payload, null, 4)}
                 editorDidMount={handleEditorDidMount}

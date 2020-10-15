@@ -1,6 +1,6 @@
 .call {
   color: white;
-  width: 400px;
+  width: 70%;
   padding: 10px;
   padding-top: 15px
 }
@@ -11,22 +11,6 @@
 
 .call.response-error.dark {
   background-color: #e57373;
-}
-
-.call.request {
-
-}
-
-.call.request.dark {
-
-}
-
-.call.response-success {
-
-}
-
-.call.response-success.dark {
-
 }
 
 .call.rpc-call {
@@ -42,7 +26,6 @@
 }
 
 .call-box {
-  width: 90%;
   display: flex;
 }
 
