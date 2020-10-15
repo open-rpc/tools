@@ -99,7 +99,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div>
+    <>
       { sidebarAlignment === "left" ?
         <div className={classes.logsReact}>
           <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
@@ -159,7 +159,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
           </div>
         </div>
       }
-    </div>
+    </>
   );
 };
 
