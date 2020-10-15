@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/open-rpc/logs-react/compare/1.1.10...1.1.11) (2020-10-15)
+
+
+### Bug Fixes
+
+* add support for openrpc documents to provide monaco hovers ([4338079](https://github.com/open-rpc/logs-react/commit/4338079fea4d8f24280a6ecf0025f5384eb2e2ce)), closes [#59](https://github.com/open-rpc/logs-react/issues/59)
+
 ## [1.1.10](https://github.com/open-rpc/logs-react/compare/1.1.9...1.1.10) (2020-10-15)
 
 
