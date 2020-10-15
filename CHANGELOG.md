@@ -1,3 +1,25 @@
+## [1.1.8](https://github.com/open-rpc/logs-react/compare/1.1.7...1.1.8) (2020-10-15)
+
+
+### Bug Fixes
+
+* overflow ([9840e65](https://github.com/open-rpc/logs-react/commit/9840e6516b89dc5931b5b43c5f1aeadfb27d09b2))
+* overflow for cardlist ([1815d5f](https://github.com/open-rpc/logs-react/commit/1815d5f68a14e05c0f684be343528d1b6ded7731))
+
+## [1.1.7](https://github.com/open-rpc/logs-react/compare/1.1.6...1.1.7) (2020-10-14)
+
+
+### Bug Fixes
+
+* remove scroll to bottom ([d3607ee](https://github.com/open-rpc/logs-react/commit/d3607ee6f1cc38ecadfefc09aff6f50cc33492fa))
+
+## [1.1.6](https://github.com/open-rpc/logs-react/compare/1.1.5...1.1.6) (2020-10-14)
+
+
+### Bug Fixes
+
+* add scroll to bottom height ([f50f872](https://github.com/open-rpc/logs-react/commit/f50f872047402aa665ab1dad18a786eafdaac8f0))
+
 ## [1.1.5](https://github.com/open-rpc/logs-react/compare/1.1.4...1.1.5) (2020-10-14)
 
 
