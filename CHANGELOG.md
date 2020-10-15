@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/open-rpc/logs-react/compare/1.1.8...1.1.9) (2020-10-15)
+
+
+### Bug Fixes
+
+* remove extra div ([2e31251](https://github.com/open-rpc/logs-react/commit/2e31251dfa2f65f4b42f566a2255275a0e0e0ff6))
+
 ## [1.1.8](https://github.com/open-rpc/logs-react/compare/1.1.7...1.1.8) (2020-10-15)
 
 
