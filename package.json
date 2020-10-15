@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "package/index.js",
+  "homepage": "https://open-rpc.github.io/logs-react/",
   "files": [
     "package/"
   ],
