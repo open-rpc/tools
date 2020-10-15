@@ -21,9 +21,6 @@ export const lightTheme = createMuiTheme({
     background: {
       default: "#fff",
     },
-    primary: {
-      main: grey[900],
-    },
   },
 });
 
