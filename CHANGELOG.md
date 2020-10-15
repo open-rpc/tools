@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/open-rpc/logs-react/compare/1.1.11...1.1.12) (2020-10-15)
+
+
+### Bug Fixes
+
+* auto scroll bottom when logs change and initial ([46dab08](https://github.com/open-rpc/logs-react/commit/46dab08af9c6c5cf4f4b492d7b0d17d9b63d20d8))
+
 ## [1.1.11](https://github.com/open-rpc/logs-react/compare/1.1.10...1.1.11) (2020-10-15)
 
 
