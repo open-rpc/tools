@@ -1,3 +1,11 @@
+## [1.1.10](https://github.com/open-rpc/logs-react/compare/1.1.9...1.1.10) (2020-10-15)
+
+
+### Bug Fixes
+
+* card styling ([4c52d7e](https://github.com/open-rpc/logs-react/commit/4c52d7ebb1452add35434c169c46f95b750495b9))
+* **package.json:** add homepage ([4b84d82](https://github.com/open-rpc/logs-react/commit/4b84d82edaa535c796d3d7b978dcff51ab5ee4eb))
+
 ## [1.1.9](https://github.com/open-rpc/logs-react/compare/1.1.8...1.1.9) (2020-10-15)
 
 
