@@ -150,7 +150,7 @@ const MethodList: React.FC<IProps> = (props) => {
                 </ListItemText>
               </ListItem>
             ))}
-            <div style={methods.length > 2 ? {} : {display: 'none'}}>
+            <div style={methods.length > 2 ? {} : {display: "none"}}>
               <ListItem button onClick={handleModalOpen}>
                 <ListItemIcon>{<AddCircleOutlineIcon />}</ListItemIcon>
                 <ListItemText>

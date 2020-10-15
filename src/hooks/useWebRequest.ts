@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch } from "react";
 import { IJSONRPCLog } from "../components/logsReact/logsReact";
 
 let batchIdCount = 0;
@@ -28,7 +28,7 @@ const isJsonRpc = (str: string) => {
   }
 };
 
-const useWebRequest = () => {
+const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
   const [history, setHistory] = useState<IJSONRPCLog[]>([]);
   const listener = (request) => {
     const requestBody = request.request.postData?.text;
@@ -104,7 +104,7 @@ const useWebRequest = () => {
     };
   }, []);
 
-  return [history];
+  return [history, setHistory];
 };
 
 export default useWebRequest;
