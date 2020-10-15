@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import CardList from "../cardList/cardList";
 import clsx from "clsx";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const JSONRPCLogger: React.FC<IProps> = (props) => {
+  const cardEndRef = useRef(null);
 
   const [methodFilter, setFilter] = useState(["all"]);
   const [drawerOpen, setDrawerOpen] = useState(
@@ -99,6 +100,14 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
+  const scrollToBottom = () => {
+    if (cardEndRef && cardEndRef.current !== null) {
+      (cardEndRef.current as any).scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useLayoutEffect(scrollToBottom, [props.logs]);
+  useLayoutEffect(scrollToBottom, []);
 
   return (
     <>
@@ -129,6 +138,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
               filter={methodFilter}
               openRecentPayload={openRecentPayload}
             />
+            <div ref={cardEndRef} />
           </div>
         </div>
         :
@@ -142,6 +152,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
               openRecentPayload={openRecentPayload}
               openrpcDocument={props.openrpcDocument}
             />
+            <div ref={cardEndRef} />
           </div>
           <MethodList
             logs={props.logs}
