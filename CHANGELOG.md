@@ -1,3 +1,11 @@
+## [1.1.13](https://github.com/open-rpc/logs-react/compare/1.1.12...1.1.13) (2020-10-15)
+
+
+### Bug Fixes
+
+* cardList size + elevation ([1be2f04](https://github.com/open-rpc/logs-react/commit/1be2f0496f9142834edf6bd055953c7f4234b6f4))
+* cardList sizing ([2620cc0](https://github.com/open-rpc/logs-react/commit/2620cc020638f53c44617a7346d13fc5e5ec5876))
+
 ## [1.1.12](https://github.com/open-rpc/logs-react/compare/1.1.11...1.1.12) (2020-10-15)
 
 
