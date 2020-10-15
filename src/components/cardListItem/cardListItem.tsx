@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
+import { formatRelative } from "date-fns";
 import {
   Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
   ExpansionPanelDetails, ExpansionPanelSummary, Tooltip, IconButton,
   Snackbar,
+  Grid,
+  Chip,
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import MonacoEditor from "@etclabscore/react-monaco-editor";
@@ -19,6 +22,12 @@ interface IProps {
   filter: string[];
   open: boolean;
 }
+const colorTypeMap = {
+  // request: "#2196f3",
+  // response: "#5c6bc0",
+  request: "primary",
+  response: "secondary",
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,11 +86,24 @@ const CardListItem: React.FC<IProps> = (props) => {
       <Card raised={true} className={callClass} style={{ color: "white" }}>
         <CardHeader
           className={classes.cardHeader}
-          title={props.log.type + " - " + props.log.method}
-          subheader={props.log.timestamp.toISOString()}
+          title={
+            <Grid container justify="space-between" alignItems="center" direction="row">
+              <Grid item>
+                <Typography color={colorTypeMap[props.log.type] as any}>{props.log.method}</Typography>
+              </Grid>
+              <Grid item>
+                <Chip label={props.log.type} color={colorTypeMap[props.log.type] as any} />
+              </Grid>
+            </Grid>
+          }
+          subheader={
+            <Typography gutterBottom color="textSecondary">
+              {formatRelative(new Date(), props.log.timestamp)}
+            </Typography>
+          }
         />
         <CardContent className={classes.cardContent}>
-          { props.log.batchId ?
+          {props.log.batchId ?
             <Typography>Batch: {props.log.batchId}</Typography>
             :
             null

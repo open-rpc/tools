@@ -42,11 +42,14 @@ const MyApp: React.FC = () => {
         },
         {
           timestamp: new Date(),
-          type: "request",
+          type: "response",
           method: "foo",
           payload: {
             jsonrpc: "2.0",
-            method: "foo",
+            error: {
+              code: 1234,
+              message: "potato",
+            },
           },
         },
         {
@@ -56,6 +59,15 @@ const MyApp: React.FC = () => {
           payload: {
             jsonrpc: "2.0",
             method: "foo",
+          },
+        },
+        {
+          timestamp: new Date(),
+          type: "response",
+          method: "foo",
+          payload: {
+            jsonrpc: "2.0",
+            result: "bar",
           },
         },
         {

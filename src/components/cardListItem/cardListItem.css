@@ -1,10 +1,12 @@
 .call {
   color: white;
   width: 400px;
+  padding: 10px;
+  padding-top: 15px
 }
 
 .call.response-error {
-  background-color: #f44336;
+  background-color: #e57373;
 }
 
 .call.response-error.dark {
@@ -12,19 +14,19 @@
 }
 
 .call.request {
-  background-color:#2196f3;
+
 }
 
 .call.request.dark {
-  background: #5c6bc0;
+
 }
 
 .call.response-success {
-  background-color: #8bc34a;
+
 }
 
 .call.response-success.dark {
-  background-color: #81c784;
+
 }
 
 .call.rpc-call {
