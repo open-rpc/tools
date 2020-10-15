@@ -70,6 +70,7 @@ const MyApp: React.FC = () => {
       ];
       setHistory(logs);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // do not render monaco if collapsed -> see docs
@@ -77,7 +78,7 @@ const MyApp: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <div>
         <CssBaseline />
-        <JSONRPCLogger logs={newHistory} sidebarAlign="right"/>
+        <JSONRPCLogger logs={newHistory} sidebarAlign="right" />
       </div>
     </MuiThemeProvider >
   );
