@@ -43,14 +43,17 @@
     ]
   },
   "dependencies": {
+    "@etclabscore/monaco-add-json-schema-diagnostics": "^1.0.3",
     "@etclabscore/react-monaco-editor": "^1.0.4",
     "@material-ui/core": "4.9.8",
     "@material-ui/icons": "3.0.2",
     "@material-ui/lab": "4.0.0-alpha.47",
+    "@open-rpc/meta-schema": "^1.13.13",
     "@types/chrome": "0.0.108",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.16.1",
     "moment": "^2.24.0",
+    "monaco-editor": "^0.18.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-i18next": "^10.13.1",

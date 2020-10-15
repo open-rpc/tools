@@ -100,7 +100,9 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
       chrome.devtools.network.onRequestFinished.addListener(listener);
     }
     return function cleanup() {
-      chrome.devtools.network.onRequestFinished.removeListener(listener);
+      if (chrome && chrome.webRequest) {
+        chrome.devtools.network.onRequestFinished.removeListener(listener);
+      }
     };
   }, []);
 

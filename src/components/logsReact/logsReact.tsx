@@ -6,6 +6,7 @@ import MethodList from "../methodList/methodList";
 import { IconButton } from "@material-ui/core";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { OpenrpcDocument } from "@open-rpc/meta-schema";
 
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
@@ -23,6 +24,7 @@ interface IProps {
   openRecentPayload?: boolean;
   sidebarAlign?: AlignString;
   sidebarOpen?: boolean;
+  openrpcDocument?: OpenrpcDocument;
 }
 
 const drawerWidth = 200;
@@ -138,6 +140,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
               logs={props.logs}
               filter={methodFilter}
               openRecentPayload={openRecentPayload}
+              openrpcDocument={props.openrpcDocument}
             />
           </div>
           <MethodList
