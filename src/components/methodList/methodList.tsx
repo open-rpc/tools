@@ -146,7 +146,11 @@ const MethodList: React.FC<IProps> = (props) => {
           <Divider/>
           <List>
             {allMethods.map((filter) => (
-              <ListItem button key={filter.join(" ")} onClick={() => props.select(filter)}>
+              <ListItem
+                button
+                key={filter.join(" ")}
+                onClick={() => props.select(filter)}
+                selected={props.active.join("") === filter.join("")}>
                 <ListItemText>
                   {filter.join(", ")}
                 </ListItemText>
