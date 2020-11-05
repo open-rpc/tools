@@ -128,6 +128,7 @@ const CardListItem: React.FC<IProps> = (props) => {
                 <Typography color={colorTypeMap[props.log.type] as any}>{props.log.method}</Typography>
               </Grid>
               <Grid item>
+                {props.log.notification && <Chip label="notification" style={{marginRight: "5px"}} />}
                 <Chip label={props.log.type} color={colorTypeMap[props.log.type] as any} />
               </Grid>
             </Grid>

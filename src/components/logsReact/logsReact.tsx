@@ -11,6 +11,7 @@ import { OpenrpcDocument } from "@open-rpc/meta-schema";
 // add method type so we can attribute cards to different method calls
 export interface IJSONRPCLog {
   type: "response" | "request";
+  notification?: boolean;
   method: string;
   timestamp: Date;
   payload: any;

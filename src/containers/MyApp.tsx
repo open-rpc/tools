@@ -91,6 +91,17 @@ const MyApp: React.FC = () => {
         {
           timestamp: new Date(),
           type: "request",
+          notification: true,
+          method: "potato2",
+          payload: {
+            jsonrpc: "2.0",
+            method: "potato2",
+          },
+        },
+        {
+          timestamp: new Date(),
+          type: "response",
+          notification: true,
           method: "potato2",
           payload: {
             jsonrpc: "2.0",
