@@ -1,3 +1,12 @@
+## [1.1.14](https://github.com/open-rpc/logs-react/compare/1.1.13...1.1.14) (2020-11-05)
+
+
+### Bug Fixes
+
+* monaco editor options to disable large unused gutters + display folding options ([5b09982](https://github.com/open-rpc/logs-react/commit/5b09982dd3820b41db3cc5b35f580390efeb7b3f))
+* show selected item in methodList ([30050a9](https://github.com/open-rpc/logs-react/commit/30050a965a4242af960ad33a66f2b5f5803a55d7))
+* sizing on card items + disable some monaco options ([29ac8d8](https://github.com/open-rpc/logs-react/commit/29ac8d856a8f4eb3574ef8635349666a4cc9e8d2))
+
 ## [1.1.13](https://github.com/open-rpc/logs-react/compare/1.1.12...1.1.13) (2020-10-15)
 
 
