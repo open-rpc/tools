@@ -90,7 +90,7 @@ const MyApp: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <div>
         <CssBaseline />
-        <JSONRPCLogger logs={newHistory} sidebarAlign="right" openrpcDocument={{
+        <JSONRPCLogger logs={newHistory} sidebarOpen={false} sidebarAlign="right" openrpcDocument={{
           methods: [
             {
               name: "foo",

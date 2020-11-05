@@ -84,9 +84,6 @@ const CardListItem: React.FC<IProps> = (props) => {
     const modelUriString = `inmemory://${modelName}-${Math.random()}.json`;
     const modelUri = monaco.Uri.parse(modelUriString);
     const model = monaco.editor.createModel(JSON.stringify(props.log.payload, null, 2) || "", "json", modelUri);
-    model.updateOptions({
-      tabSize: 2,
-    });
     (editor as any).setModel(model);
 
     addDiagnostics(modelUri.toString(), s, monaco);
@@ -169,6 +166,11 @@ const CardListItem: React.FC<IProps> = (props) => {
                 editorOptions={{
                   automaticLayout: true,
                   useShadows: false,
+                  glyphMargin: false,
+                  showFoldingControls: "always",
+                  // Undocumented see https://github.com/Microsoft/vscode/issues/30795#issuecomment-410998882
+                  lineDecorationsWidth: 0,
+                  lineNumbersMinChars: 0,
                   minimap: {
                     enabled: false,
                   },
