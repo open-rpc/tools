@@ -38,10 +38,12 @@ const colorTypeMap = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cardHeader: {
-      padding: "0 8px 0 8px",
+      padding: "8px",
+      paddingBottom: "0px",
+      paddingTop: "0px",
     },
     cardContent: {
-      padding: "0 8px 0 8px",
+      padding: "8px !important",
     },
   }),
 );
@@ -81,7 +83,10 @@ const CardListItem: React.FC<IProps> = (props) => {
     const modelName = (props.openrpcDocument && props.openrpcDocument.info) ? props.openrpcDocument.info.title : "inspector";
     const modelUriString = `inmemory://${modelName}-${Math.random()}.json`;
     const modelUri = monaco.Uri.parse(modelUriString);
-    const model = monaco.editor.createModel(JSON.stringify(props.log.payload, null, 4) || "", "json", modelUri);
+    const model = monaco.editor.createModel(JSON.stringify(props.log.payload, null, 2) || "", "json", modelUri);
+    model.updateOptions({
+      tabSize: 2,
+    });
     (editor as any).setModel(model);
 
     addDiagnostics(modelUri.toString(), s, monaco);
@@ -114,9 +119,14 @@ const CardListItem: React.FC<IProps> = (props) => {
       </Snackbar>
       <Card raised={true} className={callClass} style={{ color: "white" }} elevation={8}>
         <CardHeader
-          className={classes.cardHeader}
+          style={{ padding: 0 }}
           title={
-            <Grid container justify="space-between" alignItems="center" direction="row">
+            <Grid
+              container
+              justify="space-between"
+              alignItems="flex-start"
+              direction="row"
+              className={classes.cardHeader}>
               <Grid item>
                 <Typography color={colorTypeMap[props.log.type] as any}>{props.log.method}</Typography>
               </Grid>
@@ -126,7 +136,7 @@ const CardListItem: React.FC<IProps> = (props) => {
             </Grid>
           }
           subheader={
-            <Typography gutterBottom color="textSecondary">
+            <Typography gutterBottom color="textSecondary" className={classes.cardHeader}>
               {formatRelative(new Date(), props.log.timestamp)}
             </Typography>
           }
@@ -149,7 +159,7 @@ const CardListItem: React.FC<IProps> = (props) => {
                 </IconButton>
               </Tooltip>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails style={{ margin: 0, padding: 0 }}>
               <MonacoEditor
                 width="100%"
                 height="250px"
@@ -157,11 +167,13 @@ const CardListItem: React.FC<IProps> = (props) => {
                 value={JSON.stringify(props.log.payload, null, 4)}
                 editorDidMount={handleEditorDidMount}
                 editorOptions={{
+                  automaticLayout: true,
+                  useShadows: false,
                   minimap: {
                     enabled: false,
                   },
                   scrollBeyondLastLine: false,
-                  lineNumbers: "on",
+                  lineNumbers: "off",
                   fixedOverflowWidgets: true,
                   readOnly: true,
                 }}

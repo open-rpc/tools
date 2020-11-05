@@ -1,8 +1,8 @@
 .call {
   color: white;
-  width: 70%;
-  padding: 10px;
-  padding-top: 15px
+  width: 90%;
+  padding: 8px;
+  padding-top: 10px;
 }
 
 .call.response-error {
