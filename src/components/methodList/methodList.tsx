@@ -5,6 +5,7 @@ import {
   FormControl,
   FormGroup,
   Checkbox,
+  Typography,
   FormControlLabel,
   Paper,
   Button,
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerHeader: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-end",
+      justifyContent: "space-between",
     },
     drawerPaper: {
       width: 200,
@@ -137,6 +138,7 @@ const MethodList: React.FC<IProps> = (props) => {
         }}
       >
           <div className={classes.drawerHeader}>
+              <Typography style={{paddingLeft: "15px", userSelect: "none"}} color="primary">Filter</Typography>
               <IconButton onClick={props.closeDrawer}>
                 {props.alignment === "left" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
@@ -144,7 +146,11 @@ const MethodList: React.FC<IProps> = (props) => {
           <Divider/>
           <List>
             {allMethods.map((filter) => (
-              <ListItem button key={filter.join(" ")} onClick={() => props.select(filter)}>
+              <ListItem
+                button
+                key={filter.join(" ")}
+                onClick={() => props.select(filter)}
+                selected={props.active.join("") === filter.join("")}>
                 <ListItemText>
                   {filter.join(", ")}
                 </ListItemText>

@@ -79,6 +79,24 @@ const MyApp: React.FC = () => {
             method: "foo",
           },
         },
+        {
+          timestamp: new Date(),
+          type: "request",
+          method: "potato",
+          payload: {
+            jsonrpc: "2.0",
+            method: "potato",
+          },
+        },
+        {
+          timestamp: new Date(),
+          type: "request",
+          method: "potato2",
+          payload: {
+            jsonrpc: "2.0",
+            method: "potato2",
+          },
+        },
       ];
       setHistory(logs);
     }
