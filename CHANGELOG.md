@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/open-rpc/logs-react/compare/1.1.14...1.1.15) (2020-11-09)
+
+
+### Bug Fixes
+
+* add notification support for ISJONRPCLog ([e06b2cf](https://github.com/open-rpc/logs-react/commit/e06b2cfa6203bfce7acf990cdf4394fdd894c61f))
+
 ## [1.1.14](https://github.com/open-rpc/logs-react/compare/1.1.13...1.1.14) (2020-11-05)
 
 
