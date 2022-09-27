@@ -1,68 +1,31 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import grey from "@material-ui/core/colors/grey";
 
-export const lightTheme = createMuiTheme({
-  props: {
-    MuiAppBar: {
-      position: "sticky",
-    },
-    MuiCard: {
-      elevation: 0,
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      root: {
-        background: "#fff !important",
+export const darkTheme = (prefersDarkMode: boolean) => {
+  return createMuiTheme({
+    props: {
+      MuiAppBar: {
+        position: "sticky",
+      },
+      MuiCard: {
+        elevation: 0,
       },
     },
-  },
-  palette: {
-    background: {
-      default: "#fff",
+    palette: {
+      type: prefersDarkMode ? "dark" : "light",
     },
-  },
-});
-
-export const darkTheme = createMuiTheme({
-  props: {
-    MuiAppBar: {
-      position: "sticky",
-    },
-    MuiCard: {
-      elevation: 0,
-    },
-  },
-  palette: {
-    type: "dark",
-    background: {
-      default: grey[900],
-      paper: grey[800],
-    },
-    primary: {
-      main: "#fff",
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      root: {
-        background: "transparent !important",
+    overrides: {
+      MuiAppBar: {
+        root: {
+          background: "transparent !important",
+        },
+      },
+      MuiTable: {
+        root: {
+          background: "transparent !important",
+        },
       },
     },
-    MuiTable: {
-      root: {
-        background: "transparent !important",
-      },
-    },
-    MuiTypography: {
-      root: {
-        color: grey[50],
-      },
-    },
-  },
-});
-
-export default {
-  darkTheme,
-  lightTheme,
-};
+  });
+}
+export default darkTheme;

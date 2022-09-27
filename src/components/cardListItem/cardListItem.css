@@ -1,24 +1,7 @@
 .call {
-  color: white;
   width: 90%;
   padding: 8px;
   padding-top: 10px;
-}
-
-.call.response-error {
-  background-color: #e57373;
-}
-
-.call.response-error.dark {
-  background-color: #e57373;
-}
-
-.call.rpc-call {
-  background-color: #ffc107;
-}
-
-.call.rpc-call.dark {
-  background-color: #ff8a65;
 }
 
 .call-box.response {
@@ -29,6 +12,10 @@
   display: flex;
 }
 
-.call-box.hidden {
+.call-box.hidden a{
   display: none;
+}
+
+.call .decorationsOverviewRuler {
+  display: none !important;
 }

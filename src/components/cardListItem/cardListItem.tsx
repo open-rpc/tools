@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
+import LogChips from "../logChips/LogChips";
 import { formatRelative } from "date-fns";
 import {
   Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
@@ -7,20 +8,21 @@ import {
   Snackbar,
   Grid,
   Chip,
+  Button,
 } from "@material-ui/core";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles";
 import MonacoEditor from "@etclabscore/react-monaco-editor";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import "./cardListItem.css";
 import Alert from "../alert/alert";
-import useDarkMode from "use-dark-mode";
 import copy from "copy-to-clipboard";
 import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
 import { JSONSchema, OpenrpcDocument } from "@open-rpc/meta-schema";
 import * as monaco from "monaco-editor";
 import openrpcDocumentToJSONRPCSchema from "../../helpers/openrpcDocumentToJSONRPCSchema";
 import openrpcDocumentToJSONRPCSchemaResult from "../../helpers/openrpcDocumentToJSONRPCSchemaResult";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface IProps {
   log: IJSONRPCLog;
@@ -28,11 +30,26 @@ interface IProps {
   open: boolean;
   openrpcDocument?: OpenrpcDocument;
 }
-const colorTypeMap = {
-  // request: "#2196f3",
-  // response: "#5c6bc0",
-  request: "primary",
-  response: "secondary",
+
+const getChipColorForLog = (log: IJSONRPCLog): any => {
+  if (log.type === "request") {
+    return "primary";
+  }
+
+  if (log.payload.error) {
+    return "secondary";
+  }
+
+  return "primary";
+};
+
+const getLogItemBackground = (log: IJSONRPCLog, theme: Theme): any => {
+  const paletteType = theme.palette.type;
+  if (log.payload.error) {
+    return { backgroundColor: theme.palette.error[paletteType] };
+  }
+
+  return {};
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,12 +79,33 @@ const getCardStyle = (log: IJSONRPCLog) => {
 };
 
 const CardListItem: React.FC<IProps> = (props) => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const theme = useTheme();
 
-  const darkMode = useDarkMode();
-  const callClass = getCardStyle(props.log) + ` ${darkMode.value ? "dark" : ""}`;
+  const callClass = getCardStyle(props.log);
   const [open, setOpen] = useState(false);
   const [editor, setEditor] = useState();
   const classes = useStyles();
+
+  // BEGIN HEIGHT SETTING SHANAYNAYS
+  const MAX_HEIGHT = 300;
+  const MIN_COUNT_OF_LINES = 3;
+  const LINE_HEIGHT = 20;
+  const [height, setHeight] = useState(170);
+  const valueGetter = useRef();
+  const handleEditorChange = useCallback(() => {
+    const countOfLines = (valueGetter as any).current
+      .getValue()
+      .split('\n').length;
+    if (countOfLines >= MIN_COUNT_OF_LINES) {
+      const currentHeight = countOfLines * LINE_HEIGHT;
+      if (MAX_HEIGHT > currentHeight) {
+        setHeight(currentHeight);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // END HEIGHT SETTING SHANAYNAYS
 
   useEffect(() => {
     if (editor === undefined) {
@@ -87,7 +125,8 @@ const CardListItem: React.FC<IProps> = (props) => {
     (editor as any).setModel(model);
 
     addDiagnostics(modelUri.toString(), s, monaco);
-
+    valueGetter.current = editor;
+    handleEditorChange();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.openrpcDocument, editor]);
 
@@ -114,29 +153,16 @@ const CardListItem: React.FC<IProps> = (props) => {
       <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert severity="success">Payload Copied to Clipboard</Alert>
       </Snackbar>
-      <Card raised={true} className={callClass} style={{ color: "white" }} elevation={8}>
+      <Card raised={true} className={callClass} style={getLogItemBackground(props.log, theme)} elevation={8}>
         <CardHeader
-          style={{ padding: 0 }}
-          title={
-            <Grid
-              container
-              justify="space-between"
-              alignItems="flex-start"
-              direction="row"
-              className={classes.cardHeader}>
-              <Grid item>
-                <Typography color={colorTypeMap[props.log.type] as any}>{props.log.method}</Typography>
-              </Grid>
-              <Grid item>
-                {props.log.notification && <Chip label="notification" style={{marginRight: "5px"}} />}
-                <Chip label={props.log.type} color={colorTypeMap[props.log.type] as any} />
-              </Grid>
-            </Grid>
+          title={props.log.method}
+          action={
+            <LogChips log={props.log} />
           }
           subheader={
-            <Typography gutterBottom color="textSecondary" className={classes.cardHeader}>
-              {formatRelative(new Date(), props.log.timestamp)}
-            </Typography>
+          <Typography variant="caption" color="textSecondary">
+            {formatRelative(new Date(), props.log.timestamp)}
+          </Typography>
           }
         />
         <CardContent className={classes.cardContent}>
@@ -146,21 +172,24 @@ const CardListItem: React.FC<IProps> = (props) => {
             null
           }
           <ExpansionPanel
-            defaultExpanded={props.open}
-            TransitionProps={{ unmountOnExit: true }}
+            defaultExpanded={true}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Payload</Typography>
               <Tooltip title="Copy to clipboard">
-                <IconButton style={{ padding: "4px" }} onClick={(event) => handleCopy(event, props.log.payload)}>
-                  <AssignmentIcon style={{ fontSize: 14 }} />
-                </IconButton>
+                <Button
+                  onClick={(event) => handleCopy(event, props.log.payload)}
+                  endIcon={
+                    <AssignmentIcon style={{ fontSize: 14 }} />
+                  }
+                >
+                  Payload
+                </Button>
               </Tooltip>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails style={{ margin: 0, padding: 0 }}>
               <MonacoEditor
                 width="100%"
-                height="250px"
+                height={height}
                 language="json"
                 value={JSON.stringify(props.log.payload, null, 4)}
                 editorDidMount={handleEditorDidMount}
@@ -168,12 +197,15 @@ const CardListItem: React.FC<IProps> = (props) => {
                   automaticLayout: true,
                   useShadows: false,
                   glyphMargin: false,
+                  overviewRulerBorder: false,
                   showFoldingControls: "always",
-                  // Undocumented see https://github.com/Microsoft/vscode/issues/30795#issuecomment-410998882
-                  lineDecorationsWidth: 0,
-                  lineNumbersMinChars: 0,
                   minimap: {
                     enabled: false,
+                  },
+                  hideCursorInOverviewRuler: true,
+                  scrollbar: {
+                    useShadows: false,
+                    scrollByPage: false,
                   },
                   scrollBeyondLastLine: false,
                   lineNumbers: "off",

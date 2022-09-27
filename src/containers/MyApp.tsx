@@ -1,15 +1,27 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core"; //tslint:disable-line
-import useDarkMode from "use-dark-mode";
-import { lightTheme, darkTheme } from "../themes/theme";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import makeTheme from "../themes/theme";
 import "./MyApp.css";
 import JSONRPCLogger, { IJSONRPCLog } from "../components/logsReact/logsReact";
 import useWebRequest from "../hooks/useWebRequest";
+import * as monaco from "monaco-editor";
 
 const MyApp: React.FC = () => {
-  const darkMode = useDarkMode();
   const [newHistory, setHistory] = useWebRequest();
-  const theme = darkMode.value ? darkTheme : lightTheme;
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  /* const prefersDarkMode = true; */
+
+  const theme = React.useMemo(
+    () => makeTheme(prefersDarkMode),
+    [prefersDarkMode]
+  );
+
+  useEffect(() => {
+    const t = prefersDarkMode ? "vs-dark" : "vs";
+    monaco.editor.setTheme(t);
+    /* monaco.editor.setTheme('vs-dark'); */
+  }, [prefersDarkMode, theme]);
 
   useEffect(() => {
     if (chrome && chrome.devtools && chrome.devtools.panels) {
@@ -18,7 +30,6 @@ const MyApp: React.FC = () => {
         "",
         "index.html",
         (panel) => { return; },
-
       );
     } else {
       const logs: IJSONRPCLog[] = [
@@ -86,6 +97,29 @@ const MyApp: React.FC = () => {
           payload: {
             jsonrpc: "2.0",
             method: "potato",
+          },
+        },
+        {
+          timestamp: new Date(),
+          type: "response",
+          method: "longPotato",
+          payload: {
+            jsonrpc: "2.0",
+            result: {
+              foo: "bar",
+              baz: "foo",
+              bar: "baz",
+              listOfNothings: [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            }
           },
         },
         {
