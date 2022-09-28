@@ -10,7 +10,6 @@ import * as monaco from "monaco-editor";
 const MyApp: React.FC = () => {
   const [newHistory, setHistory] = useWebRequest();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  /* const prefersDarkMode = true; */
 
   const theme = React.useMemo(
     () => makeTheme(prefersDarkMode),
