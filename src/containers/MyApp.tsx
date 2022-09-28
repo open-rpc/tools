@@ -19,7 +19,6 @@ const MyApp: React.FC = () => {
   useEffect(() => {
     const t = prefersDarkMode ? "vs-dark" : "vs";
     monaco.editor.setTheme(t);
-    /* monaco.editor.setTheme('vs-dark'); */
   }, [prefersDarkMode, theme]);
 
   useEffect(() => {
