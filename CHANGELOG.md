@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/open-rpc/logs-react/compare/1.1.15...1.2.0) (2022-09-29)
+
+
+### Bug Fixes
+
+* linting ([e840b80](https://github.com/open-rpc/logs-react/commit/e840b80b20d1347ffa8532dcbac7e481db9cf66c))
+* update to node 14.17.5 ([d8fd6e0](https://github.com/open-rpc/logs-react/commit/d8fd6e08f7e15ba7cd136d54bf8cce91e2d95293))
+* use node 12 in circle ci ([406db13](https://github.com/open-rpc/logs-react/commit/406db13d9f69346026150c837db022ef580605b9))
+
+
+### Features
+
+* restyle the project ([19e7f66](https://github.com/open-rpc/logs-react/commit/19e7f660143227e5ebdc4cb08fbe78b60d0ccc58))
+
 ## [1.1.15](https://github.com/open-rpc/logs-react/compare/1.1.14...1.1.15) (2020-11-09)
 
 
