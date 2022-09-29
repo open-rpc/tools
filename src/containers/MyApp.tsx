@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core"; //tslint:disable-line
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import makeTheme from "../themes/theme";
 import "./MyApp.css";
 import JSONRPCLogger, { IJSONRPCLog } from "../components/logsReact/logsReact";
@@ -9,11 +9,11 @@ import * as monaco from "monaco-editor";
 
 const MyApp: React.FC = () => {
   const [newHistory, setHistory] = useWebRequest();
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = React.useMemo(
     () => makeTheme(prefersDarkMode),
-    [prefersDarkMode]
+    [prefersDarkMode],
   );
 
   useEffect(() => {
@@ -115,9 +115,9 @@ const MyApp: React.FC = () => {
                 5,
                 6,
                 7,
-                8
-              ]
-            }
+                8,
+              ],
+            },
           },
         },
         {

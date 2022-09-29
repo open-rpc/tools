@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {Chip} from "@material-ui/core";
 import { Theme, useTheme } from "@material-ui/core/styles";

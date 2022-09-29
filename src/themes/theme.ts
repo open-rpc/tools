@@ -1,5 +1,4 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import grey from "@material-ui/core/colors/grey";
 
 export const darkTheme = (prefersDarkMode: boolean) => {
   return createMuiTheme({
@@ -27,5 +26,5 @@ export const darkTheme = (prefersDarkMode: boolean) => {
       },
     },
   });
-}
+};
 export default darkTheme;

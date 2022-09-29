@@ -4,10 +4,8 @@ import LogChips from "../logChips/LogChips";
 import { formatRelative } from "date-fns";
 import {
   Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
-  ExpansionPanelDetails, ExpansionPanelSummary, Tooltip, IconButton,
+  ExpansionPanelDetails, ExpansionPanelSummary, Tooltip,
   Snackbar,
-  Grid,
-  Chip,
   Button,
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles";
@@ -22,7 +20,6 @@ import { JSONSchema, OpenrpcDocument } from "@open-rpc/meta-schema";
 import * as monaco from "monaco-editor";
 import openrpcDocumentToJSONRPCSchema from "../../helpers/openrpcDocumentToJSONRPCSchema";
 import openrpcDocumentToJSONRPCSchemaResult from "../../helpers/openrpcDocumentToJSONRPCSchemaResult";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface IProps {
   log: IJSONRPCLog;
@@ -30,18 +27,6 @@ interface IProps {
   open: boolean;
   openrpcDocument?: OpenrpcDocument;
 }
-
-const getChipColorForLog = (log: IJSONRPCLog): any => {
-  if (log.type === "request") {
-    return "primary";
-  }
-
-  if (log.payload.error) {
-    return "secondary";
-  }
-
-  return "primary";
-};
 
 const getLogItemBackground = (log: IJSONRPCLog, theme: Theme): any => {
   const paletteType = theme.palette.type;
@@ -79,7 +64,6 @@ const getCardStyle = (log: IJSONRPCLog) => {
 };
 
 const CardListItem: React.FC<IProps> = (props) => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const theme = useTheme();
 
   const callClass = getCardStyle(props.log);
@@ -96,7 +80,7 @@ const CardListItem: React.FC<IProps> = (props) => {
   const handleEditorChange = useCallback(() => {
     const countOfLines = (valueGetter as any).current
       .getValue()
-      .split('\n').length;
+      .split("\n").length;
     if (countOfLines >= MIN_COUNT_OF_LINES) {
       const currentHeight = countOfLines * LINE_HEIGHT;
       if (MAX_HEIGHT > currentHeight) {
