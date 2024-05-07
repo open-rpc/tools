@@ -27,7 +27,6 @@ interface IProps {
 const drawerWidth = 200;
 const defaultOpenRecentPayload = false;
 const defaultSidebarAlign: AlignString = "left";
-const defaultSidebarOpen = true;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
