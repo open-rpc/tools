@@ -2,10 +2,6 @@ import React, { useState, useRef, useLayoutEffect } from "react";
 import CardList from "../cardList/cardList";
 import clsx from "clsx";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import MethodList from "../methodList/methodList";
-import { IconButton } from "@material-ui/core";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 
 // add method type so we can attribute cards to different method calls
@@ -31,7 +27,6 @@ interface IProps {
 const drawerWidth = 200;
 const defaultOpenRecentPayload = false;
 const defaultSidebarAlign: AlignString = "left";
-const defaultSidebarOpen = true;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: -drawerWidth,
     },
     contentShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: `100%`,
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -82,25 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const JSONRPCLogger: React.FC<IProps> = (props) => {
   const cardEndRef = useRef(null);
 
-  const [methodFilter, setFilter] = useState(["all"]);
-  const [drawerOpen, setDrawerOpen] = useState(
-    props.sidebarOpen !== undefined ? props.sidebarOpen : defaultSidebarOpen,
-  );
+  const [methodFilter] = useState(["all"]);
   const sidebarAlignment: AlignString = props.sidebarAlign !== undefined ? props.sidebarAlign : defaultSidebarAlign;
   const openRecentPayload = props.openRecentPayload !== undefined ? props.openRecentPayload : defaultOpenRecentPayload;
   const classes = useStyles();
 
-  const methodClick = (method: string[]) => {
-    setFilter(method);
-  };
-
-  const handleDrawerOpen = () => {
-    setDrawerOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
   const scrollToBottom = () => {
     if (cardEndRef && cardEndRef.current !== null) {
       (cardEndRef.current as any).scrollIntoView({ behavior: "smooth" });
@@ -114,26 +95,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
     <>
       { sidebarAlignment === "left" ?
         <div className={classes.logsReact}>
-          <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
-            <IconButton
-              aria-label="open filters"
-              onClick={handleDrawerOpen}
-              className={classes.menuButton}
-            >
-              <ChevronRightIcon />
-            </IconButton>
-          </div>
-          <MethodList
-            logs={props.logs}
-            alignment={sidebarAlignment}
-            active={methodFilter}
-            select={methodClick}
-            isDrawerOpen={drawerOpen}
-            closeDrawer={handleDrawerClose}
-          />
-          <div className={clsx(classes.content, classes.left, {
-            [classes.contentShift]: drawerOpen,
-          })}>
+          <div className={clsx(classes.content, classes.left)}>
             <CardList
               logs={props.logs}
               filter={methodFilter}
@@ -144,9 +106,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
         </div>
         :
         <div className={classes.logsReact}>
-          <div className={clsx(classes.content, classes.right, {
-            [classes.contentShift]: drawerOpen,
-          })}>
+          <div className={clsx(classes.content, classes.right)}>
             <CardList
               logs={props.logs}
               filter={methodFilter}
@@ -154,23 +114,6 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
               openrpcDocument={props.openrpcDocument}
             />
             <div ref={cardEndRef} />
-          </div>
-          <MethodList
-            logs={props.logs}
-            alignment={sidebarAlignment}
-            active={methodFilter}
-            select={methodClick}
-            isDrawerOpen={drawerOpen}
-            closeDrawer={handleDrawerClose}
-          />
-          <div className={clsx(classes.extendDiv, drawerOpen && classes.hide)}>
-            <IconButton
-              aria-label="open filters"
-              onClick={handleDrawerOpen}
-              className={classes.menuButton}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
           </div>
         </div>
       }
