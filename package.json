@@ -1,49 +1,11 @@
 {
-  "name": "@open-rpc/docs-react",
-  "version": "0.0.0-development",
-  "description": "",
-  "main": "build/index.js",
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "mono repo for open-rpc tooling",
+  "main": "jest.config.js",
   "scripts": {
-    "lint": "tslint --fix -p .",
-    "build": "tsc && cp src/ContentDescriptor/ContentDescriptor.css build/ContentDescriptor/",
-    "test": "npm run lint && jest --coverage"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@material-ui/core": "4.9.8",
-    "@material-ui/icons": "4.9.1",
-    "@material-ui/lab": "4.0.0-alpha.47",
-    "@material-ui/styles": "^4.7.1",
-    "@open-rpc/examples": "^1.6.1",
-    "@types/react-syntax-highlighter": "^13.5.0",
-    "@xops.net/json-schema-to-react-tree": "^1.0.2",
-    "hash-color-material": "^1.1.3",
-    "jest-transform-css": "^2.0.0",
-    "json-schema": "^0.2.3",
-    "lodash": "^4.17.15",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-json-view": "^1.19.1",
-    "react-markdown": "^4.0.6",
-    "react-syntax-highlighter": "^15.4.3"
-  },
-  "devDependencies": {
-    "@open-rpc/meta-schema": "^1.11.0",
-    "@testing-library/react": "^11.2.2",
-    "@types/jest": "^24.0.11",
-    "@types/json-schema": "^7.0.3",
-    "@types/lodash": "^4.14.123",
-    "@types/node": "^12.0.2",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.8.3",
-    "jest": "^24.5.0",
-    "json-schema-ref-parser": "^7.0.1",
-    "ts-jest": "^24.0.0",
-    "tslint": "^5.14.0",
-    "typescript": "^3.9.7"
-  },
-  "files": [
-    "build"
-  ]
+  "license": "ISC"
 }
