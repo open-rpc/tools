@@ -5,7 +5,6 @@ import { MethodObject, OpenrpcDocument } from "@open-rpc/meta-schema";
 import useWindowSize from "@rehooks/window-size";
 import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
 import openrpcDocumentToJSONRPCSchema from "../helpers/openrpcDocumentToJSONRPCSchema";
-import useMonacoVimMode from "../hooks/useMonacoVimMode";
 
 interface IProps {
   onChange?: (newValue: any) => void;
@@ -16,7 +15,6 @@ interface IProps {
 
 const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
   const [editor, setEditor] = useState();
-  useMonacoVimMode(editor);
   const windowSize = useWindowSize();
   useEffect(() => {
     if (editor) {
