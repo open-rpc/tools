@@ -16,9 +16,6 @@
     "test": "npm run lint && react-app-rewired test --coverage --passWithNoTests",
     "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js"
   },
-  "rescripts": [
-    "monaco-rescript"
-  ],
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {

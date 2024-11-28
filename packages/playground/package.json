@@ -71,9 +71,6 @@
     "tslint": "^6.1.3",
     "typescript": "^3.7.3"
   },
-  "rescripts": [
-    "config-overrides"
-  ],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
