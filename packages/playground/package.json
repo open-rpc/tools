@@ -34,9 +34,9 @@
     "monaco-vim": "0.0.14",
     "open": "^6.4.0",
     "qs": "^6.11.0",
-    "react": "^16.12.0",
+    "react": "^18.2.0",
     "react-app-polyfill": "^1.0.1",
-    "react-dom": "^16.12.0",
+    "react-dom": "^18.2.0",
     "react-json-view": "^1.19.1",
     "react-markdown": "^4.1.0",
     "react-split-pane": "^0.1.87",
@@ -44,15 +44,10 @@
     "use-debounce": "^8.0.4"
   },
   "scripts": {
-    "start": "rescripts start",
-    "build": "rescripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "lint": "tslint --fix -p .",
-    "test": "npm run lint && rescripts test",
-    "build": "turbo run build",
-    "test": "turbo run test",
-    "lint": "turbo run lint",
-    "watch": "turbo run build test --watch",
-    "dev": "turbo run build start --watch"
+    "test": "npm run lint && react-app-rewired test"
   },
   "browserslist": [
     ">0.2%",
@@ -61,8 +56,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@rescripts/cli": "0.0.13",
-    "@rescripts/utilities": "0.0.6",
+    "react-app-rewired": "^2.1.8",
     "@types/classnames": "^2.2.9",
     "@types/css-mediaquery": "^0.1.0",
     "@types/jest": "^24.0.23",
@@ -78,7 +72,7 @@
     "typescript": "^3.7.3"
   },
   "rescripts": [
-    "rescript-monaco"
+    "config-overrides"
   ],
   "jest": {
     "collectCoverageFrom": [

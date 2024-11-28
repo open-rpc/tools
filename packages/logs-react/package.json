@@ -9,19 +9,18 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
+  ],
   "scripts": {
-    "start": "rescripts start",
-    "build": "rescripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "build:package": "tsc --noEmit false --outDir package --jsx react --declaration true --allowJs false --isolatedModules false --target es5 --module commonjs && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js && find src/components -mindepth 1 -maxdepth 1 -type d -exec sh -c 'for f in {}/*.css; do cp \"$f\" \"package/components/$(basename {})\"; done' {} \\;",
     "lint": "tslint --fix -p .",
-    "test": "npm run lint && CI=true rescripts test --coverage --passWithNoTests"
+    "test": "npm run lint && CI=true react-app-rewired test --coverage --passWithNoTests"
   },
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@rescripts/cli": "0.0.14",
-    "@rescripts/utilities": "0.0.7",
+    "react-app-rewired": "^2.1.8",
     "@types/jest": "^24.0.13",
     "@types/react-dom": "16.9.4",
     "monaco-editor-webpack-plugin": "1.7.0",
@@ -58,9 +57,6 @@
     "react-dom": "16.12.0",
     "react-i18next": "^10.13.1"
   },
-  "rescripts": [
-    "rescript-monaco"
-  ],
   "engines": {
     "node": ">=18.20.5"
   }
