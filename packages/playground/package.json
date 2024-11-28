@@ -17,9 +17,9 @@
     "@material-ui/core": "4.9.8",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.47",
-    "@open-rpc/docs-react": "workspace:*",
+    "@open-rpc/docs-react": "*",
     "@open-rpc/examples": "^1.3.3",
-    "@open-rpc/inspector": "workspace:*",
+    "@open-rpc/inspector": "*",
     "@open-rpc/meta-schema": "^1.13.13",
     "@open-rpc/schema-utils-js": "^1.13.0",
     "@use-it/interval": "^0.1.3",
@@ -47,7 +47,12 @@
     "start": "rescripts start",
     "build": "rescripts build",
     "lint": "tslint --fix -p .",
-    "test": "npm run lint && rescripts test"
+    "test": "npm run lint && rescripts test",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "watch": "turbo run build test --watch",
+    "dev": "turbo run build start --watch"
   },
   "browserslist": [
     ">0.2%",
@@ -87,6 +92,6 @@
     ]
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.20.5"
   }
 }
