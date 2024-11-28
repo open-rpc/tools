@@ -4,8 +4,22 @@
   "description": "mono repo for open-rpc tooling",
   "main": "jest.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "watch": "turbo run build test --watch",
+    "dev": "turbo run build start --watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }
