@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "tslint --fix -p .",
     "build": "tsc && cp src/ContentDescriptor/ContentDescriptor.css build/ContentDescriptor/",
-    "test": "npm run lint && jest --coverage"
+    "test": "npm run lint && jest --coverage",
+    "start": "react-scripts start"
   },
   "author": "",
   "license": "Apache-2.0",
