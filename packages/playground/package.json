@@ -85,5 +85,8 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
       "^.+\\.module\\.(css|sass|scss)$"
     ]
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

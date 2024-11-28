@@ -60,5 +60,8 @@
   },
   "rescripts": [
     "rescript-monaco"
-  ]
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }
