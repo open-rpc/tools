@@ -20,7 +20,6 @@ import searchBarStore from "./stores/searchBarStore";
 import examples from "./examplesList";
 import OpenRPCEditor from "./OpenRPCEditor";
 import useMonacoReplaceMetaSchema from "./hooks/useMonacoReplaceMetaSchema";
-import useMonacoVimMode from "./hooks/useMonacoVimMode";
 import { IExample } from "./ExampleDocumentsDropdown/ExampleDocumentsDropdown";
 import Inspector from "@open-rpc/inspector";
 import useInspectorActionStore from "./stores/inspectorActionStore";
@@ -54,7 +53,6 @@ const App: React.FC = () => {
   };
   const [inspectorContents] = useInspectorActionStore();
   useMonacoReplaceMetaSchema(editor);
-  useMonacoVimMode(editor);
 
   const handleEditorDidMount = (__: any, ed: any) => {
     setEditor(ed);
