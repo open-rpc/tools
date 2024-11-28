@@ -1,14 +1,22 @@
 module.exports = {
-  "clearMocks": true,
-  "coverageDirectory": "../coverage",
-  "resetMocks": true,
-  "restoreMocks": true,
-  "rootDir": "./src",
-  "testEnvironment": "jsdom",
-  "testPathIgnorePatterns": ["./build"],
-  "preset": "ts-jest",
-  "transformIgnorePatterns": ['^.+\\.js$'],
-  "moduleNameMapper": {
-    "\\.(css|less|sass|scss)$": "jest-transform-css",
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-transform-css'
   },
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/build/',
+    '/dist/',
+    '/package/'
+  ],
+  setupFilesAfterEnv: [],
+  globals: {
+    'ts-jest': {
+      tsconfig: './tsconfig.json'
+    }
+  }
 };

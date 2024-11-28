@@ -4,12 +4,13 @@
   "description": "mono repo for open-rpc tooling",
   "main": "jest.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "watch": "turbo run build test --watch",
-    "dev": "turbo run build start --watch"
+    "dev": "turbo run build start --watch",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +18,18 @@
     "packages/*"
   ],
   "devDependencies": {
-    "turbo": "^1.0.0"
+    "turbo": "^1.0.0",
+    "typescript": "^5.0.0",
+    "jest": "^24.9.0",
+    "@types/jest": "^24.0.13",
+    "ts-jest": "^24.0.2",
+    "@typescript-eslint/parser": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "prettier": "^2.0.0"
   },
   "engines": {
     "node": ">=18.20.5"
