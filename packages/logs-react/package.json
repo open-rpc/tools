@@ -9,7 +9,7 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
+  ],
   "scripts": {
     "start": "rescripts start",
     "build": "rescripts build",
@@ -20,12 +20,12 @@
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@rescripts/cli": "0.0.14",
+    "@rescripts/cli": "latest",
     "@rescripts/utilities": "0.0.7",
     "@types/jest": "^24.0.13",
     "@types/react-dom": "16.9.4",
     "monaco-editor-webpack-plugin": "1.7.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.4",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "typescript": "^3.7.3"
