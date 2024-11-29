@@ -24,7 +24,7 @@ const useTabs = (defaultTabs?: ITab[]) => {
     defaultTabs || [{ name: "New Tab", content: emptyJSONRPC, url: undefined, logs: [] }],
   );
 
-  const handleClose = (event: React.MouseEvent<{}>, index: number) => {
+  const handleClose = (event: React.MouseEvent<Record<string, never>>, index: number) => {
     if (tabs.length === 1) {
       return;
     }
