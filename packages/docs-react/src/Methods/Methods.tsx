@@ -57,19 +57,29 @@ interface IProps extends WithStyles<typeof styles> {
   onMethodToggle?: OnMethodToggle;
 }
 
+const isMethodObject = (method: any): method is MethodObject => {
+  return method && 
+    typeof method === "object" && 
+    "name" in method && 
+    "params" in method;
+};
+
 class Methods extends Component<IProps> {
   public render() {
     const { schema, classes, uiSchema, disableTransitionProps, onMethodToggle } = this.props;
     if (!schema) {
       return null;
     }
-    const methods: MethodObject[] = schema.methods;
+    if (!schema || !schema.methods) {
+      return null;
+    }
+    const methods = schema.methods.filter(isMethodObject);
     const methodsExist = methods && methods.length > 0;
-    if (!schema || !schema.methods || !methodsExist) { return null; }
+    if (!methodsExist) { return null; }
     return (
       <div className={classes.root}>
         <Typography variant="h3" gutterBottom>Methods</Typography>
-        {schema.methods.map((method, i) => (
+        {methods.map((method, i) => (
           <ExpansionPanel
             id={method.name}
             key={i + method.name}

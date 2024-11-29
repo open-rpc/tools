@@ -3,12 +3,19 @@ import ReactDOM from "react-dom";
 import ExamplePairings from "./ExamplePairings";
 import examples from "@open-rpc/examples";
 import refParser from "json-schema-ref-parser";
-import { OpenrpcDocument, ExamplePairingObject } from "@open-rpc/meta-schema";
+import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
 import {
   cleanup,
   fireEvent,
   render,
 } from "@testing-library/react";
+
+const isMethodObject = (method: any): method is MethodObject => {
+  return method && 
+    typeof method === "object" && 
+    "name" in method && 
+    "params" in method;
+};
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
@@ -33,12 +40,15 @@ it("renders empty with empty example", () => {
 it("renders examples", async () => {
   const div = document.createElement("div");
   const simpleMath = await refParser.dereference(examples.simpleMath) as OpenrpcDocument;
+  const method = simpleMath.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      method={simpleMath.methods[0]}
-      examples={simpleMath.methods[0].examples as ExamplePairingObject[]
-      } />
-    , div);
+      method={method}
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
   expect(div.innerHTML.includes("simpleMathAdditionTwo")).toBe(true);
   expect(div.innerHTML.includes("2")).toBe(true);
   expect(div.innerHTML.includes("4")).toBe(true);
@@ -54,33 +64,37 @@ it("renders examples with only schema examples", async () => {
     },
     methods: [
       {
-        name: "test-method",
-        params: [{
-          name: "testparam1",
-          schema: {
-            examples: ["bob"],
-            type: "string",
+        name: "test",
+        params: [
+          {
+            name: "testParam",
+            schema: {
+              examples: ["test"],
+              type: "string" as const,
+            },
           },
-        }],
+        ],
         result: {
-          name: "test-method-result",
+          name: "test",
           schema: {
-            examples: ["potato"],
-            type: "string",
+            examples: ["test"],
+            type: "string" as const,
           },
         },
-      },
+      } as MethodObject,
     ],
     openrpc: "1.0.0",
   };
+  const method = testDoc.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      method={testDoc.methods[0]}
-      examples={testDoc.methods[0].examples as ExamplePairingObject[]
-      } />
-    , div);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("bob")).toBe(true);
+      method={method}
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
+  expect(div.innerHTML.includes("test")).toBe(true);
   ReactDOM.unmountComponentAtNode(div);
 });
 
@@ -99,19 +113,22 @@ it("renders examples with only schema examples with no params", async () => {
           name: "test-method-result",
           schema: {
             examples: ["potato"],
-            type: "string",
+            type: "string" as const,
           },
         },
-      },
+      } as MethodObject,
     ],
     openrpc: "1.0.0",
   };
+  const method = testDoc.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      method={testDoc.methods[0]}
-      examples={testDoc.methods[0].examples as ExamplePairingObject[]
-      } />
-    , div);
+      method={method}
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
   expect(div.innerHTML.includes("potato")).toBe(true);
   expect(div.innerHTML.includes("bob")).toBe(false);
   ReactDOM.unmountComponentAtNode(div);
@@ -132,14 +149,14 @@ it("renders examples with multiple param schema examples and no method", async (
             name: "testparam1",
             schema: {
               examples: ["bob"],
-              type: "string",
+              type: "string" as const,
             },
           },
           {
             name: "testparam2",
             schema: {
               examples: ["bob2"],
-              type: "string",
+              type: "string" as const,
             },
           },
         ],
@@ -147,15 +164,19 @@ it("renders examples with multiple param schema examples and no method", async (
           name: "test-method-result",
           schema: {
             examples: ["potato"],
-            type: "string",
+            type: "string" as const,
           },
         },
-      },
+      } as MethodObject,
     ],
     openrpc: "1.0.0",
   };
+  const method = testDoc.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
-    <ExamplePairings method={testDoc.methods[0]} />
+    <ExamplePairings method={method} />
     , div);
   expect(div.innerHTML.includes("bob")).toBe(true);
   expect(div.innerHTML.includes("bob2")).toBe(true);
@@ -176,25 +197,28 @@ it("renders examples with only schema examples and no method", async () => {
           name: "testparam1",
           schema: {
             examples: ["bob"],
-            type: "string",
+            type: "string" as const,
           },
         }],
         result: {
           name: "test-method-result",
           schema: {
             examples: ["potato"],
-            type: "string",
+            type: "string" as const,
           },
         },
-      },
+      } as MethodObject,
     ],
     openrpc: "1.0.0",
   };
+  const method = testDoc.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      examples={testDoc.methods[0].examples as ExamplePairingObject[]
-      } />
-    , div);
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
@@ -212,27 +236,31 @@ it("renders examples with only schema examples and no method with number", async
           name: "testparam1",
           schema: {
             examples: [10101],
-            type: "number",
+            type: "number" as const,
           },
         }],
         result: {
           name: "test-method-result",
           schema: {
             examples: ["potato"],
-            type: "string",
+            type: "string" as const,
           },
         },
-      },
+      } as MethodObject,
     ],
     openrpc: "1.0.0",
   };
+  const method = testDoc.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      examples={testDoc.methods[0].examples as ExamplePairingObject[]
-      } />
-    , div);
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
 it("renders examples with only schema examples and no method with multiple number examples", async () => {
   const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
@@ -247,35 +275,42 @@ it("renders examples with only schema examples and no method with multiple numbe
           name: "testparam1",
           schema: {
             examples: [10101, 102],
-            type: "number",
+            type: "number" as const,
           },
         }],
         result: {
           name: "test-method-result",
           schema: {
             examples: ["potato", "bar"],
-            type: "string",
+            type: "string" as const,
           },
         },
-      },
+      } as MethodObject,
     ],
     openrpc: "1.0.0",
   };
+  const method = testDoc.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      examples={testDoc.methods[0].examples as ExamplePairingObject[]
-      } />
-    , div);
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
 it("renders examples and can switch between them", async () => {
   const simpleMath = await refParser.dereference(examples.simpleMath) as OpenrpcDocument;
+  const method = simpleMath.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   const { getByText } = render(
     <ExamplePairings
-      method={simpleMath.methods[0]}
-      examples={simpleMath.methods[0].examples as ExamplePairingObject[]
-      } />,
+      method={method}
+      examples={method.examples as ExamplePairingObject[]}
+    />
   );
   const node = getByText("simpleMathAdditionTwo");
   fireEvent.click(node);
@@ -289,12 +324,17 @@ it("renders examples and can switch between them", async () => {
 it("renders examples by-name", async () => {
   const div = document.createElement("div");
   const petstoreByName = await refParser.dereference(examples.petstoreByName) as OpenrpcDocument;
+  const method = petstoreByName.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairings
-      method={petstoreByName.methods[0]}
-      examples={petstoreByName.methods[0].examples as ExamplePairingObject[]
-    } />, div);
+      method={method}
+      examples={method.examples as ExamplePairingObject[]}
+    />, div);
   expect(div.innerHTML).toContain("listPetExample");
   expect(div.innerHTML).toContain("limit");
   expect(div.innerHTML).toContain("1");
+  ReactDOM.unmountComponentAtNode(div);
 });

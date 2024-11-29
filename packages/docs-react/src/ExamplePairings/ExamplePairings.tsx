@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ExamplePairing from "../ExamplePairing/ExamplePairing";
 import { Typography, List, ListItem, ListItemText, Grid, MenuItem, Menu, withStyles, ExpansionPanelDetails } from "@material-ui/core";
-import { MethodObject, ExamplePairingObject, ContentDescriptorObject, ReferenceObject } from "@open-rpc/meta-schema";
+import { MethodObject, ExamplePairingObject, ContentDescriptorObject, ReferenceObject, JSONSchemaObject } from "@open-rpc/meta-schema";
 
 interface IProps {
   method?: MethodObject;
@@ -16,13 +16,16 @@ interface IState {
   currentExample?: ExamplePairingObject;
 }
 
+const isJSONSchemaObject = (schema: any): schema is JSONSchemaObject => {
+  return schema && typeof schema === "object" && !Array.isArray(schema);
+};
+
 const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] => {
   if (!method) { return []; }
-  if (!method.params) { return []; }
   const examples: ExamplePairingObject[] = [];
 
   (method.params as ContentDescriptorObject[]).forEach((param, index: number) => {
-    if (param.schema && param.schema.examples && param.schema.examples.length > 0) {
+    if (param.schema && isJSONSchemaObject(param.schema) && param.schema.examples && param.schema.examples.length > 0) {
       param.schema.examples.forEach((ex: any, i: number) => {
         if (!examples[i]) {
           examples.push({
@@ -48,7 +51,8 @@ const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] =>
     }
   });
   const methodResult = method.result as ContentDescriptorObject;
-  if (methodResult && methodResult.schema && methodResult.schema.examples && methodResult.schema.examples.length > 0) {
+  if (methodResult && methodResult.schema && isJSONSchemaObject(methodResult.schema) && 
+      methodResult.schema.examples && methodResult.schema.examples.length > 0) {
     methodResult.schema.examples.forEach((ex: any, i: number) => {
       if (!examples[i]) {
         examples.push({
