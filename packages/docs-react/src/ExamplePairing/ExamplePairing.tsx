@@ -23,7 +23,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-class ExamplePairing extends Component<IProps, {}> {
+class ExamplePairing extends Component<IProps, Record<string, never>> {
   public render() {
     const { examplePairing, paramStructure, classes, methodName, uiSchema } = this.props;
     if (_.isUndefined(examplePairing)) {

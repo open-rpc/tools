@@ -78,7 +78,7 @@ class ExamplePairings extends Component<IProps, IState> {
       selectedIndex: 0,
     };
   }
-  public componentWillMount() {
+  public componentDidMount() {
     if (!this.props || !this.props.examples) {
       return;
     }
