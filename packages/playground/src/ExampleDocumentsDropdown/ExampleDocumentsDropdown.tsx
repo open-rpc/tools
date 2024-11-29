@@ -57,7 +57,7 @@ const ExampleDocumentsDropdown: React.FC<IProps> = ({ examples, onChange }) => {
       >
         <div style={{ maxWidth: "525px" }}>
           {examples.map((example: any) => (
-            <MenuItem onClick={(event) => handleMenuItemClick(example)}>
+            <MenuItem key={example.name} onClick={() => handleMenuItemClick(example)}>
               <Grid container spacing={0}>
                 <Grid item xs={12}>
                   <Typography variant="subtitle1">{example.name}</Typography>
