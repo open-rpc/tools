@@ -1,0 +1,7 @@
+
+> @open-rpc/logs-react@0.0.0-development build:package /Users/shanejonas/code/openrpc/tools/packages/logs-react
+> tsc --project tsconfig.json && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js && find src/components -mindepth 1 -maxdepth 1 -type d -exec sh -c 'for f in {}/*.css; do cp "$f" "package/components/$(basename {})"; done' {} \;
+
+cp: src/components/logsReact/*.css: No such file or directory
+cp: src/components/alert/*.css: No such file or directory
+cp: src/components/logChips/*.css: No such file or directory

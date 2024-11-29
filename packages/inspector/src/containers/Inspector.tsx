@@ -101,22 +101,22 @@ const errorToJSON = (error: JSONRPCError | any, id?: string | number | null): an
     id,
   };
   // this is an internal wrapped client-js error
-  if (error.data instanceof Error) {
+  if ((error as any).data instanceof Error) {
     return {
       ...emptyErrorResponse,
       error: {
-        code: error.data.code,
-        message: error.data.message,
-        data: error.data.data,
+        code: (error as any).data.code,
+        message: (error as any).data.message,
+        data: (error as any).data.data,
       },
     };
   }
   return {
     ...emptyErrorResponse,
     error: {
-      code: error.code,
-      message: error.message,
-      data: error.data,
+      code: (error as any).code,
+      message: (error as any).message,
+      data: (error as any).data,
     },
   };
 };
@@ -182,7 +182,7 @@ const Inspector: React.FC<IProps> = (props) => {
   const [transportOptions, setTransportOptions] = useState<any>();
   const [debouncedtransportOptions] = useDebounce(transportOptions, 1000);
   const [transport, setTransport, , connected] = useTransport(
-    transportList,
+    transportList as ITransport[],
     debouncedUrl,
     props.customTransport || defaultTransports[0],
     debouncedtransportOptions,
@@ -190,7 +190,7 @@ const Inspector: React.FC<IProps> = (props) => {
   const [historyOpen, setHistoryOpen] = useState(false);
   const [requestHistory, setRequestHistory]: [any[], Dispatch<any>] = useState([]);
   const [historySelectedIndex, setHistorySelectedIndex] = useState(0);
-  const [logs, setLogs] = useState<JSONRPCLog[]>([]);
+  const [logs, setLogs] = useState<any[]>([]);
   useEffect(() => {
     setTabs([
       ...tabs,
@@ -225,10 +225,10 @@ const Inspector: React.FC<IProps> = (props) => {
 
   useEffect(() => {
     if (props.transport) {
-      const t = transportList
-        .find((tp: ITransport) => tp.name?.toLowerCase() === props.transport?.toLowerCase());
-      if (t) {
-        setSelectedTransport(t);
+      const t = transportList as ITransport[];
+      const tIndex = t.findIndex((tp: ITransport) => tp.name?.toLowerCase() === props.transport?.toLowerCase());
+      if (tIndex !== -1) {
+        setSelectedTransport(t[tIndex]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -493,7 +493,7 @@ const Inspector: React.FC<IProps> = (props) => {
                     ?
                     <Tooltip title="Close Tab">
                       <IconButton onClick={
-                        (ev) => handleClose(ev, index)
+                        (ev: React.MouseEvent<HTMLElement>) => handleClose(ev, index)
                       } style={{ position: "absolute", right: "10px", top: "25%" }} size="small">
                         <CloseIcon />
                       </IconButton>
@@ -533,12 +533,9 @@ const Inspector: React.FC<IProps> = (props) => {
           />
           <Typography variant="h6" color="textSecondary">Inspector</Typography>
           <TransportDropdown
-            transports={transportList}
+            transports={transportList as ITransport[]}
             onAddTransport={(addedTransport: ITransport) => {
-              setTransportList([
-                ...transportList,
-                addedTransport,
-              ]);
+              setTransportList((prevList: ITransport[]) => [...prevList, addedTransport]);
             }}
             selectedTransport={selectedTransport}
             onChange={(changedTransport) => setSelectedTransport(changedTransport)}

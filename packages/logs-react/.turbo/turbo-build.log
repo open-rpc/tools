@@ -1,0 +1,25 @@
+
+> @open-rpc/logs-react@0.0.0-development build /Users/shanejonas/code/openrpc/tools/packages/logs-react
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.11 [32mbuilding for production...[36m[39m
+[2K[1G[32m✓[39m 0 modules transformed.
+[2K[1G[31mx[39m Build failed in 4ms
+[31merror during build:
+[31mCould not resolve entry module "index.html".[31m
+    at getRollupError (file:///Users/shanejonas/code/openrpc/tools/node_modules/rollup/dist/es/shared/parseAst.js:396:41)
+    at error (file:///Users/shanejonas/code/openrpc/tools/node_modules/rollup/dist/es/shared/parseAst.js:392:42)
+    at ModuleLoader.loadEntryModule (file:///Users/shanejonas/code/openrpc/tools/node_modules/rollup/dist/es/shared/node-entry.js:20109:20)
+    at async Promise.all (index 0)[39m
+[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mcode[0m ELIFECYCLE
+[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35merrno[0m 1
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m @open-rpc/logs-react@0.0.0-development build: `vite build`
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m Exit status 1
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m 
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m Failed at the @open-rpc/logs-react@0.0.0-development build script.
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m This is probably not a problem with npm. There is likely additional logging output above.
+[0m
+[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m A complete log of this run can be found in:
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     /Users/shanejonas/.npm/_logs/2024-11-29T18_26_33_754Z-debug.log
+[0m

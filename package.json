@@ -5,6 +5,7 @@
   "main": "jest.config.js",
   "scripts": {
     "build": "turbo run build",
+    "build:package": "turbo run build:package",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "watch": "turbo run build test --watch",

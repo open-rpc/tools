@@ -12,8 +12,6 @@
   "bugs": "https://github.com/open-rpc/playground/issues",
   "license": "Apache-2.0",
   "dependencies": {
-    "@etclabscore/monaco-add-json-schema-diagnostics": "^1.0.3",
-    "@etclabscore/react-monaco-editor": "^1.0.4",
     "@material-ui/core": "4.9.8",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.47",
@@ -30,7 +28,6 @@
     "json-schema-ref-parser": "^6.1.0",
     "jsonschema": "^1.2.4",
     "lodash": "^4.17.21",
-    "monaco-editor": "^0.30.0",
     "open": "^6.4.0",
     "qs": "^6.11.0",
     "react": "^16.12.0",
@@ -43,11 +40,11 @@
     "use-debounce": "^8.0.4"
   },
   "scripts": {
-    "start": "rescripts start",
-    "build": "rescripts build",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "jest",
-    "clean": "rm -rf build coverage",
+    "clean": "rm -rf dist coverage",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "browserslist": [
@@ -57,8 +54,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@rescripts/cli": "latest",
-    "@rescripts/utilities": "0.0.7",
     "@types/classnames": "^2.2.9",
     "@types/css-mediaquery": "^0.1.0",
     "@types/jest": "^24.0.23",
@@ -67,23 +62,11 @@
     "@types/qs": "^6.9.7",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.4",
+    "@vitejs/plugin-react": "^4.2.1",
     "css-mediaquery": "^0.1.2",
-    "monaco-editor-webpack-plugin": "^6.0.0",
-    "react-scripts": "3.4.4"
-  },
-  "rescripts": [
-    "rescript-monaco"
-  ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(monaco-editor)/)",
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
-    ]
+    "vite": "^5.1.4",
+    "vite-plugin-monaco-editor": "^1.1.0",
+    "eslint": "^6.6.0"
   },
   "engines": {
     "node": ">=18.20.5"
