@@ -3,11 +3,10 @@ import { Typography, withStyles, Theme, WithStyles } from "@material-ui/core";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import JSONSchema from "../JSONSchema/JSONSchema";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ReactMarkdown from "react-markdown";
 import JSONSchemaTree from "@xops.net/json-schema-to-react-tree";
 import { ContentDescriptorObject } from "@open-rpc/meta-schema";
+import { JSONSchema7 } from "json-schema";
 import "./ContentDescriptor.css";
 import MarkdownDescription from "../MarkdownDescription/MarkdownDescription";
 
@@ -27,12 +26,18 @@ const styles = (theme: Theme) => ({
   },
 });
 
+interface UISchema {
+  params: {
+    "ui:defaultExpanded"?: boolean;
+  };
+}
+
 interface IProps extends WithStyles<typeof styles> {
   contentDescriptor?: ContentDescriptorObject;
   hideIcon?: boolean;
   hideRequired?: boolean;
   disableTransitionProps?: boolean;
-  uiSchema?: any;
+  uiSchema?: UISchema;
 }
 
 class ContentDescriptor extends Component<IProps> {
@@ -70,7 +75,7 @@ class ContentDescriptor extends Component<IProps> {
             {contentDescriptor.schema &&
               <>
                 <Typography variant="body1" color="primary">schema</Typography>
-                <JSONSchemaTree schema={contentDescriptor.schema} />
+                <JSONSchemaTree schema={contentDescriptor.schema as JSONSchema7} />
               </>
             }
           </>
