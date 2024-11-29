@@ -87,8 +87,8 @@ class Methods extends Component<IProps> {
               )
             }>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography key={method.name} className={classes.heading}>{method.name}</Typography>
-              <Typography key={method.summary} className={classes.secondaryHeading}>{method.summary}</Typography>
+              <Typography className={classes.heading}>{method.name}</Typography>
+              <Typography className={classes.secondaryHeading}>{method.summary}</Typography>
             </ExpansionPanelSummary>
 
             {method.tags && method.tags.length > 0 &&
@@ -133,6 +133,7 @@ class Methods extends Component<IProps> {
               </ExpansionPanelDetails>
             }
             <ExamplePairings
+              key="example-pairings"
               uiSchema={uiSchema}
               examples={method.examples as ExamplePairingObject[]}
               method={method}
@@ -149,9 +150,9 @@ class Methods extends Component<IProps> {
             }
             {this.props.methodPlugins && this.props.methodPlugins.length > 0 &&
               <ExpansionPanelDetails key="method-plugins">
-                {this.props.methodPlugins.map((CompDef: any) => {
+                {this.props.methodPlugins.map((CompDef: any, index: number) => {
                   return (
-                    <CompDef openrpcMethodObject={method} />
+                    <CompDef key={`method-plugin-${index}`} openrpcMethodObject={method} />
                   );
                 })}
               </ExpansionPanelDetails>
