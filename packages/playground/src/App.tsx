@@ -37,7 +37,7 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [notification, setNotification] = useState<ISnackBarNotification | undefined>();
   const [UISchema, setUISchemaBySection]: [IUISchema, any] = UISchemaStore();
-  const [editor, setEditor]: [any, Dispatch<{}>] = useState();
+  const [editor, setEditor]: [any, Dispatch<Record<string, never>>] = useState();
   const [horizontalSplit, privateSetHorizontalSplit] = useState(false);
   const [parsedSchema, setParsedSchema] = useParsedSchema(
     defaultValue ? JSON.parse(defaultValue) : null,
