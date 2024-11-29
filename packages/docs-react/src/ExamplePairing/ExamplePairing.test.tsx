@@ -3,7 +3,14 @@ import ReactDOM from "react-dom";
 import ExamplePairing from "./ExamplePairing";
 import examples from "@open-rpc/examples";
 import refParser from "json-schema-ref-parser";
-import { MethodObject, OpenrpcDocument, ExamplePairingObject } from "@open-rpc/meta-schema";
+import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
+
+const isMethodObject = (method: any): method is MethodObject => {
+  return method && 
+    typeof method === "object" && 
+    "name" in method && 
+    "params" in method;
+};
 
 it("renders handles no method", async () => {
   const div = document.createElement("div");
@@ -22,12 +29,15 @@ it("renders handles no method examples", async () => {
 it("renders examples", async () => {
   const div = document.createElement("div");
   const simpleMath = await refParser.dereference(examples.simpleMath) as OpenrpcDocument;
+  const method = simpleMath.methods[0];
+  if (!isMethodObject(method)) {
+    throw new Error("Expected method to be a MethodObject");
+  }
   ReactDOM.render(
     <ExamplePairing
-      methodName={simpleMath.methods[0].name}
-      examplePairing={simpleMath.methods[0].examples && simpleMath.methods[0].examples[0] as any}
-    />
-    , div);
+      methodName={method.name}
+      examplePairing={method.examples && method.examples[0] as any}
+    />, div);
   expect(div.innerHTML.includes("2")).toBe(true);
   expect(div.innerHTML.includes("4")).toBe(true);
   ReactDOM.unmountComponentAtNode(div);
@@ -56,13 +66,13 @@ it("renders examples with params by-name", async () => {
     params: [{
       name: "foo",
       schema: {
-        type: "string",
+        type: "string" as const,
       },
     }],
     result: {
       name: "resultThing",
       schema: {
-        type: "string",
+        type: "string" as const,
       },
     },
   };

@@ -4,6 +4,7 @@ import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from "@m
 import JSONSchemaFields from "./fields/JSONSchemaFields";
 import _ from "lodash";
 import { grey, green, purple, yellow, blue } from "@material-ui/core/colors";
+import { JSONSchema, JSONSchemaObject } from "@open-rpc/meta-schema";
 
 interface IProps {
   schema: JSONSchema4;
@@ -15,6 +16,14 @@ const styles = {
   cellWidth: {
     width: "70px",
   },
+};
+
+const isJSONSchemaObject = (schema: any): schema is JSONSchemaObject => {
+  return schema && typeof schema === "object" && !Array.isArray(schema);
+};
+
+const isRequiredArray = (required: true | string[]): required is string[] => {
+  return Array.isArray(required);
 };
 
 const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
@@ -140,7 +149,7 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
                         schema={prop}
                         name={n}
                         hideHeader={true}
-                        required={schema.required && schema.required.includes(n)}
+                        required={schema.required && isRequiredArray(schema.required) && schema.required.includes(n)}
                       />
                     );
                   })}

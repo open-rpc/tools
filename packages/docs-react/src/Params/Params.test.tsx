@@ -29,8 +29,11 @@ it("renders params", () => {
       description: "tags to filter by",
       name: "tags",
       schema: {
-        type: "string",
+        type: "string" as const,
+        title: "Tag Filter",
       },
+      required: true,
+      summary: "Filter by tags"
     },
   ];
   ReactDOM.render(<Params params={params} disableTransitionProps={true}/>, div);

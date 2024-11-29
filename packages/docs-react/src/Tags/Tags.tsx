@@ -21,7 +21,7 @@ export default class Tags extends Component<IProps> {
               <Chip
                 key={tag.name}
                 label={tag.name}
-                style={{ backgroundColor: hashColor.getColorFromString(tag.name, false) }}
+                style={{ backgroundColor: hashColor(tag.name) }}
               />
             );
           })
