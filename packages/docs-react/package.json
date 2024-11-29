@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint-fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "build": "tsc --project tsconfig.json && cp src/ContentDescriptor/ContentDescriptor.css build/ContentDescriptor/",
     "test": "jest",
     "start": "react-scripts start",

@@ -149,9 +149,12 @@ class Methods extends Component<IProps> {
             }
             {this.props.methodPlugins && this.props.methodPlugins.length > 0 &&
               <ExpansionPanelDetails key="method-plugins">
-                {this.props.methodPlugins.map((CompDef: any) => {
+                {this.props.methodPlugins.map((CompDef: any, index: number) => {
                   return (
-                    <CompDef openrpcMethodObject={method} />
+                    <CompDef
+                      key={`method-plugin-${index}`}
+                      openrpcMethodObject={method}
+                    />
                   );
                 })}
               </ExpansionPanelDetails>

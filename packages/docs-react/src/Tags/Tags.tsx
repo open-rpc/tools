@@ -1,32 +1,36 @@
-import React, { Component } from "react";
-import { TagObject } from "@open-rpc/meta-schema";
-import { Chip } from "@material-ui/core";
-const hashColor = require("hash-color-material");
+import React from "react";
+import { withStyles, Theme } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
+import hashToColor from "hash-color-material";
 
 interface IProps {
-  tags?: TagObject[];
+  tags?: string[];
+  classes: any;
 }
 
-export default class Tags extends Component<IProps> {
-  public render() {
-    const { tags }: { tags?: any} = this.props;
-    if (!tags || tags.length === 0) {
-      return null;
-    }
-    return (
-      <>
-        {
-          tags.map((tag: any, k: number) => {
-            return (
-              <Chip
-                key={tag.name}
-                label={tag.name}
-                style={{ backgroundColor: hashColor.getColorFromString(tag.name, false) }}
-              />
-            );
-          })
-        }
-      </>
-    );
+const styles = (theme: Theme) => ({
+  chip: {
+    margin: theme.spacing(1),
+  },
+});
+
+const Tags: React.FC<IProps> = ({ tags, classes }) => {
+  if (!tags || tags.length === 0) {
+    return null;
   }
-}
+
+  return (
+    <div>
+      {tags.map((tag) => (
+        <Chip
+          key={tag}
+          label={tag}
+          className={classes.chip}
+          style={{ backgroundColor: hashToColor(tag) }}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default withStyles(styles)(Tags);

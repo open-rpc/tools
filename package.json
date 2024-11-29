@@ -7,6 +7,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
+    "lint-fix": "turbo run lint-fix",
     "watch": "turbo run build test --watch",
     "dev": "turbo run build start --watch",
     "clean": "turbo run clean && rm -rf node_modules",

@@ -15,6 +15,7 @@
     "build": "rescripts build",
     "build:package": "tsc --project tsconfig.json",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint-fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "test": "jest",
     "clean": "rm -rf package build coverage",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"

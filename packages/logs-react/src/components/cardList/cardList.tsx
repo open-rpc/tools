@@ -12,14 +12,29 @@ interface IProps {
 }
 
 const CardList: React.FC<IProps> = (props) => {
-
   return (
     <>
       {props.logs.map((call, i) => {
         if (props.logs.length - 1 === i) {
-          return <CardListItem openrpcDocument={props.openrpcDocument} log={call} filter={props.filter} open={true} />;
+          return (
+            <CardListItem
+              key={`log-${i}`}
+              openrpcDocument={props.openrpcDocument}
+              log={call}
+              filter={props.filter}
+              open={true}
+            />
+          );
         } else {
-          return <CardListItem openrpcDocument={props.openrpcDocument} log={call} filter={props.filter} open={false} />;
+          return (
+            <CardListItem
+              key={`log-${i}`}
+              openrpcDocument={props.openrpcDocument}
+              log={call}
+              filter={props.filter}
+              open={false}
+            />
+          );
         }
       })}
     </>

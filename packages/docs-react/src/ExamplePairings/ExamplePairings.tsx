@@ -78,12 +78,9 @@ class ExamplePairings extends Component<IProps, IState> {
       selectedIndex: 0,
     };
   }
-  public componentWillMount() {
-    if (!this.props || !this.props.examples) {
-      return;
-    }
+  UNSAFE_componentWillMount() {
     this.setState({
-      currentExample: this.props.examples[0],
+      examples: this.props.examples,
     });
   }
   public handleClickListItem = (event: React.MouseEvent) => {

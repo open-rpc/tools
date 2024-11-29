@@ -46,6 +46,7 @@
     "start": "rescripts start",
     "build": "rescripts build",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint-fix": "eslint --fix 'src/**/*.{ts,tsx}'",
     "test": "jest",
     "clean": "rm -rf build coverage",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
