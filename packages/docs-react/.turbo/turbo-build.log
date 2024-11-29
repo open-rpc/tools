@@ -1,0 +1,4 @@
+
+> @open-rpc/docs-react@0.0.0-development build /Users/shanejonas/code/openrpc/tools/packages/docs-react
+> tsc --project tsconfig.json && cp src/ContentDescriptor/ContentDescriptor.css build/ContentDescriptor/
+

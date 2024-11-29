@@ -30,9 +30,9 @@ const isJsonRpc = (str: string) => {
 
 const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
   const [history, setHistory] = useState<IJSONRPCLog[]>([]);
-  const listener = (request) => {
+  const listener = (request: any) => {
     const requestBody = request.request.postData?.text;
-    request.getContent((responseBody) => {
+    request.getContent((responseBody: any) => {
       if (request.request && request.request.url && requestBody
         && isJsonRpc(requestBody) && isJsonRpc(responseBody)) {
         const requestBodyObj = JSON.parse(requestBody);

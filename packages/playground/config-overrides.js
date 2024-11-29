@@ -1,10 +1,6 @@
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const { override, addWebpackPlugin } = require('customize-cra');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
-module.exports = function override(config, env) {
-  config.plugins.push(
-    new MonacoWebpackPlugin({
-      languages: ["json"]
-    })
-  );
-  return config;
-}
+module.exports = override(
+  addWebpackPlugin(new MonacoWebpackPlugin())
+);

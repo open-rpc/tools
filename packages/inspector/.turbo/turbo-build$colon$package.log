@@ -1,0 +1,4 @@
+
+> @open-rpc/inspector@0.0.0-development build:package /Users/shanejonas/code/openrpc/tools/packages/inspector
+> tsc --project tsconfig.json
+

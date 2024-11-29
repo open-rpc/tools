@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const OptionsEditor: React.FC<IProps> = (props) => {
-  const [editor, setEditor] = useState();
+  const [editor, setEditor] = useState<any>();
   const windowSize = useWindowSize();
   useEffect(() => {
     if (editor) {

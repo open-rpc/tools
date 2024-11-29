@@ -118,7 +118,7 @@ const CardListItem: React.FC<IProps> = (props) => {
     setEditor(ed);
   };
 
-  const handleCopy = (event, value) => {
+  const handleCopy = (event: React.MouseEvent, value: any) => {
     event.stopPropagation();
     setOpen(true);
     copy(JSON.stringify(value, null, 4));

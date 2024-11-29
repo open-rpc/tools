@@ -14,5 +14,3 @@ export {default as Params} from "./Params/Params";
 export {default as Servers} from "./Servers/Servers";
 export {default as Tags} from "./Tags/Tags";
 export {default as Documentation} from "./Documentation";
-
-export default Documentation;
