@@ -20,8 +20,9 @@ const MarkdownDescription: React.FC<IProps> = ({ source, className, uiSchema }) 
           return <SyntaxHighlighter
             style={uiSchema && uiSchema.appBar && uiSchema.appBar["ui:darkMode"] ? materialDark : materialLight}
             language={language}
-            children={value}
-          />;
+          >
+            {value}
+          </SyntaxHighlighter>;
         },
       }}
       source={source}
