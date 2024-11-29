@@ -71,8 +71,8 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
             style={{ padding: "30px", paddingTop: "10px", paddingBottom: "10px", marginTop: "10px" }}>
             <Typography variant="h6">Custom Transport Plugin</Typography>
             <Typography variant="caption" gutterBottom>
-              Transport plugins are created by implementing the "connect",
-              "sendData", and "close" methods over JSON-RPC.
+              Transport plugins are created by implementing the &quot;connect&quot;,
+              &quot;sendData&quot;, and &quot;close&quot; methods over JSON-RPC.
              </Typography>
             <Grid container direction="column" spacing={1}>
               <Grid item>
@@ -122,8 +122,9 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
               open={Boolean(dialogMenuAnchorEl)}
               onClose={handleDialogAnchorClose}
             >
-              {transports.filter((value) => value.type !== "plugin").map((transport, i) => (
+              {transports.filter((value) => value.type !== "plugin").map((transport) => (
                 <MenuItem
+                  key={transport.name}
                   onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
                 >{transport.name}</MenuItem>
               ))}
@@ -153,8 +154,8 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {transports.map((transport, i) => (
-          <MenuItem onClick={() => handleMenuItemClick(transport)}>{transport.name}</MenuItem>
+        {transports.map((transport) => (
+          <MenuItem key={transport.name} onClick={() => handleMenuItemClick(transport)}>{transport.name}</MenuItem>
         ))}
         <MenuItem onClick={() => setDialogOpen(true)}>
           <PlusIcon style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
