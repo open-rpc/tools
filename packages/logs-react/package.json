@@ -32,7 +32,7 @@
     "@etclabscore/monaco-add-json-schema-diagnostics": "^1.0.3",
     "@etclabscore/react-monaco-editor": "^1.0.4",
     "@material-ui/core": "4.9.8",
-    "@material-ui/icons": "4.9.1",
+    "@material-ui/icons": "4.11.3",
     "@material-ui/lab": "4.0.0-alpha.47",
     "@open-rpc/meta-schema": "^1.14.9",
     "@types/chrome": "0.0.108",
