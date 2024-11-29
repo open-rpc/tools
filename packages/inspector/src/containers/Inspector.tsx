@@ -382,7 +382,7 @@ const Inspector: React.FC<IProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [historyOpen]);
 
-  const handleTabIndexChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleTabIndexChange = (event: React.ChangeEvent<Record<string, never>>, newValue: number) => {
     setTabIndex(newValue);
   };
 
@@ -429,7 +429,9 @@ const Inspector: React.FC<IProps> = (props) => {
               : <Grid container style={{ paddingBottom: "30px" }}>
                 <List style={{ padding: "10px", overflowY: "scroll", height: "250px", width: "200px" }}>
                   {requestHistory.map((requestHistoryItem: any, historyIndex: number) => (
-                    <ListItem button
+                    <ListItem
+                      key={`history-${historyIndex}`}
+                      button
                       onClick={() => setHistorySelectedIndex(historyIndex)}
                       selected={historyIndex === historySelectedIndex}>
                       <ListItemText
@@ -466,35 +468,40 @@ const Inspector: React.FC<IProps> = (props) => {
           onChange={handleTabIndexChange}
         >
           {tabs.map((tab, index) => (
-            <Tab disableRipple style={{
-              border: "none",
-              outline: "none",
-              userSelect: "none",
-            }} onDoubleClick={() => setTabEditing(tab, true)} label={
-              <div style={{ userSelect: "none" }}>
-                {tab.editing
-                  ? <InputBase
-                    value={tab.name}
-                    onChange={(ev) => handleLabelChange(ev, tab)}
-                    onBlur={() => setTabEditing(tab, false)}
-                    autoFocus
-                    style={{ maxWidth: "80px", marginRight: "25px" }}
-                  />
-                  : <Typography style={{ display: "inline", textTransform: "none", marginRight: "25px" }} variant="body1" >{tab.name}</Typography>
-                }
-                {tabIndex === index
-                  ?
-                  <Tooltip title="Close Tab">
-                    <IconButton onClick={
-                      (ev) => handleClose(ev, index)
-                    } style={{ position: "absolute", right: "10px", top: "25%" }} size="small">
-                      <CloseIcon />
-                    </IconButton>
-                  </Tooltip>
-                  : null
-                }
-              </div>
-            }></Tab>
+            <Tab
+              key={`tab-${index}`}
+              disableRipple
+              style={{
+                border: "none",
+                outline: "none",
+                userSelect: "none",
+              }}
+              onDoubleClick={() => setTabEditing(tab, true)}
+              label={
+                <div style={{ userSelect: "none" }}>
+                  {tab.editing
+                    ? <InputBase
+                      value={tab.name}
+                      onChange={(ev) => handleLabelChange(ev, tab)}
+                      onBlur={() => setTabEditing(tab, false)}
+                      autoFocus
+                      style={{ maxWidth: "80px", marginRight: "25px" }}
+                    />
+                    : <Typography style={{ display: "inline", textTransform: "none", marginRight: "25px" }} variant="body1" >{tab.name}</Typography>
+                  }
+                  {tabIndex === index
+                    ?
+                    <Tooltip title="Close Tab">
+                      <IconButton onClick={
+                        (ev) => handleClose(ev, index)
+                      } style={{ position: "absolute", right: "10px", top: "25%" }} size="small">
+                        <CloseIcon />
+                      </IconButton>
+                    </Tooltip>
+                    : null
+                  }
+                </div>
+              }></Tab>
           ))}
           <Tab disableRipple style={{ minWidth: "50px" }} label={
             <Tooltip title="Create New Tab">
