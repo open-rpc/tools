@@ -2,9 +2,17 @@
   "name": "@open-rpc/inspector",
   "version": "0.0.0-development",
   "description": "",
-  "main": "package/index.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
   "files": [
-    "package/"
+    "build/"
   ],
   "publishConfig": {
     "access": "public"
@@ -14,8 +22,8 @@
     "build": "rescripts build",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
-    "build:package": "tsc --project tsconfig.json",
-    "clean": "rm -rf package build coverage",
+    "build:package": "tsc --build tsconfig.json",
+    "clean": "rm -rf build coverage",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "author": "",
@@ -49,7 +57,7 @@
     "@material-ui/lab": "4.0.0-alpha.47",
     "@monaco-editor/react": "^4.0.0",
     "@open-rpc/client-js": "^1.6.3",
-    "@open-rpc/logs-react": "*",
+    "@open-rpc/logs-react": "workspace:*",
     "@open-rpc/meta-schema": "^1.14.9",
     "@open-rpc/schema-utils-js": "^1.14.3",
     "@rehooks/window-size": "^1.0.2",

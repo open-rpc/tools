@@ -1,8 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./package",
+    "outDir": "./build",
     "rootDir": "./src"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../logs-react" }
+  ]
 }

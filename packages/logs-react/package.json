@@ -2,10 +2,18 @@
   "name": "@open-rpc/logs-react",
   "version": "0.0.0-development",
   "description": "",
-  "main": "package/index.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
   "homepage": "https://open-rpc.github.io/logs-react/",
   "files": [
-    "package/"
+    "build/"
   ],
   "publishConfig": {
     "access": "public"
@@ -13,10 +21,10 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "build:package": "tsc --project tsconfig.json && mv package/exports.d.ts package/index.d.ts && mv package/exports.js package/index.js && find src/components -mindepth 1 -maxdepth 1 -type d -exec sh -c 'for f in {}/*.css; do cp \"$f\" \"package/components/$(basename {})\"; done' {} \\;",
+    "build:package": "tsc --build tsconfig.json && cp -r src/**/*.css build/",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
-    "clean": "rm -rf package build coverage",
+    "clean": "rm -rf build coverage",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "author": "",

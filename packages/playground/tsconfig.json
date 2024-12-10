@@ -9,6 +9,9 @@
     "isolatedModules": true,
     "noEmit": true
   },
+  "references": [
+    { "path": "../logs-react" }
+  ],
   "include": [
     "src"
   ]
