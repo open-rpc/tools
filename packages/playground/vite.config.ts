@@ -7,6 +7,9 @@ export default defineConfig({
     react(),
     monacoEditorPlugin({})
   ],
+  resolve: {
+    preserveSymlinks: true
+  },
   build: {
     outDir: 'dist',
     sourcemap: true
