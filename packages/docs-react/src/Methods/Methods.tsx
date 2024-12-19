@@ -1,11 +1,10 @@
-import React, { Component } from "react";
-import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import _ from "lodash";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import React from "react";
+import { Theme, styled } from "@mui/material/styles";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Params from "../Params/Params";
 import ContentDescriptor from "../ContentDescriptor/ContentDescriptor";
 import ExamplePairings from "../ExamplePairings/ExamplePairings";
@@ -21,26 +20,62 @@ import {
 import Links from "../Links/Links";
 import Tags from "../Tags/Tags";
 import MarkdownDescription from "../MarkdownDescription/MarkdownDescription";
+import Box from '@mui/material/Box';
 
-const styles = (theme: Theme) => ({
-  description: {
-    color: theme.palette.text.primary,
-    width: "100%",
-  },
-  heading: {
-    flexBasis: "33.33%",
-    flexShrink: 0,
-    fontSize: theme.typography.pxToRem(15),
-  },
-  root: {
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(3),
-    width: "100%",
-  },
-  secondaryHeading: {
-    color: theme.palette.text.secondary,
-    fontSize: theme.typography.pxToRem(15),
-  },
+const PREFIX = 'Methods';
+
+const classes = {
+  description: `${PREFIX}-description`,
+  heading: `${PREFIX}-heading`,
+  root: `${PREFIX}-root`,
+  secondaryHeading: `${PREFIX}-secondaryHeading`
+};
+
+const MethodsContainer = styled(Box)((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => {
+
+  return {
+    [`& .${classes.description}`]: { 
+      color: theme.palette.text.primary, 
+      width: "100%" 
+    },
+    [`& .${classes.heading}`]: { 
+      flexBasis: "33.33%", 
+      flexShrink: 0, 
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.primary
+    },
+    [`&.${classes.root}`]: { 
+      marginBottom: theme.spacing(2), 
+      marginTop: theme.spacing(3), 
+      width: "100%",
+      backgroundColor: theme.palette.background.default
+    },
+    [`& .${classes.secondaryHeading}`]: { 
+      color: theme.palette.text.secondary, 
+      fontSize: theme.typography.pxToRem(15)
+    },
+    '& .MuiAccordion-root': {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    },
+    '& .MuiAccordionSummary-root': {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    },
+    '& .MuiAccordionDetails-root': {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    },
+    '& .MuiTypography-root': {
+      color: theme.palette.text.primary,
+    }
+  };
 });
 
 export interface IMethodPluginProps {
@@ -48,8 +83,9 @@ export interface IMethodPluginProps {
 }
 export type OnMethodToggle = (method: string, expanded: boolean) => void;
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   schema?: OpenrpcDocument;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
   reactJsonOptions?: object;
   methodPlugins?: Array<React.FC<IMethodPluginProps>>;
@@ -57,121 +93,121 @@ interface IProps extends WithStyles<typeof styles> {
   onMethodToggle?: OnMethodToggle;
 }
 
-const isMethodObject = (method: any): method is MethodObject => {
-  return method && 
-    typeof method === "object" && 
-    "name" in method && 
-    "params" in method;
+const Methods: React.FC<IProps> = ({
+  schema,
+  uiSchema,
+  reactJsonOptions,
+  methodPlugins,
+  disableTransitionProps,
+  onMethodToggle,
+}) => {
+  if (!schema) {
+    return null;
+  }
+  if (!schema || !schema.methods) {
+    return null;
+  }
+  const methods = schema.methods as MethodObject[];
+  const methodsExist = methods && methods.length > 0;
+  if (!methodsExist) { return null; }
+  
+  return (
+    <MethodsContainer className={classes.root}>
+      <Typography variant="h3" gutterBottom>Methods</Typography>
+      {methods.map((method, i) => (
+        <Accordion
+          id={method.name}
+          key={i + method.name}
+          TransitionProps={{ unmountOnExit: disableTransitionProps ? false : true }}
+          onChange={(__, expanded: boolean) => {
+            if (onMethodToggle) {
+              onMethodToggle(method.name, expanded);
+            }
+          }}
+          defaultExpanded={
+            uiSchema &&
+            uiSchema.methods &&
+            (uiSchema.methods["ui:defaultExpanded"] === true ||
+              (uiSchema.methods["ui:defaultExpanded"] && uiSchema.methods["ui:defaultExpanded"][method.name] === true)
+            )
+          }>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>{method.name}</Typography>
+            <Typography className={classes.secondaryHeading}>{method.summary}</Typography>
+          </AccordionSummary>
+
+          {method.tags && method.tags.length > 0 &&
+            <AccordionDetails key="tags">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              <Tags tags={method.tags as any} />
+            </AccordionDetails>
+          }
+          {method.description &&
+            <AccordionDetails key="description">
+              <MarkdownDescription
+                uiSchema={uiSchema}
+                source={method.description}
+                className={classes.description}
+              />
+            </AccordionDetails>
+          }
+          {method.params && method.params.length > 0 &&
+            <AccordionDetails key="params-title">
+              <Typography variant="h5">Params</Typography>
+            </AccordionDetails>
+          }
+          {method.params &&
+            <AccordionDetails key="params">
+              <Params params={method.params as ContentDescriptorObject[]} uiSchema={uiSchema} />
+            </AccordionDetails>
+          }
+          {method.result &&
+            <AccordionDetails key="result-title">
+              <Typography variant="h5">Result</Typography>
+            </AccordionDetails>
+          }
+          {method.result && (method.result as ContentDescriptorObject).schema &&
+            <AccordionDetails key="result">
+              <ContentDescriptor
+                contentDescriptor={method.result as ContentDescriptorObject}
+                hideRequired={true} uiSchema={uiSchema} />
+            </AccordionDetails>
+          }
+          {method.errors && method.errors.length > 0 &&
+            <AccordionDetails key="errors">
+              <Errors errors={method.errors as ErrorObject[]} reactJsonOptions={reactJsonOptions} />
+            </AccordionDetails>
+          }
+          <ExamplePairings
+            key="example-pairings"
+            uiSchema={uiSchema}
+            examples={method.examples as ExamplePairingObject[]}
+            method={method}
+            reactJsonOptions={reactJsonOptions} />
+          {method.links && method.links.length > 0 &&
+            <AccordionDetails key="links-title">
+              <Typography variant="h5">Links</Typography>
+            </AccordionDetails>
+          }
+          {method.links && method.links.length > 0 &&
+            <AccordionDetails key="links">
+              <Links links={method.links as LinkObject[]} reactJsonOptions={reactJsonOptions} />
+            </AccordionDetails>
+          }
+          {methodPlugins && methodPlugins.length > 0 &&
+            <AccordionDetails key="method-plugins">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {methodPlugins.map((CompDef: any, index: number) => {
+                return (
+                  <CompDef key={`method-plugin-${index}`} openrpcMethodObject={method} />
+                );
+              })}
+            </AccordionDetails>
+          }
+        </Accordion>
+      ))}
+    </MethodsContainer>
+  );
 };
 
-class Methods extends Component<IProps> {
-  public render() {
-    const { schema, classes, uiSchema, disableTransitionProps, onMethodToggle } = this.props;
-    if (!schema) {
-      return null;
-    }
-    if (!schema || !schema.methods) {
-      return null;
-    }
-    const methods = schema.methods.filter(isMethodObject);
-    const methodsExist = methods && methods.length > 0;
-    if (!methodsExist) { return null; }
-    return (
-      <div className={classes.root}>
-        <Typography variant="h3" gutterBottom>Methods</Typography>
-        {methods.map((method, i) => (
-          <ExpansionPanel
-            id={method.name}
-            key={i + method.name}
-            TransitionProps={{ unmountOnExit: disableTransitionProps ? false : true }}
-            onChange={(__, expanded: boolean) => {
-              if (onMethodToggle) {
-                onMethodToggle(method.name, expanded);
-              }
-            }}
-            defaultExpanded={
-              uiSchema &&
-              uiSchema.methods &&
-              (uiSchema.methods["ui:defaultExpanded"] === true ||
-                (uiSchema.methods["ui:defaultExpanded"] && uiSchema.methods["ui:defaultExpanded"][method.name] === true)
-              )
-            }>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>{method.name}</Typography>
-              <Typography className={classes.secondaryHeading}>{method.summary}</Typography>
-            </ExpansionPanelSummary>
-
-            {method.tags && method.tags.length > 0 &&
-              <ExpansionPanelDetails key="tags">
-                <Tags tags={method.tags as any} />
-              </ExpansionPanelDetails>
-            }
-            {method.description &&
-              <ExpansionPanelDetails key="description">
-                <MarkdownDescription
-                  uiSchema={uiSchema}
-                  source={method.description}
-                  className={classes.description}
-                />
-              </ExpansionPanelDetails>
-            }
-            {method.params && method.params.length > 0 &&
-              <ExpansionPanelDetails key="params-title">
-                <Typography variant="h5">Params</Typography>
-              </ExpansionPanelDetails>
-            }
-            {method.params &&
-              <ExpansionPanelDetails key="params">
-                <Params params={method.params as ContentDescriptorObject[]} uiSchema={uiSchema} />
-              </ExpansionPanelDetails>
-            }
-            {method.result &&
-              <ExpansionPanelDetails key="result-title">
-                <Typography variant="h5">Result</Typography>
-              </ExpansionPanelDetails>
-            }
-            {method.result && (method.result as ContentDescriptorObject).schema &&
-              <ExpansionPanelDetails key="result">
-                <ContentDescriptor
-                  contentDescriptor={method.result as ContentDescriptorObject}
-                  hideRequired={true} uiSchema={uiSchema} />
-              </ExpansionPanelDetails>
-            }
-            {method.errors && method.errors.length > 0 &&
-              <ExpansionPanelDetails key="errors">
-                <Errors errors={method.errors as ErrorObject[]} reactJsonOptions={this.props.reactJsonOptions} />
-              </ExpansionPanelDetails>
-            }
-            <ExamplePairings
-              key="example-pairings"
-              uiSchema={uiSchema}
-              examples={method.examples as ExamplePairingObject[]}
-              method={method}
-              reactJsonOptions={this.props.reactJsonOptions} />
-            {method.links && method.links.length > 0 &&
-              <ExpansionPanelDetails key="links-title">
-                <Typography variant="h5">Links</Typography>
-              </ExpansionPanelDetails>
-            }
-            {method.links && method.links.length > 0 &&
-              <ExpansionPanelDetails key="links">
-                <Links links={method.links as LinkObject[]} reactJsonOptions={this.props.reactJsonOptions} />
-              </ExpansionPanelDetails>
-            }
-            {this.props.methodPlugins && this.props.methodPlugins.length > 0 &&
-              <ExpansionPanelDetails key="method-plugins">
-                {this.props.methodPlugins.map((CompDef: any, index: number) => {
-                  return (
-                    <CompDef key={`method-plugin-${index}`} openrpcMethodObject={method} />
-                  );
-                })}
-              </ExpansionPanelDetails>
-            }
-          </ExpansionPanel>
-        ))}
-      </div>
-    );
-  }
-}
-
-export default withStyles(styles)(Methods);
+export default Methods;

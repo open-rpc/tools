@@ -1,36 +1,49 @@
-import React, { useEffect, useState } from "react";
-import MonacoEditor from "@etclabscore/react-monaco-editor";
+import * as React from "react";
+import { useEffect, useRef } from "react";
 import * as monaco from "monaco-editor";
+import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
 import { MethodObject, OpenrpcDocument } from "@open-rpc/meta-schema";
 import useWindowSize from "@rehooks/window-size";
-import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
 import openrpcDocumentToJSONRPCSchema from "../helpers/openrpcDocumentToJSONRPCSchema";
-
+import useDarkMode from "use-dark-mode";
+import { initWorkers } from "./userWorker";
 interface IProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: (newValue: any) => void;
   openrpcMethodObject?: MethodObject;
   openrpcDocument?: OpenrpcDocument;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }
 
+
 const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
-  const [editor, setEditor] = useState<any>();
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const windowSize = useWindowSize();
-  useEffect(() => {
-    if (editor) {
-      editor.layout();
-    }
-  }, [windowSize, editor]);
 
   useEffect(() => {
-    if (!editor) {
+    if (editorRef.current) {
+      editorRef.current.layout();
+    }
+  }, [windowSize]);
+
+  useEffect(() => {
+    if (!editorRef.current) {
       return;
     }
-    const modelName = (props.openrpcDocument && props.openrpcDocument.info) ? props.openrpcDocument.info.title : "inspector";
-    const modelUriString = `inmemory://${modelName}-${Math.random()}.json`;
-    const modelUri = monaco.Uri.parse(modelUriString);
-    const model = monaco.editor.createModel(props.value || "", "json", modelUri);
-    editor.setModel(model);
+    const model = editorRef.current.getModel();
+    if(!model) return;
+
+    const schema = getUpdatedchema(props.openrpcDocument);
+    addDiagnostics(model?.uri.toString() || "", schema, monaco);
+  }, [props.openrpcDocument]);
+
+
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function getUpdatedchema( openrpcDocument?: OpenrpcDocument): any {
+    if(!editorRef.current) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let schema: any = {
       type: "object",
       properties: {
@@ -54,8 +67,8 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
       },
     };
 
-    if (props.openrpcDocument) {
-      schema = openrpcDocumentToJSONRPCSchema(props.openrpcDocument);
+    if (openrpcDocument) {
+      schema = openrpcDocumentToJSONRPCSchema(openrpcDocument);
     } else {
       schema = {
         additionalProperties: false,
@@ -70,28 +83,43 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
         },
       };
     }
-    addDiagnostics(modelUri.toString(), schema, monaco);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.openrpcDocument, editor]);
-
-  function handleEditorDidMount(_: any, ed: any) {
-    setEditor(ed);
+    return schema;
   }
 
-  const handleChange = (ev: any, value: any) => {
+    // Configure JSON language features
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleEditorDidMount(editor:any) {
+    editorRef.current = editor;
+    // Configure JSON language features
+    const schema = getUpdatedchema(props.openrpcDocument);
+    const model = monaco.editor.createModel(props.value, "json")
+    model.onDidChangeAttached(()=>{
+    addDiagnostics(model.uri.toString() || "", schema, monaco);
+    })
+    editorRef.current?.setModel(model)
+
+    editorRef.current?.focus();
+    initWorkers();
+  }
+
+  const handleChange = (newValue?: string) => {
+    const model = editorRef.current?.getModel();
+    if(!model) return;
     if (props.onChange) {
-      props.onChange(value);
+      props.onChange(newValue);
     }
+
   };
 
+  const darkMode = useDarkMode();
   return (
     <MonacoEditor
       height="100%"
       width="100%"
       value={props.value}
-      editorDidMount={handleEditorDidMount}
-      editorOptions={{
+      onMount={handleEditorDidMount}
+      options={{
+        theme: darkMode.value ? "vs-dark" : "vs",
         minimap: {
           enabled: false,
         },

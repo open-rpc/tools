@@ -1,80 +1,58 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import JSONSchemaFields from "./JSONSchemaFields";
 import { JSONSchema4 } from "json-schema";
+import { render, screen } from '@testing-library/react';
 
 it("renders empty with no schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<JSONSchemaFields />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<JSONSchemaFields />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders empty with empty schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<JSONSchemaFields schema={{}} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<JSONSchemaFields schema={{}} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders with a schema", () => {
-  const div = document.createElement("div");
   const schema = {
-    /* tslint:disable */
     type: "object",
     properties: {
-      name: {
-        type: "string",
-      },
-      tag: {
-        type: "string",
-      },
+      name: { type: "string" },
+      tag: { type: "string" },
     },
-    /* tslint:disable */
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("name")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-
-  expect(div.innerHTML.includes("tag")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("name")).toBeInTheDocument();
+  expect(screen.getAllByText("string")).toHaveLength(2);
+  expect(screen.getByText("tag")).toBeInTheDocument();
 });
 
 it("renders with a schema required", () => {
-  const div = document.createElement("div");
   const schema = {
     properties: {
-      name: {
-        type: "string",
-      },
+      name: { type: "string" },
     },
-    required: [
-      "name",
-    ],
+    required: ["name"],
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("true")).toBe(true);
-
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("true")).toBeInTheDocument();
 });
 
 it("renders with a schema without required", () => {
-  const div = document.createElement("div");
   const schema = {
     properties: {
-      name: {
-        type: "string",
-      },
+      name: { type: "string" },
     },
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("false")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("false")).toBeInTheDocument();
 });
 
 it("renders with a nested schema object", () => {
-  const div = document.createElement("div");
   const schema = {
     properties: {
       name: {
@@ -87,15 +65,14 @@ it("renders with a nested schema object", () => {
       },
     },
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("object")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getByText("string")).toBeInTheDocument();
+  expect(screen.getAllByText("object")).toHaveLength(2);
 });
 
 it("renders with a anyOf with nested objects", () => {
-  const div = document.createElement("div");
   const schema = {
     anyOf: [
       {
@@ -104,9 +81,7 @@ it("renders with a anyOf with nested objects", () => {
           name: {
             type: "object",
             properties: {
-              potato: {
-                type: "string"
-              }
+              potato: { type: "string" }
             }
           },
         },
@@ -117,25 +92,22 @@ it("renders with a anyOf with nested objects", () => {
           name: {
             type: "object",
             properties: {
-              baz: {
-                type: "string"
-              }
+              baz: { type: "string" }
             }
           },
         },
       }
     ]
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("bar")).toBe(true);
-  expect(div.innerHTML.includes("baz")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getByText("bar")).toBeInTheDocument();
+  expect(screen.getByText("baz")).toBeInTheDocument();
+  expect(screen.getByText("potato")).toBeInTheDocument();
 });
 
 it("renders with a allOf with nested objects", () => {
-  const div = document.createElement("div");
   const schema = {
     allOf: [
       {
@@ -166,17 +138,16 @@ it("renders with a allOf with nested objects", () => {
       }
     ]
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("bar")).toBe(true);
-  expect(div.innerHTML.includes("baz")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getByText("bar")).toBeInTheDocument();
+  expect(screen.getByText("baz")).toBeInTheDocument();
+  expect(screen.getByText("potato")).toBeInTheDocument();
 });
 
 
 it("renders with a oneOf with nested objects", () => {
-  const div = document.createElement("div");
   const schema = {
     oneOf: [
       {
@@ -207,16 +178,15 @@ it("renders with a oneOf with nested objects", () => {
       }
     ]
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("bar")).toBe(true);
-  expect(div.innerHTML.includes("baz")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getByText("bar")).toBeInTheDocument();
+  expect(screen.getByText("baz")).toBeInTheDocument();
+  expect(screen.getByText("potato")).toBeInTheDocument();
 });
 
 it("renders with a nested arrays of objects", () => {
-  const div = document.createElement("div");
   const schema = {
     title: "MyPotatoObject",
     type: "array",
@@ -227,9 +197,7 @@ it("renders with a nested arrays of objects", () => {
           name: {
             type: "object",
             properties: {
-              potato: {
-                type: "string"
-              }
+              potato: { type: "string" }
             }
           },
         },
@@ -249,18 +217,17 @@ it("renders with a nested arrays of objects", () => {
       }
     ]
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("bar")).toBe(true);
-  expect(div.innerHTML.includes("baz")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("MyPotatoObject")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getByText("bar")).toBeInTheDocument();
+  expect(screen.getByText("baz")).toBeInTheDocument();
+  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getAllByText("string")).toHaveLength(2);
+  expect(screen.getByText("MyPotatoObject")).toBeInTheDocument();
 });
 
 it("renders with a nested arrays of object", () => {
-  const div = document.createElement("div");
   const schema = {
     title: "MyPotatoObject",
     type: "array",
@@ -278,17 +245,16 @@ it("renders with a nested arrays of object", () => {
       },
     }
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("object")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("MyPotatoObject")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getAllByText("object")).toHaveLength(2);
+  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText("string")).toBeInTheDocument();
+  expect(screen.getByText("MyPotatoObject")).toBeInTheDocument();
 });
 
 it("renders with a nested arrays of object with name passed explicitly", () => {
-  const div = document.createElement("div");
   const schema = {
     type: "array",
     items: {
@@ -305,17 +271,16 @@ it("renders with a nested arrays of object with name passed explicitly", () => {
       },
     }
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} name={"My Name"} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("object")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("My Name")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} name={"My Name"} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getAllByText("object")).toHaveLength(2);
+  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText("string")).toBeInTheDocument();
+  expect(screen.getByText("My Name")).toBeInTheDocument();
 });
 
 it("renders with a nested arrays of objects with name passed explicitly", () => {
-  const div = document.createElement("div");
   const schema = {
     type: "array",
     items: [
@@ -334,17 +299,16 @@ it("renders with a nested arrays of objects with name passed explicitly", () => 
       }
     ]
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} name={"My Name"} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("object")).toBe(true);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("My Name")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} name={"My Name"} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getAllByText("object")).toHaveLength(2);
+  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText("string")).toBeInTheDocument();
+  expect(screen.getByText("My Name")).toBeInTheDocument();
 });
 
 it("renders with a nested oneOf with nested allOf", () => {
-  const div = document.createElement("div");
   const schema = {
     title: "MyPotatoObject",
     oneOf: [
@@ -363,11 +327,11 @@ it("renders with a nested oneOf with nested allOf", () => {
       }
     ]
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchemaFields schema={schema} />, div);
-  expect(div.innerHTML.includes("MyPotatoObject")).toBe(true);
-  expect(div.innerHTML.includes("Apple")).toBe(true);
-  expect(div.innerHTML.includes("Banana")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("Pear")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<JSONSchemaFields schema={schema} />);
+  expect(screen.getByText("MyPotatoObject")).toBeInTheDocument();
+  expect(screen.getByText("Apple")).toBeInTheDocument();
+  expect(screen.getByText("Banana")).toBeInTheDocument();
+  expect(screen.getAllByText("string")).toHaveLength(2);
+  expect(screen.getByText("Pear")).toBeInTheDocument();
 });

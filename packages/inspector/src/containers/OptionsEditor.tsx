@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
-import MonacoEditor from "@etclabscore/react-monaco-editor";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import * as monaco from "monaco-editor";
 import { JSONSchema, MethodObject } from "@open-rpc/meta-schema";
 import useWindowSize from "@rehooks/window-size";
-import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
+import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
+import useDarkMode from "use-dark-mode";
 
 interface IProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any  
   onChange?: (newValue: any) => void;
   openrpcMethodObject?: MethodObject;
   schema?: JSONSchema;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }
 
 const OptionsEditor: React.FC<IProps> = (props) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editor, setEditor] = useState<any>();
   const windowSize = useWindowSize();
   useEffect(() => {
@@ -22,29 +26,28 @@ const OptionsEditor: React.FC<IProps> = (props) => {
   }, [windowSize, editor]);
 
   useEffect(() => {
+
     if (!editor) {
       return;
-    }
-    const modelName = "inspector-transport-options";
-    const modelUriString = `inmemory://${modelName}-${Math.random()}.json`;
-    const modelUri = monaco.Uri.parse(modelUriString);
-    const model = monaco.editor.createModel(props.value || "", "json", modelUri);
-    editor.setModel(model);
+    } 
 
-    addDiagnostics(modelUri.toString(), props.schema, monaco);
+    editor.getModel()?.setValue(props.value);
+    editor.getModel()?.setLanguage("json");
+    addDiagnostics(editor.getModel()?.uri.toString() || "", props.schema, monaco);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.schema, editor]);
 
-  function handleEditorDidMount(_: any, ed: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleEditorDidMount(ed: any) {
     setEditor(ed);
   }
 
-  const handleChange = (ev: any, value: any) => {
+  const handleChange = (newValue?: string) => {
     if (props.onChange) {
-      props.onChange(value);
+      props.onChange(newValue);
     }
   };
+  const darkMode = useDarkMode();
 
   return (
     <>
@@ -53,8 +56,9 @@ const OptionsEditor: React.FC<IProps> = (props) => {
         height="95%"
         width="100%"
         value={props.value}
-        editorDidMount={handleEditorDidMount}
-        editorOptions={{
+        onMount={handleEditorDidMount}
+        options={{
+          theme: darkMode.value ? "vs-dark" : "vs",
           minimap: {
             enabled: false,
           },
@@ -72,3 +76,5 @@ const OptionsEditor: React.FC<IProps> = (props) => {
 };
 
 export default OptionsEditor;
+
+

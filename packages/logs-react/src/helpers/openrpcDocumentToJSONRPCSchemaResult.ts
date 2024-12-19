@@ -1,43 +1,53 @@
-import { MethodObject, ContentDescriptorObject, OpenrpcDocument, MethodOrReference } from "@open-rpc/meta-schema";
+import {
+  MethodObject,
+  ContentDescriptorObject,
+  OpenrpcDocument,
+  MethodOrReference,
+} from '@open-rpc/meta-schema';
 
 const isMethodObject = (method: MethodOrReference): method is MethodObject => {
-  return "name" in method && "params" in method;
+  return 'name' in method && 'params' in method;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const schema: any = {
-  type: "object",
+  type: 'object',
   properties: {
     jsonrpc: {
-      type: "string",
-      description: "JSON-RPC Version String",
-      const: "2.0",
+      type: 'string',
+      description: 'JSON-RPC Version String',
+      const: '2.0',
     },
     id: {
       oneOf: [
         {
-          type: "string",
+          type: 'string',
         },
         {
-          type: "number",
+          type: 'number',
         },
       ],
     },
   },
 };
 
-const openrpcDocumentToJSONRPCSchemaResult = (methodName: string, openrpcDocument?: OpenrpcDocument) => {
+const openrpcDocumentToJSONRPCSchemaResult = (
+  methodName: string,
+  openrpcDocument?: OpenrpcDocument
+) => {
   if (!openrpcDocument) {
     return schema;
   }
   const methodObject = openrpcDocument.methods
     .filter(isMethodObject)
     .find((method) => method.name === methodName);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let methodSchema: any;
   if (methodObject !== undefined && methodObject.result !== undefined) {
     methodSchema = (methodObject.result as ContentDescriptorObject).schema;
   }
   return {
-    type: "object",
+    type: 'object',
     properties: {
       id: {
         ...schema.properties.id,

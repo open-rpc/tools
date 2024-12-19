@@ -1,54 +1,62 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+// CardListItem.tsx
+import * as  React from "react";
+import { styled } from '@mui/material/styles';
+import { useEffect } from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import LogChips from "../logChips/LogChips";
 import { formatRelative } from "date-fns";
 import {
-  Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
-  ExpansionPanelDetails, ExpansionPanelSummary, Tooltip,
+  Typography, Card, Box, CardHeader, CardContent, Accordion,
+  AccordionDetails, AccordionSummary, Tooltip,
   Snackbar,
-  Button,
-} from "@material-ui/core";
-import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles";
-import MonacoEditor from "@etclabscore/react-monaco-editor";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+} from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import "./cardListItem.css";
 import Alert from "../alert/alert";
 import copy from "copy-to-clipboard";
-import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
 import { JSONSchema, OpenrpcDocument } from "@open-rpc/meta-schema";
-import * as monaco from "monaco-editor";
 import openrpcDocumentToJSONRPCSchema from "../../helpers/openrpcDocumentToJSONRPCSchema";
 import openrpcDocumentToJSONRPCSchemaResult from "../../helpers/openrpcDocumentToJSONRPCSchemaResult";
+import * as monaco from 'monaco-editor';
+import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
+const PREFIX = 'cardListItem';
+
+const classes = {
+  cardHeader: `${PREFIX}-cardHeader`,
+  cardContent: `${PREFIX}-cardContent`
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
+  [`& .${classes.cardHeader}`]: {
+    padding: "8px",
+    paddingBottom: "0px",
+    paddingTop: "0px",
+  },
+  [`& .${classes.cardContent}`]: {
+    padding: "8px !important",
+  }
+}));
 
 interface IProps {
   log: IJSONRPCLog;
   filter: string[];
   open: boolean;
   openrpcDocument?: OpenrpcDocument;
+  darkMode?: boolean;
+  children?: React.ReactNode;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLogItemBackground = (log: IJSONRPCLog, theme: Theme): any => {
-  const paletteType = theme.palette.type;
+  const paletteType = theme.palette.mode;
   if (log.payload.error) {
     return { backgroundColor: theme.palette.error[paletteType] };
   }
-
   return {};
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    cardHeader: {
-      padding: "8px",
-      paddingBottom: "0px",
-      paddingTop: "0px",
-    },
-    cardContent: {
-      padding: "8px !important",
-    },
-  }),
-);
 
 const getCardStyle = (log: IJSONRPCLog) => {
   if (log.method.includes("rpc.")) {
@@ -65,143 +73,145 @@ const getCardStyle = (log: IJSONRPCLog) => {
 
 const CardListItem: React.FC<IProps> = (props) => {
   const theme = useTheme();
-
   const callClass = getCardStyle(props.log);
-  const [open, setOpen] = useState(false);
-  const [editor, setEditor] = useState();
-  const classes = useStyles();
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
-  // BEGIN HEIGHT SETTING SHANAYNAYS
+  // Height settings for dynamic adjustment
   const MAX_HEIGHT = 300;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const MIN_COUNT_OF_LINES = 3;
   const LINE_HEIGHT = 20;
-  const [height, setHeight] = useState(170);
-  const valueGetter = useRef();
-  const handleEditorChange = useCallback(() => {
-    const countOfLines = (valueGetter as any).current
-      .getValue()
-      .split("\n").length;
-    if (countOfLines >= MIN_COUNT_OF_LINES) {
-      const currentHeight = countOfLines * LINE_HEIGHT;
-      if (MAX_HEIGHT > currentHeight) {
-        setHeight(currentHeight);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // END HEIGHT SETTING SHANAYNAYS
+  const [editorHeight, setEditorHeight] = React.useState(170);
 
-  useEffect(() => {
-    if (editor === undefined) {
-      return;
-    }
-    let s: JSONSchema;
+  // Store editor instance from the custom Editor component
+  const editorRef = React.useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
-    if (props.log.type === "request") {
-      s = openrpcDocumentToJSONRPCSchema(props.openrpcDocument);
-    } else {
-      s = openrpcDocumentToJSONRPCSchemaResult(props.log.method, props.openrpcDocument);
-    }
-    const modelName = (props.openrpcDocument && props.openrpcDocument.info) ? props.openrpcDocument.info.title : "inspector";
-    const modelUriString = `inmemory://${modelName}-${Math.random()}.json`;
-    const modelUri = monaco.Uri.parse(modelUriString);
-    const model = monaco.editor.createModel(JSON.stringify(props.log.payload, null, 2) || "", "json", modelUri);
-    (editor as any).setModel(model);
-
-    addDiagnostics(modelUri.toString(), s, monaco);
-    valueGetter.current = editor;
-    handleEditorChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.openrpcDocument, editor]);
-
-  const handleEditorDidMount = (__: any, ed: any) => {
-    setEditor(ed);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleEditorMount = (editor: any) => {
+    editorRef.current = editor;
   };
 
+  const handleEditorChange = (newValue?: string) => {
+    if (newValue) {
+      const lines = newValue.split("\n").length;
+      const newHeight = Math.min(lines * LINE_HEIGHT, MAX_HEIGHT);
+      setEditorHeight(newHeight);
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCopy = (event: React.MouseEvent, value: any) => {
     event.stopPropagation();
-    setOpen(true);
+    setSnackbarOpen(true);
     copy(JSON.stringify(value, null, 4));
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setSnackbarOpen(false);
   };
 
+  // When the file changes, update the editor's model
+  useEffect(() => {
+    if (!editorRef.current) return;
+    if (!props.openrpcDocument || !props.log.method) return;
+
+    let schema: JSONSchema;
+    if (props.log.type === "request") {
+      schema = openrpcDocumentToJSONRPCSchema(props.openrpcDocument);
+    } else {
+      schema = openrpcDocumentToJSONRPCSchemaResult(props.log.method, props.openrpcDocument);
+    }
+
+    const model = editorRef.current?.getModel()
+    if(!model) {
+      return
+    }
+
+
+    //model.setValue(JSON.stringify(props.log.payload, null, 2) || "");
+    //monaco.editor.setModelLanguage(model, "json");
+
+    const newModel = monaco.editor.createModel(JSON.stringify(props.log.payload, null, 2), "json")
+    editorRef.current?.setModel(newModel)
+
+    // Optionally, update diagnostics:
+    addDiagnostics(newModel.uri.toString(), schema, monaco);
+
+    // Adjust height based on new content
+    handleEditorChange(newModel.getValue());
+  }, [props.openrpcDocument, props.log]);
+
   return (
-    <Box m={2} key={JSON.stringify(props.log)} className={[
+    <StyledBox m={2} key={JSON.stringify(props.log)} className={[
       "call-box",
       `${props.log.type === "response" ? "response" : ""}`,
       `${props.filter.includes(props.log.method) || props.filter.includes("all") ? "" : "hidden"}`,
     ].join(" ")}>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={snackbarOpen} autoHideDuration={4000} onClose={handleClose}>
         <Alert severity="success">Payload Copied to Clipboard</Alert>
       </Snackbar>
-      <Card raised={true} className={callClass} style={getLogItemBackground(props.log, theme)} elevation={8}>
+      <Card raised elevation={8} className={callClass} style={getLogItemBackground(props.log, theme)}>
         <CardHeader
           title={props.log.method}
-          action={
-            <LogChips log={props.log} />
-          }
+          action={<LogChips log={props.log} />}
           subheader={
-          <Typography variant="caption" color="textSecondary">
-            {formatRelative(new Date(), props.log.timestamp)}
-          </Typography>
+            <Typography variant="caption" color="textSecondary">
+              {formatRelative(new Date(), props.log.timestamp)}
+            </Typography>
           }
         />
         <CardContent className={classes.cardContent}>
-          {props.log.batchId ?
-            <Typography>Batch: {props.log.batchId}</Typography>
-            :
-            null
-          }
-          <ExpansionPanel
-            defaultExpanded={true}
-          >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          {props.log.batchId && <Typography>Batch: {props.log.batchId}</Typography>}
+          <Accordion defaultExpanded>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              component="div"
+              disableRipple
+            >
               <Tooltip title="Copy to clipboard">
-                <Button
-                  onClick={(event) => handleCopy(event, props.log.payload)}
-                  endIcon={
-                    <AssignmentIcon style={{ fontSize: 14 }} />
-                  }
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCopy(e, props.log.payload);
+                  }}
+                  style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
                 >
-                  Payload
-                </Button>
+                  <Typography>Payload</Typography>
+                  <AssignmentIcon style={{ fontSize: 14, marginLeft: 8 }} />
+                </span>
               </Tooltip>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails style={{ margin: 0, padding: 0 }}>
+            </AccordionSummary>
+            <AccordionDetails style={{ margin: 0, padding: 0 }}>
               <MonacoEditor
+                key={JSON.stringify(props.log)}  // optional: force remount if needed
                 width="100%"
-                height={height}
+                height={editorHeight}
                 language="json"
                 value={JSON.stringify(props.log.payload, null, 4)}
-                editorDidMount={handleEditorDidMount}
-                editorOptions={{
+                options={{
                   automaticLayout: true,
-                  useShadows: false,
+                  theme: theme.palette.mode === "dark" ? "vs-dark" : "vs",
+                  minimap: { enabled: false },
                   glyphMargin: false,
                   overviewRulerBorder: false,
                   showFoldingControls: "always",
-                  minimap: {
-                    enabled: false,
-                  },
                   hideCursorInOverviewRuler: true,
                   scrollbar: {
                     useShadows: false,
-                    scrollByPage: false,
                   },
                   scrollBeyondLastLine: false,
                   lineNumbers: "off",
                   fixedOverflowWidgets: true,
                   readOnly: true,
                 }}
+                onChange={handleEditorChange}
+                onMount={handleEditorMount}
               />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </CardContent>
       </Card>
-    </Box>
+    </StyledBox>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import _ from "lodash";
 import JSONSchemaFields from "./fields/JSONSchemaFields";
 import { JSONSchema4 } from "json-schema";
 

@@ -1,29 +1,23 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import Params from "./Params";
+import { render, screen } from '@testing-library/react';
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Params />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Params />);
 });
 
 it("renders empty with no schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Params />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Params />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders empty with empty params", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Params params={[]}/>, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Params params={[]}/>);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders params", () => {
-  const div = document.createElement("div");
   const params = [
     {
       description: "tags to filter by",
@@ -36,9 +30,12 @@ it("renders params", () => {
       summary: "Filter by tags"
     },
   ];
-  ReactDOM.render(<Params params={params} disableTransitionProps={true}/>, div);
-  expect(div.innerHTML.includes("tags")).toBe(true);
-  expect(div.innerHTML.includes("tags to filter by")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<Params params={params} disableTransitionProps={true}/>);
+  
+  expect(screen.getByText("tags")).toBeInTheDocument();
+  expect(screen.getByText("tags to filter by")).toBeInTheDocument();
+  expect(screen.getByText("string")).toBeInTheDocument();
+  expect(screen.getByText("Tag Filter")).toBeInTheDocument();
+  expect(screen.getByText("Filter by tags")).toBeInTheDocument();
 });

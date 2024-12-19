@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
-import { CssBaseline } from "@material-ui/core";
-import { MuiThemeProvider } from "@material-ui/core";
+import * as React from "react";
+import { useEffect } from "react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import { lightTheme, darkTheme } from "../themes/openrpcTheme";
 import useDarkMode from "use-dark-mode";
 import Inspector from "./Inspector";
 import useQueryParams from "../hooks/useQueryParams";
+//import "./userWorker";
 import * as monaco from "monaco-editor";
 import useOpenrpcDocument from "../hooks/useOpenrpcDocument";
+
 
 const App: React.FC = () => {
   const darkMode = useDarkMode();
@@ -20,20 +22,23 @@ const App: React.FC = () => {
     monaco.editor.setTheme(t);
   }, [darkMode.value]);
 
+  
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
 
       <Inspector
         onToggleDarkMode={darkMode.toggle}
         darkMode={darkMode.value}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any  
         customTransport={query.customTransport as any}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transport={query.transport as any}
         url={query.url as string | undefined}
         openrpcDocument={openrpcDocument}
         request={query.request}
       />
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 

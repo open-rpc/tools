@@ -1,10 +1,8 @@
 import React from "react";
 import { JSONSchema4 } from "json-schema";
-import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from "@material-ui/core";
+import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from "@mui/material";
 import JSONSchemaFields from "./fields/JSONSchemaFields";
-import _ from "lodash";
-import { grey, green, purple, yellow, blue } from "@material-ui/core/colors";
-import { JSONSchema, JSONSchemaObject } from "@open-rpc/meta-schema";
+import { grey, green, purple, yellow, blue } from "@mui/material/colors";
 
 interface IProps {
   schema: JSONSchema4;
@@ -16,10 +14,6 @@ const styles = {
   cellWidth: {
     width: "70px",
   },
-};
-
-const isJSONSchemaObject = (schema: any): schema is JSONSchemaObject => {
-  return schema && typeof schema === "object" && !Array.isArray(schema);
 };
 
 const isRequiredArray = (required: true | string[]): required is string[] => {
@@ -142,7 +136,7 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
             <TableBody>
               {schema.properties &&
                 Object.entries(schema.properties)
-                  .map(([n, prop]: [string, JSONSchema4], i: number) => {
+                  .map(([n, prop]: [string, JSONSchema4], ) => {
                     return (
                       <JSONSchemaFields
                         key={n}
@@ -180,6 +174,7 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
       </TableCell>
       <TableCell style={{
         ...styles.cellWidth,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         color: colorMap[schema.type as any],
       }}>{schema.type}</TableCell>
       <TableCell style={styles.cellWidth}>{schema.pattern}</TableCell>

@@ -1,50 +1,77 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { cleanup, render, screen } from "@testing-library/react";
+import { it, expect, afterEach } from "vitest";
 import PlaygroundSplitPane from "./PlaygroundSplitPane";
-import * as monaco from "monaco-editor";
+
+afterEach(() => {
+  cleanup();
+});
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<PlaygroundSplitPane
-    left={
+  render(<PlaygroundSplitPane
+    editorComponent={
       <div>Foo</div>
     }
-    right={
+    documentationComponent={
       <div>Bar</div>
     }
-  />, div);
-  ReactDOM.unmountComponentAtNode(div);
+    inspectorComponent={
+      <div>Inspector</div>
+    }
+    inspectorTabComponent={
+      <div>Inspector Tab</div>
+    }
+    showInspector={false}
+    editorAndDocumentationSplit={true}
+  />);
 });
 
 it("renders playground with left and right with split true", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<PlaygroundSplitPane
-    split={true}
-    left={
+  render(<PlaygroundSplitPane
+    inspectorTabComponent={
+      <div>Inspector Tab</div>
+    }
+    editorComponent={
       <div>Foo</div>
     }
-    right={
+    documentationComponent={
       <div>Bar</div>
     }
-  />, div);
-  expect(div.innerHTML.includes("Foo")).toBe(true);
-  expect(div.innerHTML.includes("Bar")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+    inspectorComponent={
+      <div>Inspector</div>
+    }
+    showInspector={false}
+    editorAndDocumentationSplit={true}
+  />);
+  expect(screen.getByText("Foo")).toBeInTheDocument();
+  expect(screen.getByText("Bar")).toBeInTheDocument();
 });
 
 it("renders playground without left when split is false", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<PlaygroundSplitPane
-    split={false}
-    onlyRenderSplit={true}
-    left={
+  render(<PlaygroundSplitPane
+    editorComponent={
       <div>Foo</div>
     }
-    right={
+    documentationComponent={
       <div>Bar</div>
     }
-  />, div);
-  expect(div.innerHTML.includes("Foo")).toBe(false);
-  expect(div.innerHTML.includes("Bar")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+    inspectorComponent={
+      <div>Inspector</div>
+    }
+    showInspector={false}
+    editorAndDocumentationSplit={false}
+  />);
+  
+  // Find the Foo element
+  const fooElement = screen.getByText("Foo");
+  
+  // Get the panel element that contains Foo (parent with data-panel attribute)
+  const panelElement = fooElement.closest('[data-panel]');
+  
+  // Check that the panel has a size of 0
+  expect(panelElement).toHaveAttribute('data-panel-size', '0.0');
+  
+  // Bar should still be visible
+  expect(screen.getByText("Bar")).toBeInTheDocument();
 });
+
