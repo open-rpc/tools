@@ -9,7 +9,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles";
-import MonacoEditor from "@etclabscore/react-monaco-editor";
+import MonacoEditor from "@open-rpc/monaco-editor-react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import "./cardListItem.css";

@@ -13,8 +13,6 @@ export { JSONRPCLogger };
 export default JSONRPCLogger;
 
 // Keep the app rendering for development
-if (typeof document !== 'undefined') {
-  const MyApp = require('./containers/MyApp').default;
-  const ReactDOM = require('react-dom');
-  ReactDOM.render(<MyApp />, document.getElementById("root"));
+if(process.env.NODE_ENV === 'development') {
+ReactDOM.render(<MyApp />, document.getElementById("root"));
 }
