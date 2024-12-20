@@ -1,0 +1,42 @@
+{
+  "name": "@open-rpc/monaco-editor-react",
+  "version": "0.0.0-development",
+  "description": "",
+  "type": "module",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:package": "tsc --build tsconfig.json --verbose ",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "test": "npm run lint && jest --coverage --passWithNoTests",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@material-ui/core": "^4.7.2",
+    "monaco-editor": "0.52.2",
+    "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18.20.5"
+  }
+}

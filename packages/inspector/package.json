@@ -22,7 +22,7 @@
     "build": "rescripts build",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
-    "build:package": "tsc --build tsconfig.json",
+    "build:package": "tsc --build tsconfig.json && cp -r src/*.css build/",
     "clean": "rm -rf build coverage",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
@@ -57,7 +57,7 @@
     "@material-ui/lab": "4.0.0-alpha.47",
     "@monaco-editor/react": "^4.0.0",
     "@open-rpc/client-js": "^1.6.3",
-    "@open-rpc/logs-react": "workspace:*",
+    "@open-rpc/logs-react": "*",
     "@open-rpc/meta-schema": "^1.14.9",
     "@open-rpc/schema-utils-js": "^1.14.3",
     "@rehooks/window-size": "^1.0.2",

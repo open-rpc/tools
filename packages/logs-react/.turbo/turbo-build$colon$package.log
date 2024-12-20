@@ -1,4 +1,0 @@
-
-> @open-rpc/logs-react@0.0.0-development build:package /Users/zcstarr/src/open-rpc/tools/packages/logs-react
-> tsc --build tsconfig.json && cp -r src/**/*.css build/
-
