@@ -3,7 +3,11 @@
   "compilerOptions": {
     "outDir": "./build",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "paths": {
+      "@/*": ["./src/exports"],
+      "@exports": ["./src/exports"]
+    }
   },
-  "include": ["src"]
+  "include": ["src/**/*", "src/**/*.css"]
 }

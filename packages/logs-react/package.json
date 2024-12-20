@@ -3,12 +3,14 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "build/index.js",
-  "module": "build/index.js",
-  "types": "build/index.d.ts",
+  "module": "build/exports.js",
+  "types": "build/exports.d.ts",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
-      "import": "./build/index.js"
+      "types": "./build/exports.d.ts",
+      "import": "./build/exports.js",
+      "default": "./build/exports.js",
+      "require": "./build/exports.js"
     }
   },
   "homepage": "https://open-rpc.github.io/logs-react/",
@@ -21,7 +23,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "build:package": "tsc --build tsconfig.json && cp -r src/**/*.css build/",
+    "build:package": "tsc --build tsconfig.json && cd src && find . -name '*.css' -exec cp -v --parents -t ../build {} +",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
     "clean": "rm -rf build coverage",

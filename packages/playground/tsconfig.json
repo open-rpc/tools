@@ -10,7 +10,8 @@
     "noEmit": true
   },
   "references": [
-    { "path": "../logs-react" }
+    { "path": "../logs-react" },
+    { "path": "../inspector" }
   ],
   "include": [
     "src"

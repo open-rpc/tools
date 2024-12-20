@@ -18,6 +18,8 @@
     { "path": "packages/logs-react" },
     { "path": "packages/inspector" },
     { "path": "packages/docs-react" },
+    { "path": "packages/monaco-editor-react" },
     { "path": "packages/playground" }
-  ]
+  ],
+  "include": ["src/**/*", "src/**/*.css","src/**/*/*.css"],
 }

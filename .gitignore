@@ -7,3 +7,4 @@ LLMLOG.md
 .turbo/
 **/*/.turbo
 tsconfig.tsbuildinfo
+dist/

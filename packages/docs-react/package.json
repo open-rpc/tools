@@ -15,6 +15,7 @@
   "scripts": {
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "build": "tsc --project tsconfig.json && cp src/ContentDescriptor/ContentDescriptor.css build/ContentDescriptor/",
+    "build:package": "tsc --build tsconfig.json && cp src/ContentDescriptor/ContentDescriptor.css build/ContentDescriptor/",
     "test": "jest",
     "start": "react-scripts start",
     "clean": "rm -rf build coverage",

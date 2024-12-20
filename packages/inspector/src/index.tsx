@@ -4,4 +4,9 @@ import App from "./containers/App";
 import "./App.css";
 import "./splitpane.css";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import {default as Inspector} from "./containers/Inspector";
+export default Inspector;
+
+if (typeof document !== 'undefined') {
+  ReactDOM.render(<App />, document.getElementById("root"));
+}

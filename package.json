@@ -5,7 +5,7 @@
   "main": "jest.config.js",
   "scripts": {
     "build": "turbo run build",
-    "build:package": "turbo run build:package --filter=@open-rpc/logs-react^... --filter=@open-rpc/inspector^...",
+    "build:package": "turbo run build:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/docs-react --filter=@open-rpc/logs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "watch": "turbo run build test --watch",

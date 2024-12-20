@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "ordered-imports": false,
+    "no-var-requires": false,
+    "no-console": [true, "log"],
+    "indent": [true, "spaces", 2]
+  }
+}
