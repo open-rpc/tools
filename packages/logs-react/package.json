@@ -3,14 +3,13 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "build/index.js",
-  "module": "build/exports.js",
-  "types": "build/exports.d.ts",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/exports.d.ts",
-      "import": "./build/exports.js",
-      "require": "./build/exports.js",
-      "default": "./build/exports.js"
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "require": "./build/index.js"
     }
   },
   "homepage": "https://open-rpc.github.io/logs-react/",
