@@ -4,9 +4,9 @@
     "outDir": "./build",
     "rootDir": "./src"
   },
-  "include": ["src"],
   "references": [
-    { "path": "../logs-react" }
+    { "path": "../logs-react" },
+    { "path": "../monaco-editor-react" }
   ],
   "include": ["src/**/*", "src/**/*.css"]
 }

@@ -7,7 +7,7 @@ import FlashOn from "@material-ui/icons/FlashOn";
 import FlashOff from "@material-ui/icons/FlashOff";
 import History from "@material-ui/icons/History";
 import Keyboard from "@material-ui/icons/Keyboard";
-import MonacoEditor from "@etclabscore/react-monaco-editor";
+import MonacoEditor from "@open-rpc/monaco-editor-react";
 import PlusIcon from "@material-ui/icons/Add";
 import DocumentIcon from "@material-ui/icons/Description";
 import {

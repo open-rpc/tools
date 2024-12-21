@@ -2,6 +2,7 @@
   "name": "@open-rpc/inspector",
   "version": "0.0.0-development",
   "description": "",
+  "type": "module",
   "main": "build/index.js",
   "module": "build/index.js",
   "types": "build/index.d.ts",
@@ -18,12 +19,13 @@
     "access": "public"
   },
   "scripts": {
-    "start": "rescripts start",
-    "build": "rescripts build",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
     "build:package": "tsc --build tsconfig.json && cp -r src/*.css build/",
-    "clean": "rm -rf build coverage",
+    "clean": "rm -rf build coverage dist",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "author": "",
@@ -51,7 +53,7 @@
   },
   "dependencies": {
     "@etclabscore/monaco-add-json-schema-diagnostics": "^1.0.3",
-    "@etclabscore/react-monaco-editor": "^1.0.4",
+    "@open-rpc/monaco-editor-react": "*",
     "@material-ui/core": "4.9.8",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.47",
@@ -62,7 +64,7 @@
     "@open-rpc/schema-utils-js": "^1.14.3",
     "@rehooks/window-size": "^1.0.2",
     "acorn-dynamic-import": "^4.0.0",
-    "monaco-editor": "^0.30.0",
+    "monaco-editor": "0.52.2",
     "qs": "^6.11.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -71,7 +73,9 @@
     "semantic-release": "^15.13.21",
     "use-dark-mode": "^2.3.1",
     "use-debounce": "^3.3.0",
-    "use-persisted-state": "^0.3.3"
+    "use-persisted-state": "^0.3.3",
+    "vite": "6.0.5",
+    "@vitejs/plugin-react": "4.3.4"
   },
   "engines": {
     "node": ">=18.20.5"
