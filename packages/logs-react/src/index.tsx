@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import React from "react";
 import MyApp from "./containers/MyApp";
 import JSONRPCLogger from "./components/logsReact/logsReact";
@@ -14,5 +14,6 @@ export default JSONRPCLogger;
 
 // Keep the app rendering for development
 if(process.env.NODE_ENV === 'development') {
-ReactDOM.render(<MyApp />, document.getElementById("root"));
+  const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+  root.render(<MyApp />);
 }

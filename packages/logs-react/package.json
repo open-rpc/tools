@@ -22,6 +22,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "clean:package": "rm -rf build && rm -rf tsconfig.tsbuildinfo",
     "build:package": "tsc --build tsconfig.json && cd src && find . -name '*.css' -exec cp -v --parents -t ../build {} +",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
@@ -31,25 +32,25 @@
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/react-dom": "^16.9.4",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^6.6.0",
     "vite": "6.0.5"
   },
   "dependencies": {
     "@etclabscore/monaco-add-json-schema-diagnostics": "^1.0.3",
-    "@etclabscore/react-monaco-editor": "^1.0.4",
-    "@material-ui/core": "4.9.8",
-    "@material-ui/icons": "4.9.1",
-    "@material-ui/lab": "4.0.0-alpha.47",
+    "@mui/icons-material": "^6.3.1",
+    "@mui/lab": "^6.0.0-beta.22",
+    "@mui/material": "^6.3.1",
+    "@mui/styles": "^6.3.1",
     "@open-rpc/meta-schema": "^1.14.9",
+    "@open-rpc/monaco-editor-react": "*",
     "@types/chrome": "0.0.108",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.16.1",
     "moment": "^2.24.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-i18next": "^10.13.1"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "engines": {
     "node": ">=18.20.5"
