@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { MuiThemeProvider, CssBaseline } from "@material-ui/core"; //tslint:disable-line
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { ThemeProvider, CssBaseline } from "@mui/material"; //tslint:disable-line
+import useMediaQuery from "@mui/material/useMediaQuery";
 import makeTheme from "../themes/theme";
 import "./MyApp.css";
 import JSONRPCLogger, { IJSONRPCLog } from "../components/logsReact/logsReact";
@@ -148,7 +148,7 @@ const MyApp: React.FC = () => {
 
   // do not render monaco if collapsed -> see docs
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <div>
         <CssBaseline />
         <JSONRPCLogger logs={newHistory} sidebarAlign="right" openrpcDocument={{
@@ -160,7 +160,7 @@ const MyApp: React.FC = () => {
           ],
         } as any} />
       </div>
-    </MuiThemeProvider >
+    </ThemeProvider >
   );
 };
 
