@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { styled } from '@mui/material/styles';
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import LogChips from "../logChips/LogChips";
 import { formatRelative } from "date-fns";
@@ -8,7 +9,7 @@ import {
   Snackbar,
   Button,
 } from "@mui/material";
-import { makeStyles, Theme, createStyles, useTheme } from "@mui/styles";
+import { Theme, useTheme } from "@mui/material/styles";
 import MonacoEditor from "@open-rpc/monaco-editor-react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -21,6 +22,29 @@ import * as monaco from "monaco-editor";
 import openrpcDocumentToJSONRPCSchema from "../../helpers/openrpcDocumentToJSONRPCSchema";
 import openrpcDocumentToJSONRPCSchemaResult from "../../helpers/openrpcDocumentToJSONRPCSchemaResult";
 
+const PREFIX = 'cardListItem';
+
+const classes = {
+  cardHeader: `${PREFIX}-cardHeader`,
+  cardContent: `${PREFIX}-cardContent`
+};
+
+const StyledBox = styled(Box)((
+  {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.cardHeader}`]: {
+    padding: "8px",
+    paddingBottom: "0px",
+    paddingTop: "0px",
+  },
+
+  [`& .${classes.cardContent}`]: {
+    padding: "8px !important",
+  }
+}));
+
 interface IProps {
   log: IJSONRPCLog;
   filter: string[];
@@ -29,26 +53,13 @@ interface IProps {
 }
 
 const getLogItemBackground = (log: IJSONRPCLog, theme: Theme): any => {
-  const paletteType = theme.palette.type;
+  const paletteType = theme.palette.mode;
   if (log.payload.error) {
     return { backgroundColor: theme.palette.error[paletteType] };
   }
 
   return {};
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    cardHeader: {
-      padding: "8px",
-      paddingBottom: "0px",
-      paddingTop: "0px",
-    },
-    cardContent: {
-      padding: "8px !important",
-    },
-  }),
-);
 
 const getCardStyle = (log: IJSONRPCLog) => {
   if (log.method.includes("rpc.")) {
@@ -69,7 +80,7 @@ const CardListItem: React.FC<IProps> = (props) => {
   const callClass = getCardStyle(props.log);
   const [open, setOpen] = useState(false);
   const [editor, setEditor] = useState();
-  const classes = useStyles();
+
 
   // BEGIN HEIGHT SETTING SHANAYNAYS
   const MAX_HEIGHT = 300;
@@ -133,7 +144,7 @@ const CardListItem: React.FC<IProps> = (props) => {
   };
 
   return (
-    <Box m={2} key={JSON.stringify(props.log)} className={[
+    (<StyledBox m={2} key={JSON.stringify(props.log)} className={[
       "call-box",
       `${props.log.type === "response" ? "response" : ""}`,
       `${props.filter.includes(props.log.method) || props.filter.includes("all") ? "" : "hidden"}`,
@@ -205,7 +216,7 @@ const CardListItem: React.FC<IProps> = (props) => {
           </Accordion>
         </CardContent>
       </Card>
-    </Box>
+    </StyledBox>)
   );
 };
 
