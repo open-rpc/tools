@@ -9,7 +9,7 @@ const classes = {
   hide: `${PREFIX}-hide`
 };
 
-const Root = styled('section')({
+const Section = styled('section')({
   [`&.${classes.wrapper}`]: {
     display: "flex",
     position: "relative",
@@ -36,12 +36,12 @@ interface IProps {
 const MonacoContainer: React.FC<IProps> = ({ width, height, reference }) => {
 
   return (
-    (<Root className={classes.wrapper} style={{ width, height }}>
+    (<Section className={classes.wrapper} style={{ width, height }}>
       <div
         ref={reference}
         className={classes.fullWidth}
       />
-    </Root>)
+    </Section>)
   );
 };
 
