@@ -3,15 +3,15 @@ import { IJSONRPCLog } from "../logsReact/logsReact";
 import LogChips from "../logChips/LogChips";
 import { formatRelative } from "date-fns";
 import {
-  Typography, Card, Box, CardHeader, CardContent, ExpansionPanel,
-  ExpansionPanelDetails, ExpansionPanelSummary, Tooltip,
+  Typography, Card, Box, CardHeader, CardContent, Accordion,
+  AccordionDetails, AccordionSummary, Tooltip,
   Snackbar,
   Button,
-} from "@material-ui/core";
-import { makeStyles, Theme, createStyles, useTheme } from "@material-ui/core/styles";
+} from "@mui/material";
+import { makeStyles, Theme, createStyles, useTheme } from "@mui/styles";
 import MonacoEditor from "@open-rpc/monaco-editor-react";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import "./cardListItem.css";
 import Alert from "../alert/alert";
 import copy from "copy-to-clipboard";
@@ -76,7 +76,11 @@ const CardListItem: React.FC<IProps> = (props) => {
   const MIN_COUNT_OF_LINES = 3;
   const LINE_HEIGHT = 20;
   const [height, setHeight] = useState(170);
-  const valueGetter = useRef();
+
+  // TODO: fix this
+  //const valueGetter = useRef();
+  const valueGetter = useRef<any| null>(null);
+
   const handleEditorChange = useCallback(() => {
     const countOfLines = (valueGetter as any).current
       .getValue()
@@ -155,10 +159,10 @@ const CardListItem: React.FC<IProps> = (props) => {
             :
             null
           }
-          <ExpansionPanel
+          <Accordion
             defaultExpanded={true}
           >
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Tooltip title="Copy to clipboard">
                 <Button
                   onClick={(event) => handleCopy(event, props.log.payload)}
@@ -169,8 +173,8 @@ const CardListItem: React.FC<IProps> = (props) => {
                   Payload
                 </Button>
               </Tooltip>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails style={{ margin: 0, padding: 0 }}>
+            </AccordionSummary>
+            <AccordionDetails style={{ margin: 0, padding: 0 }}>
               <MonacoEditor
                 width="100%"
                 height={height}
@@ -197,8 +201,8 @@ const CardListItem: React.FC<IProps> = (props) => {
                   readOnly: true,
                 }}
               />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </CardContent>
       </Card>
     </Box>
