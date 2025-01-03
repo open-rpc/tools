@@ -1,29 +1,33 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const darkTheme = (prefersDarkMode: boolean) => {
-  return createMuiTheme({
-    props: {
+  return createTheme({
+    components: {
       MuiAppBar: {
-        position: "sticky",
+        defaultProps: {
+          position: "sticky",
+        },
+        styleOverrides: {
+          root: {
+            background: "transparent !important",
+          },
+        }
       },
       MuiCard: {
-        elevation: 0,
-      },
-    },
-    palette: {
-      type: prefersDarkMode ? "dark" : "light",
-    },
-    overrides: {
-      MuiAppBar: {
-        root: {
-          background: "transparent !important",
+        defaultProps: {
+          elevation: 0,
         },
       },
       MuiTable: {
-        root: {
-          background: "transparent !important",
-        },
-      },
+        styleOverrides: {
+          root: {
+            background: "transparent !important",
+          },
+        }
+      }
+    },
+    palette: {
+      mode: prefersDarkMode ? "dark" : "light",
     },
   });
 };
