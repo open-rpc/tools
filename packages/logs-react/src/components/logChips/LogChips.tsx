@@ -1,14 +1,14 @@
 import React from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
-import {Chip} from "@material-ui/core";
-import { Theme, useTheme } from "@material-ui/core/styles";
+import {Chip} from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
 
 interface IProps {
   log: IJSONRPCLog;
 }
 
 const getChipColorForLog = (log: IJSONRPCLog, theme: Theme, isNotification = false): any => {
-  const paletteType = theme.palette.type;
+  const paletteType = theme.palette.mode;
   const styles: any = {
     backgroundColor: theme.palette.success[paletteType],
   };
