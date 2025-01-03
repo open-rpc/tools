@@ -1,5 +1,27 @@
 import React, { RefObject } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
+
+const PREFIX = 'MonacoContainer';
+
+const classes = {
+  wrapper: `${PREFIX}-wrapper`,
+  fullWidth: `${PREFIX}-fullWidth`,
+  hide: `${PREFIX}-hide`
+};
+
+const Root = styled('section')({
+  [`&.${classes.wrapper}`]: {
+    display: "flex",
+    position: "relative",
+    textAlign: "initial",
+  },
+  [`& .${classes.fullWidth}`]: {
+    width: "100%",
+  },
+  [`& .${classes.hide}`]: {
+    display: "none",
+  },
+});
 
 interface IProps {
   width?: string | number;
@@ -10,29 +32,16 @@ interface IProps {
   reference: RefObject<any>;
 }
 
-const useStyles = makeStyles({
-  wrapper: {
-    display: "flex",
-    position: "relative",
-    textAlign: "initial",
-  },
-  fullWidth: {
-    width: "100%",
-  },
-  hide: {
-    display: "none",
-  },
-});
 
 const MonacoContainer: React.FC<IProps> = ({ width, height, reference }) => {
-  const classes = useStyles({});
+
   return (
-    <section className={classes.wrapper} style={{ width, height }}>
+    (<Root className={classes.wrapper} style={{ width, height }}>
       <div
         ref={reference}
         className={classes.fullWidth}
       />
-    </section>
+    </Root>)
   );
 };
 
