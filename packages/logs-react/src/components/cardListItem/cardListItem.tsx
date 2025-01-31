@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { Theme, useTheme } from "@mui/material/styles";
-import MonacoEditor from "@open-rpc/monaco-editor-react";
+import { MonacoEditor } from "@open-rpc/monaco-editor-react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import "./cardListItem.css";
@@ -175,14 +175,13 @@ const CardListItem: React.FC<IProps> = (props) => {
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Tooltip title="Copy to clipboard">
-                <Button
+                <div  // Changed from Button to div
                   onClick={(event) => handleCopy(event, props.log.payload)}
-                  endIcon={
-                    <AssignmentIcon style={{ fontSize: 14 }} />
-                  }
+                  style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
                 >
-                  Payload
-                </Button>
+                  <Typography>Payload</Typography>
+                  <AssignmentIcon style={{ fontSize: 14, marginLeft: 8 }} />
+                </div>
               </Tooltip>
             </AccordionSummary>
             <AccordionDetails style={{ margin: 0, padding: 0 }}>
