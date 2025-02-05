@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, './src'),
       'monaco-editor/esm/vs/editor/editor.worker':
         'monaco-editor/esm/vs/editor/editor.worker?worker',
       'monaco-editor/esm/vs/language/json/json.worker':
@@ -15,22 +17,28 @@ export default defineConfig({
         'monaco-editor/esm/vs/language/typescript/ts.worker?worker',
     },
   },
-  optimizeDeps: {
-    exclude: ['monaco-editor'],
-  },
   build: {
-    target: 'esnext',
-    assetsInlineLimit: 0,
     lib: {
-      entry: 'src/index.tsx',
+      entry: path.resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-      fileName: 'index',
+      fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', '@mui/material', '@mui/icons-material', 'monaco-editor'],
-    },
+      external: ['react', 'react-dom', '@mui/material', 'monaco-editor', /^monaco-editor\/.*/],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          '@mui/material': '@mui/material',
+          'monaco-editor': 'monaco'
+        }
+      }
+    }
+  },
+  optimizeDeps: {
+    exclude: ['monaco-editor']
   },
   worker: {
     format: 'es',
-  },
+  }
 });
