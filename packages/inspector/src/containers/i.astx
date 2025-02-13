@@ -1,0 +1,85 @@
+<SplitPane
+        split="vertical"
+        minSize={100}
+        maxSize={-100}
+        defaultSize={"50%"}
+        pane2Style={{ height: "100%", width: "100%", overflow: "auto" }}
+        style={{ flexGrow: 1, height: "calc(100% - 128px)" }}>
+        <SplitPane
+          split="horizontal"
+          minSize={100}
+          maxSize={-100}
+          defaultSize={(selectedTransport as IWebTransport).schema ? "85%" : "100%"}
+          pane2Style={{ height: "100%", width: "100%", overflow: "auto" }}
+          style={{ flexGrow: 1, height: "calc(100% - 128px)" }}>
+          <JSONRPCRequestEditor
+            onChange={(val) => {
+              let jsonResult;
+              try {
+                jsonResult = JSON.parse(val);
+              } catch (e) {
+                console.error(e);
+              }
+              if (jsonResult) {
+                setJson(jsonResult);
+                setTabContent(tabIndex, jsonResult);
+              }
+            }}
+            openrpcDocument={openrpcDocument}
+            value={JSON.stringify(json, null, 4)}
+          />
+          {(selectedTransport as IWebTransport).schema && <OptionsEditor
+            schema={(selectedTransport as IWebTransport).schema}
+            value={JSON.stringify(transportOptions, null, 4)}
+            onChange={handleTransportOptionsChange}>
+          </OptionsEditor>
+          }
+        </SplitPane>
+        <>
+          {logs.length > 0 &&
+            <Button
+              variant="contained"
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                top: "5px",
+                right: "50px",
+                zIndex: 2,
+                background: "rgba(255,255,255,0.2)",
+              }}
+              onClick={handleClearButton}>
+              Clear
+            </Button>
+          }
+          {logs.length === 0 &&
+            <Container maxWidth="sm">
+              <Grid container justify="center" style={{ paddingTop: "40px" }}>
+                <Typography gutterBottom>Press the Play button to see the results here.</Typography>
+                <Typography>
+                  Use&nbsp;
+                  <Button
+                    startIcon={<Keyboard />}
+                    variant="contained"
+                    disabled
+                    size="small"
+                    style={{ marginRight: "3px" }}
+                  >
+                    CTRL + SPACE
+                   </Button>
+                  to auto-complete in the editor.
+            </Typography>
+              </Grid>
+            </Container>
+          }
+          {logs.length !== 0 &&
+            <div style={{ height: "100%" }}>
+              <JSONRPCLogger
+                sidebarOpen={false}
+                openrpcDocument={openrpcDocument}
+                logs={logs}
+                sidebarAlign={"right"}
+                openRecentPayload={true} />
+            </div>
+          }
+        </>
+      </SplitPane>

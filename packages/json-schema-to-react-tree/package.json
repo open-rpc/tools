@@ -1,0 +1,69 @@
+{
+  "name": "@open-rpc/json-schema-to-react-tree",
+  "version": "0.0.0-development",
+  "homepage": "",
+  "description": "json-schema to react material-ui tree",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "clean:package": "rm -rf build && rm -rf tsconfig.tsbuildinfo",
+    "build:package": "tsc --build tsconfig.json && cd src && find . -name '*.css' -exec cp -v --parents -t ../build {} +",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "clean": "rm -rf build coverage",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/react-dom": "19.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^6.6.0",
+    "typescript": "^5.0.0",
+    "vite": "6.0.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.3.1",
+    "@mui/material": "^6.3.1",
+    "@mui/x-tree-view": "7.23.2",
+    "@types/json-schema": "^7.0.4",
+    "@types/uuid": "^7.0.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "json-schema": "^0.2.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "uuid": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=18.20.5"
+  }
+}

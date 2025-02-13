@@ -3,6 +3,7 @@ import CardList from "../cardList/cardList";
 import clsx from "clsx";
 import {  Theme, styled } from "@mui/material/styles";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
+//import '../../utils/monacoWorker';
 
 const PREFIX = 'JSONRPCLogger';
 
@@ -89,6 +90,7 @@ interface IProps {
   sidebarAlign?: AlignString;
   sidebarOpen?: boolean;
   openrpcDocument?: OpenrpcDocument;
+  darkMode?: boolean;
 }
 
 const drawerWidth = 200;
@@ -121,6 +123,8 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
               logs={props.logs}
               filter={methodFilter}
               openRecentPayload={openRecentPayload}
+              openrpcDocument={props.openrpcDocument}
+              darkMode={props.darkMode}
             />
             <div ref={cardEndRef} />
           </div>
@@ -133,6 +137,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
               filter={methodFilter}
               openRecentPayload={openRecentPayload}
               openrpcDocument={props.openrpcDocument}
+              darkMode={props.darkMode}
             />
             <div ref={cardEndRef} />
           </div>

@@ -1,35 +1,51 @@
 import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
-import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
+import { Typography, Chip, Button } from "@mui/material";
+import { Theme, styled } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 
-const styles = (theme: Theme) => ({
-  button: {
+const PREFIX = 'Info';
+
+const classes = {
+  button: `${PREFIX}-button`,
+  chip: `${PREFIX}-chip`,
+  description: `${PREFIX}-description`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.button}`]: {
     margin: theme.spacing(2),
   },
-  chip: {
+
+  [`& .${classes.chip}`]: {
     margin: theme.spacing(2),
   },
-  description: {
+
+  [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
     padding: `${theme.spacing(2)}px 0 ${theme.spacing(2)}px 0`,
-  },
-});
+  }
+}));
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps{
   schema?: OpenrpcDocument;
 }
 
 class Info extends Component<IProps> {
   public render() {
-    const { schema, classes } = this.props;
+    const { schema, } = this.props;
     if (!schema || !schema.info) { return null; }
     const info = schema.info;
+    
     return (
-      <>
+      (<Root>
         {info.title && <Typography variant="h2" gutterBottom>{info.title}</Typography>}
         {info.version && <Chip label={info.version}/>}
         {info.license &&
@@ -42,7 +58,7 @@ class Info extends Component<IProps> {
             clickable
             color="primary"
             label={info.license.name} />}
-        {info.description && <ReactMarkdown className={classes.description} source={info.description}/>}
+        {info.description && <ReactMarkdown className={classes.description}>{info.description}</ReactMarkdown>}
         {info.termsOfService &&
           <Button className={classes.button} variant="contained" href={info.termsOfService}>Terms Of Service</Button>}
         {info.contact &&
@@ -56,9 +72,9 @@ class Info extends Component<IProps> {
               className={classes.button}
               variant="contained"
               href={`mailto:${info.contact.email}`}>Email {info.contact.name}</Button>}
-      </>
+      </Root>)
     );
   }
 }
 
-export default withStyles(styles)(Info);
+export default Info;

@@ -1,5 +1,5 @@
-import { useState, useEffect, Dispatch } from "react";
-import { IJSONRPCLog } from "../components/logsReact/logsReact";
+import { useState, useEffect, Dispatch } from 'react';
+import { IJSONRPCLog } from '../components/logsReact/logsReact';
 
 let batchIdCount = 0;
 
@@ -11,12 +11,12 @@ const isJsonRpc = (str: string) => {
       // Currently on returns batched request if all items are JSONRPC calls
       if (json.length > 0) {
         for (const obj of json) {
-          if (!("jsonrpc" in obj)) {
+          if (!('jsonrpc' in obj)) {
             return false;
           }
         }
         return true;
-      } else if ("jsonrpc" in json) {
+      } else if ('jsonrpc' in json) {
         return true;
       } else {
         return false;
@@ -33,75 +33,80 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
   const listener = (request: any) => {
     const requestBody = request.request.postData?.text;
     request.getContent((responseBody: any) => {
-      if (request.request && request.request.url && requestBody
-        && isJsonRpc(requestBody) && isJsonRpc(responseBody)) {
+      if (
+        request.request &&
+        request.request.url &&
+        requestBody &&
+        isJsonRpc(requestBody) &&
+        isJsonRpc(responseBody)
+      ) {
         const requestBodyObj = JSON.parse(requestBody);
         const requestObjs: IJSONRPCLog[] = [];
         const responseObjs: IJSONRPCLog[] = [];
         // if batched
         if (requestBodyObj.length) {
           for (const [reqObj] of requestBodyObj) {
-            requestObjs.push(
-              {
-                type: "request",
-                method: reqObj.method,
-                timestamp: new Date(request.startedDateTime),
-                payload: reqObj,
-                batchId: batchIdCount,
-              },
-            );
+            requestObjs.push({
+              type: 'request',
+              method: reqObj.method,
+              timestamp: new Date(request.startedDateTime),
+              payload: reqObj,
+              batchId: batchIdCount,
+            });
           }
           batchIdCount += 1;
         } else {
-          requestObjs.push(
-            {
-              type: "request",
-              method: requestBodyObj.method,
-              timestamp: new Date(request.startedDateTime),
-              payload: requestBodyObj,
-            },
-          );
+          requestObjs.push({
+            type: 'request',
+            method: requestBodyObj.method,
+            timestamp: new Date(request.startedDateTime),
+            payload: requestBodyObj,
+          });
         }
 
         const responseTime = new Date(request.startedDateTime);
         const responseBodyObj = JSON.parse(responseBody);
-        responseTime.setMilliseconds((responseTime.getMilliseconds() + request.time));
+        responseTime.setMilliseconds(responseTime.getMilliseconds() + request.time);
         // if batched
         if (responseBodyObj.length) {
           for (const [j, resObj] of responseBodyObj) {
-            responseObjs.push(
-              {
-                type: "response",
-                method: requestBodyObj[j].method,
-                timestamp: responseTime,
-                payload: resObj,
-                batchId: batchIdCount,
-              },
-            );
+            responseObjs.push({
+              type: 'response',
+              method: requestBodyObj[j].method,
+              timestamp: responseTime,
+              payload: resObj,
+              batchId: batchIdCount,
+            });
           }
           batchIdCount += 1;
         } else {
-          responseObjs.push(
-            {
-              type: "response",
-              method: requestBodyObj.method,
-              timestamp: responseTime,
-              payload: responseBodyObj,
-            },
-          );
-
+          responseObjs.push({
+            type: 'response',
+            method: requestBodyObj.method,
+            timestamp: responseTime,
+            payload: responseBodyObj,
+          });
         }
-        setHistory((prevHistory) => [...prevHistory, ...requestObjs, ...responseObjs]);
+        setHistory(prevHistory => [...prevHistory, ...requestObjs, ...responseObjs]);
       }
     });
   };
+
   useEffect(() => {
-    if (chrome && chrome.webRequest) {
-      chrome.devtools.network.onRequestFinished.addListener(listener);
+    const devToolsNetwork =
+      typeof chrome !== 'undefined' && chrome.devtools && chrome.devtools.network
+        ? chrome.devtools.network
+        : typeof browser !== 'undefined' && browser.devtools && browser.devtools.network
+        ? browser.devtools.network
+        : null;
+
+    if (devToolsNetwork) {
+      devToolsNetwork.onRequestFinished.addListener(listener);
     }
+
     return function cleanup() {
-      if (chrome && chrome.webRequest) {
-        chrome.devtools.network.onRequestFinished.removeListener(listener);
+      if (devToolsNetwork) {
+        devToolsNetwork.onRequestFinished.removeListener(listener);
       }
     };
   }, []);

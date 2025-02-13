@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TagObject } from "@open-rpc/meta-schema";
-import { Chip } from "@material-ui/core";
-import hashColor from "hash-color-material";
+import { Chip } from "@mui/material";
+import * as hashColor from "../util/hashColor";
 
 interface IProps {
   tags?: TagObject[];
@@ -21,7 +21,7 @@ export default class Tags extends Component<IProps> {
               <Chip
                 key={tag.name}
                 label={tag.name}
-                style={{ backgroundColor: hashColor(tag.name) }}
+                style={{ backgroundColor: hashColor.getColorFromString(tag.name) }}
               />
             );
           })

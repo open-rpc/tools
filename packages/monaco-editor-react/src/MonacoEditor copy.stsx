@@ -1,0 +1,97 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useRef, useEffect, RefObject } from "react";
+import MonacoContainer from "./MonacoContainer";
+import './monacoWorker';
+import * as monaco from "monaco-editor";
+
+
+// Initialize Monaco workers once
+
+interface IProps {
+  value: string;
+  language: string;
+  editorDidMount: (editor: any, ref: React.RefObject<any>) => any;
+  onChange?: (ev: any, value: string) => any;
+  editorOptions?: any;
+  line?: number;
+  loading?: Element | string;
+  width?: string | number;
+  height?: string | number;
+  controlled?: boolean;
+}
+
+const MonacoEditor = ({ width, height, loading, value, language, editorOptions, editorDidMount, onChange }: IProps): React.ReactElement => {
+  const [isEditorReady, setIsEditorReady] = useState(false);
+  const previousValue = useRef(value);
+  const containerRef = useRef<any>(null);
+  const editorRef = useRef<any>(null);
+
+  const createEditor = () => {
+    if (!containerRef || !containerRef.current) return;
+
+    const model = monaco.editor.createModel(value, language);
+    const resultOptions = {
+      model,
+      ...editorOptions,
+    };
+
+    editorRef.current = monaco.editor.create(containerRef.current, resultOptions);
+    editorDidMount(editorRef.current, containerRef);
+
+    setIsEditorReady(true);
+    editorRef.current.onDidChangeModelContent((ev: any) => {
+      const currentValue = editorRef.current!.getValue();
+      if (currentValue !== previousValue.current && !(ev.isUndoing || ev.isRedoing)) {
+        previousValue.current = currentValue;
+        if (onChange) {
+          onChange(ev, currentValue);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    createEditor();
+    return () => {
+      if (editorRef.current) {
+        const model = editorRef.current.getModel();
+        if (model) model.dispose();
+        editorRef.current.dispose();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!editorRef.current) return;
+    
+    const model = editorRef.current.getModel();
+    if (!model) return;
+
+    if (editorOptions?.readOnly) {
+      model.setValue(value);
+    } else if (model.getValue() !== value) {
+      model.pushEditOperations(
+        [],
+        [
+          {
+            range: model.getFullModelRange(),
+            text: value,
+          },
+        ],
+        () => null
+      );
+    }
+  }, [value, editorOptions?.readOnly]);
+
+  return (
+    <MonacoContainer
+      width={width}
+      height={height}
+      isEditorReady={isEditorReady}
+      loading={loading}
+      reference={containerRef}
+    />
+  );
+};
+
+export default MonacoEditor;

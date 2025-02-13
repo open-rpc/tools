@@ -1,9 +1,10 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import ExamplePairing from "./ExamplePairing";
 import examples from "@open-rpc/examples";
 import refParser from "json-schema-ref-parser";
 import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
+import { render, screen } from '@testing-library/react';
 
 const isMethodObject = (method: any): method is MethodObject => {
   return method && 
@@ -13,38 +14,34 @@ const isMethodObject = (method: any): method is MethodObject => {
 };
 
 it("renders handles no method", async () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ExamplePairing methodName={undefined} examplePairing={{} as any} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ExamplePairing methodName={undefined} examplePairing={{} as any} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders handles no method examples", async () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ExamplePairing methodName={"foo"} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ExamplePairing methodName={"foo"} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders examples", async () => {
-  const div = document.createElement("div");
   const simpleMath = await refParser.dereference(examples.simpleMath) as OpenrpcDocument;
   const method = simpleMath.methods[0];
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairing
       methodName={method.name}
       examplePairing={method.examples && method.examples[0] as any}
-    />, div);
-  expect(div.innerHTML.includes("2")).toBe(true);
-  expect(div.innerHTML.includes("4")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+  
+  expect(screen.getAllByText("2")).toHaveLength(2);
+  expect(screen.getByText("4")).toBeInTheDocument();
 });
 
 it("renders examples with params by-name", async () => {
-  const div = document.createElement("div");
   const method: MethodObject = {
     examples: [
       {
@@ -76,13 +73,15 @@ it("renders examples with params by-name", async () => {
       },
     },
   };
-  ReactDOM.render(
+  
+  render(
     <ExamplePairing
       methodName={method.name}
       examplePairing={method.examples && method.examples[0] as ExamplePairingObject}
-      paramStructure={method.paramStructure || "by-position"} />
-    , div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("bar")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+      paramStructure={method.paramStructure || "by-position"} 
+    />
+  );
+  
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getByText("bar")).toBeInTheDocument();
 });

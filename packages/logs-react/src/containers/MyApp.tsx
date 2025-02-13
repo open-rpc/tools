@@ -11,24 +11,25 @@ const MyApp: React.FC = () => {
   const [newHistory, setHistory] = useWebRequest();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const theme = React.useMemo(
-    () => makeTheme(prefersDarkMode),
-    [prefersDarkMode],
-  );
+  const theme = React.useMemo(() => makeTheme(prefersDarkMode), [prefersDarkMode]);
 
   useEffect(() => {
     const t = prefersDarkMode ? "vs-dark" : "vs";
-    monaco.editor.setTheme(t);
+    monaco.editor.setTheme("vs-dark");
   }, [prefersDarkMode, theme]);
 
   useEffect(() => {
-    if (chrome && chrome.devtools && chrome.devtools.panels) {
+    // Use devtools panels API from Chrome or Firefox
+    const devToolsPanels =
+      typeof chrome !== "undefined" && chrome.devtools && chrome.devtools.panels
+        ? chrome.devtools.panels
+        : typeof browser !== "undefined" && browser.devtools && browser.devtools.panels
+          ? browser.devtools.panels
+          : null;
+
+    if (devToolsPanels) {
       // Create devtools panel for JSONRPCLogger extension
-      chrome.devtools.panels.create("JSONRPCLogger",
-        "",
-        "index.html",
-        (panel) => { return; },
-      );
+      devToolsPanels.create("JSONRPCLogger", "", "index.html", (panel: any) => {});
     } else {
       const logs: IJSONRPCLog[] = [
         {
@@ -40,7 +41,7 @@ const MyApp: React.FC = () => {
             method: "foo",
           },
         },
-        {
+       {
           timestamp: new Date(),
           type: "request",
           method: "foo",
@@ -107,16 +108,7 @@ const MyApp: React.FC = () => {
               foo: "bar",
               baz: "foo",
               bar: "baz",
-              listOfNothings: [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-              ],
+              listOfNothings: [1, 2, 3, 4, 5, 6, 7, 8],
             },
           },
         },
@@ -151,16 +143,21 @@ const MyApp: React.FC = () => {
     <ThemeProvider theme={theme}>
       <div>
         <CssBaseline />
-        <JSONRPCLogger logs={newHistory} sidebarAlign="right" openrpcDocument={{
-          methods: [
-            {
-              name: "foo",
-              description: "potato",
-            },
-          ],
-        } as any} />
+        <JSONRPCLogger
+          logs={newHistory}
+          darkMode={true}
+          sidebarAlign="right"
+          openrpcDocument={{
+            methods: [
+              {
+                name: "foo",
+                description: "potato",
+              },
+            ],
+          } as any}
+        />
       </div>
-    </ThemeProvider >
+    </ThemeProvider>
   );
 };
 

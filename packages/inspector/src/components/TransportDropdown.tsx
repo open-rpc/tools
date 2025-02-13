@@ -1,8 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
-import { Button, Menu, MenuItem, Typography, Dialog, Container, Grid, InputBase } from "@material-ui/core";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
-import PlusIcon from "@material-ui/icons/Add";
-import DropdownArrowIcon from "@material-ui/icons/ArrowDropDown";
+import { Button, Menu, MenuItem, Typography, Dialog, Container, Grid, InputBase } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { ITransport } from "../hooks/useTransport";
 
 interface IProps {
@@ -10,10 +8,10 @@ interface IProps {
   selectedTransport: ITransport;
   onChange: (changedTransport: ITransport) => void;
   onAddTransport: (addedTransport: ITransport) => void;
-  style?: CSSProperties;
+  style?: React.CSSProperties;
 }
 
-const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
+export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -66,7 +64,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
         <Container maxWidth="sm">
           <Grid
             container
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{ padding: "30px", paddingTop: "10px", paddingBottom: "10px", marginTop: "10px" }}>
             <Typography variant="h6">Custom Transport Plugin</Typography>
@@ -145,7 +143,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
           marginLeft: "5px",
         }}
         variant="outlined"
-        onClick={handleClick} endIcon={<DropdownArrowIcon />}
+        onClick={handleClick} endIcon={<div />}
       >{selectedTransport && selectedTransport.name}</Button>
       <Menu
         id="transport-menu"
@@ -158,7 +156,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
           <MenuItem key={transport.name} onClick={() => handleMenuItemClick(transport)}>{transport.name}</MenuItem>
         ))}
         <MenuItem onClick={() => setDialogOpen(true)}>
-          <PlusIcon style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
+         <AddIcon style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
         </MenuItem>
       </Menu>
     </div>

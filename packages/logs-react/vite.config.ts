@@ -23,8 +23,8 @@ export default defineConfig({
     assetsInlineLimit: 0,
     lib: {
       entry: 'src/index.tsx',
-      formats: ['es'],
-      fileName: 'index',
+      formats: ['es', 'cjs'],
+      fileName: format => (format === 'cjs' ? 'index.cjs.js' : 'index.es.js'),
     },
     rollupOptions: {
       external: ['react', 'react-dom', '@mui/material', '@mui/icons-material', 'monaco-editor'],

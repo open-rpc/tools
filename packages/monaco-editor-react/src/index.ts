@@ -1,2 +1,2 @@
-import MonacoEditor from "./MonacoEditor";
-export default MonacoEditor;
+export { MonacoEditor } from './MonacoEditor.tsx';
+export { addDiagnostics } from './diagnostics';

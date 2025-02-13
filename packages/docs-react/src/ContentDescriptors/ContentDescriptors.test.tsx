@@ -1,31 +1,25 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import ContentDescriptors from "./ContentDescriptors";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
+import { render, screen } from '@testing-library/react';
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ContentDescriptors />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ContentDescriptors />);
 });
 
 it("renders empty with no schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ContentDescriptors />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ContentDescriptors />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders empty with empty schema", () => {
-  const div = document.createElement("div");
   const emptySchema = {} as OpenrpcDocument;
-  ReactDOM.render(<ContentDescriptors schema={emptySchema}/>, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ContentDescriptors schema={emptySchema}/>);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders a name", () => {
-  const div = document.createElement("div");
   const schema = {
     components: {
       contentDescriptors: {
@@ -34,8 +28,8 @@ it("renders a name", () => {
         },
       },
     },
-  } as any;
-  ReactDOM.render(<ContentDescriptors schema={schema} disableTransitionProps={true}/>, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  } as OpenrpcDocument;
+  
+  render(<ContentDescriptors schema={schema} disableTransitionProps={true}/>);
+  expect(screen.getByText("foo")).toBeInTheDocument();
 });

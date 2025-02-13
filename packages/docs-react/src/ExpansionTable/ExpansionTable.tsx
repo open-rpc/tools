@@ -1,43 +1,57 @@
 import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
-import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import { Theme } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-const styles = (theme: Theme) => ({
-  heading: {
+const PREFIX = 'ExpansionTable';
+
+const classes = {
+  heading: `${PREFIX}-heading`,
+  root: `${PREFIX}-root`,
+  secondaryHeading: `${PREFIX}-secondaryHeading`
+};
+
+const StyledTable = styled(Table)((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.heading}`]: {
     flexBasis: "33.33%",
     flexShrink: 0,
     fontSize: theme.typography.pxToRem(15),
   },
-  root: {
+
+  [`& .${classes.root}`]: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(6),
     width: "100%",
   },
-  secondaryHeading: {
+
+  [`& .${classes.secondaryHeading}`]: {
     alignSelf: "end",
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(15),
-  },
-});
+  }
+}));
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   headers?: string[];
   children: any;
 }
 
 class ExpansionTable extends Component<IProps> {
   public render() {
-    const { headers, children, classes } = this.props;
+    const { headers, children, } = this.props;
     if (!headers || headers.length === 0) { return null; }
     return (
-      <Table>
+      (<StyledTable>
         <TableHead>
           <TableRow>
             {headers.map((header, i) => {
@@ -50,9 +64,9 @@ class ExpansionTable extends Component<IProps> {
         <TableBody>
           {children}
         </TableBody>
-      </Table>
+      </StyledTable>)
     );
   }
 }
 
-export default withStyles(styles)(ExpansionTable);
+export default (ExpansionTable);

@@ -1,9 +1,9 @@
 import React from "react";
 import { JSONSchema4 } from "json-schema";
-import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from "@material-ui/core";
+import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from "@mui/material";
 import JSONSchemaFields from "./fields/JSONSchemaFields";
 import _ from "lodash";
-import { grey, green, purple, yellow, blue } from "@material-ui/core/colors";
+import { grey, green, purple, yellow, blue } from "@mui/material/colors";
 import { JSONSchema, JSONSchemaObject } from "@open-rpc/meta-schema";
 
 interface IProps {

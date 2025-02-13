@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ContentDescriptor from "../ContentDescriptor/ContentDescriptor";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { OpenrpcDocument, ContentDescriptorObject } from "@open-rpc/meta-schema";
 
 interface IProps {

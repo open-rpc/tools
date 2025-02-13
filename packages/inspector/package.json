@@ -3,79 +3,79 @@
   "version": "0.0.0-development",
   "description": "",
   "type": "module",
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "./dist/inspector.js",
+  "module": "./dist/inspector.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
-      "import": "./build/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/inspector.js",
+      "require": "./dist/inspector.js",
+      "default": "./dist/inspector.js"
     }
   },
   "files": [
-    "build/"
+    "dist/"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "start": "webpack serve --mode development --config webpack.config.cjs",
+    "build:package": "webpack --mode production --config webpack.config.cjs && tsc --emitDeclarationOnly",
+    "build:dev": "webpack --mode development --config webpack.config.cjs",
+    "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "jest",
-    "build:package": "tsc --build tsconfig.json && cp -r src/*.css build/",
-    "clean": "rm -rf build coverage dist",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@rescripts/cli": "latest",
-    "@rescripts/utilities": "0.0.7",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@types/qs": "^6.5.3",
-    "@types/react-dom": "^16.9.4",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
     "@types/use-persisted-state": "^0.3.0",
-    "monaco-editor-webpack-plugin": "^6.0.0",
-    "react-scripts": "3.4.4"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.10.0",
+    "monaco-editor-webpack-plugin": "^7.1.0",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
   },
   "dependencies": {
-    "@etclabscore/monaco-add-json-schema-diagnostics": "^1.0.3",
-    "@open-rpc/monaco-editor-react": "*",
-    "@material-ui/core": "4.9.8",
-    "@material-ui/icons": "4.9.1",
-    "@material-ui/lab": "4.0.0-alpha.47",
-    "@monaco-editor/react": "^4.0.0",
+    "@monaco-editor/react": "^4.7.0-rc.0",
+    "@mui/icons-material": "6.3.1",
+    "@mui/material": "6.3.1",
     "@open-rpc/client-js": "^1.6.3",
     "@open-rpc/logs-react": "*",
     "@open-rpc/meta-schema": "^1.14.9",
     "@open-rpc/schema-utils-js": "^1.14.3",
     "@rehooks/window-size": "^1.0.2",
+    "@uiw/react-json-view": "2.0.0-alpha.30",
     "acorn-dynamic-import": "^4.0.0",
+    "events": "^3.3.0",
     "monaco-editor": "0.52.2",
+    "monaco-vim": "^0.4.2",
     "qs": "^6.11.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-json-view": "^1.19.1",
-    "react-split-pane": "^0.1.87",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-resizable-panels": "^2.1.7",
     "semantic-release": "^15.13.21",
+    "typescript": "5.6.2",
     "use-dark-mode": "^2.3.1",
     "use-debounce": "^3.3.0",
     "use-persisted-state": "^0.3.3",
+    "vite": "6.0.5"
+  },
+  "resolutions": {
     "vite": "6.0.5",
-    "@vitejs/plugin-react": "4.3.4"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "engines": {
     "node": ">=18.20.5"

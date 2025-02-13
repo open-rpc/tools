@@ -1,9 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build",
+    "outDir": "./dist",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true
   },
+
   "include": ["src"]
 }

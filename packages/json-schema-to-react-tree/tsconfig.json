@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "rootDir": "./src",
+    "composite": true,
+
+    "paths": {
+      "@/*": ["./src/exports"],
+      "@exports": ["./src/exports"]
+    }
+  },
+  "include": ["src/**/*", "src/**/*.css"]
+}

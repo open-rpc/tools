@@ -1,77 +1,143 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useRef, useEffect, RefObject } from "react";
-import MonacoContainer from "./MonacoContainer";
-import * as monaco from "monaco-editor";
+// Editor.tsx
+import React, { useRef, useEffect } from 'react';
+import * as monaco from 'monaco-editor';
+//import './monacoWorker';
 
-interface IProps {
+interface MonacoEditorProps {
   value: string;
   language: string;
-  editorDidMount: (editor: any, ref: React.RefObject<any>) => any;
-  onChange?: (ev: any, value: string) => any;
-  editorOptions?: any;
-  line?: number;
-  loading?: Element | string;
-  width?: string | number;
   height?: string | number;
-  controlled?: boolean;
+  width?: string | number;
+  options?: monaco.editor.IStandaloneEditorConstructionOptions;
+  onChange?: (value: string) => void;
+  onMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+  children?: React.ReactNode;
 }
 
-const MonacoEditor: React.FC<IProps> =
-  ({ width, height, loading, value, language, editorOptions, editorDidMount, onChange }) => {
-    const [isEditorReady, setIsEditorReady] = useState(false);
-    const previousValue = useRef(value);
-    const containerRef = useRef<any>(null);
-    const editorRef = useRef<any>(null);
+export const MonacoEditor: React.FC<MonacoEditorProps> = ({
+  value,
+  language,
+  height = '100%',
+  width = '100%',
+  options,
+  onChange,
+  onMount,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const isMounted = useRef(true);
+  const valueRef = useRef(value);
 
-    const createEditor = () => {
-      if (!containerRef || !containerRef.current) {
-        return;
-      }
-      const resultOptions = {
+  // Initialize the editor once on mount
+  useEffect(() => {
+    if (containerRef.current) {
+    let schema: any = {
+      type: "object",
+      properties: {
+        jsonrpc: {
+          type: "string",
+          const: "2.0",
+        },
+        id: {
+          oneOf: [
+            {
+              type: "string",
+            },
+            {
+              type: "number",
+            },
+          ],
+        },
+        method: {
+          type: "string",
+        },
+      },
+     }
+     schema = {
+        additionalProperties: false,
+        properties: {
+          ...schema.properties,
+          params: {
+            oneOf: [
+              { type: "array" },
+              { type: "object" },
+            ],
+          },
+        },
+      };
+    //  const modelUri = monaco.Uri.parse("http://localhost:3000/schema");
+   //   const model = monaco.editor.createModel(value, "json", modelUri);
+
+
+      const editor = monaco.editor.create(containerRef.current, {
         value,
         language,
-        ...editorOptions,
-      };
-      editorRef.current = monaco.editor.create(containerRef.current, resultOptions);
-      editorDidMount(editorRef.current.getValue.bind(editorRef.current), editorRef.current);
+        automaticLayout: true,
+  //      model,
+        ...options,
+      });
+      editorRef.current = editor;
+      if (onMount) onMount(editor);
 
-      setIsEditorReady(true);
-      editorRef.current.onDidChangeModelContent((ev: any) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const currentValue = editorRef.current!.getValue();
-        if ((currentValue !== previousValue.current) && !(ev.isUndoing || ev.isRedoing)) {
-          previousValue.current = currentValue;
-          if (onChange) {
-            onChange(ev, currentValue);
-          }
+      // Listen to changes and call onChange if provided
+      const m = editor.getModel();
+      const subscription = m?.onDidChangeContent(() => {
+        if (onChange && m) {
+          const newValue = m.getValue();
+          valueRef.current = newValue;
+          onChange(newValue);
         }
       });
+
+      // Cleanup on unmount
+      return () => {
+        subscription?.dispose();
+        isMounted.current = false;
+      };
+    }
+  }, []); // run only once on mount
+
+  // Dispose the editor when the component unmounts
+  useEffect(() => {
+    return () => {
+      editorRef.current?.dispose();
     };
+  }, []);
 
-    useEffect(() => {
-      if (editorOptions && editorOptions.readOnly && editorRef.current && editorRef.current.getValue() !== value) {
-        editorRef.current.setValue(value);
-      } else if (editorRef.current && editorRef.current.getValue() !== value) {
-        editorRef.current.executeEdits("", [{
-          range: editorRef.current.getModel().getFullModelRange(),
-          text: value,
-        }]);
+  // Update the model if the value prop changes (controlled component)
+  useEffect(() => {
+    
+    if (!isMounted.current) return;
+    const editor = editorRef.current;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!editor || (editor as any)._isDisposed) return;
+    
+    const model = editor.getModel();
+    if (!model || model.isDisposed()) return;
+
+    // Only update if the value is different from our last known value
+    if (value !== valueRef.current) {
+      const position = editor.getPosition();
+      model.setValue(value);
+      valueRef.current = value;
+      if (position) {
+        editor.setPosition(position);
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value]);
+    }
+  }, [value]);
 
-    useEffect(() => {
-      createEditor();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  // Update language if changed
+  useEffect(() => {
+    if (!isMounted.current) return;
+    const editor = editorRef.current;
+    if (editor) {
+      const model = editor.getModel();
+      if (model) {
+        monaco.editor.setModelLanguage(model, language);
+      }
+    }
+  }, [language]);
 
-    return <MonacoContainer
-      width={width}
-      height={height}
-      isEditorReady={isEditorReady}
-      loading={loading}
-      reference={containerRef}
-    />;
-  };
+  return <div ref={containerRef} style={{ height, width }} />;
+};
 
-export default MonacoEditor;

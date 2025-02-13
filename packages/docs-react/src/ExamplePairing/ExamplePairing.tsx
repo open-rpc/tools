@@ -1,15 +1,33 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import { Card, CardContent, CardHeader, Theme, withStyles, WithStyles } from "@material-ui/core";
-import ReactJson from "react-json-view";
-import ReactMarkdown from "react-markdown";
+import { styled } from '@mui/material/styles';
+import Grid from "@mui/material/Grid2";
+import { Card, CardContent, CardHeader, Theme } from "@mui/material";
+import ReactJson from "@uiw/react-json-view";
 import { ExampleObject, ExamplePairingObject } from "@open-rpc/meta-schema";
 import _ from "lodash";
 import MarkdownDescription from "../MarkdownDescription/MarkdownDescription";
 
+const PREFIX = 'ExamplePairing';
+
+const classes = {
+  description: `${PREFIX}-description`
+};
+
+const StyledGrid = styled(Grid)((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.description}`]: {
+    color: theme.palette.text.primary,
+  }
+}));
+
 export type TParamStructure = "either" | "by-name" | "by-position";
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   examplePairing?: ExamplePairingObject;
   paramStructure?: TParamStructure;
   methodName?: string;
@@ -17,15 +35,9 @@ interface IProps extends WithStyles<typeof styles> {
   reactJsonOptions?: any;
 }
 
-const styles = (theme: Theme) => ({
-  description: {
-    color: theme.palette.text.primary,
-  },
-});
-
 class ExamplePairing extends Component<IProps, Record<string, never>> {
   public render() {
-    const { examplePairing, paramStructure, classes, methodName, uiSchema } = this.props;
+    const { examplePairing, paramStructure,  methodName, uiSchema } = this.props;
     if (_.isUndefined(examplePairing)) {
       return null;
     }
@@ -40,19 +52,19 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
       : (examplePairing.params as ExampleObject[]).map(((p) => p.value));
 
     return (
-      <Grid container spacing={10}>
-        <Grid item xs={12}>
+      (<StyledGrid container spacing={10}>
+        <Grid xs={12}>
           <MarkdownDescription
             uiSchema={uiSchema}
             source={examplePairing.description}
             className={classes.description}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <Card>
             <CardHeader title="Request"></CardHeader>
             <CardContent>
-              {examplePairing.params && <ReactJson src={{
+              {examplePairing.params && <ReactJson value={{
                 id: 1,
                 jsonrpc: "2.0",
                 method: methodName,
@@ -61,11 +73,11 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid xs={12} sm={6}>
           <CardHeader title="Result"></CardHeader>
           <Card>
             <CardContent>
-              {examplePairing.result && <ReactJson src={{
+              {examplePairing.result && <ReactJson value={{
                 id: 1,
                 jsonrpc: "2.0",
                 result: (examplePairing.result as ExampleObject).value,
@@ -73,9 +85,9 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
+      </StyledGrid>)
     );
   }
 }
 
-export default withStyles(styles)(ExamplePairing);
+export default (ExamplePairing);

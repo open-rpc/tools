@@ -2,7 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./build",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler"
   },
   "references": [
     { "path": "../logs-react" },

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ExamplePairing from "../ExamplePairing/ExamplePairing";
-import { Typography, List, ListItem, ListItemText, Grid, MenuItem, Menu, withStyles, ExpansionPanelDetails } from "@material-ui/core";
+import { Typography, List, ListItem, ListItemText, MenuItem, Menu, AccordionDetails } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { MethodObject, ExamplePairingObject, ContentDescriptorObject, ReferenceObject, JSONSchemaObject } from "@open-rpc/meta-schema";
 
 interface IProps {
@@ -22,6 +23,7 @@ const isJSONSchemaObject = (schema: any): schema is JSONSchemaObject => {
 
 const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] => {
   if (!method) { return []; }
+  if (!method.params) { return []; }
   const examples: ExamplePairingObject[] = [];
 
   (method.params as ContentDescriptorObject[]).forEach((param, index: number) => {
@@ -110,12 +112,12 @@ class ExamplePairings extends Component<IProps, IState> {
       return null;
     }
     return (
-      <ExpansionPanelDetails key="examples">
+      <AccordionDetails key="examples">
         <Grid container>
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <Typography variant="h5">Examples</Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <List component="nav">
               <ListItem
                 button
@@ -145,7 +147,7 @@ class ExamplePairings extends Component<IProps, IState> {
               </Menu>
             </List>
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12}>
             {examples &&
               <ExamplePairing
                 uiSchema={uiSchema}
@@ -155,7 +157,7 @@ class ExamplePairings extends Component<IProps, IState> {
                 reactJsonOptions={this.props.reactJsonOptions} />}
           </Grid>
         </Grid>
-      </ExpansionPanelDetails>
+      </AccordionDetails>
     );
   }
 }

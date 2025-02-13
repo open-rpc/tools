@@ -26,7 +26,7 @@ const Section = styled('section')({
 interface IProps {
   width?: string | number;
   height?: string | number;
-  loading?: Element | string;
+  loading?: Element | string 
   isEditorReady: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reference: RefObject<any>;

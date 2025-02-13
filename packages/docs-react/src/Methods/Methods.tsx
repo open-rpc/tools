@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import { Theme, styled } from "@mui/material/styles";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import _ from "lodash";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Params from "../Params/Params";
 import ContentDescriptor from "../ContentDescriptor/ContentDescriptor";
 import ExamplePairings from "../ExamplePairings/ExamplePairings";
@@ -22,33 +22,51 @@ import Links from "../Links/Links";
 import Tags from "../Tags/Tags";
 import MarkdownDescription from "../MarkdownDescription/MarkdownDescription";
 
-const styles = (theme: Theme) => ({
-  description: {
+const PREFIX = 'Methods';
+
+const classes = {
+  description: `${PREFIX}-description`,
+  heading: `${PREFIX}-heading`,
+  root: `${PREFIX}-root`,
+  secondaryHeading: `${PREFIX}-secondaryHeading`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
     width: "100%",
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     flexBasis: "33.33%",
     flexShrink: 0,
     fontSize: theme.typography.pxToRem(15),
   },
-  root: {
+
+  [`&.${classes.root}`]: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(3),
     width: "100%",
   },
-  secondaryHeading: {
+
+  [`& .${classes.secondaryHeading}`]: {
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(15),
-  },
-});
+  }
+}));
 
 export interface IMethodPluginProps {
   openrpcMethodObject: MethodObject;
 }
 export type OnMethodToggle = (method: string, expanded: boolean) => void;
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   schema?: OpenrpcDocument;
   uiSchema?: any;
   reactJsonOptions?: object;
@@ -57,30 +75,23 @@ interface IProps extends WithStyles<typeof styles> {
   onMethodToggle?: OnMethodToggle;
 }
 
-const isMethodObject = (method: any): method is MethodObject => {
-  return method && 
-    typeof method === "object" && 
-    "name" in method && 
-    "params" in method;
-};
-
 class Methods extends Component<IProps> {
   public render() {
-    const { schema, classes, uiSchema, disableTransitionProps, onMethodToggle } = this.props;
+    const { schema,  uiSchema, disableTransitionProps, onMethodToggle } = this.props;
     if (!schema) {
       return null;
     }
     if (!schema || !schema.methods) {
       return null;
     }
-    const methods = schema.methods.filter(isMethodObject);
+    const methods = schema.methods as MethodObject[];
     const methodsExist = methods && methods.length > 0;
     if (!methodsExist) { return null; }
     return (
-      <div className={classes.root}>
+      (<Root className={classes.root}>
         <Typography variant="h3" gutterBottom>Methods</Typography>
         {methods.map((method, i) => (
-          <ExpansionPanel
+          <Accordion
             id={method.name}
             key={i + method.name}
             TransitionProps={{ unmountOnExit: disableTransitionProps ? false : true }}
@@ -96,51 +107,51 @@ class Methods extends Component<IProps> {
                 (uiSchema.methods["ui:defaultExpanded"] && uiSchema.methods["ui:defaultExpanded"][method.name] === true)
               )
             }>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>{method.name}</Typography>
               <Typography className={classes.secondaryHeading}>{method.summary}</Typography>
-            </ExpansionPanelSummary>
+            </AccordionSummary>
 
             {method.tags && method.tags.length > 0 &&
-              <ExpansionPanelDetails key="tags">
+              <AccordionDetails key="tags">
                 <Tags tags={method.tags as any} />
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.description &&
-              <ExpansionPanelDetails key="description">
+              <AccordionDetails key="description">
                 <MarkdownDescription
                   uiSchema={uiSchema}
                   source={method.description}
                   className={classes.description}
                 />
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.params && method.params.length > 0 &&
-              <ExpansionPanelDetails key="params-title">
+              <AccordionDetails key="params-title">
                 <Typography variant="h5">Params</Typography>
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.params &&
-              <ExpansionPanelDetails key="params">
+              <AccordionDetails key="params">
                 <Params params={method.params as ContentDescriptorObject[]} uiSchema={uiSchema} />
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.result &&
-              <ExpansionPanelDetails key="result-title">
+              <AccordionDetails key="result-title">
                 <Typography variant="h5">Result</Typography>
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.result && (method.result as ContentDescriptorObject).schema &&
-              <ExpansionPanelDetails key="result">
+              <AccordionDetails key="result">
                 <ContentDescriptor
                   contentDescriptor={method.result as ContentDescriptorObject}
                   hideRequired={true} uiSchema={uiSchema} />
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.errors && method.errors.length > 0 &&
-              <ExpansionPanelDetails key="errors">
+              <AccordionDetails key="errors">
                 <Errors errors={method.errors as ErrorObject[]} reactJsonOptions={this.props.reactJsonOptions} />
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             <ExamplePairings
               key="example-pairings"
@@ -149,29 +160,29 @@ class Methods extends Component<IProps> {
               method={method}
               reactJsonOptions={this.props.reactJsonOptions} />
             {method.links && method.links.length > 0 &&
-              <ExpansionPanelDetails key="links-title">
+              <AccordionDetails key="links-title">
                 <Typography variant="h5">Links</Typography>
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {method.links && method.links.length > 0 &&
-              <ExpansionPanelDetails key="links">
+              <AccordionDetails key="links">
                 <Links links={method.links as LinkObject[]} reactJsonOptions={this.props.reactJsonOptions} />
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
             {this.props.methodPlugins && this.props.methodPlugins.length > 0 &&
-              <ExpansionPanelDetails key="method-plugins">
+              <AccordionDetails key="method-plugins">
                 {this.props.methodPlugins.map((CompDef: any, index: number) => {
                   return (
                     <CompDef key={`method-plugin-${index}`} openrpcMethodObject={method} />
                   );
                 })}
-              </ExpansionPanelDetails>
+              </AccordionDetails>
             }
-          </ExpansionPanel>
+          </Accordion>
         ))}
-      </div>
+      </Root>)
     );
   }
 }
 
-export default withStyles(styles)(Methods);
+export default (Methods);

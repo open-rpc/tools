@@ -1,21 +1,34 @@
 import React, { Component } from "react";
-import { withStyles, Theme, WithStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import { Theme, styled } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import _ from "lodash";
 import { JSONSchema4 } from "json-schema";
 import SchemaRenderer from "../SchemaRenderer";
 
-const styles = (theme: Theme) => ({
-  table: {
-    background: theme.palette.grey[50],
-  },
-});
+const PREFIX = 'WrappedJSONSchemaFields';
 
-interface IProps extends WithStyles<typeof styles> {
+const classes = {
+  table: `${PREFIX}-table`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.table}`]: {
+    background: theme.palette.grey[50],
+  }
+}));
+
+interface IProps {
   schema?: JSONSchema4;
   name?: string;
   required?: boolean;
@@ -24,11 +37,11 @@ interface IProps extends WithStyles<typeof styles> {
 
 class JSONSchemaFields extends Component<IProps> {
   public render() {
-    const { schema, classes, name, required, hideHeader } = this.props;
+    const { schema,  name, required, hideHeader } = this.props;
     if (!schema) { return null; }
     if (_.isEmpty(schema)) { return null; }
     return (
-      <>
+      (<Root>
         {!hideHeader &&
           <Table className={classes.table}>
             <TableHead>
@@ -49,10 +62,10 @@ class JSONSchemaFields extends Component<IProps> {
         {hideHeader &&
           <SchemaRenderer schema={schema} required={required} name={name} />
         }
-      </>
+      </Root>)
     );
   }
 }
-const WrappedJSONSchemaFields = withStyles(styles)(JSONSchemaFields);
+const WrappedJSONSchemaFields = JSONSchemaFields;
 
 export default WrappedJSONSchemaFields;

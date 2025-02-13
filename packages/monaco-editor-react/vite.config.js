@@ -24,19 +24,19 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', '@mui/material', 'monaco-editor', /^monaco-editor\/.*/],
+      external: ['react', 'react-dom', '@mui/material', /*'monaco-editor', /^monaco-editor\/.*/],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           '@mui/material': '@mui/material',
-          'monaco-editor': 'monaco'
+          /*'monaco-editor': 'monaco'*/
         }
       }
     }
   },
   optimizeDeps: {
-    exclude: ['monaco-editor']
+   // exclude: ['monaco-editor']
   },
   worker: {
     format: 'es',

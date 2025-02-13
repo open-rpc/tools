@@ -1,60 +1,69 @@
-import { createMuiTheme } from "@material-ui/core/styles";
-import grey from "@material-ui/core/colors/grey";
+import { createTheme } from "@mui/material/styles";
+import grey from "@mui/material/colors/grey";
 
-export const lightTheme = createMuiTheme({
-  props: {
+export const lightTheme = createTheme({
+  components: {
     MuiAppBar: {
-      position: "sticky",
+      defaultProps: {
+        position: "sticky",
+      },
+      styleOverrides: {
+        root: {
+          background: "#fff !important",
+        },
+      },
     },
     MuiCard: {
-      elevation: 0,
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      root: {
-        background: "#fff !important",
+      defaultProps: {
+        elevation: 0,
       },
     },
   },
   palette: {
+    mode: "light",
     background: {
       default: "#fff",
     },
   },
 });
 
-export const darkTheme = createMuiTheme({
-  props: {
+export const darkTheme = createTheme({
+  components: {
     MuiAppBar: {
-      position: "sticky",
+      defaultProps: {
+        position: "sticky",
+      },
+      styleOverrides: {
+        root: {
+          background: "transparent !important",
+        },
+      },
     },
     MuiCard: {
-      elevation: 0,
-    },
-  },
-  palette: {
-    type: "dark",
-    background: {
-      default: grey[900],
-      paper: grey[800],
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      root: {
-        background: "transparent !important",
+      defaultProps: {
+        elevation: 0,
       },
     },
     MuiTable: {
-      root: {
-        background: "transparent !important",
+      styleOverrides: {
+        root: {
+          background: "transparent !important",
+        },
       },
     },
     MuiTypography: {
-      root: {
-        color: grey[400],
+      styleOverrides: {
+        root: {
+          color: grey[400],
+        },
       },
+    },
+  },
+  palette: {
+    mode: "dark",
+    background: {
+      default: grey[900],
+      paper: grey[800],
     },
   },
 });

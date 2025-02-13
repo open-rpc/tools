@@ -4,5 +4,10 @@
     "outDir": "./build",
     "rootDir": "./src"
   },
-  "include": ["src"]
+  "references": [
+    { "path": "../json-schema-to-react-tree" },
+  ],
+  "include": ["src"],
+  "types": ["@testing-library/jest-dom"],
+
 }

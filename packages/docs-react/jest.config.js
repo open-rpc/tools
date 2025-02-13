@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('jest').Config} */
+export default {
   "clearMocks": true,
   "coverageDirectory": "../coverage",
   "resetMocks": true,
@@ -6,9 +7,23 @@ module.exports = {
   "rootDir": "./src",
   "testEnvironment": "jsdom",
   "testPathIgnorePatterns": ["./build"],
-  "preset": "ts-jest",
-  "transformIgnorePatterns": ['^.+\\.js$'],
-  "moduleNameMapper": {
-    "\\.(css|less|sass|scss)$": "jest-transform-css",
+  "transform": {
+    "^.+\\.(t|j)sx?$": ["ts-jest", {
+      useESM: true,
+      tsconfig: {
+        allowJs: true
+      }
+    }]
   },
+  "extensionsToTreatAsEsm": [".ts", ".tsx", ".jsx"],
+  "moduleNameMapper": {
+    "\\.(css|less|sass|scss)$": "identity-obj-proxy",
+    "^@/(.*)$": "<rootDir>/$1",
+    "^(\\.{1,2}/.*)\\.js$": "$1"
+  },
+  transformIgnorePatterns: [
+    "/node_modules/(?!(react-markdown|@react-markdown|@testing-library|/aria-query/|jest-circus|jest-environment-jsdom))/",
+    "react-markdown"
+  ],
+  setupFilesAfterEnv: ['<rootDir>/test/jest.setup.ts']
 };

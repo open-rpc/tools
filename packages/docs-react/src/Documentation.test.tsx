@@ -1,34 +1,43 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import Documentation from "./Documentation";
+import { render, screen } from '@testing-library/react';
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Documentation schema={{} as any} />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Documentation schema={{} as any} />);
 });
 
 it("renders without crashing with no schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Documentation />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Documentation />);
 });
 
 it("render contentDescriptors", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Documentation
-    schema={{ components: { contentDescriptors: { Foo: { name: "foo", schema: true } } } } as any}
-  />, div);
-  expect(div.innerHTML.includes("ContentDescriptors")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(
+    <Documentation
+      schema={{ 
+        components: { 
+          contentDescriptors: { 
+            Foo: { name: "foo", schema: true } 
+          } 
+        } 
+      } as any}
+    />
+  );
+  expect(screen.getByText("ContentDescriptors")).toBeInTheDocument();
 });
 
 it("doesnt render contentDescriptors if uiSchema contentDescriptors hidden is passed", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Documentation
-    schema={{ components: { contentDescriptors: { Foo: { name: "foo", schema: true } } } } as any}
-    uiSchema={{ contentDescriptors: { "ui:hidden": true } }}
-  />, div);
-  expect(div.innerHTML.includes("ContentDescriptors")).toBe(false);
-  ReactDOM.unmountComponentAtNode(div);
+  render(
+    <Documentation
+      schema={{ 
+        components: { 
+          contentDescriptors: { 
+            Foo: { name: "foo", schema: true } 
+          } 
+        } 
+      } as any}
+      uiSchema={{ contentDescriptors: { "ui:hidden": true } }}
+    />
+  );
+  expect(screen.queryByText("ContentDescriptors")).not.toBeInTheDocument();
 });

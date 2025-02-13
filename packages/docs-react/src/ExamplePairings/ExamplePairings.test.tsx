@@ -1,14 +1,10 @@
+import { it, expect, vi } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import ExamplePairings from "./ExamplePairings";
 import examples from "@open-rpc/examples";
 import refParser from "json-schema-ref-parser";
 import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
-import {
-  cleanup,
-  fireEvent,
-  render,
-} from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 const isMethodObject = (method: any): method is MethodObject => {
   return method && 
@@ -18,45 +14,39 @@ const isMethodObject = (method: any): method is MethodObject => {
 };
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ExamplePairings />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ExamplePairings />);
 });
 
 it("renders empty with no example", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ExamplePairings />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ExamplePairings />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders empty with empty example", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<ExamplePairings examples={[]} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<ExamplePairings examples={[]} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders examples", async () => {
-  const div = document.createElement("div");
   const simpleMath = await refParser.dereference(examples.simpleMath) as OpenrpcDocument;
   const method = simpleMath.methods[0];
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairings
       method={method}
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  expect(div.innerHTML.includes("simpleMathAdditionTwo")).toBe(true);
-  expect(div.innerHTML.includes("2")).toBe(true);
-  expect(div.innerHTML.includes("4")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+  
+  expect(screen.getByText("simpleMathAdditionTwo")).toBeInTheDocument();
+  expect(screen.getAllByText("2")).toHaveLength(2);
+  expect(screen.getByText("4")).toBeInTheDocument();
 });
 
 it("renders examples with only schema examples", async () => {
-  const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
     info: {
       title: "test",
@@ -89,17 +79,18 @@ it("renders examples with only schema examples", async () => {
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairings
       method={method}
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  expect(div.innerHTML.includes("test")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+  
+  expect(screen.getAllByText("test")).toHaveLength(3);
 });
 
 it("renders examples with only schema examples with no params", async () => {
-  const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
     info: {
       title: "test",
@@ -124,18 +115,19 @@ it("renders examples with only schema examples with no params", async () => {
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairings
       method={method}
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("bob")).toBe(false);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+  
+  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.queryByText("bob")).not.toBeInTheDocument();
 });
 
 it("renders examples with multiple param schema examples and no method", async () => {
-  const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
     info: {
       title: "test",
@@ -175,16 +167,14 @@ it("renders examples with multiple param schema examples and no method", async (
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
-    <ExamplePairings method={method} />
-    , div);
-  expect(div.innerHTML.includes("bob")).toBe(true);
-  expect(div.innerHTML.includes("bob2")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  render(<ExamplePairings method={method} />);
+  
+  expect(screen.getByText("bob")).toBeInTheDocument();
+  expect(screen.getByText("bob2")).toBeInTheDocument();
 });
 
 it("renders examples with only schema examples and no method", async () => {
-  const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
     info: {
       title: "test",
@@ -215,15 +205,15 @@ it("renders examples with only schema examples and no method", async () => {
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairings
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
 });
 
 it("renders examples with only schema examples and no method with number", async () => {
-  const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
     info: {
       title: "test",
@@ -254,15 +244,15 @@ it("renders examples with only schema examples and no method with number", async
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairings
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
 });
 
 it("renders examples with only schema examples and no method with multiple number examples", async () => {
-  const div = document.createElement("div");
   const testDoc: OpenrpcDocument = {
     info: {
       title: "test",
@@ -293,48 +283,48 @@ it("renders examples with only schema examples and no method with multiple numbe
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  render(
     <ExamplePairings
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
 });
 
 it("renders examples and can switch between them", async () => {
   const simpleMath = await refParser.dereference(examples.simpleMath) as OpenrpcDocument;
-  const method = simpleMath.methods[0];
-  if (!isMethodObject(method)) {
-    throw new Error("Expected method to be a MethodObject");
-  }
   const { getByText } = render(
     <ExamplePairings
-      method={method}
-      examples={method.examples as ExamplePairingObject[]}
+      method={simpleMath.methods[0] as MethodObject}
+      examples={simpleMath.methods[0].examples as ExamplePairingObject[]}
     />
   );
-  const node = getByText("simpleMathAdditionTwo");
-  fireEvent.click(node);
-  const secondExampleMenuItem = getByText("simpleMathAdditionFour");
-  fireEvent.click(secondExampleMenuItem);
-  const example8 = getByText("8");
-  expect(example8).toBeDefined();
-  cleanup();
+  
+  const firstExample = getByText("simpleMathAdditionTwo");
+  fireEvent.click(firstExample);
+  
+  const secondExample = getByText("simpleMathAdditionFour");
+  fireEvent.click(secondExample);
+  
+  expect(getByText("8")).toBeInTheDocument();
 });
 
 it("renders examples by-name", async () => {
-  const div = document.createElement("div");
   const petstoreByName = await refParser.dereference(examples.petstoreByName) as OpenrpcDocument;
   const method = petstoreByName.methods[0];
   if (!isMethodObject(method)) {
     throw new Error("Expected method to be a MethodObject");
   }
-  ReactDOM.render(
+  
+  
+  render(
     <ExamplePairings
       method={method}
       examples={method.examples as ExamplePairingObject[]}
-    />, div);
-  expect(div.innerHTML).toContain("listPetExample");
-  expect(div.innerHTML).toContain("limit");
-  expect(div.innerHTML).toContain("1");
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+  
+  expect(screen.getByText("listPetExample")).toBeInTheDocument();
+  expect(screen.getByText("limit")).toBeInTheDocument();
+  expect(screen.getAllByText("1")).toHaveLength(3);
 });

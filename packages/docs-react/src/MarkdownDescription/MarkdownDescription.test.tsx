@@ -1,36 +1,44 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import MarkdownDescription from "./MarkdownDescription";
+import { render, screen } from '@testing-library/react';
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<MarkdownDescription uiSchema={{}} />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<MarkdownDescription uiSchema={{}} />);
 });
 
 it("renders a description", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<MarkdownDescription uiSchema={{}} source={"foo"}/>, div);
-  expect(div.innerHTML).toContain("foo");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<MarkdownDescription uiSchema={{}} source={"foo"}/>);
+  expect(screen.getByText("foo")).toBeInTheDocument();
 });
 
 it("renders a description with syntax highlighting", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<MarkdownDescription uiSchema={{}} source={"```javascript\n\nconst foo = 'bar';\n\n```"}/>, div);
-  expect(div.innerHTML).toContain("language-javascript");
-  ReactDOM.unmountComponentAtNode(div);
+  render(
+    <MarkdownDescription 
+      uiSchema={{}} 
+      source={"```javascript\n\nconst foo = 'bar';\n\n```"}
+    />
+  );
+  
+  const codeElement = screen.getByRole('code');
+  expect(codeElement).toHaveTextContent("const foo = 'bar';");
+  expect(codeElement).toHaveClass('language-javascript');
 });
 
 it("renders a description with darkmode syntax highlighting", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<MarkdownDescription uiSchema={{appBar: {"ui:darkMode": true}}} source={"```javascript\n\nconst foo = 'bar';\n\n```"}/>, div);
-  expect(div.innerHTML).toContain("language-javascript");
-  ReactDOM.unmountComponentAtNode(div);
+  render(
+    <MarkdownDescription 
+      uiSchema={{appBar: {"ui:darkMode": true}}} 
+      source={"```javascript\n\nconst foo = 'bar';\n\n```"}
+    />
+  );
+  
+  const codeElement = screen.getByRole('code');
+  expect(codeElement).toHaveTextContent("const foo = 'bar';");
+  expect(codeElement).toHaveClass('language-javascript');
 });
 
 it("renders a description that errors", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<MarkdownDescription uiSchema={{}} source={"```"}/>, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<MarkdownDescription uiSchema={{}} source={"```"}/>);
+  // Just checking it doesn't throw
 });
