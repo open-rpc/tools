@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import * as monaco from "monaco-editor";
 import { JSONSchema, MethodObject } from "@open-rpc/meta-schema";
 import useWindowSize from "@rehooks/window-size";
-//import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
-import Editor from "@monaco-editor/react";
+import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
+import useDarkMode from "use-dark-mode";
 
 interface IProps {
   onChange?: (newValue: any) => void;
@@ -44,16 +44,18 @@ const OptionsEditor: React.FC<IProps> = (props) => {
       props.onChange(newValue);
     }
   };
+  const darkMode = useDarkMode();
 
   return (
     <>
       <div style={{ marginTop: "5px", background: "black" }}></div>
-      <Editor
+      <MonacoEditor
         height="95%"
         width="100%"
         value={props.value}
         onMount={handleEditorDidMount}
         options={{
+          theme: darkMode.value ? "vs-dark" : "vs",
           minimap: {
             enabled: false,
           },

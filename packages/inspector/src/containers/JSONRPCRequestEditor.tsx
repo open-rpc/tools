@@ -4,6 +4,7 @@ import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
 import { MethodObject, OpenrpcDocument } from "@open-rpc/meta-schema";
 import useWindowSize from "@rehooks/window-size";
 import openrpcDocumentToJSONRPCSchema from "../helpers/openrpcDocumentToJSONRPCSchema";
+import useDarkMode from "use-dark-mode";
 //import Editor from "@monaco-editor/react";
 
 interface IProps {
@@ -122,36 +123,17 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
     if (props.onChange) {
       props.onChange(newValue);
     }
-    /*if(!editorRef.current) 
-      {
-        console.log("editor is not set");
-        return;
-      }
-      else 
-      {
-        console.log("editor is set");
-    const model = editorRef.current.getModel();
-    const markers = monaco.editor.getModelMarkers({ resource: editorRef.current.getModel().uri });
-    console.log("Markers:", markers);
-
-    const registeredSchemas = monaco.languages.json.jsonDefaults.diagnosticsOptions.schemas;
-    console.log("Registered schemas:", registeredSchemas);
-      }*/
-    
-
-    
   };
 
-
+  const darkMode = useDarkMode();
   return (
     <MonacoEditor
       height="100%"
       width="100%"
       value={props.value}
       onMount={handleEditorDidMount}
-    
       options={{
-        
+        theme: darkMode.value ? "vs-dark" : "vs",
         minimap: {
           enabled: false,
         },

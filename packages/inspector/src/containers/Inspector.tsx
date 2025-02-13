@@ -41,6 +41,7 @@ import useTransport, { ITransport, IWebTransport, TTransport } from "../hooks/us
 import { JSONRPCLogger, JSONRPCLog } from "@open-rpc/logs-react";
 import OptionsEditor from "./OptionsEditor";
 import ListItemButton from '@mui/material/ListItemButton';
+import useDarkMode from "use-dark-mode";
 
 const useCustomTransportList = createPersistedState("inspector-custom-transports");
 
@@ -421,6 +422,7 @@ const Inspector: React.FC<IProps> = (props) => {
     }
   };
 
+  const darkMode = useDarkMode();
 
   return (
     <>
@@ -463,6 +465,9 @@ const Inspector: React.FC<IProps> = (props) => {
                 <MonacoEditor
                   width="300px"
                   height="250px"
+                  options={{
+                    theme: darkMode.value ? "vs-dark" : "vs",
+                  }}
                   value={
                     requestHistory[historySelectedIndex]
                       ? JSON.stringify(requestHistory[historySelectedIndex].content, null, 4)
