@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import {Chip} from "@mui/material";
 import { Theme, useTheme } from "@mui/material/styles";

@@ -1,4 +1,6 @@
-import React, { useState, useEffect, Dispatch } from "react";
+
+import * as React from "react";
+import { useState, useEffect, Dispatch } from "react";
 import { Panel, PanelGroup, PanelResizeHandle, ImperativePanelGroupHandle } from "react-resizable-panels";
 import JSONRPCRequestEditor from "./JSONRPCRequestEditor";
 import PlayCircle from "@mui/icons-material/PlayCircleFilled";
@@ -32,16 +34,17 @@ import Brightness3Icon from "@mui/icons-material/Brightness3";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { JSONRPCError } from "@open-rpc/client-js/build/Error";
 import { OpenrpcDocument, ExampleObject } from "@open-rpc/meta-schema";
-import useTabs from "../hooks/useTabs";
+import useTabs, { ITab } from "../hooks/useTabs";
 import { useDebounce } from "use-debounce";
 import { green } from "@mui/material/colors";
 import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
 import {TransportDropdown} from "../components/TransportDropdown";
 import useTransport, { ITransport, IWebTransport, TTransport } from "../hooks/useTransport";
-import { JSONRPCLogger, JSONRPCLog } from "@open-rpc/logs-react";
+import { JSONRPCLogger, IJSONRPCLog } from "@open-rpc/logs-react";
 import OptionsEditor from "./OptionsEditor";
 import ListItemButton from '@mui/material/ListItemButton';
 import useDarkMode from "use-dark-mode";
+import { JSONRPCLog } from "packages/logs-react/src/exports";
 
 const useCustomTransportList = createPersistedState("inspector-custom-transports");
 
@@ -202,7 +205,7 @@ const Inspector: React.FC<IProps> = (props) => {
       ...tabs,
       {
         name: props.request ? props.request.method || "New Tab" : "New Tab",
-        content: props.request,
+        content: props.request || JSON.stringify({ ...emptyJSONRPC }, null, 2),
         url: props.url,
         openrpcDocument,
       },
@@ -223,6 +226,7 @@ const Inspector: React.FC<IProps> = (props) => {
   }, [selectedTransport]);
 
   useEffect(() => {
+    console.log(`json changing: ${tabIndex}`, json);
     if (json) {
       setTabContent(tabIndex, json);
     }
@@ -268,13 +272,13 @@ const Inspector: React.FC<IProps> = (props) => {
         });
         const responseTimestamp = new Date();
         const r = { jsonrpc: "2.0", result, id: json.id };
-        const reqObj: JSONRPCLog = {
+        const reqObj: IJSONRPCLog = {
           type: "request",
           method: json.method,
           timestamp: requestTimestamp,
           payload: json,
         };
-        const resObj: JSONRPCLog = {
+        const resObj: IJSONRPCLog = {
           type: "response",
           method: json.method,
           timestamp: responseTimestamp,
@@ -283,17 +287,21 @@ const Inspector: React.FC<IProps> = (props) => {
         const newHistory: any = [...requestHistory, { ...tabs[tabIndex] }];
         setRequestHistory(newHistory);
         setLogs((prevLogs) => [...prevLogs, reqObj, resObj]);
-        setTabLogs(tabIndex, [...(tabs[tabIndex].logs || []), reqObj, resObj]);
+        setTabs((prevTabs: ITab[]) => 
+          prevTabs.map((tab: ITab, i: number) => 
+            i === tabIndex ? { ...tab, logs: [...(tab.logs || []), reqObj, resObj] } : tab
+          )
+        );
       } catch (e) {
         const responseTimestamp = new Date();
         const convertedError = errorToJSON(e, json.id);
-        const reqObj: JSONRPCLog = {
+        const reqObj: IJSONRPCLog = {
           type: "request",
           method: json.method,
           timestamp: requestTimestamp,
           payload: json,
         };
-        const resObj: JSONRPCLog = {
+        const resObj: IJSONRPCLog = {
           type: "response",
           method: json.method,
           timestamp: responseTimestamp,
@@ -302,14 +310,22 @@ const Inspector: React.FC<IProps> = (props) => {
         const newHistory: any = [...requestHistory, { ...tabs[tabIndex] }];
         setRequestHistory(newHistory);
         setLogs((prevLogs) => [...prevLogs, reqObj, resObj]);
-        setTabLogs(tabIndex, [...(tabs[tabIndex].logs || []), reqObj, resObj]);
+        setTabs((prevTabs: ITab[]) => 
+          prevTabs.map((tab: ITab, i: number) => 
+            i === tabIndex ? { ...tab, logs: [...(tab.logs || []), reqObj, resObj] } : tab
+          )
+        );
       }
     }
   };
 
   const clear = () => {
     setLogs([]);
-    setTabLogs(tabIndex, []);
+    setTabs((prevTabs: ITab[]) => 
+      prevTabs.map((tab: ITab, i: number) => 
+        i === tabIndex ? { ...tab, logs: [] } : tab
+      )
+    );
   };
 
   const handleClearButton = () => {
@@ -322,6 +338,10 @@ const Inspector: React.FC<IProps> = (props) => {
     }
   };
   const refreshOpenRpcDocument = async () => {
+    // Don't proceed if the current tab doesn't exist
+    if (!tabs[tabIndex]) {
+      return;
+    }
     try {
       const d = await transport?.sendData({
         internalID: 999999,
@@ -334,11 +354,19 @@ const Inspector: React.FC<IProps> = (props) => {
       });
       const doc = await parseOpenRPCDocument(d);
       setOpenRpcDocument(doc);
-      setTabOpenRPCDocument(tabIndex, doc);
+      setTabs((prevTabs: ITab[]) => 
+        prevTabs.map((tab: ITab, i: number) => 
+          i === tabIndex ? { ...tab, openrpcDocument: doc } : tab
+        )
+      );
     } catch (e) {
       if (!props.openrpcDocument) {
         setOpenRpcDocument(undefined);
-        setTabOpenRPCDocument(tabIndex, undefined);
+        setTabs((prevTabs: ITab[]) => 
+          prevTabs.map((tab: ITab, i: number) => 
+            i === tabIndex ? { ...tab, openrpcDocument: undefined } : tab
+          )
+        );
       }
     }
     if (transport) {
@@ -351,8 +379,16 @@ const Inspector: React.FC<IProps> = (props) => {
           timestamp: responseTimestamp,
           payload: notification,
         };
-        setLogs((prevLogs) => [...prevLogs, notificationObj]);
-        setTabLogs(tabIndex, [...(tabs[tabIndex].logs || []), notificationObj]);
+        setLogs((prevLogs: JSONRPCLog[]) => [...prevLogs, notificationObj]);
+        setTabs((prevTabs: ITab[]) => {
+          // Don't update if the target tab no longer exists
+          if (!prevTabs[tabIndex]) {
+            return prevTabs;
+          }
+          return prevTabs.map((tab: ITab, i: number) => 
+            i === tabIndex ? { ...tab, logs: [...(tab.logs || []), notificationObj] } : tab
+          );
+        });
       });
       transport.subscribe("error", (error: any) => {
         const responseTimestamp = new Date();
@@ -362,24 +398,37 @@ const Inspector: React.FC<IProps> = (props) => {
           timestamp: responseTimestamp,
           payload: errorToJSON(error, null),
         };
-        setLogs((prevLogs) => [...prevLogs, notificationObj]);
-        setTabLogs(tabIndex, [...(tabs[tabIndex].logs || []), notificationObj]);
+        setLogs((prevLogs: JSONRPCLog[]) => [...prevLogs, notificationObj]);
+        setTabs((prevTabs: ITab[]) => {
+          // Don't update if the target tab no longer exists
+          if (!prevTabs[tabIndex]) {
+            return prevTabs;
+          }
+          return prevTabs.map((tab: ITab, i: number) => 
+            i === tabIndex ? { ...tab, logs: [...(tab.logs || []), notificationObj] } : tab
+          );
+        });
       });
     }
   };
+
   useEffect(() => {
     if (!props.openrpcDocument) {
       setOpenRpcDocument(undefined);
     }
-    try {
-      refreshOpenRpcDocument();
-    } catch (e) {
-      console.warn("Failed to refresh openrpc document", e);
+    // Only try to refresh if we have a valid tab
+    if (tabs[tabIndex]) {
+      try {
+        refreshOpenRpcDocument();
+      } catch (e) {
+        console.warn("Failed to refresh openrpc document", e);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transport, tabIndex]);
 
   useEffect(() => {
+    console.log(`tabs[${tabIndex}] changing:`,tabs[tabIndex]);
     if (tabs[tabIndex]) {
       setJson(tabs[tabIndex].content);
       setUrl(tabs[tabIndex].url || "");
@@ -390,7 +439,11 @@ const Inspector: React.FC<IProps> = (props) => {
 
   useEffect(() => {
     setOpenRpcDocument(props.openrpcDocument);
-    setTabOpenRPCDocument(tabIndex, props.openrpcDocument);
+    setTabs((prevTabs: ITab[]) => 
+      prevTabs.map((tab: ITab, i: number) => 
+        i === tabIndex ? { ...tab, openrpcDocument: props.openrpcDocument } : tab
+      )
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.openrpcDocument]);
 
@@ -535,17 +588,23 @@ const Inspector: React.FC<IProps> = (props) => {
           component="div"
           label={
              <Tooltip title="Create New Tab">
-              <IconButton onClick={() => setTabs([
-                ...tabs,
-                {
+              <IconButton onClick={() => {
+                // Create the new tab first
+                const newTab = {
                   name: "New Tab",
                   content: { ...emptyJSONRPC, id: 0 },
                   logs: [],
                   openrpcDocument,
                   url,
-                },
-              ],
-              )}>
+                };
+                // Update tabs using functional update to ensure we have latest state
+                setTabs((prevTabs: ITab[]) => {
+                  const newTabs = [...prevTabs, newTab];
+                  // Schedule the index update after state is committed
+                  setTimeout(() => setTabIndex(newTabs.length - 1), 0);
+                  return newTabs;
+                });
+              }}>
                 <PlusIcon style={{ transform: 'scale(0.5)' }} />
               </IconButton>
             </Tooltip>
@@ -661,6 +720,7 @@ const Inspector: React.FC<IProps> = (props) => {
             <Panel style={{ overflow: "auto", minHeight: 0 }}>
               <JSONRPCRequestEditor
                 onChange={(val) => {
+                  console.log(`inspector onChange: ${tabIndex}`, val);
                   let jsonResult;
                   try {
                     jsonResult = JSON.parse(val);
@@ -680,7 +740,7 @@ const Inspector: React.FC<IProps> = (props) => {
               <>
                 <PanelResizeHandle className="resize-handle" />
                 <Panel style={{ overflow: "auto", minHeight: 0 }}>
-                  <OptionsEditor
+                 <OptionsEditor
                     schema={(selectedTransport as IWebTransport).schema}
                     value={JSON.stringify(transportOptions, null, 4)}
                     onChange={handleTransportOptionsChange}
@@ -739,13 +799,13 @@ const Inspector: React.FC<IProps> = (props) => {
             </Container>
           ) : (
             <div style={{ height: "100%" }}>
-             {<JSONRPCLogger
+             <JSONRPCLogger
                 sidebarOpen={false}
                 openrpcDocument={openrpcDocument}
                 logs={logs}
                 sidebarAlign={"right"}
                 openRecentPayload={true}
-              />}
+              />
             </div>
           )}
         </Panel>

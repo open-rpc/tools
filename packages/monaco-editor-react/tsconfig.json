@@ -9,7 +9,7 @@
     "declarationDir": "./dist",
     "emitDeclarationOnly": true,
     "jsx": "react-jsx",
-    "allowImportingTsExtensions": true
+    "allowSyntheticDefaultImports": true
   },
 
   "include": ["src"]

@@ -1,5 +1,6 @@
 // Editor.tsx
-import React, { useRef, useEffect } from 'react';
+import * as React from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 
 interface EditorProps {
@@ -10,6 +11,7 @@ interface EditorProps {
   options?: any; // monaco.editor.IStandaloneEditorConstructionOptions;
   onChange?: (value: string) => void;
   onMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+  children?: React.ReactNode;
 }
 
 const Editor: React.FC<EditorProps> = ({
@@ -20,6 +22,7 @@ const Editor: React.FC<EditorProps> = ({
   options,
   onChange,
   onMount,
+  children,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
@@ -85,7 +88,7 @@ const Editor: React.FC<EditorProps> = ({
     }
   }, [language]);
 
-  return <div ref={containerRef} style={{ height, width }} />;
+  return <div ref={containerRef} style={{ height, width }}>{children}</div>;
 };
 
 export default Editor;

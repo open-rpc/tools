@@ -1,4 +1,5 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import * as React from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import CardList from "../cardList/cardList";
 import clsx from "clsx";
 import {  Theme, styled } from "@mui/material/styles";
@@ -17,6 +18,8 @@ const classes = {
   right: `${PREFIX}-right`,
   contentShift: `${PREFIX}-contentShift`
 };
+
+const drawerWidth = 200;
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')((
@@ -91,13 +94,13 @@ interface IProps {
   sidebarOpen?: boolean;
   openrpcDocument?: OpenrpcDocument;
   darkMode?: boolean;
+  children?: React.ReactNode;
 }
 
-const drawerWidth = 200;
 const defaultOpenRecentPayload = false;
 const defaultSidebarAlign: AlignString = "left";
 
-const JSONRPCLogger: React.FC<IProps> = (props) => {
+export const JSONRPCLogger: React.FC<IProps> = (props) => {
   const cardEndRef = useRef(null);
 
   const [methodFilter] = useState(["all"]);
@@ -115,7 +118,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
   useLayoutEffect(scrollToBottom, []);
 
   return (
-    (<Root>
+    <Root>
       { sidebarAlignment === "left" ?
         <div className={classes.logsReact}>
           <div className={clsx(classes.content, classes.left)}>
@@ -143,8 +146,7 @@ const JSONRPCLogger: React.FC<IProps> = (props) => {
           </div>
         </div>
       }
-    </Root>)
+    </Root>
   );
 };
 
-export default JSONRPCLogger;

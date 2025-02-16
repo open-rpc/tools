@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import CardListItem from "../cardListItem/cardListItem";
 import "./cardList.css";
@@ -10,6 +10,7 @@ interface IProps {
   openRecentPayload: boolean;
   openrpcDocument?: OpenrpcDocument;
   darkMode?: boolean;
+  children?: React.ReactNode;
 }
 
 const CardList: React.FC<IProps> = (props) => {

@@ -7,7 +7,7 @@
     "rootDir": "./src",
     "composite": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution":"bundler", 
     "paths": {
       "@/*": ["./src/exports"],
       "@exports": ["./src/exports"]

@@ -7,11 +7,11 @@ module.exports = (env, argv) => {
   return {
     mode: argv.mode,
     entry: isDevelopment ? './src/index.tsx' : './src/index.tsx',
-    cache: isDevelopment ? false : true,
+    cache: false, //isDevelopment ? false : true,
     output: {
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/', // ensure dynamic chunks are fetched from the correct HTTP location
-      filename: isDevelopment ? 'index.js' : 'inspector.js',
+      filename: isDevelopment ? 'index.js' : 'index.js',
       chunkFilename: '[name].[id].[contenthash].js', // make sure lazy-loaded chunks have a proper filename
       library: isDevelopment ? undefined : {
         type: 'module'
@@ -21,7 +21,11 @@ module.exports = (env, argv) => {
     experiments: isDevelopment ? undefined : {
       outputModule: true
     },
-    externals: {
+    externals: isDevelopment ? {} : {
+      'react': 'react',
+      'react-dom': 'react-dom',
+      '@mui/material': '@mui/material',
+      'monaco-editor': 'monaco-editor',
 
     },
     module: {

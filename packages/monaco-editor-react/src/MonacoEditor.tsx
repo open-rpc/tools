@@ -1,5 +1,6 @@
 // Editor.tsx
-import React, { useRef, useEffect } from 'react';
+import * as React from 'react';
+import { useRef, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
 //import './monacoWorker';
 

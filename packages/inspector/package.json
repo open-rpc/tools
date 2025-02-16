@@ -3,15 +3,12 @@
   "version": "0.0.0-development",
   "description": "",
   "type": "module",
-  "main": "./dist/inspector.js",
-  "module": "./dist/inspector.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/inspector.js",
-      "require": "./dist/inspector.js",
-      "default": "./dist/inspector.js"
+      "import": "./dist/inspector.js"
     }
   },
   "files": [
@@ -21,8 +18,8 @@
     "access": "public"
   },
   "scripts": {
-    "start": "webpack serve --mode development --config webpack.config.cjs",
-    "build:package": "webpack --mode production --config webpack.config.cjs && tsc --emitDeclarationOnly",
+    "start": "vite",
+    "build:package": "vite build && tsc --emitDeclarationOnly",
     "build:dev": "webpack --mode development --config webpack.config.cjs",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
@@ -35,6 +32,7 @@
     "@babel/core": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
+    "@types/isomorphic-fetch": "^0.0.39",
     "@types/qs": "^6.5.3",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
@@ -43,12 +41,15 @@
     "css-loader": "^6.10.0",
     "monaco-editor-webpack-plugin": "^7.1.0",
     "style-loader": "^3.3.4",
-    "webpack": "^5.90.3",
+    "webpack": "5.98.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2"
+    "webpack-dev-server": "^5.0.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "monaco-editor": "0.52.2",
+    "@open-rpc/monaco-editor-react": "*"
   },
   "dependencies": {
-    "@monaco-editor/react": "^4.7.0-rc.0",
     "@mui/icons-material": "6.3.1",
     "@mui/material": "6.3.1",
     "@open-rpc/client-js": "^1.6.3",
@@ -59,11 +60,8 @@
     "@uiw/react-json-view": "2.0.0-alpha.30",
     "acorn-dynamic-import": "^4.0.0",
     "events": "^3.3.0",
-    "monaco-editor": "0.52.2",
     "monaco-vim": "^0.4.2",
     "qs": "^6.11.0",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
     "react-resizable-panels": "^2.1.7",
     "semantic-release": "^15.13.21",
     "typescript": "5.6.2",
@@ -72,10 +70,17 @@
     "use-persisted-state": "^0.3.3",
     "vite": "6.0.5"
   },
+  "peerDependencies": {
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "monaco-editor": ">=0.52.2",
+    "@open-rpc/monaco-editor-react": "*"
+  },
   "resolutions": {
     "vite": "6.0.5",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "monaco-editor": ">=0.52.0"
   },
   "engines": {
     "node": ">=18.20.5"

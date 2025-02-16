@@ -1,2 +1,2 @@
-export { MonacoEditor } from './MonacoEditor.tsx';
+export { MonacoEditor } from './MonacoEditor';
 export { addDiagnostics } from './diagnostics';

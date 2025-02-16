@@ -12,22 +12,28 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
       filename: 'index.js',
-
-     // chunkFilename: '[id].js',
       chunkFilename: '[name].[id].[contenthash].js',
-
-     /* library: isDevelopment ? undefined : {
+      library: isDevelopment ? undefined : {
         type: 'module'
-      },*/
+      },
       clean: true
     },
-   /* experiments: isDevelopment ? undefined : {
+    experiments: isDevelopment ? undefined : {
       outputModule: true
-    },*/
-  /*  externals: isDevelopment ? {} : {
-      '@mui/material': { module: '@mui/material' },
-      'monaco-editor': { module: 'monaco-editor' }
-    },*/
+    },
+    externals: isDevelopment ? {} : {
+
+      'monaco-editor': 'monaco-editor',
+      'react': {
+        module: 'react',
+        },
+        'react-dom': {
+          module: 'react-dom',
+        },
+      '@mui/material': {
+        module: '@mui/material',
+      },
+    },
     module: {
       rules: [
         {
@@ -36,7 +42,9 @@ module.exports = (env, argv) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-react', '@babel/preset-typescript'],
+              presets: [
+                ["@babel/preset-env", { "modules": false }],
+                '@babel/preset-react', '@babel/preset-typescript'],
             },
           },
         },

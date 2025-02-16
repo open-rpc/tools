@@ -50,6 +50,7 @@ interface IProps {
   open: boolean;
   openrpcDocument?: OpenrpcDocument;
   darkMode?: boolean;
+  children?: React.ReactNode;
 }
 
 const getLogItemBackground = (log: IJSONRPCLog, theme: Theme): any => {
@@ -134,6 +135,8 @@ const CardListItem: React.FC<IProps> = (props) => {
     editorRef.current?.setModel(newModel)
 
     // Optionally, update diagnostics:
+    console.log("adding diagnostics", schema)
+    debugger
     addDiagnostics(newModel.uri.toString(), schema, monaco);
 
     // Adjust height based on new content

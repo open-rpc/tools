@@ -1,10 +1,15 @@
-interface IDiagnosticSchemaMap {
+const GLOBAL_SCHEMA_DIAGNOSTICS_SYMBOL = Symbol.for('OPEN_RPC_GLOBAL_SCHEMA_DIAGNOSTICS');
+interface IDiagnosticSchemaMapSingleton {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [k: string]: any;
 }
 
-const diagnosticSchemaMap: IDiagnosticSchemaMap = {};
+const diagnosticSchemaMap: IDiagnosticSchemaMapSingleton =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any)[GLOBAL_SCHEMA_DIAGNOSTICS_SYMBOL] || {};
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(globalThis as any)[GLOBAL_SCHEMA_DIAGNOSTICS_SYMBOL] = diagnosticSchemaMap;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function addDiagnostics(uri: string, schema: any, monaco: any): void {
   diagnosticSchemaMap[uri] = schema;

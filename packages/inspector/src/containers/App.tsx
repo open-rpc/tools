@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import * as React from "react";
+import { useEffect } from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import { lightTheme, darkTheme } from "../themes/openrpcTheme";

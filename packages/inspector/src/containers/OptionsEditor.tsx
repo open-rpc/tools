@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import * as monaco from "monaco-editor";
 import { JSONSchema, MethodObject } from "@open-rpc/meta-schema";
 import useWindowSize from "@rehooks/window-size";
@@ -29,7 +30,7 @@ const OptionsEditor: React.FC<IProps> = (props) => {
 
     editor.getModel()?.setValue(props.value);
     editor.getModel()?.setLanguage("json");
-    //addDiagnostics(editor.getModel()?.uri.toString() || "", props.schema, monaco);
+    addDiagnostics(editor.getModel()?.uri.toString() || "", props.schema, monaco);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.schema, editor]);

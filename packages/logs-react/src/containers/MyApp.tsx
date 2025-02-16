@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import * as React from "react";
+import { useEffect } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material"; //tslint:disable-line
 import useMediaQuery from "@mui/material/useMediaQuery";
 import makeTheme from "../themes/theme";
 import "./MyApp.css";
-import JSONRPCLogger, { IJSONRPCLog } from "../components/logsReact/logsReact";
+import { JSONRPCLogger, IJSONRPCLog } from "../components/logsReact/logsReact";
 import useWebRequest from "../hooks/useWebRequest";
 import * as monaco from "monaco-editor";
 
-const MyApp: React.FC = () => {
+const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
   const [newHistory, setHistory] = useWebRequest();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 

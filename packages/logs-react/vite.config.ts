@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/',
   resolve: {
     alias: {
       'monaco-editor/esm/vs/editor/editor.worker':
@@ -15,6 +16,7 @@ export default defineConfig({
         'monaco-editor/esm/vs/language/typescript/ts.worker?worker',
     },
   },
+
   optimizeDeps: {
     exclude: ['monaco-editor'],
   },
