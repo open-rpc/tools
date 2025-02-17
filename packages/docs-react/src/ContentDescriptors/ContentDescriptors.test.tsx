@@ -28,7 +28,7 @@ it("renders a name", () => {
         },
       },
     },
-  } as OpenrpcDocument;
+  } as unknown as OpenrpcDocument;
   
   render(<ContentDescriptors schema={schema} disableTransitionProps={true}/>);
   expect(screen.getByText("foo")).toBeInTheDocument();

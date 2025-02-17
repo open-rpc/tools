@@ -26,5 +26,6 @@ it("renders a name", () => {
       disableTransitionProps={true} 
     />
   );
-  expect(screen.getByText("foo")).toBeInTheDocument();
+  const nameElement = screen.getByText("foo");
+  expect(nameElement.textContent).toBe("foo");
 });

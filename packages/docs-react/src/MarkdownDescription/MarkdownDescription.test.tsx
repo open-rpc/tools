@@ -21,8 +21,8 @@ it("renders a description with syntax highlighting", () => {
   );
   
   const codeElement = screen.getByRole('code');
-  expect(codeElement).toHaveTextContent("const foo = 'bar';");
-  expect(codeElement).toHaveClass('language-javascript');
+  expect(codeElement.textContent).toBe("const foo = 'bar';");
+  expect(codeElement.classList.contains('language-javascript')).toBe(true);
 });
 
 it("renders a description with darkmode syntax highlighting", () => {
@@ -34,8 +34,8 @@ it("renders a description with darkmode syntax highlighting", () => {
   );
   
   const codeElement = screen.getByRole('code');
-  expect(codeElement).toHaveTextContent("const foo = 'bar';");
-  expect(codeElement).toHaveClass('language-javascript');
+  expect(codeElement.textContent).toBe("const foo = 'bar';");
+  expect(codeElement.classList.contains('language-javascript')).toBe(true);
 });
 
 it("renders a description that errors", () => {

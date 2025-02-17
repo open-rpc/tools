@@ -114,13 +114,13 @@ class ExamplePairings extends Component<IProps, IState> {
     return (
       <AccordionDetails key="examples">
         <Grid container>
-          <Grid xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Typography variant="h5">Examples</Typography>
           </Grid>
-          <Grid xs={12}>
+          <Grid size={{ xs: 12 }}>
             <List component="nav">
               <ListItem
-                button
+                component={"div"}
                 aria-haspopup="true"
                 aria-controls="menu-menu"
                 aria-label="Method Examples"
@@ -147,7 +147,7 @@ class ExamplePairings extends Component<IProps, IState> {
               </Menu>
             </List>
           </Grid>
-          <Grid xs={12}>
+          <Grid size={{ xs: 12 }}>
             {examples &&
               <ExamplePairing
                 uiSchema={uiSchema}

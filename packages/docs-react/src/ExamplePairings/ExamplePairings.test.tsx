@@ -2,7 +2,7 @@ import { it, expect, vi } from 'vitest';
 import React from "react";
 import ExamplePairings from "./ExamplePairings";
 import examples from "@open-rpc/examples";
-import refParser from "json-schema-ref-parser";
+import refParser from "@apidevtools/json-schema-ref-parser";
 import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
 import { render, screen, fireEvent } from "@testing-library/react";
 
@@ -296,7 +296,7 @@ it("renders examples and can switch between them", async () => {
   const { getByText } = render(
     <ExamplePairings
       method={simpleMath.methods[0] as MethodObject}
-      examples={simpleMath.methods[0].examples as ExamplePairingObject[]}
+      examples={(simpleMath.methods[0] as MethodObject).examples as ExamplePairingObject[]}
     />
   );
   

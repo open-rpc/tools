@@ -1,4 +1,4 @@
-import { it, expect } from 'vitest';
+import { it, expect, vi } from 'vitest';
 import React from "react";
 import Methods, { IMethodPluginProps } from "./Methods";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";

@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest';
-import { createRoot } from "react-dom/client";
 import React from "react";
 import Info  from "./Info";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
@@ -63,7 +62,7 @@ it("renders an info terms of service for a given schema", () => {
   } as OpenrpcDocument;
   render(<Info schema={schema} />);
   const link = screen.getByRole('link', { name: "Terms Of Service" });
-  expect(link).toHaveAttribute('href', "http://open-rpc.org");
+  expect(link.getAttribute('href')).toBe("http://open-rpc.org");
 });
 
 it("renders an info contact for a given schema", () => {
@@ -80,10 +79,10 @@ it("renders an info contact for a given schema", () => {
   expect(screen.getByText("Email OpenRPC Team")).toBeInTheDocument();
   
   const urlLink = screen.getByRole('link', { name: "Contact OpenRPC Team" });
-  expect(urlLink).toHaveAttribute('href', "http://open-rpc.org");
+  expect(urlLink.getAttribute('href')).toBe("http://open-rpc.org");
   
   const emailLink = screen.getByRole('link', { name: "Email OpenRPC Team" });
-  expect(emailLink).toHaveAttribute('href', "mailto:foo@example.com");
+  expect(emailLink.getAttribute('href')).toBe("mailto:foo@example.com");
 });
 
 it("renders an info license for a given schema", () => {
@@ -97,5 +96,5 @@ it("renders an info license for a given schema", () => {
   } as OpenrpcDocument;
   render(<Info schema={schema} />);
   const link = screen.getByRole('link', { name: "Apache 2.0" });
-  expect(link).toHaveAttribute('href', "http://www.apache.org");
+  expect(link.getAttribute('href')).toBe("http://www.apache.org");
 });

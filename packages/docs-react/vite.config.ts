@@ -1,37 +1,42 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [
-    react(),
-  ],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    global: 'globalThis',
+  },
+  optimizeDeps: {
+    include: ['events'],
+  },
   build: {
+    target: 'esnext',
+    assetsInlineLimit: 0,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'DocsReact',
-      formats: ['es', 'umd'],
-      fileName: (format) => `docs-react.${format === 'umd' ? 'umd.js' : 'js'}`
+      fileName: format => `index.${format}.js`,
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       external: [
         'react',
         'react-dom',
-        '@material-ui/core',
-        '@material-ui/icons',
-        '@material-ui/lab',
-        '@material-ui/styles'
+        '@mui/material',
+        '@mui/icons-material',
+        '@mui/lab',
+        '@mui/styles',
       ],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          '@material-ui/core': 'MaterialUI',
-          '@material-ui/icons': 'MaterialUIIcons',
-          '@material-ui/lab': 'MaterialUILab',
-          '@material-ui/styles': 'MaterialUIStyles'
-        }
-      }
-    }
-  }
-}) 
+          '@mui/material': 'MuiMaterial',
+          '@mui/icons-material': 'MuiIcons',
+          '@mui/lab': 'MuiLab',
+          '@mui/styles': 'MuiStyles',
+        },
+      },
+    },
+  },
+});

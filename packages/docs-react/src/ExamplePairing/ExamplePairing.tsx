@@ -53,14 +53,14 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
 
     return (
       (<StyledGrid container spacing={10}>
-        <Grid xs={12}>
+        <Grid size={{ xs: 12 }}>
           <MarkdownDescription
             uiSchema={uiSchema}
             source={examplePairing.description}
             className={classes.description}
           />
         </Grid>
-        <Grid xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card>
             <CardHeader title="Request"></CardHeader>
             <CardContent>
@@ -73,7 +73,7 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
             </CardContent>
           </Card>
         </Grid>
-        <Grid xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <CardHeader title="Result"></CardHeader>
           <Card>
             <CardContent>

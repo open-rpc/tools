@@ -1,13 +1,20 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build",
-    "rootDir": "./src"
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "paths": {
+      "@open-rpc/json-schema-to-react-tree": ["../json-schema-to-react-tree/dist"]
+    },
+    "skipLibCheck": true
   },
-  "references": [
-    { "path": "../json-schema-to-react-tree" },
-  ],
-  "include": ["src"],
-  "types": ["@testing-library/jest-dom"],
-
+  "include": ["src/**/*", "src/**/*.css"]
 }

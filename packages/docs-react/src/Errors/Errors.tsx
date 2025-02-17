@@ -43,10 +43,10 @@ class Errors extends Component<IProps> {
     }
     return (
       (<StyledGrid container>
-        <Grid xs={12}>
+        <Grid component="div" size={{ xs: 12 }}>
           <Typography variant="h5">Errors</Typography>
         </Grid>
-        <Grid xs={12}>
+        <Grid component="div" size={{xs: 12}}>
           <Table>
             <TableHead>
               <TableRow>

@@ -2,7 +2,7 @@ import { it, expect } from 'vitest';
 import React from "react";
 import ExamplePairing from "./ExamplePairing";
 import examples from "@open-rpc/examples";
-import refParser from "json-schema-ref-parser";
+import refParser from "@apidevtools/json-schema-ref-parser";
 import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
 import { render, screen } from '@testing-library/react';
 

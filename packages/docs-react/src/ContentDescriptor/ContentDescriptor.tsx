@@ -5,7 +5,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { JSONSchemaTree } from "@open-rpc/json-schema-to-react-tree";
+import { JSONSchemaTree } from  "@open-rpc/json-schema-to-react-tree";
 import { ContentDescriptorObject } from "@open-rpc/meta-schema";
 import { JSONSchema7 } from "json-schema";
 import "./ContentDescriptor.css";
