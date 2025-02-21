@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, ChangeEvent } from "react";
-import { Button, Menu, MenuItem, Typography, Dialog, Container, Grid, InputBase } from "@mui/material";
+import { Button, Menu, MenuItem, Typography, Dialog, Container, InputBase } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import AddIcon from "@mui/icons-material/Add";
 import { ITransport } from "../hooks/useTransport";
 
@@ -74,7 +75,7 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
               &quot;sendData&quot;, and &quot;close&quot; methods over JSON-RPC.
              </Typography>
             <Grid container direction="column" spacing={1}>
-              <Grid item>
+              <Grid>
                 <InputBase placeholder="Plugin Name"
                   onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +91,7 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <InputBase placeholder="Plugin URI"
                   onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +107,7 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <Button
                   variant="outlined"
                   onClick={handleDialogCustomTransportClick}>
@@ -121,7 +122,7 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
               open={Boolean(dialogMenuAnchorEl)}
               onClose={handleDialogAnchorClose}
             >
-              {transports.filter((value) => value.type !== "plugin").map((transport) => (
+              {transports.filter((value) => value && value.type !== "plugin").map((transport) => (
                 <MenuItem
                   key={transport.name}
                   onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
@@ -147,17 +148,15 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
         onClick={handleClick} endIcon={<div />}
       >{selectedTransport && selectedTransport.name}</Button>
       <Menu
-        id="transport-menu"
+        id={"inspector-transport-menu"}
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {transports.map((transport) => (
-          <MenuItem key={transport.name} onClick={() => handleMenuItemClick(transport)}>{transport.name}</MenuItem>
-        ))}
-        <MenuItem onClick={() => setDialogOpen(true)}>
-         <AddIcon style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
+       {transports?.filter((value) => value ).map((transport, index) => (<MenuItem key={`transport-sub-${index}`}>{transport.name}</MenuItem>))}
+        <MenuItem key={`add-transport-menu-item`} onClick={() => setDialogOpen(true)}>
+         <AddIcon key={`add-transport-menu-item-icon`} style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
         </MenuItem>
       </Menu>
     </div>

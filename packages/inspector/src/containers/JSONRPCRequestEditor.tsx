@@ -48,6 +48,13 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
       return;
     }
     const model = editorRef.current.getModel();
+    if(!model) return;
+
+    const schema = getUpdatedchema(props.openrpcDocument);
+    addDiagnostics(model?.uri.toString() || "", schema, monaco);
+  }, [props.openrpcDocument]);
+
+
  /*   if(!model) return;
      model.setValue(props.value);
 
@@ -68,11 +75,10 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
     monaco.editor.setModelLanguage(model, "json");
     */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.openrpcDocument]);
 
-  function handleEditorDidMount(editor:any) {
-    editorRef.current = editor;
-    let schema: any = {
+  function getUpdatedchema( openrpcDocument?: OpenrpcDocument): any {
+    if(!editorRef.current) return;
+ let schema: any = {
       type: "object",
       properties: {
         jsonrpc: {
@@ -95,8 +101,8 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
       },
     };
 
-    if (props.openrpcDocument) {
-      schema = openrpcDocumentToJSONRPCSchema(props.openrpcDocument);
+    if (openrpcDocument) {
+      schema = openrpcDocumentToJSONRPCSchema(openrpcDocument);
     } else {
       schema = {
         additionalProperties: false,
@@ -111,14 +117,19 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
         },
       };
     }
+    return schema;
+  }
 
     // Configure JSON language features
 
+  function handleEditorDidMount(editor:any) {
+    editorRef.current = editor;
+    // Configure JSON language features
+    const schema = getUpdatedchema(props.openrpcDocument);
     const model = monaco.editor.createModel(props.value, "json")
     model.onDidChangeAttached(()=>{
       console.log("model attached", model.uri.toString());
     //monaco.editor.setModelLanguage(model, "json");
-    debugger
     addDiagnostics(model.uri.toString() || "", schema, monaco);
     console.log("diagnostiics added")
     })
@@ -147,7 +158,6 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
     if(!model) return;
     monaco.languages.json.getWorker().then((workerAccessor: any) => {
       workerAccessor(model.uri).then((worker: any) => {
-        debugger
         worker.getMatchingSchemas(model.uri.toString(), model.getValue()).then((schemas: any) => {
           console.log("getMatchingSchemas returned:", schemas);
         });

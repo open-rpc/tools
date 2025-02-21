@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-
 export default defineConfig({
   resolve: {
     alias: {
@@ -30,12 +29,21 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),
       name: 'Inspector',
-      fileName: format => `inspector.${format}.js`,
+      fileName: format => `index.${format}.js`,
       formats: ['es', 'cjs'],
     },
 
     rollupOptions: {
-      external: ['react', 'react-dom', 'react-dom/client', 'monaco-editor'],
+      external: [
+        'react',
+        'react-dom',
+        'react-dom/client',
+        'monaco-editor',
+        '@mui/material',
+        '@mui/icons-material',
+        '@mui/lab',
+        '@mui/styles',
+      ],
       output: {
         globals: {
           react: 'React',

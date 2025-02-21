@@ -3,12 +3,12 @@
   "version": "0.0.0-development",
   "description": "",
   "type": "module",
-  "module": "./dist/index.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/inspector.js"
+      "import": "./dist/index.es.js"
     }
   },
   "files": [
@@ -32,26 +32,27 @@
     "@babel/core": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
+    "@mui/icons-material": "6.3.1",
+    "@mui/material": "6.3.1",
+    "@open-rpc/monaco-editor-react": "*",
     "@types/isomorphic-fetch": "^0.0.39",
     "@types/qs": "^6.5.3",
-    "@types/react": "19.0.0",
-    "@types/react-dom": "19.0.0",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
     "@types/use-persisted-state": "^0.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.10.0",
+    "monaco-editor": "0.52.2",
     "monaco-editor-webpack-plugin": "^7.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "style-loader": "^3.3.4",
     "webpack": "5.98.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "monaco-editor": "0.52.2",
-    "@open-rpc/monaco-editor-react": "*"
+    "webpack-dev-server": "^5.0.2"
   },
   "dependencies": {
-    "@mui/icons-material": "6.3.1",
-    "@mui/material": "6.3.1",
     "@open-rpc/client-js": "^1.6.3",
     "@open-rpc/logs-react": "*",
     "@open-rpc/meta-schema": "^1.14.9",
@@ -71,15 +72,17 @@
     "vite": "6.0.5"
   },
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "@mui/icons-material": "6.3.1",
+    "@mui/material": "6.3.1",
+    "@open-rpc/monaco-editor-react": "*",
     "monaco-editor": ">=0.52.2",
-    "@open-rpc/monaco-editor-react": "*"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "resolutions": {
     "vite": "6.0.5",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": ">=18.3.1",
+    "react-dom": ">=18.3.1",
     "monaco-editor": ">=0.52.0"
   },
   "engines": {

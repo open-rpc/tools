@@ -44,7 +44,6 @@ import { JSONRPCLogger, IJSONRPCLog } from "@open-rpc/logs-react";
 import OptionsEditor from "./OptionsEditor";
 import ListItemButton from '@mui/material/ListItemButton';
 import useDarkMode from "use-dark-mode";
-import { JSONRPCLog } from "packages/logs-react/src/exports";
 
 const useCustomTransportList = createPersistedState("inspector-custom-transports");
 
@@ -372,14 +371,14 @@ const Inspector: React.FC<IProps> = (props) => {
     if (transport) {
       transport.subscribe("notification", (notification: any) => {
         const responseTimestamp = new Date();
-        const notificationObj: JSONRPCLog = {
+        const notificationObj: IJSONRPCLog = {
           type: "response",
           notification: true,
           method: notification.method,
           timestamp: responseTimestamp,
           payload: notification,
         };
-        setLogs((prevLogs: JSONRPCLog[]) => [...prevLogs, notificationObj]);
+        setLogs((prevLogs: IJSONRPCLog[]) => [...prevLogs, notificationObj]);
         setTabs((prevTabs: ITab[]) => {
           // Don't update if the target tab no longer exists
           if (!prevTabs[tabIndex]) {
@@ -392,13 +391,13 @@ const Inspector: React.FC<IProps> = (props) => {
       });
       transport.subscribe("error", (error: any) => {
         const responseTimestamp = new Date();
-        const notificationObj: JSONRPCLog = {
+        const notificationObj: IJSONRPCLog = {
           type: "response",
           method: "",
           timestamp: responseTimestamp,
           payload: errorToJSON(error, null),
         };
-        setLogs((prevLogs: JSONRPCLog[]) => [...prevLogs, notificationObj]);
+        setLogs((prevLogs: IJSONRPCLog[]) => [...prevLogs, notificationObj]);
         setTabs((prevTabs: ITab[]) => {
           // Don't update if the target tab no longer exists
           if (!prevTabs[tabIndex]) {
@@ -479,6 +478,7 @@ const Inspector: React.FC<IProps> = (props) => {
 
   return (
     <>
+    
       <Dialog onClose={() => setHistoryOpen(false)} aria-labelledby="simple-dialog-title" open={historyOpen} >
         <Container maxWidth="sm">
           <Grid
@@ -497,6 +497,7 @@ const Inspector: React.FC<IProps> = (props) => {
                 </Tooltip>
             }
           </Grid>
+
           {
             requestHistory.length === 0
               ? <Typography style={{ padding: "30px" }}>No History Yet.</Typography>
@@ -535,8 +536,8 @@ const Inspector: React.FC<IProps> = (props) => {
           }
         </Container>
       </Dialog>
-
       <div style={{ position: "relative" }}>
+     
         <Tabs
           style={{ background: "transparent" }}
           value={tabIndex}
@@ -546,8 +547,6 @@ const Inspector: React.FC<IProps> = (props) => {
         >
           
           {tabs.map((tab, index) => (
-          
-            
             <Tab
               key={`tab-${index}`}
               disableRipple
@@ -558,33 +557,34 @@ const Inspector: React.FC<IProps> = (props) => {
               }}
               component="div"
               onDoubleClick={() => setTabEditing(tab, true)}
-              label={
+            label={
                 <div style={{ userSelect: "none" }}>
                   {tab.editing
                     ? <InputBase
+                      key={`tab-label-input-${index}`}
                       value={tab.name}
                       onChange={(ev) => handleLabelChange(ev, tab)}
                       onBlur={() => setTabEditing(tab, false)}
                       autoFocus
                       style={{ maxWidth: "80px", marginRight: "25px" }}
                     />
-                    : <Typography style={{ display: "inline", textTransform: "none", marginRight: "25px" }} variant="body1" >{tab.name}</Typography>
+                    : <Typography key={`tab-label-text-${index}`} style={{ display: "inline", textTransform: "none", marginRight: "25px" }} variant="body1" >{tab.name}</Typography>
                   }
                   {tabIndex === index
                     ?
-                    <Tooltip title="Close Tab">
-                      <IconButton onClick={
+                    <Tooltip key={`tab-close-${index}`} title="Close Tab">
+                      <IconButton key={`tab-close-btn-${index}`} component="div" onClick={
                         (ev: React.MouseEvent<HTMLElement>) => handleClose(ev, index)
-                      } style={{ position: "absolute", right: "10px", top: "25%" }} size="small">
+                      } style={{ position: "absolute", right: "0px", top: "25%" }} size="small">
                         <CloseIcon />
                       </IconButton>
                     </Tooltip>
                     : null
                   }
-                </div>
+                  </div>
               }></Tab>
           ))}
-          <Tab disableRipple style={{ minWidth: "50px" }} 
+          <Tab key={`tab-new`} disableRipple style={{ minWidth: "50px" }} 
           component="div"
           label={
              <Tooltip title="Create New Tab">
@@ -605,23 +605,29 @@ const Inspector: React.FC<IProps> = (props) => {
                   return newTabs;
                 });
               }}>
-                <PlusIcon style={{ transform: 'scale(0.5)' }} />
+                <PlusIcon style={{ transform: 'scale(1)' }} />
               </IconButton>
             </Tooltip>
           }>
           </Tab>
+
         </Tabs>
       </div>
       
       <AppBar elevation={0} position="static" style={{ zIndex: 1 }}>
+        
         <Toolbar>
-          <img
+         <img
             height="30"
             alt="openrpc-logo"
             style={{ marginRight: "10px" }}
             src="https://github.com/open-rpc/design/raw/master/icons/open-rpc-logo-noText/open-rpc-logo-noText%20(PNG)/128x128.png" //tslint:disable-line
           />
           <Typography variant="h6" color="textSecondary">Inspector</Typography>
+
+ 
+         
+          
           <TransportDropdown
             transports={transportList as ITransport[]}
             onAddTransport={(addedTransport: ITransport) => {
@@ -634,7 +640,8 @@ const Inspector: React.FC<IProps> = (props) => {
             }}
           />
           <Tooltip title="Play">
-            <IconButton onClick={handlePlayButton}>
+            
+            <IconButton component="div" onClick={handlePlayButton}>
               <PlayCircle fontSize="large" />
             </IconButton>
           </Tooltip>
@@ -660,7 +667,7 @@ const Inspector: React.FC<IProps> = (props) => {
                     </Typography>
                       </div>
                     } onClick={() => window.open("https://spec.open-rpc.org/#service-discovery-method")}>
-                      <DocumentIcon style={{ color: green[500], marginRight: "5px", cursor: "pointer", transform: 'scale(0.1)' }} />
+                      <DocumentIcon style={{ color: green[500], marginRight: "5px", cursor: "pointer", transform: 'scale(1)' }} />
                     </Tooltip>
                     : null
                 }
@@ -810,7 +817,6 @@ const Inspector: React.FC<IProps> = (props) => {
           )}
         </Panel>
       </PanelGroup>
-      
     </>
   );
 
