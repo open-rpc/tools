@@ -136,7 +136,6 @@ const CardListItem: React.FC<IProps> = (props) => {
 
     // Optionally, update diagnostics:
     console.log("adding diagnostics", schema)
-    debugger
     addDiagnostics(newModel.uri.toString(), schema, monaco);
 
     // Adjust height based on new content

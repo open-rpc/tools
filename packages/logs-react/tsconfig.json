@@ -10,7 +10,7 @@
     "moduleResolution":"bundler", 
     "paths": {
       "@/*": ["./src/exports"],
-      "@exports": ["./src/exports"]
+      "@exports": ["./src/exports"],
     }
   },
   "include": ["src/**/*", "src/**/*.css"]

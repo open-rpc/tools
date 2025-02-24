@@ -29,7 +29,15 @@ export default defineConfig({
       fileName: format => (format === 'cjs' ? 'index.cjs.js' : 'index.es.js'),
     },
     rollupOptions: {
-      external: ['react', 'react-dom', '@mui/material', '@mui/icons-material', 'monaco-editor'],
+      external: [
+        'react',
+        'react-dom',
+        '@mui/material',
+        '@mui/material/styles',
+        '@mui/icons-material',
+        '@mui/lab',
+        'monaco-editor',
+      ],
     },
   },
   worker: {
