@@ -183,7 +183,7 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
         }>
         <TreeItem
           label={schema.title
-            ? <Grid container justify="flex-start" alignItems="center" spacing={1}>
+            ? <Grid container justifyContent="flex-start" alignItems="center" spacing={1}>
               <Typography
                 style={{ color: colorMap.undefined, marginRight: "4px", marginLeft: "4px" }}
                 variant="caption"
