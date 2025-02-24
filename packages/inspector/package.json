@@ -19,11 +19,10 @@
   },
   "scripts": {
     "start": "vite",
+    "build": "npm run build:package",
     "build:package": "vite build && tsc --emitDeclarationOnly",
-    "build:dev": "webpack --mode development --config webpack.config.cjs",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "jest",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "author": "",
@@ -56,7 +55,7 @@
     "@open-rpc/client-js": "^1.6.3",
     "@open-rpc/logs-react": "*",
     "@open-rpc/meta-schema": "^1.14.9",
-    "@open-rpc/schema-utils-js": "^1.14.3",
+    "@open-rpc/schema-utils-js": "2.1.0",
     "@rehooks/window-size": "^1.0.2",
     "@uiw/react-json-view": "2.0.0-alpha.30",
     "acorn-dynamic-import": "^4.0.0",

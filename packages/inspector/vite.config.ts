@@ -42,7 +42,7 @@ export default defineConfig({
         '@mui/material',
         '@mui/icons-material',
         '@mui/lab',
-        '@mui/styles',
+        '@mui/material/styles',
       ],
       output: {
         globals: {

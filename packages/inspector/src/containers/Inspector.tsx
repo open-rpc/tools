@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { useState, useEffect, Dispatch } from "react";
+import { useState, useEffect, Dispatch, useLayoutEffect } from "react";
 import { Panel, PanelGroup, PanelResizeHandle, ImperativePanelGroupHandle } from "react-resizable-panels";
 import JSONRPCRequestEditor from "./JSONRPCRequestEditor";
 import PlayCircle from "@mui/icons-material/PlayCircleFilled";
@@ -251,7 +251,7 @@ const Inspector: React.FC<IProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.url]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     horizontalPanelGroupRef.current?.setLayout([50, 50]);
     if ((selectedTransport as IWebTransport).schema) {
       verticalPanelGroupRef.current?.setLayout([85, 15]);
