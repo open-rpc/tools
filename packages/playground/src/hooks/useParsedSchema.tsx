@@ -1,6 +1,6 @@
 import { useState, useEffect, Dispatch } from "react";
 import _ from "lodash";
-import refParser from "json-schema-ref-parser";
+import refParser from "@apidevtools/json-schema-ref-parser";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 
 const useParsedSchema = (defaultValue: object | any): [OpenrpcDocument | undefined, Dispatch<string>] => {

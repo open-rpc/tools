@@ -1,19 +1,29 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build",
+    "outDir": "./dist",
     "rootDir": "./src",
     "allowJs": true,
     "module": "esnext",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "composite": true
   },
   "references": [
+    { "path": "../json-schema-to-react-tree" },
+    { "path": "../inspector" },
     { "path": "../logs-react" },
-    { "path": "../inspector" }
+    { "path": "../monaco-editor-react" },
+    { "path": "../docs-react" }
   ],
   "include": [
-    "src"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.json",
+    "src/**/*.css",
+    "src/**/*.scss",
   ]
 }

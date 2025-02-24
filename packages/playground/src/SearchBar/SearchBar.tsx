@@ -1,36 +1,31 @@
 import React from "react";
-import {
-  InputBase,
-  Theme,
-  WithStyles,
-  withStyles,
-} from "@material-ui/core";
+import { InputBase, styled } from "@mui/material";
 import { IUISchema } from "../UISchema";
 
-const styles = (theme: Theme) => ({
-  title: {
-    marginLeft: theme.spacing(2),
-  },
-  appBar: {
-  },
-});
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  width: "100%",
+}));
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   uiSchema?: IUISchema;
   searchBarUrl: string | undefined;
-  onChangeUrl?: any;
-  onDarkModeChange?: any;
-  onSplitViewChange?: any;
+  onChangeUrl?: (value: string) => void;
+  onDarkModeChange?: (value: boolean) => void;
+  onSplitViewChange?: (value: boolean) => void;
 }
 
-const SearchBar: React.FC<IProps> = (props) => {
-  const { uiSchema, searchBarUrl, onChangeUrl } = props;
-  const handleChange = (event: any) => {
-    onChangeUrl(event.target.value);
+const SearchBar: React.FC<IProps> = ({ uiSchema, searchBarUrl, onChangeUrl }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChangeUrl?.(event.target.value);
   };
+
   return (
-    <InputBase value={searchBarUrl} placeholder={uiSchema && uiSchema.appBar["ui:inputPlaceholder"]} style={{ width: "100%" }}  onChange={handleChange}/>
+    <StyledInputBase 
+      value={searchBarUrl || ""} 
+      placeholder={uiSchema?.appBar?.["ui:inputPlaceholder"]}
+      onChange={handleChange}
+    />
   );
 };
 
-export default withStyles(styles)(SearchBar);
+export default SearchBar;

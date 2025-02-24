@@ -1,88 +1,186 @@
-import { createMuiTheme } from "@material-ui/core/styles";
-import grey from "@material-ui/core/colors/grey";
+import { createTheme, Theme } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
-export const lightTheme = createMuiTheme({
-  props: {
-    MuiAppBar: {
-      position: "sticky",
-    },
-    MuiCard: {
-      elevation: 0,
+const baseTheme = {
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          transition: 'background-color 0.2s ease, color 0.2s ease',
+        },
+      },
     },
   },
-  overrides: {
+};
+
+export const lightTheme: Theme = createTheme({
+  ...baseTheme,
+  components: {
+    ...baseTheme.components,
+    MuiAppBar: {
+      defaultProps: {
+        position: 'sticky',
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: 'transparent !important',
+        },
+        colorDefault: {
+          background: 'transparent !important',
+        },
+        colorPrimary: {
+          background: 'transparent !important',
+        },
+      },
+    },
+    MuiCard: {
+      defaultProps: {
+        elevation: 0,
+      },
+    },
     MuiPaper: {
-      root: {
-        zIndex: 1,
-        opacity: 1,
+      styleOverrides: {
+        root: {
+          zIndex: 1,
+          opacity: 1,
+        },
       },
     },
     MuiToolbar: {
-      root: {
-        background: "transparent !important",
-      },
-    },
-    MuiAppBar: {
-      root: {
-        backgroundColor: "transparent !important",
-      },
-      colorDefault: {
-        background: "transparent !important",
-      },
-      colorPrimary: {
-        background: "transparent !important",
+      styleOverrides: {
+        root: {
+          background: 'transparent !important',
+        },
       },
     },
   },
   palette: {
+    mode: 'light',
     background: {
-      default: "#fff",
+      default: '#fff',
+      paper: '#fff',
+    },
+    text: {
+      primary: grey[900],
+      secondary: grey[700],
     },
   },
 });
 
-export const darkTheme = createMuiTheme({
-  props: {
+export const darkTheme: Theme = createTheme({
+  ...baseTheme,
+  components: {
+    ...baseTheme.components,
     MuiAppBar: {
-      position: "sticky",
+      defaultProps: {
+        position: 'sticky',
+      },
+      styleOverrides: {
+        root: {
+          background: 'transparent !important',
+        },
+        colorPrimary: {
+          background: 'transparent !important',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          zIndex: 1,
+          opacity: 1,
+          backgroundColor: grey[900],
+          color: grey[100],
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          background: 'transparent !important',
+        },
+      },
+    },
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          background: 'transparent !important',
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: grey[900],
+          color: grey[100],
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+          '& .MuiAccordionSummary-expandIconWrapper': {
+            color: `${grey[100]} !important`,
+          },
+          '& .MuiAccordionSummary-expandIconWrapper svg': {
+            color: `${grey[100]} !important`,
+          },
+        },
+        content: {
+          color: grey[100],
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+          borderBottom: `1px solid ${grey[800]}`,
+        },
+        head: {
+          color: `${grey[100]} !important`,
+          backgroundColor: grey[900],
+          fontWeight: 500,
+          '&, & *': {
+            color: `${grey[100]} !important`,
+          },
+          '& .MuiSvgIcon-root': {
+            color: grey[100],
+          },
+        },
+        alignRight: {
+          color: `${grey[100]} !important`,
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+        },
+      },
     },
   },
   palette: {
-    type: "dark",
+    mode: 'dark',
     background: {
       default: grey[900],
       paper: grey[900],
     },
-  },
-  overrides: {
-    MuiPaper: {
-      root: {
-        zIndex: 1,
-        opacity: 1,
-      },
-    },
-    MuiAppBar: {
-      root: {
-        background: "transparent !important",
-      },
-      colorPrimary: {
-        background: "transparent !important",
-      },
-    },
-    MuiToolbar: {
-      root: {
-        background: "transparent !important",
-      },
-    },
-    MuiTable: {
-      root: {
-        background: "transparent !important",
-      },
-    },
-    MuiTypography: {
-      root: {
-        color: grey[400],
-      },
+    text: {
+      primary: grey[100],
+      secondary: grey[400],
     },
   },
 });

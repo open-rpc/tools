@@ -14,7 +14,7 @@ const useMonacoReplaceMetaSchema = (editor: monaco.editor.IStandaloneCodeEditor)
       id: "replace-meta-schema",
       label: "Replace Meta Schema",
       keybindings: [
-        monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_K, monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_R), //tslint:disable-line
+        monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK, monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyR), //tslint:disable-line
       ],
       contextMenuGroupId: "navigation",
       contextMenuOrder: 1.5,

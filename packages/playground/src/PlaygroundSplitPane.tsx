@@ -1,11 +1,13 @@
-import SplitPane from "react-split-pane";
-import React from "react";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import * as React from "react";
+import { ReactNode, useEffect, useRef } from "react";
+import { CSSProperties } from "react";
+import { Panel, PanelGroup, PanelResizeHandle, ImperativePanelGroupHandle } from "react-resizable-panels";
+import "./PlaygroundSplitPane.css";
 
 interface IProps {
-  onChange?: (size: number) => any;
-  left: any;
-  right: any;
+  onChange?: (size: number) => void;
+  left: ReactNode;
+  right: ReactNode;
   leftStyle?: CSSProperties;
   rightStyle?: CSSProperties;
   style?: CSSProperties;
@@ -15,44 +17,74 @@ interface IProps {
   onlyRenderSplit?: boolean;
 }
 
-const PlaygroundSplitPane: React.FC<IProps> = (props) => {
-  const handleChange = (size: number) => {
-    if (props.onChange) {
-      props.onChange(size);
-    }
-  };
+const PlaygroundSplitPane: React.FC<IProps> = ({
+  onChange,
+  left,
+  right,
+  leftStyle,
+  rightStyle,
+  style,
+  direction = "vertical",
+  splitLeft,
+  split,
+  onlyRenderSplit,
+}) => {
+  const panelGroupRef = useRef<ImperativePanelGroupHandle>(null);
 
-  if (props.split === false && props.onlyRenderSplit) {
+  useEffect(() => {
+    console.log("panelGroupRef", panelGroupRef.current);
+    panelGroupRef.current?.setLayout([50, 50]);
+  }, []);
+  // If split is false and onlyRenderSplit is true, render just one side
+  if (split === false && onlyRenderSplit) {
     return (
-      <div key={2} style={props.splitLeft ? props.leftStyle : props.rightStyle}>
-        {props.splitLeft ? props.left : props.right}
+      <div style={splitLeft ? leftStyle : rightStyle}>
+        {splitLeft ? left : right}
       </div>
     );
   }
 
-  const dir = props.direction || "vertical";
-  const defaultSize = !props.split
-    ? dir === "horizontal" ? window.innerHeight : window.innerWidth
-    : dir === "horizontal" ? window.innerHeight * .35 : window.innerWidth / 2;
+
+  const handleLayout = (sizes: number[]) => {
+    //onChange?.(sizes[0]); // Pass the first panel's size to onChange
+  };
+
   return (
-    <SplitPane split={dir}
-      style={props.style}
-      className={"playground-splitview"}
-      minSize={100}
-      maxSize={0}
-      defaultSize={defaultSize}
-      size={defaultSize}
-      onChange={handleChange}>
-      <div style={
-        props.leftStyle ? { ...props.leftStyle, ...{ display: "flex", flexDirection: "column", height: "100%" } }
-          : { display: "flex", flexDirection: "column", height: "100%" }
-      } key={1}>
-        {props.left}
-      </div>
-      <div key={2} style={props.rightStyle}>
-        {props.right}
-      </div>
-    </SplitPane >
+    <PanelGroup
+      ref={panelGroupRef}
+      direction={direction}
+      style={{
+        ...style,
+        height: "calc(100vh)",
+        width: "100%",
+        display: "flex",
+        backgroundColor: "red",
+      }}
+      onLayout={handleLayout}
+    >
+      <Panel
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          overflow: "auto",
+          minHeight: 0,
+          backgroundColor: "blue",
+          ...leftStyle,
+        }}
+      >
+        {left}
+      </Panel>
+      <PanelResizeHandle className="resize-handle" />
+      <Panel
+        defaultSize={50}
+        style={{
+          minHeight: 0,
+          ...rightStyle,
+        }}
+      >
+        {right}
+      </Panel>
+    </PanelGroup>
   );
 };
 

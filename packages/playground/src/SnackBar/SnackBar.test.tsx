@@ -6,7 +6,7 @@ it("renders notifications", () => {
   for (const notificationType in NotificationType) {
     if ( typeof  notificationType === "string") {
     const type = NotificationType[notificationType] as NotificationType;
-    ReactDOM.render(<SnackBar close={null} notification={{ message: "hello", type}} />, div);
+    ReactDOM.render(<SnackBar close={()=>null} notification={{ message: "hello", type}} />, div);
     expect(div.innerHTML.includes("hello")).toBe(true);
     ReactDOM.unmountComponentAtNode(div);
     } else {
