@@ -2,7 +2,7 @@ import { it, expect } from 'vitest';
 import React from "react";
 import Documentation from "./Documentation";
 import { render, screen } from '@testing-library/react';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 it("renders without crashing", () => {
   render(<Documentation schema={{} as any} />);
 });

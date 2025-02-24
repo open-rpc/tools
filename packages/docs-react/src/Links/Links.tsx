@@ -92,7 +92,9 @@ const Root = styled(ExpansionTable)(({ theme }: { theme: Theme }) => ({
 
 interface IProps {
   links?: LinkObject[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
 }
 

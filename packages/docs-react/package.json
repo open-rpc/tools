@@ -20,8 +20,7 @@
     "build:package": "BUILD_MODE=lib vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "vitest",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+    "test": "vitest run"
   },
   "author": "",
   "license": "Apache-2.0",

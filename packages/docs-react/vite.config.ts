@@ -19,7 +19,7 @@ export default defineConfig({
         ? {
             entry: resolve(__dirname, 'src/index.ts'),
             name: 'DocsReact',
-            fileName: format => `index.${format}.js`,
+            fileName: (format) => `index.${format}.js`,
             formats: ['es', 'cjs'],
           }
         : undefined,

@@ -3,6 +3,7 @@ import React from "react";
 import Methods, { IMethodPluginProps } from "./Methods";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 import { render, screen, fireEvent} from "@testing-library/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 it("renders without crashing", () => {
   render(<Methods />);

@@ -32,6 +32,7 @@ const StyledGrid = styled(Grid)((
 
 interface IProps {
   errors?: ErrorObject[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
 }
 

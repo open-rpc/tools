@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest';
 import React from "react";
 import Servers from "./Servers";
-import { getDefaultNormalizer, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 it("renders without crashing", () => {
   render(<Servers />);

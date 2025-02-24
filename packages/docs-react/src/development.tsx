@@ -1,10 +1,10 @@
+/* eslint-disable */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { OpenrpcDocument } from '@open-rpc/meta-schema';
 import Documentation from './Documentation';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { grey } from '@mui/material/colors';
 
 // Create dark theme
@@ -167,60 +167,6 @@ export const darkTheme = createTheme({
     },
   },
 });
-
-/*export const darkTheme = createTheme({
-  components: {
-    MuiAppBar: {
-      defaultProps: {
-        position: 'sticky',
-      },
-      styleOverrides: {
-        root: {
-          background: 'transparent !important',
-        },
-        colorPrimary: {
-          background: 'transparent !important',
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          zIndex: 1,
-          opacity: 1,
-        },
-      },
-    },
-    MuiToolbar: {
-      styleOverrides: {
-        root: {
-          background: 'transparent !important',
-        },
-      },
-    },
-    MuiTable: {
-      styleOverrides: {
-        root: {
-          background: 'transparent !important',
-        },
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: grey[400],
-        },
-      },
-    },
-  },
-  palette: {
-    mode: 'dark',
-    background: {
-      default: grey[900],
-      paper: grey[900],
-    },
-  },
-});*/
 
 
 const container = document.getElementById('root');

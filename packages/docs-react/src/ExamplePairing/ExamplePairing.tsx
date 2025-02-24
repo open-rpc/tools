@@ -31,7 +31,9 @@ interface IProps {
   examplePairing?: ExamplePairingObject;
   paramStructure?: TParamStructure;
   methodName?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
 }
 
@@ -48,6 +50,7 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
       ? (examplePairing.params as ExampleObject[]).reduce(((memo, p) => {
         memo[p.name] = p.value;
         return memo;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }), {} as any)
       : (examplePairing.params as ExampleObject[]).map(((p) => p.value));
 

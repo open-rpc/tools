@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { it, expect } from 'vitest';
 import React from "react";
 import Info  from "./Info";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";

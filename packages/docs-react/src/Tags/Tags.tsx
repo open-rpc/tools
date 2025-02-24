@@ -9,14 +9,14 @@ interface IProps {
 
 export default class Tags extends Component<IProps> {
   public render() {
-    const { tags }: { tags?: any} = this.props;
+    const { tags }: { tags?: TagObject[]} = this.props;
     if (!tags || tags.length === 0) {
       return null;
     }
     return (
       <>
         {
-          tags.map((tag: any, k: number) => {
+          tags.map((tag) => {
             return (
               <Chip
                 key={tag.name}

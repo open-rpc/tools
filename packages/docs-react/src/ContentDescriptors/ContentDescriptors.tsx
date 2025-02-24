@@ -6,6 +6,7 @@ import { OpenrpcDocument, ContentDescriptorObject } from "@open-rpc/meta-schema"
 interface IProps {
   schema?: OpenrpcDocument;
   disableTransitionProps?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
 }
 

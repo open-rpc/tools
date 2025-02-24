@@ -64,6 +64,7 @@ const StyledTable = styled(Table)((
 interface IProps {
   params?: ContentDescriptorObject[];
   disableTransitionProps?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
 }
 

@@ -52,6 +52,7 @@ class Info extends Component<IProps> {
           info.license.name &&
           info.license.url &&
           <Chip
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             component={"a" as any}
             {...{ href: info.license.url }}
             className={classes.chip}

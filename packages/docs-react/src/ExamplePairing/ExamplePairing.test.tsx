@@ -6,6 +6,7 @@ import refParser from "@apidevtools/json-schema-ref-parser";
 import { OpenrpcDocument, ExamplePairingObject, MethodObject } from "@open-rpc/meta-schema";
 import { render, screen } from '@testing-library/react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isMethodObject = (method: any): method is MethodObject => {
   return method && 
     typeof method === "object" && 
@@ -14,6 +15,7 @@ const isMethodObject = (method: any): method is MethodObject => {
 };
 
 it("renders handles no method", async () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   render(<ExamplePairing methodName={undefined} examplePairing={{} as any} />);
   expect(document.body.textContent).toBe("");
 });
@@ -33,6 +35,7 @@ it("renders examples", async () => {
   render(
     <ExamplePairing
       methodName={method.name}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       examplePairing={method.examples && method.examples[0] as any}
     />
   );

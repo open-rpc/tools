@@ -4,11 +4,12 @@ import Servers from "./Servers/Servers";
 import Methods, { IMethodPluginProps, OnMethodToggle } from "./Methods/Methods";
 import ContentDescriptors from "./ContentDescriptors/ContentDescriptors";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
-import { useTheme  } from "@mui/material/styles";
 
 interface IProps {
   schema?: OpenrpcDocument;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
   methodPlugins?: Array<React.FC<IMethodPluginProps>>;
   onMethodToggle?: OnMethodToggle;
@@ -21,8 +22,6 @@ const Documentation: React.FC<IProps> = ({
   methodPlugins,
   onMethodToggle,
 }) => {
-  const theme = useTheme();
-  console.log("Theme in Documentation:", theme);
   if (!schema) {
     return null;
   }

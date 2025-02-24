@@ -2,7 +2,6 @@ import React from "react";
 import { Theme, styled } from "@mui/material/styles";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import _ from "lodash";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -39,13 +38,7 @@ const MethodsContainer = styled(Box)((
     theme: Theme
   }
 ) => {
-  console.log("Theme in Methods styled callback:", {
-    mode: theme.palette.mode,
-    text: {
-      primary: theme.palette.text.primary,
-      secondary: theme.palette.text.secondary
-    }
-  });
+
   return {
     [`& .${classes.description}`]: { 
       color: theme.palette.text.primary, 
@@ -92,6 +85,7 @@ export type OnMethodToggle = (method: string, expanded: boolean) => void;
 
 interface IProps {
   schema?: OpenrpcDocument;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
   reactJsonOptions?: object;
   methodPlugins?: Array<React.FC<IMethodPluginProps>>;
@@ -113,7 +107,6 @@ const Methods: React.FC<IProps> = ({
   if (!schema || !schema.methods) {
     return null;
   }
-  console.log("uiSchema in Methods:", uiSchema);
   const methods = schema.methods as MethodObject[];
   const methodsExist = methods && methods.length > 0;
   if (!methodsExist) { return null; }
@@ -145,6 +138,7 @@ const Methods: React.FC<IProps> = ({
 
           {method.tags && method.tags.length > 0 &&
             <AccordionDetails key="tags">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               <Tags tags={method.tags as any} />
             </AccordionDetails>
           }
@@ -202,6 +196,7 @@ const Methods: React.FC<IProps> = ({
           }
           {methodPlugins && methodPlugins.length > 0 &&
             <AccordionDetails key="method-plugins">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {methodPlugins.map((CompDef: any, index: number) => {
                 return (
                   <CompDef key={`method-plugin-${index}`} openrpcMethodObject={method} />

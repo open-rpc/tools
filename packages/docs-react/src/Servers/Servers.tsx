@@ -3,7 +3,7 @@ import {Theme, styled } from "@mui/material/styles";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from "@mui/material";
+import { Typography, Accordion, AccordionSummary, AccordionDetails} from "@mui/material";
 import { ServerObject } from "@open-rpc/meta-schema";
 import ReactJson from "@uiw/react-json-view";
 import ExpansionTable from "../ExpansionTable/ExpansionTable";
@@ -26,13 +26,7 @@ const Root = styled('div')((
     theme: Theme
   }
 ) => { 
-  console.log("Theme in Servers styled callback:", {
-    mode: theme.palette.mode,
-    text: {
-      primary: theme.palette.text.primary,
-      secondary: theme.palette.text.secondary
-    }
-  });
+
   return {
   [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
@@ -58,7 +52,9 @@ const Root = styled('div')((
 
 interface IProps {
   servers?: ServerObject[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
   noTitle?: boolean;
 }

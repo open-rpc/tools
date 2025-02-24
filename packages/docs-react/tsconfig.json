@@ -15,5 +15,6 @@
     "references": [
       { "path": "../json-schema-to-react-tree" }
     ],
-  "include": ["src/**/*", "src/**/*.css"]
+  "include": ["src/**/*", "src/**/*.css"],
+  "exclude": ["src/index.tsx"]
 }
