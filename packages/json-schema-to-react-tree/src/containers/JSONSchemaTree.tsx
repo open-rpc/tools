@@ -155,6 +155,7 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
           return (
             <>
               <RenderNodes schema={s as JSONSchema7} />
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {schema && schema.items && i !== ((schema.items as any).length - 1)
                 ? <Divider
                   style={{
@@ -256,7 +257,7 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
               .map(([n, s], i: number) => {
                 const schem: JSONSchema7 = s as JSONSchema7;
                 return (
-                  <TreeItem label={n} itemId={uuid()}>
+                  <TreeItem key={`schema-${i}`} label={n} itemId={uuid()}>
                     <RenderNodes
                       schema={schem}
                       required={schema.required && schema.required.includes(n)}
@@ -295,6 +296,7 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
                 style={{ color: colorMap.undefined, marginRight: "4px", marginLeft: "4px" }}
                 variant="caption"
               >type</Typography>
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               <Typography style={{ color: colorMap[schema.type as any] }}>{schema.type}</Typography>
             </Grid>
           }
@@ -365,10 +367,10 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
           }
         >
           {
-            schema.enum.map((enumType) => {
+            schema.enum.map((enumType, i) => {
               const str = enumType ? enumType.toString() : null;
               return (
-                <TreeItem itemId={uuid()} label={
+                <TreeItem key={`enum-${i}`} itemId={uuid()} label={
                   <Typography
                     style={{ marginRight: "4px", marginLeft: "4px" }}
                   >{str}</Typography>

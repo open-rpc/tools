@@ -24,16 +24,14 @@
     "build": "vite build",
     "clean:package": "rm -rf build && rm -rf tsconfig.tsbuildinfo",
     "build:package": "vite build && cd src && find . -name '*.css' -exec cp -v --parents -t ../build {} + && tsc --emitDeclarationOnly",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "clean": "rm -rf build coverage",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/react-dom": "18.3.5",
     "@types/react": "18.3.18",
-    "eslint": "^6.6.0",
+    "eslint": "9.21.0",
     "typescript": "^5.0.0",
     "@mui/icons-material": "6.3.1",
     "@mui/material": "6.3.1",

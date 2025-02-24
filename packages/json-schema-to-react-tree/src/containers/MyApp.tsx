@@ -4,7 +4,7 @@ import JSONSchemaTree from "./JSONSchemaTree";
 interface IProps {
   greeting: string;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MyApp = (props: IProps) => {
   return (
     <>
