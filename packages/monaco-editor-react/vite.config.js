@@ -27,12 +27,13 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {
-      external: ['react', 'react-dom', '@mui/material', 'monaco-editor'],
+      external: ['react', 'react-dom', '@mui/material', 'monaco-editor', '@mui/material/styles'],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           '@mui/material': '@mui/material',
+
           'monaco-editor': 'monaco'
         }
       }

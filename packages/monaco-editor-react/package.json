@@ -17,27 +17,22 @@
   "scripts": {
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
-    "build:packagew": "webpack --mode production && tsc --emitDeclarationOnly",
     "start": "vite",
-    "startw": "webpack serve --mode development",
-    "dev": "webpack serve --mode development",
-    "clean:packagew": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "npm run lint && jest --coverage --passWithNoTests",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {},
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "monaco-editor": "0.52.2",
     "@mui/material": "6.3.1"
   },
   "devDependencies": {
-    "@types/react": "19.0.0",
-    "@types/react-dom": "19.0.0",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
     "@babel/core": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",

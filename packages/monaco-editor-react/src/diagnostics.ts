@@ -11,14 +11,19 @@ const diagnosticSchemaMap: IDiagnosticSchemaMapSingleton =
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (globalThis as any)[GLOBAL_SCHEMA_DIAGNOSTICS_SYMBOL] = diagnosticSchemaMap;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function addDiagnostics(uri: string, schema: any, monaco: any): void {
+export function addDiagnostics(
+  uri: string,
+  schema: any,
+  monaco: any,
+  fileMatch?: Array<string>
+): void {
   diagnosticSchemaMap[uri] = schema;
   const diagnosticOptions = {
     enableSchemaRequest: true,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     schemas: Object.entries(diagnosticSchemaMap).map(([u, s]: [string, any]) => {
       return {
-        fileMatch: [u],
+        fileMatch: fileMatch ? fileMatch : [u],
         schema: s,
         uri: u,
       };
