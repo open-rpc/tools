@@ -7,8 +7,10 @@ interface IProps {
   log: IJSONRPCLog;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getChipColorForLog = (log: IJSONRPCLog, theme: Theme, isNotification = false): any => {
   const paletteType = theme.palette.mode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const styles: any = {
     backgroundColor: theme.palette.success[paletteType],
   };

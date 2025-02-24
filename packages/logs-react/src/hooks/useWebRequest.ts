@@ -23,15 +23,19 @@ const isJsonRpc = (str: string) => {
       }
     }
     return false;
-  } catch (e) {
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_e) {
     return false;
   }
 };
 
 const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
   const [history, setHistory] = useState<IJSONRPCLog[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const listener = (request: any) => {
     const requestBody = request.request.postData?.text;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     request.getContent((responseBody: any) => {
       if (
         request.request &&
@@ -87,7 +91,7 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
             payload: responseBodyObj,
           });
         }
-        setHistory(prevHistory => [...prevHistory, ...requestObjs, ...responseObjs]);
+        setHistory((prevHistory) => [...prevHistory, ...requestObjs, ...responseObjs]);
       }
     });
   };
@@ -97,8 +101,8 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
       typeof chrome !== 'undefined' && chrome.devtools && chrome.devtools.network
         ? chrome.devtools.network
         : typeof browser !== 'undefined' && browser.devtools && browser.devtools.network
-        ? browser.devtools.network
-        : null;
+          ? browser.devtools.network
+          : null;
 
     if (devToolsNetwork) {
       devToolsNetwork.onRequestFinished.addListener(listener);

@@ -8,6 +8,11 @@ import { JSONRPCLogger, IJSONRPCLog } from "../components/logsReact/logsReact";
 import useWebRequest from "../hooks/useWebRequest";
 import * as monaco from "monaco-editor";
 
+interface DevToolsPanel {
+  create(title: string, iconPath: string, pagePath: string, callback: (panel: DevToolsPanel) => void): void;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
   const [newHistory, setHistory] = useWebRequest();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -16,7 +21,7 @@ const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
 
   useEffect(() => {
     const t = prefersDarkMode ? "vs-dark" : "vs";
-    monaco.editor.setTheme("vs-dark");
+    monaco.editor.setTheme(t);
   }, [prefersDarkMode, theme]);
 
   useEffect(() => {
@@ -30,7 +35,8 @@ const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
 
     if (devToolsPanels) {
       // Create devtools panel for JSONRPCLogger extension
-      devToolsPanels.create("JSONRPCLogger", "", "index.html", (panel: any) => {});
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      devToolsPanels.create("JSONRPCLogger", "", "index.html", (_panel: any) => {});
     } else {
       const logs: IJSONRPCLog[] = [
         {
@@ -136,7 +142,6 @@ const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
       ];
       setHistory(logs);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // do not render monaco if collapsed -> see docs
@@ -155,6 +160,7 @@ const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
                 description: "potato",
               },
             ],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any}
         />
       </div>

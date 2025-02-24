@@ -8,7 +8,8 @@ interface EditorProps {
   language: string;
   height?: string | number;
   width?: string | number;
-  options?: any; // monaco.editor.IStandaloneEditorConstructionOptions;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options?: any; 
   onChange?: (value: string) => void;
   onMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
   children?: React.ReactNode;

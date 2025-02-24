@@ -81,6 +81,7 @@ export interface IJSONRPCLog {
   notification?: boolean;
   method: string;
   timestamp: Date;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any;
   batchId?: number;
 }
@@ -110,6 +111,7 @@ export const JSONRPCLogger: React.FC<IProps> = (props) => {
 
   const scrollToBottom = () => {
     if (cardEndRef && cardEndRef.current !== null) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (cardEndRef.current as any).scrollIntoView({ behavior: "smooth" });
     }
   };

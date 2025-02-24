@@ -1,17 +1,17 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 export const darkTheme = (prefersDarkMode: boolean) => {
   return createTheme({
     components: {
       MuiAppBar: {
         defaultProps: {
-          position: "sticky",
+          position: 'sticky',
         },
         styleOverrides: {
           root: {
-            background: "transparent !important",
+            background: 'transparent !important',
           },
-        }
+        },
       },
       MuiCard: {
         defaultProps: {
@@ -21,13 +21,13 @@ export const darkTheme = (prefersDarkMode: boolean) => {
       MuiTable: {
         styleOverrides: {
           root: {
-            background: "transparent !important",
+            background: 'transparent !important',
           },
-        }
-      }
+        },
+      },
     },
     palette: {
-      mode: prefersDarkMode ? "dark" : "light",
+      mode: prefersDarkMode ? 'dark' : 'light',
     },
   });
 };

@@ -1,7 +1,7 @@
 // CardListItem.tsx
 import * as  React from "react";
 import { styled } from '@mui/material/styles';
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
 import LogChips from "../logChips/LogChips";
 import { formatRelative } from "date-fns";
@@ -19,12 +19,7 @@ import copy from "copy-to-clipboard";
 import { JSONSchema, OpenrpcDocument } from "@open-rpc/meta-schema";
 import openrpcDocumentToJSONRPCSchema from "../../helpers/openrpcDocumentToJSONRPCSchema";
 import openrpcDocumentToJSONRPCSchemaResult from "../../helpers/openrpcDocumentToJSONRPCSchemaResult";
-//import './userWorker';
 import * as monaco from 'monaco-editor';
-//import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
-//import Editor from "@monaco-editor/react";
-//import MonacoEditor from "@monaco-editor/react";
-//import MonacoEditor, { MonacoDiffEditor } from "react-monaco-editor";
 import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
 const PREFIX = 'cardListItem';
 
@@ -33,7 +28,8 @@ const classes = {
   cardContent: `${PREFIX}-cardContent`
 };
 
-const StyledBox = styled(Box)(({ theme }) => ({
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const StyledBox = styled(Box)(({ theme }: { theme: Theme }) => ({
   [`& .${classes.cardHeader}`]: {
     padding: "8px",
     paddingBottom: "0px",
@@ -53,6 +49,7 @@ interface IProps {
   children?: React.ReactNode;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLogItemBackground = (log: IJSONRPCLog, theme: Theme): any => {
   const paletteType = theme.palette.mode;
   if (log.payload.error) {
@@ -81,6 +78,7 @@ const CardListItem: React.FC<IProps> = (props) => {
 
   // Height settings for dynamic adjustment
   const MAX_HEIGHT = 300;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const MIN_COUNT_OF_LINES = 3;
   const LINE_HEIGHT = 20;
   const [editorHeight, setEditorHeight] = React.useState(170);
@@ -88,6 +86,7 @@ const CardListItem: React.FC<IProps> = (props) => {
   // Store editor instance from the custom Editor component
   const editorRef = React.useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleEditorMount = (editor: any) => {
     editorRef.current = editor;
   };
@@ -100,6 +99,7 @@ const CardListItem: React.FC<IProps> = (props) => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCopy = (event: React.MouseEvent, value: any) => {
     event.stopPropagation();
     setSnackbarOpen(true);
@@ -135,7 +135,6 @@ const CardListItem: React.FC<IProps> = (props) => {
     editorRef.current?.setModel(newModel)
 
     // Optionally, update diagnostics:
-    console.log("adding diagnostics", schema)
     addDiagnostics(newModel.uri.toString(), schema, monaco);
 
     // Adjust height based on new content

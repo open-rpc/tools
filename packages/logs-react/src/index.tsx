@@ -5,8 +5,6 @@ import { JSONRPCLogger as JSONRPCLoggerComponent , IJSONRPCLog } from "./compone
 import ErrorBoundary from './components/ErrorBoundary';
 import "./userWorker";
 
-// NOTE: This isn't what we want to do here, but it allows us to cross package build 
-//TODO: ReactDOM.render(<MyApp />, document.getElementById("root"));
 
 // Keep the app rendering for development
 if(process.env.NODE_ENV === 'development') {
@@ -14,7 +12,7 @@ if(process.env.NODE_ENV === 'development') {
   root.render(<MyApp />);
 }
 
-// Wrap the main component
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const JSONRPCLogger = (props: any) => (
   <ErrorBoundary>
     <JSONRPCLoggerComponent {...props} />
