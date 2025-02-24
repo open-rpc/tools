@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "start": "vite",
-    "build:package": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build",
+    "build:package": "BUILD_MODE=lib vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "vitest",
@@ -25,10 +26,6 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mui/icons-material": "6.3.1",
-    "@mui/lab": "6.0.0-beta.22",
-    "@mui/material": "6.3.1",
-    "@mui/styles": "6.3.1",
     "@open-rpc/examples": "^1.6.1",
     "@open-rpc/json-schema-to-react-tree": "*",
     "@uiw/react-json-view": "^2.0.0-alpha.30",
@@ -37,35 +34,45 @@
     "json-schema": "^0.2.3",
     "lodash": "^4.17.15",
     "lz-string": "^1.5.0",
-    "react-markdown": "^9.0.1",
+    "react-markdown": "9.0.3",
     "react-syntax-highlighter": "15.6.1",
     "remark-rehype": "^11.1.1"
   },
   "devDependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.9.1",
+    "@mui/icons-material": "6.3.1",
+    "@mui/lab": "6.0.0-beta.22",
+    "@mui/material": "6.3.1",
     "@open-rpc/meta-schema": "^1.11.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "16.1.0",
+    "@types/jest": "^29.5.14",
     "@types/json-schema": "^7.0.3",
     "@types/lodash": "^4.14.123",
     "@types/node": "^20.0.0",
-    "@types/react": "19.0.0",
-    "@types/react-dom": "19.0.0",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "4.3.4",
+    "hast-util-to-jsx-runtime": "^2.3.3",
     "jsdom": "^26.0.0",
     "typescript": "5.6.2",
     "vite": "6.0.5",
     "vitest": "^2.1.8"
   },
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "@mui/icons-material": "6.3.1",
+    "@mui/lab": "6.0.0-beta.22",
+    "@mui/material": "6.3.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "resolutions": {
     "vite": "6.0.5",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5"
   },
   "engines": {
     "node": ">=18.20.5"

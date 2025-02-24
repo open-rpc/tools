@@ -25,7 +25,15 @@ const Root = styled('div')((
   }: {
     theme: Theme
   }
-) => ({
+) => { 
+  console.log("Theme in Servers styled callback:", {
+    mode: theme.palette.mode,
+    text: {
+      primary: theme.palette.text.primary,
+      secondary: theme.palette.text.secondary
+    }
+  });
+  return {
   [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
   },
@@ -45,7 +53,8 @@ const Root = styled('div')((
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(15),
   }
-}));
+  };
+});
 
 interface IProps {
   servers?: ServerObject[];

@@ -20,13 +20,7 @@ const classes = {
   secondaryHeading: `${PREFIX}-secondaryHeading`
 };
 
-const StyledExpansionTable = styled(ExpansionTable)((
-  {
-    theme
-  }: {
-    theme: Theme
-  }
-) => ({
+const Root = styled(ExpansionTable)(({ theme }: { theme: Theme }) => ({
   [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
   },
@@ -35,6 +29,7 @@ const StyledExpansionTable = styled(ExpansionTable)((
     flexBasis: "33.33%",
     flexShrink: 0,
     fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.primary,
   },
 
   [`& .${classes.paramsMargin}`]: {
@@ -45,6 +40,53 @@ const StyledExpansionTable = styled(ExpansionTable)((
     alignSelf: "end",
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(15),
+  },
+
+  '& .MuiAccordion-root': {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+  },
+
+  '& .MuiAccordionSummary-root': {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    '& .MuiTypography-root': {
+      color: theme.palette.text.primary,
+    }
+  },
+
+  '& .MuiAccordionSummary-expandIconWrapper': {
+    color: theme.palette.text.primary + " !important",
+  },
+
+  '& .MuiAccordionSummary-expandIconWrapper svg': {
+    color: theme.palette.text.primary + " !important",
+  },
+
+  '& .MuiAccordionDetails-root': {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+  },
+
+  '& .MuiTableCell-root': {
+    color: theme.palette.text.primary,
+    borderBottomColor: theme.palette.divider,
+  },
+
+  '& p': {
+    color: theme.palette.text.primary,
+  },
+
+  '& .MuiTableCell-head': {
+    color: theme.palette.text.primary + " !important",
+  },
+
+  '& .method-summary-container': {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    height: "100%",
+    color: theme.palette.text.primary,
   }
 }));
 
@@ -56,19 +98,25 @@ interface IProps {
 
 class Links extends Component<IProps> {
   public render() {
-    const { links, uiSchema, reactJsonOptions, } = this.props;
+    const { links, uiSchema, reactJsonOptions } = this.props;
     if (!links || links.length === 0) { return null; }
     return (
-      (<StyledExpansionTable headers={["Method", "Summary"]}>
+      <Root headers={["Method", "Summary"]}>
         <TableRow>
           <TableCell colSpan={6}>
-            {links.map((link, i) => (
+            {links.map((link: LinkObject, i: number) => (
               <div style={{ width: "100%" }} key={i}>
                 <Accordion
-                  style={{ width: "100%" }} defaultExpanded={uiSchema && uiSchema.links["ui:defaultExpanded"]} key={i}>
+                  style={{ width: "100%" }} 
+                  defaultExpanded={uiSchema && uiSchema.links["ui:defaultExpanded"]} 
+                  key={i}
+                >
                   <AccordionSummary
-                    style={{ justifyContent: "space-between" }} key="links-header" expandIcon={<ExpandMoreIcon />}>
-                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%", height: "100%" }}>
+                    style={{ justifyContent: "space-between" }} 
+                    key="links-header" 
+                    expandIcon={<ExpandMoreIcon />}
+                  >
+                    <div className="method-summary-container">
                       <Typography className={classes.heading}>{link.method}</Typography>
                       <Typography className={classes.secondaryHeading}>{link.summary}</Typography>
                     </div>
@@ -87,9 +135,9 @@ class Links extends Component<IProps> {
             ))}
           </TableCell>
         </TableRow>
-      </StyledExpansionTable>)
+      </Root>
     );
   }
 }
 
-export default (Links);
+export default Links;

@@ -11,10 +11,9 @@
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "paths": {
-      "@open-rpc/json-schema-to-react-tree": ["../json-schema-to-react-tree/dist"]
-    },
-    "skipLibCheck": true
   },
+    "references": [
+      { "path": "../json-schema-to-react-tree" }
+    ],
   "include": ["src/**/*", "src/**/*.css"]
 }

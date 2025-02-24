@@ -26,14 +26,37 @@ const StyledTable = styled(Table)((
 
   [`&.${classes.table}`]: {
     padding: theme.spacing(2),
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
   },
 
   [`& .${classes.tableEnd}`]: {
     paddingLeft: theme.spacing(3),
+    color: theme.palette.text.primary,
   },
 
   [`& .${classes.tableStart}`]: {
     paddingLeft: theme.spacing(3),
+    color: theme.palette.text.primary,
+  },
+
+  // Add theme colors to all table components
+  '& .MuiTableCell-root': {
+    color: theme.palette.text.primary,
+    borderBottomColor: theme.palette.divider,
+  },
+
+  '& .MuiTableHead-root': {
+    '& .MuiTableCell-root': {
+      color: theme.palette.text.primary,
+      fontWeight: theme.typography.fontWeightMedium,
+    }
+  },
+
+  '& .MuiTableBody-root': {
+    '& .MuiTableCell-root': {
+      color: theme.palette.text.primary,
+    }
   }
 }));
 
