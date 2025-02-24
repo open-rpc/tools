@@ -1,9 +1,14 @@
 import { defineConfig } from 'vite';
-import { react } from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   build: {
     target: 'esnext',
+    lib: {
+      entry: path.resolve(__dirname, 'src/index.ts'),
+      formats: ['es'],
+      fileName: format => `index.${format}.js`,
+    },
     rollupOptions: {
       input: {
         // ... your other entries
@@ -17,6 +22,5 @@ export default defineConfig({
   },
   worker: {
     format: 'es',
-    plugins: [react()],
   },
 });

@@ -6,8 +6,9 @@
   "scripts": {
     "build": "turbo run build",
     "clean:package": "turbo run clean:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/docs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
-    "build:package": "turbo run build:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/docs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
+    "build:package": "turbo run build:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/json-schema-to-react-tree --filter=@open-rpc/docs-react --filter=@open-rpc/logs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
     "build:packages": "npm run build:monaco-editor-react && npm run build:json-schema-to-react-tree && npm run build:logs-react && npm run build:docs-react && npm run build:inspector && npm run build:playground",
+    "clean:packages": "npm run clean:monaco-editor-react && npm run clean:json-schema-to-react-tree && npm run clean:logs-react && npm run clean:docs-react && npm run clean:inspector && npm run clean:playground",
     "build:monaco-editor-react": "turbo run build:package --filter=@open-rpc/monaco-editor-react",
     "build:json-schema-to-react-tree": "turbo run build:package --filter=@open-rpc/json-schema-to-react-tree",
     "build:logs-react": "turbo run build:package --filter=@open-rpc/logs-react",
@@ -35,14 +36,18 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "jest": "29.7.0",
     "prettier": "^2.0.0",
-    "turbo": "^1.0.0",
+    "turbo": "2.4.0",
     "typescript": "^5.0.0"
   },
+  "packageManager": "npm@10.9.2",
   "engines": {
     "node": ">=18.20.5"
   },
   "overrides": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@open-rpc/schema-utils-js": "^2.1.0"
   }
 }

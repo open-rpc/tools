@@ -8,3 +8,6 @@ LLMLOG.md
 **/*/.turbo
 tsconfig.tsbuildinfo
 dist/
+.DS_Store
+**/*.DS_Store
+LMMLOG.MD
