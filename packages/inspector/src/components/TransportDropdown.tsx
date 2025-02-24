@@ -12,18 +12,13 @@ interface IProps {
   onAddTransport: (addedTransport: ITransport) => void;
   style?: React.CSSProperties;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-  const handleMenuItemClick = (transport: ITransport) => {
-    setAnchorEl(null);
-    // this forces language change for react + i18n react
-    onChange(transport);
   };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -7,13 +7,16 @@ import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
 import useDarkMode from "use-dark-mode";
 
 interface IProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any  
   onChange?: (newValue: any) => void;
   openrpcMethodObject?: MethodObject;
   schema?: JSONSchema;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }
 
 const OptionsEditor: React.FC<IProps> = (props) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editor, setEditor] = useState<any>();
   const windowSize = useWindowSize();
   useEffect(() => {
@@ -32,7 +35,6 @@ const OptionsEditor: React.FC<IProps> = (props) => {
     editor.getModel()?.setLanguage("json");
     addDiagnostics(editor.getModel()?.uri.toString() || "", props.schema, monaco);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.schema, editor]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

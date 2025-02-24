@@ -1,15 +1,15 @@
-import { createTheme } from "@mui/material/styles";
-import grey from "@mui/material/colors/grey";
+import { createTheme } from '@mui/material/styles';
+import grey from '@mui/material/colors/grey';
 
 export const lightTheme = createTheme({
   components: {
     MuiAppBar: {
       defaultProps: {
-        position: "sticky",
+        position: 'sticky',
       },
       styleOverrides: {
         root: {
-          background: "#fff !important",
+          background: '#fff !important',
         },
       },
     },
@@ -20,9 +20,9 @@ export const lightTheme = createTheme({
     },
   },
   palette: {
-    mode: "light",
+    mode: 'light',
     background: {
-      default: "#fff",
+      default: '#fff',
     },
   },
 });
@@ -31,11 +31,11 @@ export const darkTheme = createTheme({
   components: {
     MuiAppBar: {
       defaultProps: {
-        position: "sticky",
+        position: 'sticky',
       },
       styleOverrides: {
         root: {
-          background: "transparent !important",
+          background: 'transparent !important',
         },
       },
     },
@@ -47,7 +47,7 @@ export const darkTheme = createTheme({
     MuiTable: {
       styleOverrides: {
         root: {
-          background: "transparent !important",
+          background: 'transparent !important',
         },
       },
     },
@@ -60,7 +60,7 @@ export const darkTheme = createTheme({
     },
   },
   palette: {
-    mode: "dark",
+    mode: 'dark',
     background: {
       default: grey[900],
       paper: grey[800],

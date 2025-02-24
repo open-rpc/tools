@@ -1,9 +1,11 @@
+import * as React from 'react';
 import { useState, Dispatch, useEffect } from 'react';
 import { OpenrpcDocument } from '@open-rpc/meta-schema';
 import { IJSONRPCLog } from '@open-rpc/logs-react';
 
 export interface ITab {
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any;
   logs: IJSONRPCLog[];
   editing?: boolean;
@@ -20,6 +22,7 @@ const emptyJSONRPC = {
 
 const useTabs = (defaultTabs?: ITab[]) => {
   const [tabIndex, setTabIndex] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [tabs, setTabs]: [ITab[], Dispatch<any>] = useState(
     defaultTabs || [{ name: 'New Tab', content: emptyJSONRPC, url: undefined, logs: [] }]
   );
@@ -52,7 +55,7 @@ const useTabs = (defaultTabs?: ITab[]) => {
   }, [tabs, tabIndex]);
 
   const setTabName = (tab: ITab, name: string) => {
-    const newTabs = tabs.map(innerTab => {
+    const newTabs = tabs.map((innerTab) => {
       if (innerTab === tab) {
         return {
           ...innerTab,
@@ -65,7 +68,7 @@ const useTabs = (defaultTabs?: ITab[]) => {
   };
 
   const setTabEditing = (tab: ITab, editing: boolean) => {
-    const newTabs = tabs.map(innerTab => {
+    const newTabs = tabs.map((innerTab) => {
       if (innerTab === tab) {
         return {
           ...innerTab,
@@ -125,6 +128,7 @@ const useTabs = (defaultTabs?: ITab[]) => {
     setTabs(newTabs);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setTabContent = (ti: number, content: any) => {
     const newTabs = tabs.map((innerTab, i) => {
       if (i === ti) {
@@ -138,6 +142,7 @@ const useTabs = (defaultTabs?: ITab[]) => {
     setTabs(newTabs);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleLabelChange = (ev: any, tab: ITab) => {
     setTabName(tab, ev.target.value);
   };

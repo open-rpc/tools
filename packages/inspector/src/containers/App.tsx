@@ -30,7 +30,9 @@ const App: React.FC = () => {
       <Inspector
         onToggleDarkMode={darkMode.toggle}
         darkMode={darkMode.value}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any  
         customTransport={query.customTransport as any}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transport={query.transport as any}
         url={query.url as string | undefined}
         openrpcDocument={openrpcDocument}

@@ -19,7 +19,6 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "npm run build:package",
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
@@ -55,7 +54,7 @@
     "@open-rpc/client-js": "^1.6.3",
     "@open-rpc/logs-react": "*",
     "@open-rpc/meta-schema": "^1.14.9",
-    "@open-rpc/schema-utils-js": "2.1.0",
+    "@open-rpc/schema-utils-js": "2.1.1",
     "@rehooks/window-size": "^1.0.2",
     "@uiw/react-json-view": "2.0.0-alpha.30",
     "acorn-dynamic-import": "^4.0.0",

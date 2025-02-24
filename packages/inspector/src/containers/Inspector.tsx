@@ -92,6 +92,7 @@ const defaultTransports: ITransport[] = [
   },
 ];
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const errorToJSON = (error: JSONRPCError | any, id?: string | number | null): any => {
   const isError = error instanceof Error;
   if (!isError) {
@@ -105,6 +106,7 @@ const errorToJSON = (error: JSONRPCError | any, id?: string | number | null): an
     id,
   };
   // this is an internal wrapped client-js error
+   
   if ((error as any).data instanceof Error) {
     return {
       ...emptyErrorResponse,
@@ -124,9 +126,11 @@ const errorToJSON = (error: JSONRPCError | any, id?: string | number | null): an
     },
   };
 };
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 interface IProps {
   url?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request?: any;
   darkMode?: boolean;
   hideToggleTheme?: boolean;
@@ -143,8 +147,8 @@ const emptyJSONRPC = {
   id: 0,
 };
 
-const Inspector: React.FC<IProps> = (props) => {
-  const {
+const Inspector: React.FC<IProps> = (props: IProps) => {
+ const {
     setTabContent,
     setTabEditing,
     setTabIndex,
@@ -152,10 +156,8 @@ const Inspector: React.FC<IProps> = (props) => {
     setTabs,
     handleClose,
     tabIndex,
-    setTabOpenRPCDocument,
     setTabUrl,
     handleLabelChange,
-    setTabLogs,
   } = useTabs(
     [
       {
@@ -183,6 +185,7 @@ const Inspector: React.FC<IProps> = (props) => {
   const [url, setUrl] = useState(props.url || "");
   const [debouncedUrl] = useDebounce(url, 1000);
   const [selectedTransport, setSelectedTransport] = useState(props.customTransport || defaultTransports[0]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [transportOptions, setTransportOptions] = useState<any>();
   const [debouncedtransportOptions] = useDebounce(transportOptions, 1000);
   const [transport, setTransport, , connected] = useTransport(
@@ -193,8 +196,10 @@ const Inspector: React.FC<IProps> = (props) => {
   );
 
   const [historyOpen, setHistoryOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [requestHistory, setRequestHistory]: [any[], Dispatch<any>] = useState([]);
   const [historySelectedIndex, setHistorySelectedIndex] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [logs, setLogs] = useState<any[]>([]);
   const horizontalPanelGroupRef = React.useRef<ImperativePanelGroupHandle>(null);
   const verticalPanelGroupRef = React.useRef<ImperativePanelGroupHandle>(null);
@@ -210,7 +215,6 @@ const Inspector: React.FC<IProps> = (props) => {
       },
     ]);
     setTabIndex(tabs.length);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.request]);
 
   useEffect(() => {
@@ -221,15 +225,12 @@ const Inspector: React.FC<IProps> = (props) => {
         setTransportOptions((s.schema.examples as ExampleObject[])[0]);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTransport]);
 
   useEffect(() => {
-    console.log(`json changing: ${tabIndex}`, json);
     if (json) {
       setTabContent(tabIndex, json);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [json]);
 
   useEffect(() => {
@@ -240,7 +241,6 @@ const Inspector: React.FC<IProps> = (props) => {
         setSelectedTransport(t[tIndex]);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.transport]);
 
   useEffect(() => {
@@ -248,7 +248,6 @@ const Inspector: React.FC<IProps> = (props) => {
       setUrl(props.url);
       setTabUrl(tabIndex, props.url);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.url]);
 
   useLayoutEffect(() => {
@@ -283,9 +282,12 @@ const Inspector: React.FC<IProps> = (props) => {
           timestamp: responseTimestamp,
           payload: r,
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const newHistory: any = [...requestHistory, { ...tabs[tabIndex] }];
         setRequestHistory(newHistory);
-        setLogs((prevLogs) => [...prevLogs, reqObj, resObj]);
+         
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setLogs((prevLogs: any) => [...prevLogs, reqObj, resObj]);
         setTabs((prevTabs: ITab[]) => 
           prevTabs.map((tab: ITab, i: number) => 
             i === tabIndex ? { ...tab, logs: [...(tab.logs || []), reqObj, resObj] } : tab
@@ -306,6 +308,7 @@ const Inspector: React.FC<IProps> = (props) => {
           timestamp: responseTimestamp,
           payload: convertedError,
         };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const newHistory: any = [...requestHistory, { ...tabs[tabIndex] }];
         setRequestHistory(newHistory);
         setLogs((prevLogs) => [...prevLogs, reqObj, resObj]);
@@ -358,7 +361,8 @@ const Inspector: React.FC<IProps> = (props) => {
           i === tabIndex ? { ...tab, openrpcDocument: doc } : tab
         )
       );
-    } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    } catch (_e :any) {
       if (!props.openrpcDocument) {
         setOpenRpcDocument(undefined);
         setTabs((prevTabs: ITab[]) => 
@@ -369,6 +373,7 @@ const Inspector: React.FC<IProps> = (props) => {
       }
     }
     if (transport) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transport.subscribe("notification", (notification: any) => {
         const responseTimestamp = new Date();
         const notificationObj: IJSONRPCLog = {
@@ -389,6 +394,7 @@ const Inspector: React.FC<IProps> = (props) => {
           );
         });
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transport.subscribe("error", (error: any) => {
         const responseTimestamp = new Date();
         const notificationObj: IJSONRPCLog = {
@@ -423,17 +429,14 @@ const Inspector: React.FC<IProps> = (props) => {
         console.warn("Failed to refresh openrpc document", e);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transport, tabIndex]);
 
   useEffect(() => {
-    console.log(`tabs[${tabIndex}] changing:`,tabs[tabIndex]);
     if (tabs[tabIndex]) {
       setJson(tabs[tabIndex].content);
       setUrl(tabs[tabIndex].url || "");
       setLogs(tabs[tabIndex].logs || []);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabIndex]);
 
   useEffect(() => {
@@ -443,14 +446,12 @@ const Inspector: React.FC<IProps> = (props) => {
         i === tabIndex ? { ...tab, openrpcDocument: props.openrpcDocument } : tab
       )
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.openrpcDocument]);
 
   useEffect(() => {
     if (!historyOpen) {
       handlePlayButton();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [historyOpen]);
 
   const handleTabIndexChange = (event: React.SyntheticEvent<Element, Event>, newValue: number) => {
@@ -469,6 +470,7 @@ const Inspector: React.FC<IProps> = (props) => {
   const handleTransportOptionsChange = (optionsString: string) => {
     try {
       setTransportOptions(JSON.parse(optionsString));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       // cannot parse transport options
     }
@@ -478,7 +480,6 @@ const Inspector: React.FC<IProps> = (props) => {
 
   return (
     <>
-    
       <Dialog onClose={() => setHistoryOpen(false)} aria-labelledby="simple-dialog-title" open={historyOpen} >
         <Container maxWidth="sm">
           <Grid
@@ -503,6 +504,7 @@ const Inspector: React.FC<IProps> = (props) => {
               ? <Typography style={{ padding: "30px" }}>No History Yet.</Typography>
               : <Grid container style={{ paddingBottom: "30px" }}>
                 <List style={{ padding: "10px", overflowY: "scroll", height: "250px", width: "200px" }}>
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {requestHistory.map((requestHistoryItem: any, historyIndex: number) => (
                     <ListItemButton
                       key={`history-${historyIndex}`}
@@ -727,7 +729,6 @@ const Inspector: React.FC<IProps> = (props) => {
             <Panel style={{ overflow: "auto", minHeight: 0 }}>
               <JSONRPCRequestEditor
                 onChange={(val) => {
-                  console.log(`inspector onChange: ${tabIndex}`, val);
                   let jsonResult;
                   try {
                     jsonResult = JSON.parse(val);
