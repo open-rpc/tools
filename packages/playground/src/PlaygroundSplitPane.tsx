@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactNode, useEffect, useLayoutEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { Panel, PanelGroup, PanelResizeHandle, ImperativePanelGroupHandle } from "react-resizable-panels";
 import "./PlaygroundSplitPane.css";
 
@@ -12,86 +12,109 @@ interface IProps {
  inspectorTabComponent?: ReactNode
 }
 
-const NewPlaygroundSplitPane: React.FC<IProps> = ({ showInspector, inspectorComponent, editorComponent, documentationComponent, editorAndDocumentationSplit, inspectorTabComponent }: IProps) => {
+const PlaygroundSplitPane: React.FC<IProps> = ({ 
+  showInspector = false, 
+  inspectorComponent, 
+  editorComponent, 
+  documentationComponent, 
+  editorAndDocumentationSplit = false, 
+  inspectorTabComponent 
+}: IProps) => {
   const containerHorizontalPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
   const containerVerticalPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
-  useLayoutEffect(() => {
-    if (editorAndDocumentationSplit) {
-      containerHorizontalPanelGroupRef.current?.setLayout([50, 50]);
-    } else {
-      containerHorizontalPanelGroupRef.current?.setLayout([0,100]);
-    }
-    containerVerticalPanelGroupRef.current?.setLayout([100, 0]);
-  }, []);
 
-  useEffect(()=> {
-    if (!showInspector) {
-      containerVerticalPanelGroupRef.current?.setLayout([100, 0]);
-    } else {
-      containerVerticalPanelGroupRef.current?.setLayout([50, 50]);
-    }
-    if (editorAndDocumentationSplit) {
-      containerHorizontalPanelGroupRef.current?.setLayout([50, 50]);
-    } else {
-      containerHorizontalPanelGroupRef.current?.setLayout([0,100]);
-    }
-
+  // Single effect to handle all layout changes with proper error handling
+  useEffect(() => {
+    // Small timeout to ensure refs are available and panels are mounted
+    const timer = setTimeout(() => {
+      try {
+        // Set horizontal layout
+        if (containerHorizontalPanelGroupRef.current) {
+          if (editorAndDocumentationSplit) {
+            containerHorizontalPanelGroupRef.current.setLayout([50, 50]);
+          } else {
+            containerHorizontalPanelGroupRef.current.setLayout([0, 100]);
+          }
+        }
+        
+        // Set vertical layout
+        if (containerVerticalPanelGroupRef.current) {
+          if (showInspector) {
+            containerVerticalPanelGroupRef.current.setLayout([50, 50]);
+          } else {
+            containerVerticalPanelGroupRef.current.setLayout([100, 0]);
+          }
+        }
+      } catch (error) {
+        // In test environments, this error can be safely ignored
+        console.error("Error setting panel layouts:", error);
+      }
+    }, 0); // Slightly longer timeout to ensure DOM is ready
+    
+    return () => clearTimeout(timer);
   }, [showInspector, editorAndDocumentationSplit]);
 
+  // Calculate initial layouts for defaultSize props
+  const initialHorizontalLayout = editorAndDocumentationSplit ? [50, 50] : [0, 100];
+  const initialVerticalLayout = showInspector ? [50, 50] : [100, 0];
+
   return (
-    <PanelGroup direction="vertical"
-    ref={containerVerticalPanelGroupRef}
+    <PanelGroup 
+      direction="vertical"
+      ref={containerVerticalPanelGroupRef}
     >
-      <Panel>
-    <PanelGroup
-      ref={containerHorizontalPanelGroupRef}
-      direction="horizontal"
-      style={{
-        height: "100%",
-        width: "100%",
-        paddingTop: "58px",
-        display: "flex"
-      }}
-    >
-      <Panel
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: 0,
-          overflow: "auto"
-        }}
-      >
-        {editorComponent}
+      <Panel defaultSize={initialVerticalLayout[0]}>
+        <PanelGroup
+          ref={containerHorizontalPanelGroupRef}
+          direction="horizontal"
+          style={{
+            height: "100%",
+            width: "100%",
+            paddingTop: "58px",
+            display: "flex"
+          }}
+        >
+          <Panel
+            defaultSize={initialHorizontalLayout[0]}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: 0,
+              overflow: "auto"
+            }}
+          >
+            {editorComponent}
+          </Panel>
+          <PanelResizeHandle className="resize-handle" />
+          <Panel
+            defaultSize={initialHorizontalLayout[1]}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              overflow: "auto",
+              minHeight: 0,
+              position: "relative"
+            }}
+          >
+            {documentationComponent}
+          </Panel>
+        </PanelGroup>
       </Panel>
-      <PanelResizeHandle className="resize-handle" />
-      <Panel
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto",
-          minHeight: 0,
-          position: "relative"
-        }}
-      >
-          {documentationComponent}
-      </Panel>
-    </PanelGroup>
-    </Panel>
       <PanelResizeHandle className="resize-handle" style={{position: "relative"}} >
         {inspectorTabComponent}
       </PanelResizeHandle>
-    <Panel>
-      <div style={{
-        height: "94%",
-        width: "100%",
-        paddingBottom: "58px",
-        overflowY: "auto",
-      }}>
-        {inspectorComponent}
-      </div>
-    </Panel>
+      <Panel defaultSize={initialVerticalLayout[1]}>
+        <div style={{
+          height: "94%",
+          width: "100%",
+          paddingBottom: "58px",
+          overflowY: "auto",
+        }}>
+          {inspectorComponent}
+        </div>
+      </Panel>
     </PanelGroup>
   );
 };
 
-export default NewPlaygroundSplitPane;
+export default PlaygroundSplitPane;
