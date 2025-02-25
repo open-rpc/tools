@@ -22,8 +22,9 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "clean:package": "rm -rf build && rm -rf tsconfig.tsbuildinfo",
-    "build:package": "vite build && cd src && find . -name '*.css' -exec cp -v --parents -t ../build {} + && tsc --emitDeclarationOnly",
+    "test": "",
+    "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
+    "build:package": "vite build && tsc --emitDeclarationOnly",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "author": "",

@@ -17,6 +17,7 @@
   "scripts": {
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
+    "test": "",
     "start": "vite",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
   },

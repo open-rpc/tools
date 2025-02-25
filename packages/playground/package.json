@@ -48,7 +48,7 @@
     "build:package": "vite build",
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "vitest",
+    "test": "vitest run",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
   },
   "browserslist": [

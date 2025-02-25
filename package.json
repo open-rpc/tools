@@ -7,10 +7,6 @@
     "build": "turbo run build:package",
     "clean": "turbo run clean:package",
     "hard-clean": "npm run clean && rm -rf node_modules && rm -rf packages//node_modules",
-    "clean:package": "turbo run clean:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/docs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
-    "build:package": "turbo run build:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/json-schema-to-react-tree --filter=@open-rpc/docs-react --filter=@open-rpc/logs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
-    "build:packages": "npm run build:monaco-editor-react && npm run build:json-schema-to-react-tree && npm run build:logs-react && npm run build:docs-react && npm run build:inspector && npm run build:playground",
-    "clean:packages": "npm run clean:monaco-editor-react && npm run clean:json-schema-to-react-tree && npm run clean:logs-react && npm run clean:docs-react && npm run clean:inspector && npm run clean:playground",
     "build:monaco-editor-react": "turbo run build:package --filter=@open-rpc/monaco-editor-react",
     "build:json-schema-to-react-tree": "turbo run build:package --filter=@open-rpc/json-schema-to-react-tree",
     "build:logs-react": "turbo run build:package --filter=@open-rpc/logs-react",
@@ -18,10 +14,7 @@
     "build:inspector": "turbo run build:package --filter=@open-rpc/inspector",
     "build:playground": "turbo run build:package --filter=@open-rpc/playground",
     "test": "turbo run test",
-    "lint": "turbo run lint",
-    "watch": "turbo run build test --watch",
-    "dev": "turbo run build start --watch",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "lint": "turbo run lint"
   },
   "author": "",
   "license": "ISC",
