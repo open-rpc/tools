@@ -4,7 +4,9 @@
   "description": "mono repo for open-rpc tooling",
   "main": "jest.config.js",
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build:package",
+    "clean": "turbo run clean:package",
+    "hard-clean": "npm run clean && rm -rf node_modules && rm -rf packages//node_modules",
     "clean:package": "turbo run clean:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/docs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
     "build:package": "turbo run build:package --filter=@open-rpc/monaco-editor-react --filter=@open-rpc/json-schema-to-react-tree --filter=@open-rpc/docs-react --filter=@open-rpc/logs-react --filter=@open-rpc/inspector --filter=@open-rpc/playground",
     "build:packages": "npm run build:monaco-editor-react && npm run build:json-schema-to-react-tree && npm run build:logs-react && npm run build:docs-react && npm run build:inspector && npm run build:playground",
@@ -19,7 +21,6 @@
     "lint": "turbo run lint",
     "watch": "turbo run build test --watch",
     "dev": "turbo run build start --watch",
-    "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
   },
   "author": "",
@@ -48,6 +49,6 @@
     "minimatch": "3.1.2"
   },
   "dependencies": {
-    "@open-rpc/schema-utils-js": "2.1.1"
+    "@open-rpc/schema-utils-js": "2.1.2"
   }
 }
