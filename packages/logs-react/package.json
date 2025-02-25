@@ -22,13 +22,7 @@
     "start": "vite",
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
-    "startw": "webpack serve --mode development",
-    "build:packagew": "webpack --mode production && tsc --emitDeclarationOnly",
-    "build:dev": "webpack --mode development",
-    "clean:packagew": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "jest",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -48,9 +42,6 @@
     "react-dom": "^18.3.1",
     "style-loader": "^3.3.4",
     "typescript": "^5.4.2",
-    "webpack": "5.98.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2",
     "worker-loader": "^3.0.8",
     "@open-rpc/monaco-editor-react": "*",
     "monaco-editor": "0.52.2",
@@ -76,6 +67,6 @@
     "@mui/material": "6.3.1"
   },
   "engines": {
-    "node": ">=18.20.5"
+    "node": ">=20.11.1"
   }
 }
