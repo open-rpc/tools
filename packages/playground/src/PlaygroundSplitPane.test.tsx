@@ -33,6 +33,7 @@ it.only("renders playground with left and right with split true", () => {
     }
     showInspector={false}
     editorAndDocumentationSplit={true}
+
   />);
   expect(screen.getByText("Foo")).toBeInTheDocument();
   expect(screen.getByText("Bar")).toBeInTheDocument();

@@ -15,41 +15,27 @@ interface IProps {
 const NewPlaygroundSplitPane: React.FC<IProps> = ({ showInspector, inspectorComponent, editorComponent, documentationComponent, editorAndDocumentationSplit, inspectorTabComponent }: IProps) => {
   const containerHorizontalPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
   const containerVerticalPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
-  
-  // Safe function to set layout only if the panel group is properly initialized
-  const safeSetLayout = (ref: React.RefObject<ImperativePanelGroupHandle>, layout: number[]) => {
-    try {
-      if (ref.current) {
-        ref.current.setLayout(layout);
-      }
-    } catch (e) {
-      // Silently catch errors in test environment
-      if (process.env.NODE_ENV !== 'test') {
-        console.error('Error setting panel layout:', e);
-      }
-    }
-  };
-  
   useLayoutEffect(() => {
     if (editorAndDocumentationSplit) {
-      safeSetLayout(containerHorizontalPanelGroupRef, [50, 50]);
+      containerHorizontalPanelGroupRef.current?.setLayout([50, 50]);
     } else {
-      safeSetLayout(containerHorizontalPanelGroupRef, [0, 100]);
+      containerHorizontalPanelGroupRef.current?.setLayout([0,100]);
     }
-    safeSetLayout(containerVerticalPanelGroupRef, [100, 0]);
+    containerVerticalPanelGroupRef.current?.setLayout([100, 0]);
   }, []);
 
   useEffect(()=> {
     if (!showInspector) {
-      safeSetLayout(containerVerticalPanelGroupRef, [100, 0]);
+      containerVerticalPanelGroupRef.current?.setLayout([100, 0]);
     } else {
-      safeSetLayout(containerVerticalPanelGroupRef, [50, 50]);
+      containerVerticalPanelGroupRef.current?.setLayout([50, 50]);
     }
     if (editorAndDocumentationSplit) {
-      safeSetLayout(containerHorizontalPanelGroupRef, [50, 50]);
+      containerHorizontalPanelGroupRef.current?.setLayout([50, 50]);
     } else {
-      safeSetLayout(containerHorizontalPanelGroupRef, [0, 100]);
+      containerHorizontalPanelGroupRef.current?.setLayout([0,100]);
     }
+
   }, [showInspector, editorAndDocumentationSplit]);
 
   return (
