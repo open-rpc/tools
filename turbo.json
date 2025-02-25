@@ -7,8 +7,8 @@
       "outputs": ["dist/**"]
     },
     "build:package": {
-      "dependsOn": ["^build:package"],
-      "outputs": ["dist/**", "*.tsbuildinfo"],
+      "dependsOn": ["^build:package", "clean:package"],
+      "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json", "vite.config.ts", "vite.config.js"],
       "cache": false
     },
@@ -22,7 +22,8 @@
     "test": {
       "dependsOn": ["^build:package"],
       "outputs": ["coverage/**"],
-      "inputs": ["src/**", "test/**"]
+      "inputs": ["src/**", "test/**"],
+      "cache": false
     },
     "lint": {
       "outputs": []
