@@ -13,7 +13,6 @@ import ErrorIcon from "@mui/icons-material/Error";
 import InfoIcon from "@mui/icons-material/Info";
 import WarningIcon from "@mui/icons-material/Warning";
 import { green, amber } from "@mui/material/colors";
-import { isEmpty } from "lodash";
 import { IUISchema } from "../UISchema";
 
 export enum NotificationType {

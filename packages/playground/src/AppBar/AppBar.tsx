@@ -29,11 +29,17 @@ interface IProps {
   transportList?: ITransport[];
   selectedTransport?: ITransport;
   searchBarUrl?: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeUrl?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDarkModeChange?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSplitViewChange?: (split: boolean) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onExampleDocumentsDropdownChange?: (example: IExample) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onTransportAdd: (transport: ITransport) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onTransportChange: (transport: ITransport) => any;
 }
 

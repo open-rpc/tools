@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import { editor } from "monaco-editor";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledWrapper = styled('div')(({ theme }) => ({
   maxHeight: "200px",
 }));

@@ -3,13 +3,15 @@ import _ from "lodash";
 import refParser from "@apidevtools/json-schema-ref-parser";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useParsedSchema = (defaultValue: object | any): [OpenrpcDocument | undefined, Dispatch<string>] => {
   const [parsedSchema, setParsedSchema]: [OpenrpcDocument | undefined, Dispatch<OpenrpcDocument>] = useState();
   const validateAndSetSchema = (schema: string) => {
     let maybeSchema: string | undefined;
     try {
       maybeSchema = JSON.parse(schema);
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    } catch (e: any) {
       //
     }
     if (!maybeSchema) {
@@ -25,7 +27,6 @@ const useParsedSchema = (defaultValue: object | any): [OpenrpcDocument | undefin
     if (defaultValue) {
       validateAndSetSchema(defaultValue);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return [parsedSchema, validateAndSetSchema];
 };

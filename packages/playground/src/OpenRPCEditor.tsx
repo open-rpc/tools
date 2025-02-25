@@ -2,12 +2,11 @@ import React, { useRef, useEffect } from "react";
 import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
 import * as monaco from "monaco-editor";
 import useWindowSize from "@rehooks/window-size";
-import schema from "@open-rpc/meta-schema";
 import { debounce } from "lodash";
 import useDarkMode from "use-dark-mode";
 import { initWorkers } from "./monacoWorker";
-import getExtendedMetaSchema from "@open-rpc/schema-utils-js/build/get-extended-metaschema";
-import applyExtensionSpec from "@open-rpc/schema-utils-js/build/apply-extension-spec";
+import { getDocumentExtendedMetaSchema } from "@open-rpc/schema-utils-js";
+
 interface IProps {
   onChange?: (newValue: string) => void;
   editorDidMount?: (model: monaco.editor.ITextModel, editor: monaco.editor.IStandaloneCodeEditor) => void;
@@ -46,27 +45,9 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
     modelRef.current = monaco.editor.createModel(value || "", "json", modelUri);
     editor.setModel(modelRef.current);
    
-    const extendedMetaSchema = getExtendedMetaSchema();
+    const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
 
-    console.log("Extended meta schema:", extendedMetaSchema);
-    console.log("Value:", value);
-    const extendedSchema = applyExtensionSpec(JSON.parse(value), extendedMetaSchema);
-
-    console.log("Extended schema:", extendedSchema);
-
-    addDiagnostics(modelUriString, extendedSchema, monaco);
-    // Configure JSON schema validation
-    /*(monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-      validate: true,
-      schemas: [{
-        uri: modelUriString,
-        fileMatch: ["*"],
-        schema,
-      }],
-      allowComments: true,
-    });*/
-
-    // Initialize Monaco workers
+    addDiagnostics(modelUriString, extendedMetaSchema, monaco);
     initWorkers();
 
     // Set up marker change subscription if needed
@@ -89,18 +70,6 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
 
   const handleChange = (newValue?: string) => {
     if (!newValue) return;
-
-    // Get JSON worker and validate schema
-    if (modelRef.current) {
-      monaco.languages.json.getWorker().then((workerAccessor) => {
-        workerAccessor(modelRef.current!.uri).then((worker: any) => {
-          worker.getMatchingSchemas(modelRef.current!.uri.toString(), newValue).then((schemas: any) => {
-            console.log("Matching schemas:", schemas);
-          });
-        });
-      });
-    }
-
     onChange?.(newValue);
   };
 

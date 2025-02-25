@@ -2,6 +2,7 @@ import React from "react";
 import { InputBase, styled } from "@mui/material";
 import { IUISchema } from "../UISchema";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
 }));

@@ -68,10 +68,12 @@ const getTransportFromType = async (
   uri: string,
   transports: ITransport[],
   transport: ITransport,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transportOptions?: any
 ): Promise<Transport> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let localTransport: any;
-  const localTransportType = transports.find(value => {
+  const localTransportType = transports.find((value) => {
     return value.type === transport.type;
   });
   if (localTransportType?.type === 'websocket') {
@@ -102,6 +104,7 @@ const getTransportFromType = async (
         });
         return results;
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sendData(data: IJSONRPCData): Promise<any> {
         return intermediateTransport.sendData({
           internalID: 0,
@@ -113,7 +116,8 @@ const getTransportFromType = async (
           },
         });
       },
-      close() {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      close(): Promise<any> {
         return intermediateTransport.sendData({
           internalID: 0,
           request: {
@@ -137,13 +141,14 @@ type TUseTransport = (
   transports: ITransport[],
   url: string,
   defaultTransportType: ITransport,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transportOptions?: any
 ) => [
   Transport | undefined,
   ITransport,
   (t: ITransport) => void,
   JSONRPCError | undefined,
-  boolean
+  boolean,
 ];
 
 export const useTransport: TUseTransport = (

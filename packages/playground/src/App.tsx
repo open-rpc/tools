@@ -11,7 +11,6 @@ import { lightTheme, darkTheme } from "./themes/openrpcTheme";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import { CssBaseline, Container, Tab, Typography, IconButton, Tooltip, Tabs } from "@mui/material";
-import PlaygroundSplitPane from "./PlaygroundSplitPane";
 import useParsedSchema from "./hooks/useParsedSchema";
 import useDefaultEditorValue from "./hooks/useDefaultEditorValue";
 import InspectorPlugin from "./plugins/InspectorPlugin";
@@ -28,17 +27,20 @@ import fetchUrlSchemaFile from "./fetchUrlSchemaFile";
 import queryParamsStore from "./stores/queryParamsStore";
 import { useDebounce } from "use-debounce";
 import { initWorkers } from "./monacoWorker";
-import NewPlaygroundSplitPane from "./NewPlaygroundSplitPane";
+import NewPlaygroundSplitPane from "./PlaygroundSplitPane";
 
 const App: React.FC = () => {
   const [defaultValue, setDefaultValue] = useDefaultEditorValue();
   const [markers, setMarkers] = useState<monaco.editor.IMarker[]>([] as monaco.editor.IMarker[]);
   const [searchUrl, setSearchUrl] = searchBarStore();
   const [searchUrlDebounced] = useDebounce(searchUrl, 1000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any>();
   const [error, setError] = useState<string | undefined>();
   const [notification, setNotification] = useState<ISnackBarNotification | undefined>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [UISchema, setUISchemaBySection]: [IUISchema, any] = UISchemaStore();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editor, setEditor]: [any, Dispatch<Record<string, never>>] = useState();
   const [horizontalSplit, privateSetHorizontalSplit] = useState(false);
   const [parsedSchema, setParsedSchema] = useParsedSchema(
@@ -56,6 +58,7 @@ const App: React.FC = () => {
   const [inspectorContents] = useInspectorActionStore();
   useMonacoReplaceMetaSchema(editor);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleEditorDidMount = (__: any, ed: any) => {
     setEditor(ed);
   };
@@ -63,7 +66,6 @@ const App: React.FC = () => {
   useEffect(() => {
     monaco.editor.setTheme(UISchema.appBar["ui:darkMode"] ? "vs-dark" : "vs");
     initWorkers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -71,7 +73,6 @@ const App: React.FC = () => {
     if (!defaultValue && !searchUrl && defaultExample) {
       setSearchUrl(defaultExample.url);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue]);
 
   useEffect(() => {
@@ -79,7 +80,6 @@ const App: React.FC = () => {
       ...reactJsonOptions,
       theme: UISchema.appBar["ui:darkMode"] ? "summerfruit" : "summerfruit:inverted",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [UISchema.appBar["ui:darkMode"]]);
 
   useEffect(() => {
@@ -89,12 +89,10 @@ const App: React.FC = () => {
     if (results) {
       setParsedSchema(results!);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
 
   useEffect(() => {
     if (error) {
-      console.log("error", error);
       setNotification({
         type: NotificationType.error,
         message: error,
@@ -104,7 +102,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setParsedSchema(defaultValue || "");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue]);
   const [reactJsonOptions, setReactJsonOptions] = useState({
     theme: "summerfruit:inverted",
@@ -158,6 +155,7 @@ const App: React.FC = () => {
         setDefaultValue(rd);
         setResults(rd);
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       setError(e.message);
     }
@@ -167,31 +165,13 @@ const App: React.FC = () => {
     if (searchUrlDebounced && transport) {
       refreshOpenRpcDocument();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchUrlDebounced, transport]);
 
   useEffect(() => {
     if (inspectorContents) {
       setHorizontalSplit(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inspectorContents]);
-
-  console.log("Theme Application:", {
-    isDarkMode: UISchema.appBar["ui:darkMode"],
-    currentThemeMode: currentTheme.palette.mode,
-    themeComponents: currentTheme.components,
-    uiSchema: UISchema,
-    darkThemeComponents: darkTheme.components,
-    lightThemeComponents: lightTheme.components
-  });
-
-  useEffect(() => {
-    console.log("Dark mode changed:", {
-      isDarkMode: UISchema.appBar["ui:darkMode"],
-      themeMode: currentTheme.palette.mode
-    });
-  }, [UISchema.appBar["ui:darkMode"], currentTheme]);
 
   return (
     <ThemeProvider theme={currentTheme}>
@@ -220,7 +200,6 @@ const App: React.FC = () => {
           });
         }}
         onDarkModeChange={(value: boolean) => {
-          console.log("Dark mode change:", value);
           monaco.editor.setTheme(value ? "vs-dark" : "vs");
           setUISchemaBySection({
             value: value,
@@ -252,6 +231,7 @@ const App: React.FC = () => {
           <>
             <Container>
               <Documentation
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 schema={parsedSchema as any}
                 uiSchema={UISchema}
                 reactJsonOptions={{
@@ -260,6 +240,7 @@ const App: React.FC = () => {
                 }}
                 methodPlugins={
                   UISchema.methods["ui:methodPlugins"]
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ? [InspectorPlugin] as any
                     : undefined
                 }
@@ -302,6 +283,7 @@ const App: React.FC = () => {
         inspectorComponent={<Inspector hideToggleTheme={true} url={
           searchUrlDebounced && searchUrlDebounced.includes(".json") ? undefined : searchUrlDebounced
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
           request={inspectorContents && (inspectorContents as any).request || undefined}
           openrpcDocument={parsedSchema}
           transport={selectedTransportType.type !== "plugin" ? selectedTransportType.type : undefined}

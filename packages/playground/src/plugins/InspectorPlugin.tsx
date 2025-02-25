@@ -11,13 +11,6 @@ interface IMethodPluginProps {
   openrpcMethodObject: MethodObject;
 }
 
-interface JSONRPCRequest {
-  jsonrpc: "2.0";
-  method: string;
-  id: number;
-  params: any[];
-}
-
 const InspectorPlugin: React.FC<IMethodPluginProps> = (props) => {
   const [searchUrl] = searchBarStore();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,6 +31,7 @@ if (method && method.examples && method.examples[examplePosition]) {
       ? (example.params as ExampleObject[]).reduce(((memo, p) => {
         memo[p.name] = p.value;
         return memo;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }), {} as any)
       : (example.params as ExampleObject[]).map(((p) => p.value));
   }
@@ -46,10 +40,9 @@ if (method && method.examples && method.examples[examplePosition]) {
   }
 
   const handleClick = () => {
-    console.log("method", method);
    setInspectorContents({
     url: searchUrl,
-    openrpcMethodObject: props.methodObject,
+    openrpcMethodObject: props.openrpcMethodObject,
     request: {
       jsonrpc: "2.0",
       method: method.name,
