@@ -32,44 +32,6 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
   // Initialize the editor once on mount
   useEffect(() => {
     if (containerRef.current) {
-    let schema: any = {
-      type: "object",
-      properties: {
-        jsonrpc: {
-          type: "string",
-          const: "2.0",
-        },
-        id: {
-          oneOf: [
-            {
-              type: "string",
-            },
-            {
-              type: "number",
-            },
-          ],
-        },
-        method: {
-          type: "string",
-        },
-      },
-     }
-     schema = {
-        additionalProperties: false,
-        properties: {
-          ...schema.properties,
-          params: {
-            oneOf: [
-              { type: "array" },
-              { type: "object" },
-            ],
-          },
-        },
-      };
-    //  const modelUri = monaco.Uri.parse("http://localhost:3000/schema");
-   //   const model = monaco.editor.createModel(value, "json", modelUri);
-
-
       const editor = monaco.editor.create(containerRef.current, {
         value,
         language,

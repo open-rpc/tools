@@ -18,8 +18,7 @@
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "start": "vite",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json,md}'"
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -40,19 +39,14 @@
     "css-loader": "^6.10.0",
     "style-loader": "^3.3.4",
     "@mui/material": "6.3.1",
-    "monaco-editor-webpack-plugin": "^7.1.0",
-    "html-webpack-plugin": "^5.6.0",
-    "eslint": "^8.0.0",
+    "eslint": "9.21.0",
     "typescript": "^5.0.0",
-    "webpack": "5.98.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2",
     "vite": "6.0.5"
   },
   "files": [
     "dist"
   ],
   "engines": {
-    "node": ">=18.20.5"
+    "node": ">=20.11.1"
   }
 }
