@@ -6,6 +6,7 @@
   "scripts": {
     "build": "turbo run build:package",
     "clean": "turbo run clean:package",
+    "changeset": "changeset",
     "hard-clean": "npm run clean && rm -rf node_modules && rm -rf packages//node_modules",
     "build:monaco-editor-react": "turbo run build:package --filter=@open-rpc/monaco-editor-react",
     "build:json-schema-to-react-tree": "turbo run build:package --filter=@open-rpc/json-schema-to-react-tree",
@@ -14,7 +15,9 @@
     "build:inspector": "turbo run build:package --filter=@open-rpc/inspector",
     "build:playground": "turbo run build:package --filter=@open-rpc/playground",
     "test": "turbo run test",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "version": "changeset version",
+    "release": "turbo run build && changeset publish"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +25,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.28.1",
     "@eslint/js": "9.21.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "eslint-config-prettier": "^10.0.1",
