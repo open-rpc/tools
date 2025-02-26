@@ -5,9 +5,13 @@ import path from 'path';
 import { execSync } from 'child_process';
 import process from 'process';
 
+// Add global declaration for console to fix linter errors
+/* global console */
+
 // Parse command line arguments
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run') || args.includes('-d');
+const QUIET_MODE = args.includes('--quiet') || args.includes('-q');
 
 // Configuration
 const ROOT_CHANGELOG_PATH = path.join(process.cwd(), 'CHANGELOG.md');
@@ -42,7 +46,9 @@ class Logger {
     try {
       fs.writeFileSync(this.logFilePath, `Changelog Generator Log - ${new Date().toISOString()}\n\n`);
     } catch (error) {
-      console.error(`Failed to initialize log file: ${error.message}`);
+      if (!QUIET_MODE) {
+        console.error(`Failed to initialize log file: ${error.message}`);
+      }
     }
   }
 
@@ -55,13 +61,17 @@ class Logger {
     try {
       fs.appendFileSync(this.logFilePath, formattedMessage + '\n');
     } catch (error) {
-      console.error(`Failed to write to log file: ${error.message}`);
+      if (!QUIET_MODE) {
+        console.error(`Failed to write to log file: ${error.message}`);
+      }
     }
     
-    if (level === 'error') {
-      console.error(message);
-    } else {
-      console.log(message);
+    if (!QUIET_MODE) {
+      if (level === 'error') {
+        console.error(message);
+      } else {
+        console.log(message);
+      }
     }
   }
 
@@ -425,6 +435,147 @@ function getRepositoryUrl() {
   }
 }
 
+// Parse changelog content into a structured format
+function parseChangelogContent(content, version, packageName = null) {
+  try {
+    // Create regex pattern based on whether this is a package changelog or root changelog
+    const headerPattern = packageName 
+      ? `# ${packageName} ${version} \\([^)]+\\)`
+      : `# ${version} \\([^)]+\\)`;
+    
+    // Find the section for this version
+    const sectionRegex = new RegExp(`${headerPattern}([\\s\\S]*?)(?=# |$)`, 'g');
+    const match = sectionRegex.exec(content);
+    
+    if (!match) {
+      return null;
+    }
+    
+    // Extract the section content
+    const sectionContent = match[1].trim();
+    
+    // Parse the sections (Features, Bug Fixes, etc.)
+    const sectionStructure = {};
+    const sectionRegex2 = /## ([^\n]+)\n\n([\s\S]*?)(?=\n## |$)/g;
+    
+    let sectionMatch;
+    while ((sectionMatch = sectionRegex2.exec(sectionContent)) !== null) {
+      const sectionTitle = sectionMatch[1];
+      const sectionEntries = sectionMatch[2].trim().split('\n').filter(line => line.trim().startsWith('*'));
+      
+      // Find type key from section title
+      const typeKey = Object.keys(TYPES).find(key => TYPES[key].title === sectionTitle);
+      if (typeKey) {
+        sectionStructure[typeKey] = sectionEntries;
+      } else if (sectionTitle === 'Other Changes') {
+        sectionStructure.other = sectionEntries;
+      }
+    }
+    
+    return {
+      sectionContent,
+      sectionStructure
+    };
+  } catch (error) {
+    logger.error(`Failed to parse changelog content: ${error.message}`);
+    return null;
+  }
+}
+
+// Merge two changelog structures
+function mergeChangelogStructures(existing, newChanges) {
+  const merged = { ...newChanges };
+  
+  // For each section in existing changelog
+  Object.keys(existing).forEach(sectionType => {
+    if (!merged[sectionType]) {
+      // Section only exists in existing changelog, copy it
+      merged[sectionType] = [...existing[sectionType]];
+    } else {
+      // Section exists in both, merge entries and remove duplicates
+      const existingEntries = existing[sectionType];
+      const newEntries = merged[sectionType];
+      
+      // Add existing entries that aren't in the new changelog
+      existingEntries.forEach(entry => {
+        // Normalize entry for comparison (remove leading/trailing spaces and asterisk)
+        const normalizedEntry = entry.trim().replace(/^\* /, '');
+        
+        // Check if a similar entry exists in new entries
+        const isDuplicate = newEntries.some(newEntry => {
+          const normalizedNewEntry = newEntry.trim().replace(/^\* /, '');
+          
+          // Check for commit hash similarity
+          if (normalizedEntry.includes('](') && normalizedNewEntry.includes('](')) {
+            const hashRegex = /\[([a-f0-9]+)\]/;
+            const existingHash = normalizedEntry.match(hashRegex);
+            const newHash = normalizedNewEntry.match(hashRegex);
+            
+            if (existingHash && newHash && existingHash[1] === newHash[1]) {
+              return true;
+            }
+          }
+          
+          // Check for description similarity
+          // Remove commit hash links and issue links for comparison
+          const cleanExisting = normalizedEntry
+            .replace(/\([^)]+\)/g, '')  // Remove URLs
+            .replace(/\[[^\]]+\]/g, '') // Remove commit hashes
+            .replace(/#\d+/g, '')       // Remove issue references
+            .trim();
+            
+          const cleanNew = normalizedNewEntry
+            .replace(/\([^)]+\)/g, '')
+            .replace(/\[[^\]]+\]/g, '')
+            .replace(/#\d+/g, '')
+            .trim();
+          
+          return cleanExisting === cleanNew;
+        });
+        
+        if (!isDuplicate) {
+          merged[sectionType].push(entry);
+        }
+      });
+    }
+  });
+  
+  return merged;
+}
+
+// Convert merged structure back to markdown
+function generateMergedChangelog(version, mergedStructure, packageName = null, date = getCurrentDate()) {
+  let markdown = packageName
+    ? `# ${packageName} ${version} (${date})\n\n`
+    : `# ${version} (${date})\n\n`;
+  
+  // Add each type of change in proper order
+  Object.keys(TYPES).forEach(type => {
+    if (mergedStructure[type] && mergedStructure[type].length > 0) {
+      markdown += `## ${TYPES[type].title}\n\n`;
+      
+      mergedStructure[type].forEach(entry => {
+        markdown += `${entry}\n`;
+      });
+      
+      markdown += '\n';
+    }
+  });
+  
+  // Handle other changes that don't match conventional commit types
+  if (mergedStructure.other && mergedStructure.other.length > 0) {
+    markdown += `## Other Changes\n\n`;
+    
+    mergedStructure.other.forEach(entry => {
+      markdown += `${entry}\n`;
+    });
+    
+    markdown += '\n';
+  }
+  
+  return markdown;
+}
+
 // Update the changelog files
 function updateChangelogs() {
   try {
@@ -472,20 +623,52 @@ function updateChangelogs() {
     
     // Generate root changelog
     const rootVersion = getRootVersion();
-    const rootChangelog = generateChangelog(rootVersion, uniqueCommits, null, repoUrl);
+    const newRootChangelog = generateChangelog(rootVersion, uniqueCommits, null, repoUrl);
     
     // Write root changelog
     let existingRootChangelog = '';
+    let finalRootChangelog = newRootChangelog;
+    
     try {
       if (fs.existsSync(ROOT_CHANGELOG_PATH)) {
         existingRootChangelog = fs.readFileSync(ROOT_CHANGELOG_PATH, 'utf8');
+        
+        // Check if there's already an entry for this version
+        const versionHeaderRegex = new RegExp(`# ${rootVersion} \\([^)]+\\)([\\s\\S]*?)(?=# |$)`, 'g');
+        
+        if (versionHeaderRegex.test(existingRootChangelog)) {
+          logger.info(`Found existing changelog entry for version ${rootVersion}, merging entries`);
+          
+          // Parse existing content
+          const existingContent = parseChangelogContent(existingRootChangelog, rootVersion);
+          
+          // Parse new content - we need to create a temporary structure as if it were a file
+          const tempNewContent = newRootChangelog + "# placeholder";
+          const newContent = parseChangelogContent(tempNewContent, rootVersion);
+          
+          if (existingContent && newContent) {
+            // Merge structures
+            const mergedStructure = mergeChangelogStructures(
+              existingContent.sectionStructure, 
+              newContent.sectionStructure
+            );
+            
+            // Generate merged markdown
+            const mergedChangelog = generateMergedChangelog(rootVersion, mergedStructure);
+            
+            // Replace existing version section with merged content
+            existingRootChangelog = existingRootChangelog.replace(versionHeaderRegex, '');
+            finalRootChangelog = mergedChangelog;
+          }
+        }
       }
     } catch (error) {
-      logger.warn(`Failed to read existing root changelog: ${error.message}`);
+      logger.warn(`Failed to merge existing root changelog: ${error.message}`);
+      // Continue with replacement strategy as fallback
     }
     
     if (!DRY_RUN) {
-      fs.writeFileSync(ROOT_CHANGELOG_PATH, rootChangelog + existingRootChangelog);
+      fs.writeFileSync(ROOT_CHANGELOG_PATH, finalRootChangelog + existingRootChangelog);
       logger.info(`Updated root changelog at ${ROOT_CHANGELOG_PATH}`);
     } else {
       logger.info(`[DRY RUN] Would update root changelog at ${ROOT_CHANGELOG_PATH}`);
@@ -510,20 +693,52 @@ function updateChangelogs() {
       }
       
       const packageChangelogPath = path.join(pkg.path, 'CHANGELOG.md');
-      const packageChangelog = generateChangelog(packageVersion, packageCommits, pkg.name, repoUrl);
+      const newPackageChangelog = generateChangelog(packageVersion, packageCommits, pkg.name, repoUrl);
       
       // Write package changelog
       let existingPackageChangelog = '';
+      let finalPackageChangelog = newPackageChangelog;
+      
       try {
         if (fs.existsSync(packageChangelogPath)) {
           existingPackageChangelog = fs.readFileSync(packageChangelogPath, 'utf8');
+          
+          // Check if there's already an entry for this version
+          const versionHeaderRegex = new RegExp(`# ${pkg.name} ${packageVersion} \\([^)]+\\)([\\s\\S]*?)(?=# |$)`, 'g');
+          
+          if (versionHeaderRegex.test(existingPackageChangelog)) {
+            logger.info(`Found existing changelog entry for ${pkg.name} version ${packageVersion}, merging entries`);
+            
+            // Parse existing content
+            const existingContent = parseChangelogContent(existingPackageChangelog, packageVersion, pkg.name);
+            
+            // Parse new content - we need to create a temporary structure as if it were a file
+            const tempNewContent = newPackageChangelog + "# placeholder";
+            const newContent = parseChangelogContent(tempNewContent, packageVersion, pkg.name);
+            
+            if (existingContent && newContent) {
+              // Merge structures
+              const mergedStructure = mergeChangelogStructures(
+                existingContent.sectionStructure, 
+                newContent.sectionStructure
+              );
+              
+              // Generate merged markdown
+              const mergedChangelog = generateMergedChangelog(packageVersion, mergedStructure, pkg.name);
+              
+              // Replace existing version section with merged content
+              existingPackageChangelog = existingPackageChangelog.replace(versionHeaderRegex, '');
+              finalPackageChangelog = mergedChangelog;
+            }
+          }
         }
       } catch (error) {
-        logger.warn(`Failed to read existing changelog for ${pkg.name}: ${error.message}`);
+        logger.warn(`Failed to merge existing changelog for ${pkg.name}: ${error.message}`);
+        // Continue with replacement strategy as fallback
       }
       
       if (!DRY_RUN) {
-        fs.writeFileSync(packageChangelogPath, packageChangelog + existingPackageChangelog);
+        fs.writeFileSync(packageChangelogPath, finalPackageChangelog + existingPackageChangelog);
         logger.info(`Updated changelog for package ${pkg.name} at ${packageChangelogPath}`);
       } else {
         logger.info(`[DRY RUN] Would update changelog for package ${pkg.name} at ${packageChangelogPath}`);
@@ -533,7 +748,7 @@ function updateChangelogs() {
     logger.info(`Changelog generation completed successfully${DRY_RUN ? ' (dry run)' : ''}`);
     
     // Return the root changelog for display
-    return rootChangelog;
+    return finalRootChangelog;
   } catch (error) {
     logger.error(`Failed to update changelogs: ${error.message}`);
     return null;
@@ -550,15 +765,18 @@ function main() {
   
   const changelog = updateChangelogs();
   
-  if (changelog) {
+  if (changelog && !QUIET_MODE) {
     console.log('\n--- Generated Changelog ---\n');
     console.log(changelog);
     console.log('\n--- End of Changelog ---\n');
-  } else {
+  } else if (!changelog && !QUIET_MODE) {
     console.log('Failed to generate changelog. Check the log file for details.');
   }
   
   logger.info(`Log file written to ${LOG_FILE_PATH}`);
+  
+  return changelog ? 0 : 1;
 }
 
-main();
+// Run the main function and exit with appropriate code
+process.exit(main()); 

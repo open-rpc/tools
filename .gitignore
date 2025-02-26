@@ -11,3 +11,4 @@ dist/
 .DS_Store
 **/*.DS_Store
 LMMLOG.MD
+changelog-generator.log

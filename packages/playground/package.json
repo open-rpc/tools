@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/playground",
-  "version": "0.0.0-development",
+  "version": "0.7.1",
   "homepage": "https://playground.open-rpc.org/",
   "repository": {
     "type": "git",
