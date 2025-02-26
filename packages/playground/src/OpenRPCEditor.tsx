@@ -1,15 +1,18 @@
-import React, { useRef, useEffect } from "react";
-import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
-import * as monaco from "monaco-editor";
-import useWindowSize from "@rehooks/window-size";
-import { debounce } from "lodash";
-import useDarkMode from "use-dark-mode";
-import { initWorkers } from "./monacoWorker";
-import { getDocumentExtendedMetaSchema } from "@open-rpc/schema-utils-js";
+import React, { useRef, useEffect } from 'react';
+import { MonacoEditor, addDiagnostics } from '@open-rpc/monaco-editor-react';
+import * as monaco from 'monaco-editor';
+import useWindowSize from '@rehooks/window-size';
+import { debounce } from 'lodash';
+import useDarkMode from 'use-dark-mode';
+import { initWorkers } from './monacoWorker';
+import { getDocumentExtendedMetaSchema } from '@open-rpc/schema-utils-js';
 
 interface IProps {
   onChange?: (newValue: string) => void;
-  editorDidMount?: (model: monaco.editor.ITextModel, editor: monaco.editor.IStandaloneCodeEditor) => void;
+  editorDidMount?: (
+    model: monaco.editor.ITextModel,
+    editor: monaco.editor.IStandaloneCodeEditor
+  ) => void;
   onMarkerChange?: (markers: monaco.editor.IMarker[]) => void;
   value: string;
 }
@@ -38,13 +41,13 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
 
   const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
-    
+
     // Create model with unique URI
-    const modelUriString = "inmemory://openrpc-playground.json";
+    const modelUriString = 'inmemory://openrpc-playground.json';
     const modelUri = monaco.Uri.parse(modelUriString);
-    modelRef.current = monaco.editor.createModel(value || "", "json", modelUri);
+    modelRef.current = monaco.editor.createModel(value || '', 'json', modelUri);
     editor.setModel(modelRef.current);
-   
+
     const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
 
     addDiagnostics(modelUriString, extendedMetaSchema, monaco);
@@ -70,6 +73,17 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
 
   const handleChange = (newValue?: string) => {
     if (!newValue) return;
+
+    if (modelRef.current) {
+      try {
+        const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(newValue));
+        addDiagnostics(modelRef.current.uri.toString(), extendedMetaSchema, monaco);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (e) {
+        //console.warn('Invalid OpenRPC Document, skipping schema update');
+      }
+    }
+
     onChange?.(newValue);
   };
 
@@ -78,12 +92,12 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
       height="100%"
       width="100%"
       options={{
-        theme: darkMode.value ? "vs-dark" : "vs",
+        theme: darkMode.value ? 'vs-dark' : 'vs',
         minimap: {
           enabled: false,
         },
         scrollBeyondLastLine: false,
-        lineNumbers: "on",
+        lineNumbers: 'on',
         automaticLayout: true,
         fixedOverflowWidgets: true,
       }}
