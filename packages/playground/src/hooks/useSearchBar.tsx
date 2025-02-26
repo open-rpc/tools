@@ -1,10 +1,6 @@
 import { useState, Dispatch } from "react";
 
-interface ISearchBarResponse {
-  results: any;
-  error: string | undefined;
-}
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useSearchBar = (defaultValue: string | undefined): [string | undefined, Dispatch<any>] => {
   const [searchUrl, setSearchUrl] = useState<string | undefined>(defaultValue);
   return [searchUrl, setSearchUrl];

@@ -1,23 +1,36 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
-    "build:package": {
-      "outputs": ["dist/**", "build/**"]
-    },
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
     "build": {
-      "dependsOn": ["^build-package"],
-      "outputs": ["dist/**", "build/**"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "build:package": {
+      "dependsOn": ["^build:package", "clean:package"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json", "vite.config.ts", "vite.config.js"],
+      "cache": false
+    },
+    "clean": {
+      "dependsOn": ["^clean:package"]
+    },
+    "clean:package": {
+      "dependsOn": ["^clean:package"],
+      "cache": false
     },
     "test": {
-      "dependsOn": ["build"],
-      "outputs": []
+      "dependsOn": ["^build:package"],
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**", "test/**"],
+      "cache": false
     },
     "lint": {
       "outputs": []
     },
-    "start": {
-      "dependsOn": ["build"],
-      "outputs": []
+    "dev": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

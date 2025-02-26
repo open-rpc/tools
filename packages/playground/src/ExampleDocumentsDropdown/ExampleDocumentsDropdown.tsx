@@ -1,14 +1,14 @@
 import * as React from "react";
-import { Menu, MenuItem, Tooltip, Button, Grid, Typography } from "@material-ui/core";
-import DropdownIcon from "@material-ui/icons/ArrowDropDown";
-
+import { Menu, MenuItem, Tooltip, Button, Typography } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Grid from "@mui/material/Grid2";
 export interface IExample {
   name: "string";
   url: "string";
 }
 
 interface IProps {
-  onChange?: (example: IExample) => any;
+  onChange?: (example: IExample) => void;
   examples?: IExample[];
 }
 
@@ -21,9 +21,7 @@ const ExampleDocumentsDropdown: React.FC<IProps> = ({ examples, onChange }) => {
 
   const handleMenuItemClick = (example: IExample) => {
     setAnchorEl(null);
-    if (onChange) {
-      onChange(example);
-    }
+    onChange?.(example);
   };
 
   const handleClose = () => {
@@ -36,40 +34,40 @@ const ExampleDocumentsDropdown: React.FC<IProps> = ({ examples, onChange }) => {
 
   return (
     <>
-      <Tooltip title={process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE ? 
-        process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE : 
-        "Example OpenRPC Documents"}>
+      <Tooltip title={process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE || "Example OpenRPC Documents"}>
         <Button
           onClick={handleClick}
           variant="outlined"
-          endIcon={<DropdownIcon />}
-          style={{ height: "38px", fontSize: "11px", marginLeft: "10px" }}
-        >{process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT ? 
-          process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT : 
-          "examples"}</Button>
+          endIcon={<ArrowDropDownIcon />}
+          sx={{ 
+            height: "38px", 
+            fontSize: "11px", 
+            marginLeft: "10px" 
+          }}
+        >
+          {process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT || "examples"}
+        </Button>
       </Tooltip>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
-        keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
         <div style={{ maxWidth: "525px" }}>
-          {examples.map((example: any) => (
+          {examples.map((example: IExample) => (
             <MenuItem key={example.name} onClick={() => handleMenuItemClick(example)}>
               <Grid container spacing={0}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Typography variant="subtitle1">{example.name}</Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="caption" style={{ fontSize: "9px" }}>{example.url}</Typography>
+                <Grid size={{ xs: 12 }}>
+                  <Typography variant="caption" sx={{ fontSize: "9px" }}>{example.url}</Typography>
                 </Grid>
               </Grid>
             </MenuItem>
           ))}
         </div>
-
       </Menu>
     </>
   );

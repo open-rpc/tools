@@ -1,9 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build",
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./dist",
     "rootDir": "./src",
-    "composite": true
+    "composite": true,
+    "jsx": "react-jsx",
+    "moduleResolution":"bundler", 
+    "paths": {
+      "@/*": ["./src/exports"],
+      "@exports": ["./src/exports"],
+    }
   },
-  "include": ["src"]
+  "include": ["src/**/*", "src/**/*.css"]
 }

@@ -1,39 +1,53 @@
 import React, { Component } from "react";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import _ from "lodash";
-import { Theme } from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { Typography, Grid } from "@material-ui/core";
-import ReactJson from "react-json-view";
+import { Theme } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { Typography} from "@mui/material";
+import Grid from '@mui/material/Grid2';
+import ReactJson from "@uiw/react-json-view";
 import { ErrorObject } from "@open-rpc/meta-schema";
 
-const styles = (theme: Theme) => ({
-  code: {
-    marginLeft: theme.spacing(2),
-  },
-});
+const PREFIX = 'Errors';
 
-interface IProps extends WithStyles<typeof styles> {
+const classes = {
+  code: `${PREFIX}-code`
+};
+
+const StyledGrid = styled(Grid)((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.code}`]: {
+    marginLeft: theme.spacing(2),
+  }
+}));
+
+interface IProps {
   errors?: ErrorObject[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
 }
 
 class Errors extends Component<IProps> {
   public render() {
-    const { errors, classes } = this.props;
+    const { errors, } = this.props;
     if (!errors || errors.length === 0) {
       return null;
     }
     return (
-      <Grid container>
-        <Grid item xs={12}>
+      (<StyledGrid container>
+        <Grid component="div" size={{ xs: 12 }}>
           <Typography variant="h5">Errors</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid component="div" size={{xs: 12}}>
           <Table>
             <TableHead>
               <TableRow>
@@ -59,9 +73,9 @@ class Errors extends Component<IProps> {
           </Table>
 
         </Grid>
-      </Grid>
+      </StyledGrid>)
     );
   }
 }
 
-export default withStyles(styles)(Errors);
+export default (Errors);

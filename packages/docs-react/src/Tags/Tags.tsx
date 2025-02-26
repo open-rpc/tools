@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TagObject } from "@open-rpc/meta-schema";
-import { Chip } from "@material-ui/core";
-import hashColor from "hash-color-material";
+import { Chip } from "@mui/material";
+import * as hashColor from "../util/hashColor";
 
 interface IProps {
   tags?: TagObject[];
@@ -9,19 +9,19 @@ interface IProps {
 
 export default class Tags extends Component<IProps> {
   public render() {
-    const { tags }: { tags?: any} = this.props;
+    const { tags }: { tags?: TagObject[]} = this.props;
     if (!tags || tags.length === 0) {
       return null;
     }
     return (
       <>
         {
-          tags.map((tag: any, k: number) => {
+          tags.map((tag) => {
             return (
               <Chip
                 key={tag.name}
                 label={tag.name}
-                style={{ backgroundColor: hashColor(tag.name) }}
+                style={{ backgroundColor: hashColor.getColorFromString(tag.name) }}
               />
             );
           })

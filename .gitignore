@@ -7,3 +7,8 @@ LLMLOG.md
 .turbo/
 **/*/.turbo
 tsconfig.tsbuildinfo
+dist/
+.DS_Store
+**/*.DS_Store
+LMMLOG.MD
+changelog-generator.log

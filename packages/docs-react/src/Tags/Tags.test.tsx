@@ -1,16 +1,14 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import Tags from "./Tags";
+import { render, screen } from '@testing-library/react';
 
 it("renders empty with empty tags", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Tags tags={[]} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Tags tags={[]} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders schema tags", () => {
-  const div = document.createElement("div");
   const tags = [
     {
       name: "salad",
@@ -19,8 +17,9 @@ it("renders schema tags", () => {
       name: "mytag",
     },
   ];
-  ReactDOM.render(<Tags tags={tags} />, div);
-  expect(div.innerHTML.includes("salad")).toBe(true);
-  expect(div.innerHTML.includes("mytag")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Tags tags={tags} />);
+  
+  // Check for tag names
+  expect(screen.getByText("salad")).toBeInTheDocument();
+  expect(screen.getByText("mytag")).toBeInTheDocument();
 });

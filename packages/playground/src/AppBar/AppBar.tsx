@@ -1,154 +1,155 @@
-import React, { Component } from "react";
+import * as React from "react";
 import {
   AppBar,
   Toolbar,
   Typography,
-  Grid,
   IconButton,
   Paper,
-  Theme,
-  WithStyles,
-  withStyles,
-  Hidden,
   Tooltip,
-} from "@material-ui/core";
-import FullscreenIcon from "@material-ui/icons/Fullscreen";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import Brightness3Icon from "@material-ui/icons/Brightness3";
-import EditIcon from "@material-ui/icons/Edit";
+  styled,
+} from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
+import EditIcon from "@mui/icons-material/Edit";
 import { IUISchema } from "../UISchema";
 import SearchBar from "../SearchBar/SearchBar";
 import ExampleDocumentsDropdown, { IExample } from "../ExampleDocumentsDropdown/ExampleDocumentsDropdown";
 import { ITransport } from "../hooks/useTransport";
 import TransportDropdown from "../components/TransportDropdown";
 
-const styles = (theme: Theme) => ({
-  title: {
-    marginLeft: theme.spacing(2),
-  },
-  appBar: {
-  },
-});
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+}));
 
-interface IProps extends WithStyles<typeof styles> {
+interface IProps {
   uiSchema?: IUISchema;
   examples?: IExample[];
   transportList?: ITransport[];
   selectedTransport?: ITransport;
   searchBarUrl?: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeUrl?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDarkModeChange?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSplitViewChange?: (split: boolean) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onExampleDocumentsDropdownChange?: (example: IExample) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onTransportAdd: (transport: ITransport) => any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onTransportChange: (transport: ITransport) => any;
 }
 
-class ApplicationBar extends Component<IProps> {
-  public render() {
-    const {
-      uiSchema,
-      classes,
-      onSplitViewChange,
-      onDarkModeChange,
-      examples,
-      onExampleDocumentsDropdownChange,
-    } = this.props;
-    return (
-      <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
-        <Toolbar>
-          <Grid alignItems="center" container>
-            <Grid item xs={6} sm={6} md={2} direction="row" container>
-              {this.props.uiSchema && this.props.uiSchema.appBar && this.props.uiSchema.appBar["ui:logoUrl"] &&
-                <Grid>
-                  <img
-                    alt="playground-title"
-                    height="30"
-                    src={this.props.uiSchema.appBar["ui:logoUrl"]} />
-                </Grid>
-              }
-              <Grid style={{ overflow: "hidden" }}>
-                <Typography className={classes.title} variant="h6">
-                  {uiSchema && uiSchema.appBar["ui:title"]}
-                </Typography>
+const ApplicationBar: React.FC<IProps> = ({
+  uiSchema,
+  onSplitViewChange,
+  onDarkModeChange,
+  examples,
+  onExampleDocumentsDropdownChange,
+  searchBarUrl,
+  onChangeUrl,
+  transportList,
+  selectedTransport,
+  onTransportAdd,
+  onTransportChange,
+}) => {
+  return (
+    <AppBar position="fixed" color="default" elevation={0}>
+      <Toolbar>
+        <Grid container alignItems="center" style={{width: "100%", height: "100%"}}>
+          <Grid size={{ xs: 6, sm: 6, md: 2 }} container direction="row">
+            {uiSchema?.appBar?.["ui:logoUrl"] && (
+              <Grid>
+                <img
+                  alt="playground-title"
+                  height="30"
+                  src={uiSchema.appBar["ui:logoUrl"]}
+                />
               </Grid>
+            )}
+           <Grid style={{ overflow: "hidden" }}>
+              <StyledTitle variant="h6">
+                {uiSchema?.appBar?.["ui:title"]}
+              </StyledTitle>
             </Grid>
-            <Hidden smDown>
-              <Grid item container justify="center" alignItems="center" sm={8} >
-                {this.props.uiSchema && this.props.uiSchema.appBar && this.props.uiSchema.appBar["ui:transports"] &&
-                <Grid item>
-                  <TransportDropdown
-                    transports={this.props.transportList}
-                    onAddTransport={this.props.onTransportAdd}
-                    selectedTransport={this.props.selectedTransport}
-                    onChange={this.props.onTransportChange}
-                    style={{
-                      marginLeft: "10px",
-                    }}
-                  />
-                </Grid>
-                }
-                <Grid item sm={6}>
-                  {this.props.uiSchema && this.props.uiSchema.appBar && this.props.uiSchema.appBar["ui:input"] &&
-                    <Paper style={{
-                      background: "rgba(0, 0, 0, 0.1)",
-                      padding: "0px 10px 0px 10px",
-                      width: "100%",
-                    }} elevation={0}>
-                      <SearchBar
-                        searchBarUrl={this.props.searchBarUrl}
-                        onChangeUrl={this.props.onChangeUrl}
-                        uiSchema={uiSchema}
-                      />
-                    </Paper>
-                  }
-                </Grid>
-                {this.props.uiSchema && this.props.uiSchema.appBar &&
-                  this.props.uiSchema.appBar["ui:examplesDropdown"] &&
-                  <ExampleDocumentsDropdown examples={examples} onChange={onExampleDocumentsDropdownChange} />
-                }
+          </Grid>
+          <Grid
+            size={{sm: 8 }}
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{ display: { xs: "none", md: "flex" } }}
+          >
+            {uiSchema?.appBar?.["ui:transports"] && (
+              <Grid>
+                <TransportDropdown
+                  transports={transportList}
+                  onAddTransport={onTransportAdd}
+                  selectedTransport={selectedTransport}
+                  onChange={onTransportChange}
+                  style={{ marginLeft: "10px" }}
+                />
               </Grid>
-            </Hidden>
+            )}
+            <Grid size={{ sm: 6 }}>
+              {uiSchema?.appBar?.["ui:input"] && (
+                <Paper
+                  sx={{
+                    background: "rgba(0, 0, 0, 0.1)",
+                    padding: "0px 10px 0px 10px",
+                    width: "100%",
+                  }}
+                  elevation={0}
+                >
+                  <SearchBar
+                    searchBarUrl={searchBarUrl}
+                    onChangeUrl={onChangeUrl}
+                    uiSchema={uiSchema}
+                  />
+                </Paper>
+              )}
+            </Grid>
+            {uiSchema?.appBar?.["ui:examplesDropdown"] && (
+              <ExampleDocumentsDropdown
+                examples={examples}
+                onChange={onExampleDocumentsDropdownChange}
+              />
+            )}
+          </Grid>
 
-            <Grid item xs={6} sm={6} md={2} container justify="flex-end" alignItems="center">
-            {uiSchema && uiSchema.appBar["ui:edit"] ?
-              uiSchema && uiSchema.appBar["ui:splitView"] ?
-                <Tooltip title={"Full Screen"}>
-                  <IconButton onClick={() => {
-                    if (onSplitViewChange) {
-                      onSplitViewChange(false);
-                    }
-                  }}>
+          <Grid size={{ xs: 6, sm: 6, md: 2 }} container justifyContent="flex-end" alignItems="center">
+            {uiSchema?.appBar?.["ui:edit"] && (
+              uiSchema?.appBar?.["ui:splitView"] ? (
+                <Tooltip title="Full Screen">
+                  <IconButton onClick={() => onSplitViewChange?.(false)}>
                     <FullscreenIcon />
                   </IconButton>
                 </Tooltip>
-                :
-                <Tooltip title={"Edit"}>
-                  <IconButton onClick={() => {
-                    if (onSplitViewChange) {
-                      onSplitViewChange(true);
-                    }
-                  }}>
+              ) : (
+                <Tooltip title="Edit">
+                  <IconButton onClick={() => onSplitViewChange?.(true)}>
                     <EditIcon />
                   </IconButton>
                 </Tooltip>
-              :
-              ''
-            }
-              <Tooltip title="Toggle Dark Theme">
-                <IconButton>
-                  {uiSchema && uiSchema.appBar["ui:darkMode"] ?
-                    <Brightness3Icon onClick={() => onDarkModeChange(false)} />
-                    :
-                    <WbSunnyIcon onClick={() => onDarkModeChange(true)} />
-                  }
-                </IconButton>
-              </Tooltip>
-            </Grid>
+              )
+            )}
+            <Tooltip title="Toggle Dark Theme">
+              <IconButton onClick={() => onDarkModeChange(!uiSchema?.appBar?.["ui:darkMode"])}>
+                {uiSchema?.appBar?.["ui:darkMode"] ? (
+                  <Brightness3Icon />
+                ) : (
+                  <WbSunnyIcon />
+                )}
+              </IconButton>
+            </Tooltip>
           </Grid>
-        </Toolbar>
-      </AppBar >
-    );
-  }
-}
-export default withStyles(styles)(ApplicationBar);
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default ApplicationBar;

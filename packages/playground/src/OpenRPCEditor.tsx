@@ -1,80 +1,94 @@
 import React, { useRef, useEffect } from "react";
-import MonacoEditor from "@etclabscore/react-monaco-editor";
+import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
 import * as monaco from "monaco-editor";
 import useWindowSize from "@rehooks/window-size";
-import { addDiagnostics } from "@etclabscore/monaco-add-json-schema-diagnostics";
-import schema from "@open-rpc/meta-schema";
-import _ from "lodash";
+import { debounce } from "lodash";
+import useDarkMode from "use-dark-mode";
+import { initWorkers } from "./monacoWorker";
+import { getDocumentExtendedMetaSchema } from "@open-rpc/schema-utils-js";
 
 interface IProps {
-  onChange?: (newValue: any) => void;
-  editorDidMount?: (_: any, editor: any) => any;
+  onChange?: (newValue: string) => void;
+  editorDidMount?: (model: monaco.editor.ITextModel, editor: monaco.editor.IStandaloneCodeEditor) => void;
   onMarkerChange?: (markers: monaco.editor.IMarker[]) => void;
-  value: any;
+  value: string;
 }
 
-const OpenRPCEditor: React.FC<IProps> = (props) => {
-  const editorRef = useRef();
+const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerChange, value }) => {
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const modelRef = useRef<monaco.editor.ITextModel | null>(null);
   const windowSize = useWindowSize();
-  let model: any;
+  const darkMode = useDarkMode();
 
+  // Handle window resize
   useEffect(() => {
-    if (editorRef !== undefined && editorRef.current !== undefined) {
-      (editorRef.current as any).layout();
+    if (editorRef.current) {
+      editorRef.current.layout();
     }
   }, [windowSize]);
 
+  // Cleanup on unmount
   useEffect(() => {
-    return function cleanup() {
-      if (model) {
-        model.dispose();
+    return () => {
+      if (modelRef.current) {
+        modelRef.current.dispose();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleEditorDidMount(__: any, editor: any) {
+  const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
-    const modelUriString = `inmemory://openrpc-playground.json`;
+    
+    // Create model with unique URI
+    const modelUriString = "inmemory://openrpc-playground.json";
     const modelUri = monaco.Uri.parse(modelUriString);
-    model = monaco.editor.createModel(props.value || "", "json", modelUri);
-    editor.setModel(model);
-    addDiagnostics(modelUri.toString(), schema, monaco);
-    if (props.editorDidMount) {
-      props.editorDidMount(_, editor);
-    }
-    if (!props.onMarkerChange) {
-      return;
-    }
-    editor.onDidChangeModelDecorations(_.debounce(() => {
-      if (props.onMarkerChange) {
-        const mk = monaco.editor.getModelMarkers({
-          resource: modelUri,
-        });
-        props.onMarkerChange(mk);
-      }
-    }, 300));
-  }
+    modelRef.current = monaco.editor.createModel(value || "", "json", modelUri);
+    editor.setModel(modelRef.current);
+   
+    const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
 
-  const handleChange = (ev: any, value: any) => {
-    if (props.onChange) {
-      props.onChange(value);
+    addDiagnostics(modelUriString, extendedMetaSchema, monaco);
+    initWorkers();
+
+    // Set up marker change subscription if needed
+    if (onMarkerChange) {
+      editor.onDidChangeModelDecorations(
+        debounce(() => {
+          const markers = monaco.editor.getModelMarkers({
+            resource: modelUri,
+          });
+          onMarkerChange(markers);
+        }, 300)
+      );
     }
+
+    // Call the provided editorDidMount callback
+    if (editorDidMount && modelRef.current) {
+      editorDidMount(modelRef.current, editor);
+    }
+  };
+
+  const handleChange = (newValue?: string) => {
+    if (!newValue) return;
+    onChange?.(newValue);
   };
 
   return (
     <MonacoEditor
       height="100%"
-      editorOptions={{
-        useShadows: false,
+      width="100%"
+      options={{
+        theme: darkMode.value ? "vs-dark" : "vs",
         minimap: {
           enabled: false,
         },
         scrollBeyondLastLine: false,
         lineNumbers: "on",
+        automaticLayout: true,
+        fixedOverflowWidgets: true,
       }}
-      value={props.value}
-      editorDidMount={handleEditorDidMount}
+      value={value}
+      onMount={handleEditorDidMount}
       language="json"
       onChange={handleChange}
     />

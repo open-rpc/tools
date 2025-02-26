@@ -1,20 +1,23 @@
-import React, { useEffect } from "react";
-import { MuiThemeProvider, CssBaseline } from "@material-ui/core"; //tslint:disable-line
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import * as React from "react";
+import { useEffect } from "react";
+import { ThemeProvider, CssBaseline } from "@mui/material"; //tslint:disable-line
+import useMediaQuery from "@mui/material/useMediaQuery";
 import makeTheme from "../themes/theme";
 import "./MyApp.css";
-import JSONRPCLogger, { IJSONRPCLog } from "../components/logsReact/logsReact";
+import { JSONRPCLogger, IJSONRPCLog } from "../components/logsReact/logsReact";
 import useWebRequest from "../hooks/useWebRequest";
 import * as monaco from "monaco-editor";
 
-const MyApp: React.FC = () => {
+interface DevToolsPanel {
+  create(title: string, iconPath: string, pagePath: string, callback: (panel: DevToolsPanel) => void): void;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const MyApp: React.FC<{children?: React.ReactNode}> = ({children}) => {
   const [newHistory, setHistory] = useWebRequest();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  const theme = React.useMemo(
-    () => makeTheme(prefersDarkMode),
-    [prefersDarkMode],
-  );
+  const theme = React.useMemo(() => makeTheme(prefersDarkMode), [prefersDarkMode]);
 
   useEffect(() => {
     const t = prefersDarkMode ? "vs-dark" : "vs";
@@ -22,13 +25,18 @@ const MyApp: React.FC = () => {
   }, [prefersDarkMode, theme]);
 
   useEffect(() => {
-    if (chrome && chrome.devtools && chrome.devtools.panels) {
+    // Use devtools panels API from Chrome or Firefox
+    const devToolsPanels =
+      typeof chrome !== "undefined" && chrome.devtools && chrome.devtools.panels
+        ? chrome.devtools.panels
+        : typeof browser !== "undefined" && browser.devtools && browser.devtools.panels
+          ? browser.devtools.panels
+          : null;
+
+    if (devToolsPanels) {
       // Create devtools panel for JSONRPCLogger extension
-      chrome.devtools.panels.create("JSONRPCLogger",
-        "",
-        "index.html",
-        (panel) => { return; },
-      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      devToolsPanels.create("JSONRPCLogger", "", "index.html", (_panel: any) => {});
     } else {
       const logs: IJSONRPCLog[] = [
         {
@@ -40,7 +48,7 @@ const MyApp: React.FC = () => {
             method: "foo",
           },
         },
-        {
+       {
           timestamp: new Date(),
           type: "request",
           method: "foo",
@@ -107,16 +115,7 @@ const MyApp: React.FC = () => {
               foo: "bar",
               baz: "foo",
               bar: "baz",
-              listOfNothings: [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-              ],
+              listOfNothings: [1, 2, 3, 4, 5, 6, 7, 8],
             },
           },
         },
@@ -143,24 +142,29 @@ const MyApp: React.FC = () => {
       ];
       setHistory(logs);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // do not render monaco if collapsed -> see docs
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <div>
         <CssBaseline />
-        <JSONRPCLogger logs={newHistory} sidebarAlign="right" openrpcDocument={{
-          methods: [
-            {
-              name: "foo",
-              description: "potato",
-            },
-          ],
-        } as any} />
+        <JSONRPCLogger
+          logs={newHistory}
+          darkMode={true}
+          sidebarAlign="right"
+          openrpcDocument={{
+            methods: [
+              {
+                name: "foo",
+                description: "potato",
+              },
+            ],
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } as any}
+        />
       </div>
-    </MuiThemeProvider >
+    </ThemeProvider>
   );
 };
 

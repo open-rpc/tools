@@ -1,8 +1,20 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build",
-    "rootDir": "./src"
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
   },
-  "include": ["src"]
+    "references": [
+      { "path": "../json-schema-to-react-tree" }
+    ],
+  "include": ["src/**/*", "src/**/*.css"],
+  "exclude": ["src/index.tsx"]
 }

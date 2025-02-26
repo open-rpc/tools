@@ -1,14 +1,16 @@
-import React from "react";
+import * as React from "react";
 import { IJSONRPCLog } from "../logsReact/logsReact";
-import {Chip} from "@material-ui/core";
-import { Theme, useTheme } from "@material-ui/core/styles";
+import {Chip} from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
 
 interface IProps {
   log: IJSONRPCLog;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getChipColorForLog = (log: IJSONRPCLog, theme: Theme, isNotification = false): any => {
-  const paletteType = theme.palette.type;
+  const paletteType = theme.palette.mode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const styles: any = {
     backgroundColor: theme.palette.success[paletteType],
   };

@@ -1,24 +1,21 @@
-import {
-  MethodObject,
-  ContentDescriptorObject,
-  OpenrpcDocument,
-} from "@open-rpc/meta-schema";
+import { MethodObject, ContentDescriptorObject, OpenrpcDocument } from '@open-rpc/meta-schema';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const schema: any = {
-  type: "object",
+  type: 'object',
   properties: {
     jsonrpc: {
-      type: "string",
-      description: "JSON-RPC Version String",
-      const: "2.0",
+      type: 'string',
+      description: 'JSON-RPC Version String',
+      const: '2.0',
     },
     id: {
       oneOf: [
         {
-          type: "string",
+          type: 'string',
         },
         {
-          type: "number",
+          type: 'number',
         },
       ],
     },
@@ -32,12 +29,13 @@ const openrpcDocumentToJSONRPCSchemaResult = (
   const methodObject = openrpcDocument.methods.find(
     (method) => (method as MethodObject).name === methodName
   ) as MethodObject;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let methodSchema: any;
   if (methodObject !== undefined && methodObject.result !== undefined) {
     methodSchema = (methodObject.result as ContentDescriptorObject).schema;
   }
   return {
-    type: "object",
+    type: 'object',
     properties: {
       id: {
         ...schema.properties.id,

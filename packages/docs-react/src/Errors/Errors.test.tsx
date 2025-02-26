@@ -1,26 +1,26 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import Errors from "./Errors";
+import { render, screen } from '@testing-library/react';
 
 it("renders with error", () => {
-  const div = document.createElement("div");
   const errors = [
     {
       code: 100,
       message: "lost it",
     },
   ];
-  ReactDOM.render(<Errors errors={errors}/>, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Errors errors={errors}/>);
+  expect(screen.getByText("lost it")).toBeInTheDocument();
+  expect(screen.getByText("100")).toBeInTheDocument();
 });
 
-it("renders an error", async () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Errors errors={[{
+it("renders an error with code and message", () => {
+  render(<Errors errors={[{
     code: 100,
     message: "foo bar error msg",
-  }]} />, div);
-  expect(div.innerHTML.includes("foo bar error msg")).toBe(true);
-  expect(div.innerHTML.includes("100")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  }]} />);
+  
+  expect(screen.getByText("foo bar error msg")).toBeInTheDocument();
+  expect(screen.getByText("100")).toBeInTheDocument();
 });

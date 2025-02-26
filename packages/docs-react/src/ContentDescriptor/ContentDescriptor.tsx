@@ -1,30 +1,47 @@
 import React, { Component } from "react";
-import { Typography, withStyles, Theme, WithStyles } from "@material-ui/core";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import JSONSchemaTree from "@xops.net/json-schema-to-react-tree";
+import { styled } from '@mui/material/styles';
+import { Typography, Theme } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { JSONSchemaTree } from  "@open-rpc/json-schema-to-react-tree";
 import { ContentDescriptorObject } from "@open-rpc/meta-schema";
 import { JSONSchema7 } from "json-schema";
 import "./ContentDescriptor.css";
 import MarkdownDescription from "../MarkdownDescription/MarkdownDescription";
 
-const styles = (theme: Theme) => ({
-  description: {
+const PREFIX = 'ContentDescriptor';
+
+const classes = {
+  description: `${PREFIX}-description`,
+  heading: `${PREFIX}-heading`,
+  secondaryHeading: `${PREFIX}-secondaryHeading`
+};
+
+const StyledAccordion = styled(Accordion)((
+  {
+    theme
+  }: {
+    theme: Theme
+  }
+) => ({
+  [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     flexBasis: "33.33%",
     flexShrink: 0,
     fontSize: theme.typography.pxToRem(15),
   },
-  secondaryHeading: {
+
+  [`& .${classes.secondaryHeading}`]: {
     alignSelf: "end",
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(15),
-  },
-});
+  }
+}));
 
 interface UISchema {
   params: {
@@ -32,7 +49,8 @@ interface UISchema {
   };
 }
 
-interface IProps extends WithStyles<typeof styles> {
+//TODO: this extended with styles before
+interface IProps{
   contentDescriptor?: ContentDescriptorObject;
   hideIcon?: boolean;
   hideRequired?: boolean;
@@ -42,17 +60,17 @@ interface IProps extends WithStyles<typeof styles> {
 
 class ContentDescriptor extends Component<IProps> {
   public render() {
-    const { contentDescriptor, classes, hideIcon, hideRequired, uiSchema, disableTransitionProps } = this.props;
+    const { contentDescriptor,  hideIcon, hideRequired, uiSchema, disableTransitionProps } = this.props;
     if (!contentDescriptor) { return null; }
     const entries = Object.entries(contentDescriptor);
     if (entries.length === 0) { return null; }
     return (
-      <ExpansionPanel
+      (<StyledAccordion
         style={{ width: "100%" }}
         TransitionProps={{unmountOnExit: disableTransitionProps ? false : true}}
         defaultExpanded={uiSchema && uiSchema.params["ui:defaultExpanded"]}
         expanded={contentDescriptor.name ? undefined : true}>
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={(!contentDescriptor.name || hideIcon) ? null : <ExpandMoreIcon />}
           style={{ justifyContent: "space-between" }}>
           <div style={{ display: "flex", justifyContent: "space-between", width: "100%", height: "100%", alignItems: "center" }}>
@@ -62,8 +80,8 @@ class ContentDescriptor extends Component<IProps> {
               {contentDescriptor.required ? "true" : "false"}
             </Typography>}
           </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails style={{ display: "block", overflowX: "auto" }}>
+        </AccordionSummary>
+        <AccordionDetails style={{ display: "block", overflowX: "auto" }}>
           <>
             {contentDescriptor.description &&
               <MarkdownDescription
@@ -79,9 +97,9 @@ class ContentDescriptor extends Component<IProps> {
               </>
             }
           </>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </StyledAccordion>)
     );
   }
 }
-export default withStyles(styles)(ContentDescriptor);
+export default (ContentDescriptor);

@@ -1,42 +1,30 @@
+import { it, expect, vi } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import Methods, { IMethodPluginProps } from "./Methods";
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
-import {
-  cleanup,
-  fireEvent,
-  render,
-} from "@testing-library/react";
+import { render, screen, fireEvent} from "@testing-library/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Methods />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods />);
 });
 
 it("renders empty with no schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Methods />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders empty with empty schema", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Methods schema={{} as any} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={{} as any} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders empty with empty schema methods", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<Methods schema={{ methods: [] } as any} />, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={{ methods: [] } as any} />);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders schema methods name", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -44,13 +32,11 @@ it("renders schema methods name", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("get_pet")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getByText("get_pet")).toBeInTheDocument();
 });
 
 it("doesnt render collapsed contents", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -60,13 +46,11 @@ it("doesnt render collapsed contents", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} />, div);
-  expect(div.innerHTML.includes("foobarz")).toBe(false);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} />);
+  expect(screen.queryByText("foobarz")).not.toBeInTheDocument();
 });
 
 it("doesnt render collapsed contents with empty uiSchema", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -76,13 +60,11 @@ it("doesnt render collapsed contents with empty uiSchema", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} uiSchema={{}} />, div);
-  expect(div.innerHTML.includes("foobarz")).toBe(false);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} uiSchema={{}} />);
+  expect(screen.queryByText("foobarz")).not.toBeInTheDocument();
 });
 
 it("doesnt render collapsed contents with empty uiSchema.methods", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -92,13 +74,11 @@ it("doesnt render collapsed contents with empty uiSchema.methods", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} uiSchema={{ methods: {} }} />, div);
-  expect(div.innerHTML.includes("foobarz")).toBe(false);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} uiSchema={{ methods: {} }} />);
+  expect(screen.queryByText("foobarz")).not.toBeInTheDocument();
 });
 
 it("renders collapsed contents with defaultExpanded from uiSchema", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -109,21 +89,18 @@ it("renders collapsed contents with defaultExpanded from uiSchema", () => {
     ],
   };
   const uiSchema = {
-    links: {
-    },
+    links: {},
     methods: {
       "ui:defaultExpanded": true,
     },
-    params: {
-    },
+    params: {},
   };
-  ReactDOM.render(<Methods uiSchema={uiSchema} schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("aria-expanded=\"true\"")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods uiSchema={uiSchema} schema={schema as any} disableTransitionProps={true} />);
+  const expandedElement = screen.getByRole('button', { expanded: true });
+  expect(expandedElement).toBeInTheDocument();
 });
 
 it("renders collapsed contents with defaultExpanded with the method from uiSchema", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -135,34 +112,20 @@ it("renders collapsed contents with defaultExpanded with the method from uiSchem
     ],
   };
   const uiSchema = {
-    links: {
-    },
+    links: {},
     methods: {
       "ui:defaultExpanded": {
         foomethod: true,
       },
     },
-    params: {
-    },
+    params: {},
   };
-  ReactDOM.render(<Methods uiSchema={uiSchema} schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("aria-expanded=\"true\"")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods uiSchema={uiSchema} schema={schema as any} disableTransitionProps={true} />);
+  const expandedElement = screen.getByRole('button', { expanded: true });
+  expect(expandedElement).toBeInTheDocument();
 });
 
 it("doesnt render collapsed contents with wrong method name and defaultExpanded with method", () => {
-  const div = document.createElement("div");
-  const uiSchema = {
-    links: {
-    },
-    methods: {
-      "ui:defaultExpanded": {
-        foomethod: true,
-      },
-    },
-    params: {
-    },
-  };
   const schema = {
     methods: [
       {
@@ -173,13 +136,20 @@ it("doesnt render collapsed contents with wrong method name and defaultExpanded 
       },
     ],
   };
-  ReactDOM.render(<Methods uiSchema={uiSchema} schema={schema as any} />, div);
-  expect(div.innerHTML.includes("foobarz")).toBe(false);
-  ReactDOM.unmountComponentAtNode(div);
+  const uiSchema = {
+    links: {},
+    methods: {
+      "ui:defaultExpanded": {
+        foomethod: true,
+      },
+    },
+    params: {},
+  };
+  render(<Methods uiSchema={uiSchema} schema={schema as any} />);
+  expect(screen.queryByText("foobarz")).not.toBeInTheDocument();
 });
 
 it("renders collapsed contents with disableTransitionProps", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -189,13 +159,11 @@ it("renders collapsed contents with disableTransitionProps", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("foobarz")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getByText("foobarz")).toBeInTheDocument();
 });
 
 it("renders schema plugin", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -203,24 +171,18 @@ it("renders schema plugin", () => {
       },
     ],
   };
-  const TestComponent: React.FC<IMethodPluginProps> = (props) => {
-    return (
-      <div>
-        Plugin Test
-      </div>
-    );
+  const TestComponent: React.FC<IMethodPluginProps> = () => {
+    return <div>Plugin Test</div>;
   };
 
-  ReactDOM.render(
+  render(
     <Methods schema={schema as any} methodPlugins={[TestComponent]} disableTransitionProps={true} />
-    , div);
-  expect(div.innerHTML.includes("get_pet")).toBe(true);
-  expect(div.innerHTML.includes("Plugin Test")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  );
+  expect(screen.getByText("get_pet")).toBeInTheDocument();
+  expect(screen.getByText("Plugin Test")).toBeInTheDocument();
 });
 
 it("renders schema methods summary", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -231,13 +193,11 @@ it("renders schema methods summary", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("a short summary")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getByText("a short summary")).toBeInTheDocument();
 });
 
 it("renders schema methods description", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -245,13 +205,11 @@ it("renders schema methods description", () => {
       },
     ],
   } as OpenrpcDocument;
-  ReactDOM.render(<Methods schema={schema} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("verbose get_pet description")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema} disableTransitionProps={true} />);
+  expect(screen.getByText("verbose get_pet description")).toBeInTheDocument();
 });
 
 it("renders schema methods params", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -261,13 +219,11 @@ it("renders schema methods params", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("foobarz")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getByText("foobarz")).toBeInTheDocument();
 });
 
 it("renders schema methods result", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -285,21 +241,17 @@ it("renders schema methods result", () => {
                 type: "string",
               },
             },
-            required: [
-              "id",
-            ],
+            required: ["id"],
           },
         },
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("Object")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getByText("Object")).toBeInTheDocument();
 });
 
 it("renders schema methods tags", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -307,69 +259,45 @@ it("renders schema methods tags", () => {
         result: {
           schema: {
             properties: {
-              id: {
-                format: "int64",
-                type: "integer",
-              },
-              name: {
-                type: "string",
-              },
-              tag: {
-                type: "string",
-              },
+              id: { format: "int64", type: "integer" },
+              name: { type: "string" },
+              tag: { type: "string" },
             },
-            required: [
-              "id",
-            ],
+            required: ["id"],
           },
         },
         tags: [
-          {
-            name: "tag3",
-          },
-          {
-            name: "tag4",
-          },
+          { name: "tag3" },
+          { name: "tag4" },
         ],
       },
       {
         result: {
           schema: {
             properties: {
-              id: {
-                format: "int64",
-                type: "integer",
-              },
-              name: {
-                type: "string",
-              },
-              tag: {
-                type: "string",
-              },
+              id: { format: "int64", type: "integer" },
+              name: { type: "string" },
+              tag: { type: "string" },
             },
-            required: [
-              "id",
-            ],
+            required: ["id"],
           },
         },
         tags: [
-          {
-            name: "salad",
-          },
-          {
-            name: "mytag",
-          },
+          { name: "salad" },
+          { name: "mytag" },
         ],
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("Object")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getAllByText("Object")).toHaveLength(2);
+  expect(screen.getByText("tag3")).toBeInTheDocument();
+  expect(screen.getByText("tag4")).toBeInTheDocument();
+  expect(screen.getByText("salad")).toBeInTheDocument();
+  expect(screen.getByText("mytag")).toBeInTheDocument();
 });
 
 it("renders schema methods examples", () => {
-  const div = document.createElement("div");
   const schema = {
     methods: [
       {
@@ -381,13 +309,11 @@ it("renders schema methods examples", () => {
       },
     ],
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema as any} disableTransitionProps={true} />);
+  expect(screen.getByText("foo")).toBeInTheDocument();
 });
 
 it("renders schema methods examples with schema.examples fallback", () => {
-  const div = document.createElement("div");
   const schema: OpenrpcDocument = {
     info: {
       title: "test",
@@ -414,13 +340,12 @@ it("renders schema methods examples with schema.examples fallback", () => {
     ],
     openrpc: "1.0.0",
   };
-  ReactDOM.render(<Methods schema={schema as any} disableTransitionProps={true} />, div);
-  expect(div.innerHTML.includes("potato")).toBe(true);
-  expect(div.innerHTML.includes("bob")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<Methods schema={schema} disableTransitionProps={true} />);
+  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText("bob")).toBeInTheDocument();
 });
 
-it("can call onMethodToggle when a method is clicked", (done) => {
+it("can call onMethodToggle when a method is clicked", () => {
   const schema = {
     methods: [
       {
@@ -431,17 +356,17 @@ it("can call onMethodToggle when a method is clicked", (done) => {
       },
     ],
   };
-  const { getByText } = render(
+  
+  const onMethodToggle = vi.fn();
+  render(
     <Methods
       schema={schema as any}
-      onMethodToggle={(method: string, expanded: boolean) => {
-        expect(method).toEqual("foo");
-        expect(expanded).toEqual(true);
-        cleanup();
-        done();
-      }}
-    />,
+      onMethodToggle={onMethodToggle}
+    />
   );
-  const node = getByText(schema.methods[0].name);
-  fireEvent.click(node);
+  
+  const methodButton = screen.getByRole('button', { name: "foo" });
+  fireEvent.click(methodButton);
+  
+  expect(onMethodToggle).toHaveBeenCalledWith("foo", true);
 });

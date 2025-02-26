@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent } from "react";
-import { Button, Menu, MenuItem, Typography, Dialog, Container, Grid, InputBase } from "@material-ui/core";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
-import PlusIcon from "@material-ui/icons/Add";
-import DropdownArrowIcon from "@material-ui/icons/ArrowDropDown";
+import * as React from "react";
+import { useState, ChangeEvent } from "react";
+import { Button, Menu, MenuItem, Typography, Dialog, Container, InputBase } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import AddIcon from "@mui/icons-material/Add";
 import { ITransport } from "../hooks/useTransport";
 
 interface IProps {
@@ -10,20 +10,15 @@ interface IProps {
   selectedTransport: ITransport;
   onChange: (changedTransport: ITransport) => void;
   onAddTransport: (addedTransport: ITransport) => void;
-  style?: CSSProperties;
+  style?: React.CSSProperties;
 }
-
-const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-  const handleMenuItemClick = (transport: ITransport) => {
-    setAnchorEl(null);
-    // this forces language change for react + i18n react
-    onChange(transport);
   };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -66,7 +61,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
         <Container maxWidth="sm">
           <Grid
             container
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{ padding: "30px", paddingTop: "10px", paddingBottom: "10px", marginTop: "10px" }}>
             <Typography variant="h6">Custom Transport Plugin</Typography>
@@ -75,7 +70,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
               &quot;sendData&quot;, and &quot;close&quot; methods over JSON-RPC.
              </Typography>
             <Grid container direction="column" spacing={1}>
-              <Grid item>
+              <Grid>
                 <InputBase placeholder="Plugin Name"
                   onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +86,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <InputBase placeholder="Plugin URI"
                   onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
@@ -107,7 +102,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <Button
                   variant="outlined"
                   onClick={handleDialogCustomTransportClick}>
@@ -122,7 +117,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
               open={Boolean(dialogMenuAnchorEl)}
               onClose={handleDialogAnchorClose}
             >
-              {transports.filter((value) => value.type !== "plugin").map((transport) => (
+              {transports.filter((value) => value && value.type !== "plugin").map((transport) => (
                 <MenuItem
                   key={transport.name}
                   onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
@@ -145,20 +140,18 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
           marginLeft: "5px",
         }}
         variant="outlined"
-        onClick={handleClick} endIcon={<DropdownArrowIcon />}
+        onClick={handleClick} endIcon={<div />}
       >{selectedTransport && selectedTransport.name}</Button>
       <Menu
-        id="transport-menu"
+        id={"inspector-transport-menu"}
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {transports.map((transport) => (
-          <MenuItem key={transport.name} onClick={() => handleMenuItemClick(transport)}>{transport.name}</MenuItem>
-        ))}
-        <MenuItem onClick={() => setDialogOpen(true)}>
-          <PlusIcon style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
+       {transports?.filter((value) => value ).map((transport, index) => (<MenuItem key={`transport-sub-${index}`}>{transport.name}</MenuItem>))}
+        <MenuItem key={`add-transport-menu-item`} onClick={() => setDialogOpen(true)}>
+         <AddIcon key={`add-transport-menu-item-icon`} style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
         </MenuItem>
       </Menu>
     </div>

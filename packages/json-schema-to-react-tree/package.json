@@ -1,0 +1,71 @@
+{
+  "name": "@open-rpc/json-schema-to-react-tree",
+  "version": "0.0.0",
+  "homepage": "",
+  "description": "json-schema to react material-ui tree",
+  "type": "module",
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "test": "",
+    "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
+    "build:package": "vite build && tsc --emitDeclarationOnly",
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/react-dom": "18.3.5",
+    "@types/react": "18.3.18",
+    "eslint": "9.21.0",
+    "typescript": "^5.0.0",
+    "@mui/icons-material": "6.3.1",
+    "@mui/material": "6.3.1",
+    "vite": "6.0.5"
+  },
+  "peerDependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@mui/icons-material": "6.3.1",
+    "@mui/material": "6.3.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/x-tree-view": "7.23.2",
+    "@types/json-schema": "^7.0.4",
+    "@types/uuid": "^7.0.2",
+    "json-schema": "^0.2.5",
+    "uuid": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=18.20.5"
+  }
+}

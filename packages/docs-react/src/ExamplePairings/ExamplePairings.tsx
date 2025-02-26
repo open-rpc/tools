@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import ExamplePairing from "../ExamplePairing/ExamplePairing";
-import { Typography, List, ListItem, ListItemText, Grid, MenuItem, Menu, withStyles, ExpansionPanelDetails } from "@material-ui/core";
-import { MethodObject, ExamplePairingObject, ContentDescriptorObject, ReferenceObject, JSONSchemaObject } from "@open-rpc/meta-schema";
+import { Typography, List, ListItem, ListItemText, MenuItem, Menu, AccordionDetails } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { MethodObject, ExamplePairingObject, ContentDescriptorObject, JSONSchemaObject } from "@open-rpc/meta-schema";
 
 interface IProps {
   method?: MethodObject;
   examples?: ExamplePairingObject[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uiSchema?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   reactJsonOptions?: any;
 }
 
@@ -16,16 +19,19 @@ interface IState {
   currentExample?: ExamplePairingObject;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isJSONSchemaObject = (schema: any): schema is JSONSchemaObject => {
   return schema && typeof schema === "object" && !Array.isArray(schema);
 };
 
 const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] => {
   if (!method) { return []; }
+  if (!method.params) { return []; }
   const examples: ExamplePairingObject[] = [];
 
-  (method.params as ContentDescriptorObject[]).forEach((param, index: number) => {
+  (method.params as ContentDescriptorObject[]).forEach((param, _index: number) => {
     if (param.schema && isJSONSchemaObject(param.schema) && param.schema.examples && param.schema.examples.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       param.schema.examples.forEach((ex: any, i: number) => {
         if (!examples[i]) {
           examples.push({
@@ -53,6 +59,7 @@ const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] =>
   const methodResult = method.result as ContentDescriptorObject;
   if (methodResult && methodResult.schema && isJSONSchemaObject(methodResult.schema) && 
       methodResult.schema.examples && methodResult.schema.examples.length > 0) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     methodResult.schema.examples.forEach((ex: any, i: number) => {
       if (!examples[i]) {
         examples.push({
@@ -110,15 +117,15 @@ class ExamplePairings extends Component<IProps, IState> {
       return null;
     }
     return (
-      <ExpansionPanelDetails key="examples">
+      <AccordionDetails key="examples">
         <Grid container>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Typography variant="h5">Examples</Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <List component="nav">
               <ListItem
-                button
+                component={"div"}
                 aria-haspopup="true"
                 aria-controls="menu-menu"
                 aria-label="Method Examples"
@@ -145,7 +152,7 @@ class ExamplePairings extends Component<IProps, IState> {
               </Menu>
             </List>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             {examples &&
               <ExamplePairing
                 uiSchema={uiSchema}
@@ -155,7 +162,7 @@ class ExamplePairings extends Component<IProps, IState> {
                 reactJsonOptions={this.props.reactJsonOptions} />}
           </Grid>
         </Grid>
-      </ExpansionPanelDetails>
+      </AccordionDetails>
     );
   }
 }

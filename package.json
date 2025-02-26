@@ -4,14 +4,22 @@
   "description": "mono repo for open-rpc tooling",
   "main": "jest.config.js",
   "scripts": {
-    "build": "turbo run build",
-    "build:package": "turbo run build:package --filter=@open-rpc/logs-react^... --filter=@open-rpc/inspector^...",
+    "build": "turbo run build:package",
+    "clean": "turbo run clean:package",
+    "changeset": "changeset",
+    "hard-clean": "npm run clean && rm -rf node_modules && rm -rf packages//node_modules",
+    "build:monaco-editor-react": "turbo run build:package --filter=@open-rpc/monaco-editor-react",
+    "build:json-schema-to-react-tree": "turbo run build:package --filter=@open-rpc/json-schema-to-react-tree",
+    "build:logs-react": "turbo run build:package --filter=@open-rpc/logs-react",
+    "build:docs-react": "turbo run build:package --filter=@open-rpc/docs-react",
+    "build:inspector": "turbo run build:package --filter=@open-rpc/inspector",
+    "build:playground": "turbo run build:package --filter=@open-rpc/playground",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "watch": "turbo run build test --watch",
-    "dev": "turbo run build start --watch",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "version": "changeset version",
+    "version-with-changelog": "changeset version && npm run generate-changelog",
+    "release": "npm run build && changeset publish",
+    "generate-changelog": "node ./scripts/generate-changelog.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -19,20 +27,28 @@
     "packages/*"
   ],
   "devDependencies": {
-    "turbo": "^1.0.0",
-    "typescript": "^5.0.0",
-    "jest": "^24.9.0",
-    "@types/jest": "^24.0.13",
-    "ts-jest": "^24.0.2",
-    "@typescript-eslint/parser": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "eslint": "^8.0.0",
-    "eslint-config-prettier": "^8.0.0",
-    "eslint-plugin-react": "^7.0.0",
-    "eslint-plugin-react-hooks": "^4.0.0",
-    "prettier": "^2.0.0"
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.28.1",
+    "@eslint/js": "9.21.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "jest": "29.7.0",
+    "prettier": "^3.5.2",
+    "turbo": "2.4.0",
+    "typescript": "^5.0.0"
   },
+  "packageManager": "npm@10.9.2",
   "engines": {
     "node": ">=18.20.5"
+  },
+  "overrides": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "minimatch": "3.1.2"
+  },
+  "dependencies": {
+    "@open-rpc/schema-utils-js": "2.1.2"
   }
 }

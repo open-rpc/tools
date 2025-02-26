@@ -1,21 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import SearchBar from "./SearchBar";
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<SearchBar searchBarUrl={undefined}/>, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<SearchBar searchBarUrl={undefined}/>);
 });
 
 it("renders uiSchema inputPlaceholder", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<SearchBar searchBarUrl={undefined} uiSchema={{
+  render(<SearchBar searchBarUrl={undefined} uiSchema={{
     appBar: {
       "ui:inputPlaceholder": "enter url",
     },
-  } as any} />, div);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any} />);
 
-  expect(div.innerHTML.includes("enter url")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  expect(screen.getByPlaceholderText("enter url")).toBeInTheDocument();
 });

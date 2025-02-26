@@ -6,12 +6,11 @@ import "./App.css";
 import AppBar from "./AppBar/AppBar";
 import { IUISchema } from "./UISchema";
 import { SnackBar, ISnackBarNotification, NotificationType } from "./SnackBar/SnackBar";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { lightTheme, darkTheme } from "./themes/openrpcTheme";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import { CssBaseline, Container, Tab, Typography, IconButton, Tooltip, Tabs } from "@material-ui/core";
-import PlaygroundSplitPane from "./PlaygroundSplitPane";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import { CssBaseline, Container, Tab, Typography, IconButton, Tooltip, Tabs } from "@mui/material";
 import useParsedSchema from "./hooks/useParsedSchema";
 import useDefaultEditorValue from "./hooks/useDefaultEditorValue";
 import InspectorPlugin from "./plugins/InspectorPlugin";
@@ -27,16 +26,21 @@ import { useTransport, defaultTransports, ITransport } from "./hooks/useTranspor
 import fetchUrlSchemaFile from "./fetchUrlSchemaFile";
 import queryParamsStore from "./stores/queryParamsStore";
 import { useDebounce } from "use-debounce";
+import { initWorkers } from "./monacoWorker";
+import NewPlaygroundSplitPane from "./PlaygroundSplitPane";
 
 const App: React.FC = () => {
   const [defaultValue, setDefaultValue] = useDefaultEditorValue();
   const [markers, setMarkers] = useState<monaco.editor.IMarker[]>([] as monaco.editor.IMarker[]);
   const [searchUrl, setSearchUrl] = searchBarStore();
   const [searchUrlDebounced] = useDebounce(searchUrl, 1000);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any>();
   const [error, setError] = useState<string | undefined>();
   const [notification, setNotification] = useState<ISnackBarNotification | undefined>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [UISchema, setUISchemaBySection]: [IUISchema, any] = UISchemaStore();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editor, setEditor]: [any, Dispatch<Record<string, never>>] = useState();
   const [horizontalSplit, privateSetHorizontalSplit] = useState(false);
   const [parsedSchema, setParsedSchema] = useParsedSchema(
@@ -54,13 +58,14 @@ const App: React.FC = () => {
   const [inspectorContents] = useInspectorActionStore();
   useMonacoReplaceMetaSchema(editor);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleEditorDidMount = (__: any, ed: any) => {
     setEditor(ed);
   };
 
   useEffect(() => {
     monaco.editor.setTheme(UISchema.appBar["ui:darkMode"] ? "vs-dark" : "vs");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    initWorkers();
   }, []);
 
   useEffect(() => {
@@ -68,7 +73,6 @@ const App: React.FC = () => {
     if (!defaultValue && !searchUrl && defaultExample) {
       setSearchUrl(defaultExample.url);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue]);
 
   useEffect(() => {
@@ -76,7 +80,6 @@ const App: React.FC = () => {
       ...reactJsonOptions,
       theme: UISchema.appBar["ui:darkMode"] ? "summerfruit" : "summerfruit:inverted",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [UISchema.appBar["ui:darkMode"]]);
 
   useEffect(() => {
@@ -86,7 +89,6 @@ const App: React.FC = () => {
     if (results) {
       setParsedSchema(results!);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
 
   useEffect(() => {
@@ -100,15 +102,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setParsedSchema(defaultValue || "");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue]);
   const [reactJsonOptions, setReactJsonOptions] = useState({
     theme: "summerfruit:inverted",
-    collapseStringsAfterLength: 25,
+    shortenTextAfterLength: 25,
     displayDataTypes: false,
     displayObjectSize: false,
     indentWidth: 2,
-    name: false,
   });
   const [transportList, setTransportList] = useState(defaultTransports);
   const getQueryTransport = () => {
@@ -121,9 +121,18 @@ const App: React.FC = () => {
   const currentTheme = UISchema.appBar["ui:darkMode"] ? darkTheme : lightTheme;
   const [transport, selectedTransportType, setTransportType] = useTransport(
     transportList,
-    searchUrlDebounced,
+    searchUrlDebounced || "",
     getQueryTransport(),
   );
+
+  useEffect(() => {
+    if (UISchema.appBar["ui:darkMode"]) {
+      monaco.editor.setTheme("vs-dark");
+    } else {
+      monaco.editor.setTheme("vs");
+    }
+  }, [UISchema.appBar["ui:darkMode"]]);
+
   const refreshOpenRpcDocument = async () => {
     // handle .json urls
     if (searchUrlDebounced && searchUrlDebounced.includes(".json")) {
@@ -146,7 +155,8 @@ const App: React.FC = () => {
         setDefaultValue(rd);
         setResults(rd);
       }
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
       setError(e.message);
     }
   };
@@ -155,18 +165,17 @@ const App: React.FC = () => {
     if (searchUrlDebounced && transport) {
       refreshOpenRpcDocument();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchUrlDebounced, transport]);
 
   useEffect(() => {
     if (inspectorContents) {
       setHorizontalSplit(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inspectorContents]);
+
   return (
-    <MuiThemeProvider theme={currentTheme}>
-      <CssBaseline />
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline enableColorScheme />
       <AppBar
         searchBarUrl={searchUrl}
         uiSchema={UISchema}
@@ -193,119 +202,97 @@ const App: React.FC = () => {
         onDarkModeChange={(value: boolean) => {
           monaco.editor.setTheme(value ? "vs-dark" : "vs");
           setUISchemaBySection({
-            value,
+            value: value,
             key: "ui:darkMode",
             section: "appBar",
           });
         }}
         onChangeUrl={setSearchUrl}
       />
-      <PlaygroundSplitPane
-        direction="horizontal"
-        splitLeft={true}
-        split={horizontalSplit}
-        leftStyle={{
-          width: "100%",
-          height: "100%",
-        }}
-        right={
+      <NewPlaygroundSplitPane
+        showInspector={horizontalSplit}
+        editorAndDocumentationSplit={UISchema.appBar["ui:splitView"]}
+        editorComponent={
           <>
-            <Inspector hideToggleTheme={true} url={
-              searchUrlDebounced && searchUrlDebounced.includes(".json") ? null : searchUrlDebounced
-            }
-              transport={selectedTransportType.type !== "plugin" ? selectedTransportType.type : undefined}
-              request={inspectorContents && inspectorContents.request}
-              openrpcDocument={parsedSchema}
+            <JSONValidationErrorList markers={markers} />
+            <OpenRPCEditor
+              editorDidMount={handleEditorDidMount}
+              onMarkerChange={(mks) => {
+                setMarkers(mks);
+              }}
+              onChange={(val) => {
+                setParsedSchema(val);
+              }}
+              value={defaultValue || ""}
             />
           </>
         }
-        onChange={() => editor && editor.layout()}
-        left={
-          <PlaygroundSplitPane
-            onlyRenderSplit={true}
-            split={UISchema.appBar["ui:splitView"]}
-            leftStyle={{
-              paddingTop: "58px",
-              height: "94%",
-              width: "100%",
-            }}
-            rightStyle={{
-              height: "94%",
-              width: "100%",
-              overflowY: "auto",
-              marginTop: "58px",
-              paddingBottom: "58px",
-            }}
-            onChange={() => editor && editor.layout()}
-            left={
-              <>
-                <JSONValidationErrorList markers={markers} />
-                <OpenRPCEditor
-                  editorDidMount={handleEditorDidMount}
-                  onMarkerChange={(mks) => {
-                    setMarkers(mks);
-                  }}
-                  onChange={(val) => {
-                    setParsedSchema(val);
-                  }}
-                  value={defaultValue || ""}
-                />
-              </>
-            }
-            right={
-              <>
-                <Container>
-                  <Documentation
-                    schema={parsedSchema as any}
-                    uiSchema={UISchema}
-                    reactJsonOptions={reactJsonOptions}
-                    methodPlugins={
-                      UISchema.methods["ui:methodPlugins"]
-                        ? [InspectorPlugin]
-                        : undefined
-                    }
-                  />
-                </Container>
-                <Tabs
-                  variant="scrollable"
-                  indicatorColor="primary"
-                  value={0}
-                  style={{ position: "absolute", bottom: "0", right: "25px", zIndex: 1, marginBottom: "0px" }}
-                >
-                  <Tab
-                    onClick={() => setHorizontalSplit(!horizontalSplit)}
-                    style={{
-                      background: currentTheme.palette.background.default,
-                      width: "165px",
-                      paddingRight: "30px",
-                      border: `1px solid ${currentTheme.palette.text.hint}`,
-                    }}
-                    label={
-                      <div>
-                        <Typography
-                          variant="body1"><span role="img" aria-label="inspector">🕵️‍♂️</span>️ Inspector</Typography>
-                        <Tooltip title="Toggle Inspector">
-                          <IconButton style={{ position: "absolute", right: "5px", top: "20%" }} size="small">
-                            {horizontalSplit
-                              ? <ExpandMore />
-                              : <ExpandLess />
-                            }
-                          </IconButton>
-                        </Tooltip>
-                      </div>
-                    }>
-                  </Tab>
-                </Tabs>
-              </>
-            }
-          />
-
+        documentationComponent={
+          <>
+            <Container>
+              <Documentation
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                schema={parsedSchema as any}
+                uiSchema={UISchema}
+                reactJsonOptions={{
+                  ...reactJsonOptions,
+                  theme: UISchema.appBar["ui:darkMode"] ? "summerfruit" : "summerfruit:inverted"
+                }}
+                methodPlugins={
+                  UISchema.methods["ui:methodPlugins"]
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    ? [InspectorPlugin] as any
+                    : undefined
+                }
+              />
+            </Container>
+            </>
         }
+        inspectorTabComponent={
+            <Tabs
+              variant="scrollable"
+              indicatorColor="primary"
+              value={0}
+              style={{ position: "absolute", bottom: "0", right: "25px", zIndex: 1, marginBottom: "0px" }}
+            >
+              <Tab
+                onClick={() => setHorizontalSplit(!horizontalSplit)}
+                style={{
+                  background: currentTheme.palette.background.default,
+                  width: "165px",
+                  paddingRight: "30px",
+                  border: `1px solid ${currentTheme.palette.text.primary}`,
+                }}
+                label={
+                  <div>
+                    <Typography
+                      variant="body1"><span role="img" aria-label="inspector">🕵️‍♂️</span>️ Inspector</Typography>
+                    <Tooltip title="Toggle Inspector">
+                      <IconButton component="div" style={{ position: "absolute", right: "5px", top: "20%" }} size="small">
+                        {horizontalSplit
+                          ? <ExpandMore />
+                          : <ExpandLess />
+                        }
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                }>
+              </Tab>
+            </Tabs>
+        }
+        inspectorComponent={<Inspector hideToggleTheme={true} url={
+          searchUrlDebounced && searchUrlDebounced.includes(".json") ? undefined : searchUrlDebounced
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          request={inspectorContents && (inspectorContents as any).request || undefined}
+          openrpcDocument={parsedSchema}
+          transport={selectedTransportType.type !== "plugin" ? selectedTransportType.type : undefined}
+        />}
       />
       <SnackBar
-        close={() => setNotification({} as ISnackBarNotification)}
+        close={() => setNotification(undefined)}
         notification={notification as ISnackBarNotification} />
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 export default App;

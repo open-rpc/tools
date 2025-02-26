@@ -1,42 +1,34 @@
+import { it, expect } from 'vitest';
 import React from "react";
-import ReactDOM from "react-dom";
 import JSONSchema from "./JSONSchema";
 import { JSONSchema4 } from "json-schema";
+import { render, screen } from '@testing-library/react';
 
 it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<JSONSchema />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<JSONSchema />);
 });
 
 it("renders empty with empty schema", () => {
-  const div = document.createElement("div");
   const emptySchema = {} as JSONSchema4;
-  ReactDOM.render(<JSONSchema schema={emptySchema}/>, div);
-  expect(div.innerHTML).toBe("");
-  ReactDOM.unmountComponentAtNode(div);
+  render(<JSONSchema schema={emptySchema}/>);
+  expect(document.body.textContent).toBe("");
 });
 
 it("renders oneOf schema", () => {
-  const div = document.createElement("div");
-  const s = {
+  const schema = {
     oneOf: [
-      {
-        type: "string",
-      },
-      {
-        type: "number",
-      },
+      { type: "string" },
+      { type: "number" },
     ],
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchema schema={s}/>, div);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("number")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<JSONSchema schema={schema}/>);
+  
+  // Check for both types in the oneOf schema
+  expect(screen.getByText(/string/i)).toBeInTheDocument();
+  expect(screen.getByText(/number/i)).toBeInTheDocument();
 });
 
 it("renders with a nested schema object", () => {
-  const div = document.createElement("div");
   const schema = {
     properties: {
       name: {
@@ -50,9 +42,10 @@ it("renders with a nested schema object", () => {
     },
     type: "object",
   } as JSONSchema4;
-  ReactDOM.render(<JSONSchema schema={schema}/>, div);
-  expect(div.innerHTML.includes("foo")).toBe(true);
-  expect(div.innerHTML.includes("string")).toBe(true);
-  expect(div.innerHTML.includes("object")).toBe(true);
-  ReactDOM.unmountComponentAtNode(div);
+  render(<JSONSchema schema={schema}/>);
+  
+  // Check for property name and types
+  expect(screen.getByText("foo")).toBeInTheDocument();
+  expect(screen.getAllByText(/string/i)).toHaveLength(1);
+  expect(screen.getAllByText(/object/i)).toHaveLength(2);
 });

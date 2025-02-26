@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import ReactDOM from "react-dom";
 import AppBar from "./AppBar";
-
+import { it, expect, describe, beforeAll } from 'vitest';
+import { render, screen} from "@testing-library/react";
+import '@testing-library/jest-dom';
 import mediaQuery from "css-mediaquery";
+import { ITransport } from "../hooks/useTransport";
 
 function createMatchMedia(width: any) {
   return (query: any) => ({
@@ -21,43 +24,52 @@ describe("Appbar", () => {
     window.matchMedia = createMatchMedia(window.innerWidth) as any;
   });
   it("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<AppBar />, div);
-    ReactDOM.unmountComponentAtNode(div);
+    render(<AppBar onTransportAdd={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } onTransportChange={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } />);
   });
 
-  it("renders uiSchema logo", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<AppBar uiSchema={{
+  it("renders uiSchema logo", async () => {
+    render(<AppBar uiSchema={{
       appBar: {
         "ui:logoUrl": "http://foo.salad",
       },
-    } as any} />, div);
-    expect(div.innerHTML.includes("foo.salad")).toBe(true);
-    ReactDOM.unmountComponentAtNode(div);
+    } as any} onTransportAdd={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } onTransportChange={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } />);
+
+    const logoImage = await screen.findByRole('img');
+    expect(logoImage).toHaveAttribute('src', 'http://foo.salad');
   });
 
   it("renders uiSchema title", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<AppBar uiSchema={{
+    render(<AppBar uiSchema={{
       appBar: {
         "ui:title": "foobar",
       },
-    } as any} />, div);
-    expect(div.innerHTML.includes("foobar")).toBe(true);
-    ReactDOM.unmountComponentAtNode(div);
+    } as any} onTransportAdd={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } onTransportChange={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } />);
+    expect(screen.getByText("foobar")).toBeInTheDocument();
   });
 
   it("renders uiSchema inputPlaceholder", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<AppBar uiSchema={{
+    render(<AppBar uiSchema={{
       appBar: {
         "ui:input": true,
         "ui:inputPlaceholder": "enter url",
       },
-    } as any} />, div);
-    console.log("div.", div.innerHTML); //tslint:disable-line
-    expect(div.innerHTML.includes("enter url")).toBe(true);
-    ReactDOM.unmountComponentAtNode(div);
+    } as any} onTransportAdd={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } onTransportChange={function (_transport: ITransport) {
+      throw new Error("Function not implemented.");
+    } } />);
+    expect(screen.getByPlaceholderText("enter url")).toBeInTheDocument();
   });
 });
