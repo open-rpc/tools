@@ -17,7 +17,8 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "version": "changeset version",
-    "release": "turbo run build && changeset publish",
+    "version-with-changelog": "changeset version && npm run generate-changelog",
+    "release": "npm run build && changeset publish",
     "generate-changelog": "node ./scripts/generate-changelog.mjs"
   },
   "author": "",

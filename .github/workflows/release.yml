@@ -31,9 +31,9 @@ jobs:
         with:
           # This expects you to have a script called release which does a build for your packages
           publish: npm run release
-          version: npm run version
-          commit: 'chore: version packages'
-          title: 'chore: version packages'
+          version: npm run version-with-changelog
+          commit: 'chore: version packages and generate changelog'
+          title: 'chore: version packages and generate changelog'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
