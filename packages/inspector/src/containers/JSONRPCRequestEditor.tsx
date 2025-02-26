@@ -34,14 +34,14 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
     const model = editorRef.current.getModel();
     if(!model) return;
 
-    const schema = getUpdatedchema(props.openrpcDocument);
+    const schema = getUpdatedSchema(props.openrpcDocument);
     addDiagnostics(model?.uri.toString() || "", schema, monaco);
   }, [props.openrpcDocument]);
 
 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function getUpdatedchema( openrpcDocument?: OpenrpcDocument): any {
+  function getUpdatedSchema( openrpcDocument?: OpenrpcDocument): any {
     if(!editorRef.current) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let schema: any = {
@@ -91,7 +91,7 @@ const JSONRPCRequestEditor: React.FC<IProps> = (props) => {
   function handleEditorDidMount(editor:any) {
     editorRef.current = editor;
     // Configure JSON language features
-    const schema = getUpdatedchema(props.openrpcDocument);
+    const schema = getUpdatedSchema(props.openrpcDocument);
     const model = monaco.editor.createModel(props.value, "json")
     model.onDidChangeAttached(()=>{
     addDiagnostics(model.uri.toString() || "", schema, monaco);
