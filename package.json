@@ -18,9 +18,7 @@
     "lint": "turbo run lint",
     "version": "changeset version",
     "release": "turbo run build && changeset publish",
-    "generate-changelog": "node ./scripts/generate-changelog.mjs",
-    "generate-changelog:fixed": "node ./scripts/generate-changelog-fixed.mjs",
-    "preversion": "npm run generate-changelog"
+    "generate-changelog": "node ./scripts/generate-changelog.mjs"
   },
   "author": "",
   "license": "ISC",

@@ -2,12 +2,16 @@
   "name": "@open-rpc/playground",
   "version": "0.7.1",
   "homepage": "https://playground.open-rpc.org/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/open-rpc/playground.git"
-  },
   "bin": {
     "open-rpc-playground": "./bin/cli.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-rpc/tools.git",
+    "directory": "packages/playground"
   },
   "bugs": "https://github.com/open-rpc/playground/issues",
   "license": "Apache-2.0",

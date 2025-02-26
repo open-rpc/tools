@@ -14,6 +14,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-rpc/tools.git",
+    "directory": "packages/monaco-editor-react"
+  },
   "scripts": {
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",

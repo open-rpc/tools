@@ -15,6 +15,11 @@
   "files": [
     "dist/"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-rpc/tools.git",
+    "directory": "packages/logs-react"
+  },
   "publishConfig": {
     "access": "public"
   },

@@ -11,6 +11,11 @@
       "import": "./dist/index.es.js"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-rpc/tools.git",
+    "directory": "packages/inspector"
+  },
   "files": [
     "dist/"
   ],
