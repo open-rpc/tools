@@ -1,9 +1,9 @@
-import React from "react";
-import Info from "./Info/Info";
-import Servers from "./Servers/Servers";
-import Methods, { IMethodPluginProps, OnMethodToggle } from "./Methods/Methods";
-import ContentDescriptors from "./ContentDescriptors/ContentDescriptors";
-import { OpenrpcDocument } from "@open-rpc/meta-schema";
+import React from 'react';
+import Info from './Info/Info';
+import Servers from './Servers/Servers';
+import Methods, { IMethodPluginProps, OnMethodToggle } from './Methods/Methods';
+import ContentDescriptors from './ContentDescriptors/ContentDescriptors';
+import { OpenrpcDocument } from '@open-rpc/meta-schema';
 
 interface IProps {
   schema?: OpenrpcDocument;
@@ -26,7 +26,11 @@ const Documentation: React.FC<IProps> = ({
     return null;
   }
 
-  const shouldShowContentDescriptors = !(uiSchema && uiSchema.contentDescriptors && uiSchema.contentDescriptors["ui:hidden"] === true);
+  const shouldShowContentDescriptors = !(
+    uiSchema &&
+    uiSchema.contentDescriptors &&
+    uiSchema.contentDescriptors['ui:hidden'] === true
+  );
 
   return (
     <>
@@ -39,9 +43,9 @@ const Documentation: React.FC<IProps> = ({
         reactJsonOptions={reactJsonOptions}
         methodPlugins={methodPlugins}
       />
-      {shouldShowContentDescriptors &&
+      {shouldShowContentDescriptors && (
         <ContentDescriptors schema={schema} uiSchema={uiSchema}></ContentDescriptors>
-      }
+      )}
     </>
   );
 };

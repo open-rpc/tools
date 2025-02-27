@@ -1,8 +1,8 @@
-import React from "react";
-import { JSONSchema4 } from "json-schema";
-import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from "@mui/material";
-import JSONSchemaFields from "./fields/JSONSchemaFields";
-import { grey, green, purple, yellow, blue } from "@mui/material/colors";
+import React from 'react';
+import { JSONSchema4 } from 'json-schema';
+import { TableRow, TableCell, Typography, Table, TableHead, TableBody } from '@mui/material';
+import JSONSchemaFields from './fields/JSONSchemaFields';
+import { grey, green, purple, yellow, blue } from '@mui/material/colors';
 
 interface IProps {
   schema: JSONSchema4;
@@ -12,7 +12,7 @@ interface IProps {
 
 const styles = {
   cellWidth: {
-    width: "70px",
+    width: '70px',
   },
 };
 
@@ -31,10 +31,14 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           {schema.title}
         </TableCell>
         <TableCell colSpan={1} style={styles.cellWidth}>
-          <Typography variant="body1" color="primary">any of</Typography>
+          <Typography variant="body1" color="primary">
+            any of
+          </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.anyOf.map((p, i) => <JSONSchemaFields schema={p} key={i} />)}
+          {schema.anyOf.map((p, i) => (
+            <JSONSchemaFields schema={p} key={i} />
+          ))}
         </TableCell>
       </TableRow>
     );
@@ -49,10 +53,14 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           {schema.title}
         </TableCell>
         <TableCell colSpan={1} style={styles.cellWidth}>
-          <Typography variant="body1" color="primary">all of</Typography>
+          <Typography variant="body1" color="primary">
+            all of
+          </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.allOf.map((p, i) => <JSONSchemaFields schema={p} key={i} />)}
+          {schema.allOf.map((p, i) => (
+            <JSONSchemaFields schema={p} key={i} />
+          ))}
         </TableCell>
       </TableRow>
     );
@@ -64,10 +72,14 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           {schema.title || name}
         </TableCell>
         <TableCell colSpan={1} style={styles.cellWidth}>
-          <Typography variant="body1" color="primary">one of</Typography>
+          <Typography variant="body1" color="primary">
+            one of
+          </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.oneOf.map((p, i) => <JSONSchemaFields schema={p} key={i} />)}
+          {schema.oneOf.map((p, i) => (
+            <JSONSchemaFields schema={p} key={i} />
+          ))}
         </TableCell>
       </TableRow>
     );
@@ -82,10 +94,14 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           {schema.title}
         </TableCell>
         <TableCell colSpan={1} style={styles.cellWidth}>
-          <Typography variant="body1" color="primary">array of</Typography>
+          <Typography variant="body1" color="primary">
+            array of
+          </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.items.map((p, i) => <JSONSchemaFields schema={p} key={i} />)}
+          {schema.items.map((p, i) => (
+            <JSONSchemaFields schema={p} key={i} />
+          ))}
         </TableCell>
       </TableRow>
     );
@@ -100,7 +116,9 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           {schema.title}
         </TableCell>
         <TableCell colSpan={1} style={styles.cellWidth}>
-          <Typography variant="body1" color="primary">array of</Typography>
+          <Typography variant="body1" color="primary">
+            array of
+          </Typography>
         </TableCell>
         <TableCell colSpan={5}>
           <JSONSchemaFields schema={schema.items} />
@@ -119,7 +137,9 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           {schema.title}
         </TableCell>
         <TableCell colSpan={1} style={styles.cellWidth}>
-          <Typography variant="body1" color="primary">object</Typography>
+          <Typography variant="body1" color="primary">
+            object
+          </Typography>
         </TableCell>
         <TableCell colSpan={5}>
           <Table>
@@ -135,18 +155,21 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
             </TableHead>
             <TableBody>
               {schema.properties &&
-                Object.entries(schema.properties)
-                  .map(([n, prop]: [string, JSONSchema4], ) => {
-                    return (
-                      <JSONSchemaFields
-                        key={n}
-                        schema={prop}
-                        name={n}
-                        hideHeader={true}
-                        required={schema.required && isRequiredArray(schema.required) && schema.required.includes(n)}
-                      />
-                    );
-                  })}
+                Object.entries(schema.properties).map(([n, prop]: [string, JSONSchema4]) => {
+                  return (
+                    <JSONSchemaFields
+                      key={n}
+                      schema={prop}
+                      name={n}
+                      hideHeader={true}
+                      required={
+                        schema.required &&
+                        isRequiredArray(schema.required) &&
+                        schema.required.includes(n)
+                      }
+                    />
+                  );
+                })}
             </TableBody>
           </Table>
         </TableCell>
@@ -172,13 +195,17 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
       <TableCell colSpan={1} style={styles.cellWidth}>
         {schema.title}
       </TableCell>
-      <TableCell style={{
-        ...styles.cellWidth,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        color: colorMap[schema.type as any],
-      }}>{schema.type}</TableCell>
+      <TableCell
+        style={{
+          ...styles.cellWidth,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          color: colorMap[schema.type as any],
+        }}
+      >
+        {schema.type}
+      </TableCell>
       <TableCell style={styles.cellWidth}>{schema.pattern}</TableCell>
-      <TableCell style={styles.cellWidth}>{required ? "true" : "false"}</TableCell>
+      <TableCell style={styles.cellWidth}>{required ? 'true' : 'false'}</TableCell>
       <TableCell style={styles.cellWidth}>{schema.description}</TableCell>
     </TableRow>
   );

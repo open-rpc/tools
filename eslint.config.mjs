@@ -3,6 +3,7 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import reactPlugin from 'eslint-plugin-react';
 import prettierConfig from 'eslint-config-prettier';
+import prettierPlugin from 'eslint-plugin-prettier';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import globals from "globals";
@@ -36,7 +37,8 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tseslint,
-      'react': reactPlugin
+      'react': reactPlugin,
+      'prettier': prettierPlugin
     },
     rules: {
       ...tseslint.configs['recommended'].rules,
@@ -45,9 +47,10 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      'no-console': ['warn', { allow: ['warn', 'error'] }]
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'prettier/prettier': 'error'
     },
-    ignores: ["node_modules/", "dist/", "build/", "coverage/","*.config.js", "**/*.config.ts", "vitest.config.ts", "vite.config.ts"],
+    ignores: ["package.json","node_modules/", "**/*/dist/", "build/", "coverage/","*.config.js", "**/*.config.ts", "vitest.config.ts", "vite.config.ts"],
     settings: {
       react: {
         version: 'detect'

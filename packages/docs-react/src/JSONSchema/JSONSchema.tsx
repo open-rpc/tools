@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import JSONSchemaFields from "./fields/JSONSchemaFields";
-import { JSONSchema4 } from "json-schema";
+import React, { Component } from 'react';
+import JSONSchemaFields from './fields/JSONSchemaFields';
+import { JSONSchema4 } from 'json-schema';
 
 interface IProps {
   schema?: JSONSchema4;

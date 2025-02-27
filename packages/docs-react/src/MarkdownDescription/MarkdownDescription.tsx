@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Prism as SyntaxHighlighter} from "react-syntax-highlighter";
+import * as React from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { materialDark, materialLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { materialDark, materialLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 interface IProps {
   className?: string;
   source?: string;
@@ -16,15 +16,13 @@ const MarkdownDescription: React.FC<IProps> = ({ source, className, uiSchema }) 
     <ReactMarkdown
       className={className}
       components={{
-        code: ({  className, children }) => {
-          const match = /language-(\w+)/.exec(className || ""); // Extract language from className.
-          const language = match?.[1] || ""; // Default to empty string if no match.
+        code: ({ className, children }) => {
+          const match = /language-(\w+)/.exec(className || ''); // Extract language from className.
+          const language = match?.[1] || ''; // Default to empty string if no match.
 
           return (
             <SyntaxHighlighter
-              style={ 
-                (uiSchema?.appBar?.["ui:darkMode"] ? materialDark : materialLight) 
-                }
+              style={uiSchema?.appBar?.['ui:darkMode'] ? materialDark : materialLight}
               language={language}
               PreTag="div"
               source={source}
@@ -35,7 +33,7 @@ const MarkdownDescription: React.FC<IProps> = ({ source, className, uiSchema }) 
         },
       }}
     >
-      {source || ""}
+      {source || ''}
     </ReactMarkdown>
   );
 };
