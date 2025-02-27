@@ -1,21 +1,21 @@
 export interface IUISchema {
   appBar: {
-    ["ui:title"]: string,
-    ["ui:logoUrl"]: string,
-    ["ui:input"]: boolean,
-    ["ui:inputPlaceholder"]: string,
-    ["ui:splitView"]: boolean,
-    ["ui:darkMode"]: boolean,
-    ["ui:examplesDropdown"]: boolean,
-    ["ui:edit"]: boolean,
-    ["ui:transports"]: boolean,
+    ['ui:title']: string;
+    ['ui:logoUrl']: string;
+    ['ui:input']: boolean;
+    ['ui:inputPlaceholder']: string;
+    ['ui:splitView']: boolean;
+    ['ui:darkMode']: boolean;
+    ['ui:examplesDropdown']: boolean;
+    ['ui:edit']: boolean;
+    ['ui:transports']: boolean;
   };
   methods: {
-    ["ui:defaultExpanded"]: boolean,
-    ["ui:methodPlugins"]: boolean,
+    ['ui:defaultExpanded']: boolean;
+    ['ui:methodPlugins']: boolean;
   };
   params: {
-    ["ui:defaultExpanded"]: boolean,
+    ['ui:defaultExpanded']: boolean;
   };
 }
 
@@ -24,15 +24,15 @@ export const mergeUISchema = (a: IUISchema, b: IUISchema) => {
     return {
       appBar: {
         ...a.appBar,
-        ...b.appBar || {},
+        ...(b.appBar || {}),
       },
       methods: {
         ...a.methods,
-        ...b.methods || {},
+        ...(b.methods || {}),
       },
       params: {
         ...a.params,
-        ...b.params || {},
+        ...(b.params || {}),
       },
     };
   } else {

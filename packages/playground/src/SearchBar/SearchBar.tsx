@@ -1,10 +1,10 @@
-import React from "react";
-import { InputBase, styled } from "@mui/material";
-import { IUISchema } from "../UISchema";
+import React from 'react';
+import { InputBase, styled } from '@mui/material';
+import { IUISchema } from '../UISchema';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  width: "100%",
+  width: '100%',
 }));
 
 interface IProps {
@@ -21,9 +21,9 @@ const SearchBar: React.FC<IProps> = ({ uiSchema, searchBarUrl, onChangeUrl }) =>
   };
 
   return (
-    <StyledInputBase 
-      value={searchBarUrl || ""} 
-      placeholder={uiSchema?.appBar?.["ui:inputPlaceholder"]}
+    <StyledInputBase
+      value={searchBarUrl || ''}
+      placeholder={uiSchema?.appBar?.['ui:inputPlaceholder']}
       onChange={handleChange}
     />
   );

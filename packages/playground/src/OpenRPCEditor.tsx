@@ -49,7 +49,6 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
     editor.setModel(modelRef.current);
 
     const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
-
     addDiagnostics(modelUriString, extendedMetaSchema, monaco);
     initWorkers();
 

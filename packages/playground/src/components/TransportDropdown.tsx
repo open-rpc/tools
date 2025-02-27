@@ -1,26 +1,26 @@
-import React, { useState, ChangeEvent } from "react";
-import { 
-  Button, 
-  Menu, 
-  MenuItem, 
-  Typography, 
-  Dialog, 
-  Container, 
+import React, { useState, ChangeEvent } from 'react';
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Typography,
+  Dialog,
+  Container,
   InputBase,
-  styled 
-} from "@mui/material";
-import { CSSProperties } from "react";
-import AddIcon from "@mui/icons-material/Add";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { ITransport } from "../hooks/useTransport";
-import Grid from "@mui/material/Grid2";
+  styled,
+} from '@mui/material';
+import { CSSProperties } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { ITransport } from '../hooks/useTransport';
+import Grid from '@mui/material/Grid2';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  display: "block",
-  background: "rgba(0,0,0,0.1)",
-  borderRadius: "4px",
-  padding: "0px 10px",
-  marginRight: "5px",
+  display: 'block',
+  background: 'rgba(0,0,0,0.1)',
+  borderRadius: '4px',
+  padding: '0px 10px',
+  marginRight: '5px',
 }));
 
 interface IProps {
@@ -31,7 +31,13 @@ interface IProps {
   style?: CSSProperties;
 }
 
-const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
+const TransportDropdown: React.FC<IProps> = ({
+  selectedTransport,
+  transports,
+  onChange,
+  style,
+  onAddTransport,
+}) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -68,7 +74,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
     setDialogMenuAnchorEl(null);
     if (selectedCustomTransport && customTransportName && customTransportUri) {
       const t: ITransport = {
-        type: "plugin",
+        type: 'plugin',
         transport: selectedCustomTransport,
         name: customTransportName,
         uri: customTransportUri,
@@ -80,17 +86,21 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
 
   return (
     <div style={style}>
-      <Dialog onClose={() => setDialogOpen(false)} aria-labelledby="simple-dialog-title" open={dialogOpen}>
+      <Dialog
+        onClose={() => setDialogOpen(false)}
+        aria-labelledby="simple-dialog-title"
+        open={dialogOpen}
+      >
         <Container maxWidth="sm">
           <Grid
             container
             justifyContent="space-between"
             alignItems="center"
-            sx={{ 
-              padding: "30px", 
-              paddingTop: "10px", 
-              paddingBottom: "10px", 
-              marginTop: "10px" 
+            sx={{
+              padding: '30px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              marginTop: '10px',
             }}
           >
             <Typography variant="h6">Custom Transport Plugin</Typography>
@@ -100,7 +110,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
             </Typography>
             <Grid container direction="column" spacing={1}>
               <Grid>
-                <StyledInputBase 
+                <StyledInputBase
                   placeholder="Plugin Name"
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     setCustomTransportName(event.target.value);
@@ -108,7 +118,7 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
                 />
               </Grid>
               <Grid>
-                <StyledInputBase 
+                <StyledInputBase
                   placeholder="Plugin URI"
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     setCustomTransportUri(event.target.value);
@@ -116,11 +126,8 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
                 />
               </Grid>
               <Grid>
-                <Button
-                  variant="outlined"
-                  onClick={handleDialogCustomTransportClick}
-                >
-                  {selectedCustomTransport ? selectedCustomTransport.name : "Select A Transport"}
+                <Button variant="outlined" onClick={handleDialogCustomTransportClick}>
+                  {selectedCustomTransport ? selectedCustomTransport.name : 'Select A Transport'}
                 </Button>
               </Grid>
             </Grid>
@@ -130,17 +137,19 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
               open={Boolean(dialogMenuAnchorEl)}
               onClose={handleDialogAnchorClose}
             >
-              {transports?.filter((value) => value.type !== "plugin").map((transport) => (
-                <MenuItem
-                  key={`playground-transport-${transport.name}`}
-                  onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
-                >
-                  {transport.name}
-                </MenuItem>
-              ))}
+              {transports
+                ?.filter((value) => value.type !== 'plugin')
+                .map((transport) => (
+                  <MenuItem
+                    key={`playground-transport-${transport.name}`}
+                    onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
+                  >
+                    {transport.name}
+                  </MenuItem>
+                ))}
             </Menu>
             <Button
-              sx={{ marginTop: "10px", marginBottom: "10px" }}
+              sx={{ marginTop: '10px', marginBottom: '10px' }}
               onClick={handleSubmitCustomTransport}
               disabled={!customTransportName || !customTransportUri || !selectedCustomTransport}
               variant="contained"
@@ -152,8 +161,8 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
       </Dialog>
       <Button
         sx={{
-          marginRight: "10px",
-          marginLeft: "5px",
+          marginRight: '10px',
+          marginLeft: '5px',
         }}
         variant="outlined"
         onClick={handleClick}
@@ -168,15 +177,15 @@ const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, on
         onClose={handleClose}
       >
         {transports?.map((transport) => (
-          <MenuItem 
-            key={`playground-transport-${transport.name}-2`} 
+          <MenuItem
+            key={`playground-transport-${transport.name}-2`}
             onClick={() => handleMenuItemClick(transport)}
           >
             {transport.name}
           </MenuItem>
         ))}
         <MenuItem onClick={() => setDialogOpen(true)}>
-          <AddIcon sx={{ marginRight: "5px" }} />
+          <AddIcon sx={{ marginRight: '5px' }} />
           <Typography variant="caption">Add Transport</Typography>
         </MenuItem>
       </Menu>
