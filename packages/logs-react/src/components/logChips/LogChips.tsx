@@ -1,7 +1,7 @@
-import * as React from "react";
-import { IJSONRPCLog } from "../logsReact/logsReact";
-import {Chip} from "@mui/material";
-import { Theme, useTheme } from "@mui/material/styles";
+import * as React from 'react';
+import { IJSONRPCLog } from '../logsReact/logsReact';
+import { Chip } from '@mui/material';
+import { Theme, useTheme } from '@mui/material/styles';
 
 interface IProps {
   log: IJSONRPCLog;
@@ -21,7 +21,7 @@ const getChipColorForLog = (log: IJSONRPCLog, theme: Theme, isNotification = fal
     return styles;
   }
 
-  if (log.type === "request") {
+  if (log.type === 'request') {
     styles.backgroundColor = theme.palette.primary[paletteType];
     return styles;
   }
@@ -40,17 +40,10 @@ const LogChips: React.FC<IProps> = (props) => {
 
   return (
     <>
-      {
-        props.log.notification &&
-        <Chip
-          label="notification"
-          style={getChipColorForLog(props.log, theme, true)}
-        />
-      }
-      <Chip
-        label={props.log.type}
-        style={getChipColorForLog(props.log, theme)}
-      />
+      {props.log.notification && (
+        <Chip label="notification" style={getChipColorForLog(props.log, theme, true)} />
+      )}
+      <Chip label={props.log.type} style={getChipColorForLog(props.log, theme)} />
     </>
   );
 };
