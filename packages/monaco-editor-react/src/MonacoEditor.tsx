@@ -36,7 +36,7 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
         value,
         language,
         automaticLayout: true,
-  //      model,
+        //      model,
         ...options,
       });
       editorRef.current = editor;
@@ -69,12 +69,11 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
 
   // Update the model if the value prop changes (controlled component)
   useEffect(() => {
-    
     if (!isMounted.current) return;
     const editor = editorRef.current;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!editor || (editor as any)._isDisposed) return;
-    
+
     const model = editor.getModel();
     if (!model || model.isDisposed()) return;
 
@@ -103,4 +102,3 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
 
   return <div ref={containerRef} style={{ height, width }} />;
 };
-
