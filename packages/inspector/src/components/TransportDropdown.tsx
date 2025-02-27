@@ -1,9 +1,9 @@
-import * as React from "react";
-import { useState, ChangeEvent } from "react";
-import { Button, Menu, MenuItem, Typography, Dialog, Container, InputBase } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import AddIcon from "@mui/icons-material/Add";
-import { ITransport } from "../hooks/useTransport";
+import * as React from 'react';
+import { useState, ChangeEvent } from 'react';
+import { Button, Menu, MenuItem, Typography, Dialog, Container, InputBase } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import AddIcon from '@mui/icons-material/Add';
+import { ITransport } from '../hooks/useTransport';
 
 interface IProps {
   transports: ITransport[];
@@ -12,8 +12,14 @@ interface IProps {
   onAddTransport: (addedTransport: ITransport) => void;
   style?: React.CSSProperties;
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transports, onChange, style, onAddTransport }) => {
+
+export const TransportDropdown: React.FC<IProps> = ({
+  selectedTransport,
+  transports,
+  onChange,
+  style,
+  onAddTransport,
+}) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,7 +52,7 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
     setDialogMenuAnchorEl(null);
     if (selectedCustomTransport && customTransportName && customTransportUri) {
       const t: ITransport = {
-        type: "plugin",
+        type: 'plugin',
         transport: selectedCustomTransport,
         name: customTransportName,
         uri: customTransportUri,
@@ -57,56 +63,62 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
   };
   return (
     <div style={style}>
-      <Dialog onClose={() => setDialogOpen(false)} aria-labelledby="simple-dialog-title" open={dialogOpen}>
+      <Dialog
+        onClose={() => setDialogOpen(false)}
+        aria-labelledby="simple-dialog-title"
+        open={dialogOpen}
+      >
         <Container maxWidth="sm">
           <Grid
             container
             justifyContent="space-between"
             alignItems="center"
-            style={{ padding: "30px", paddingTop: "10px", paddingBottom: "10px", marginTop: "10px" }}>
+            style={{
+              padding: '30px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              marginTop: '10px',
+            }}
+          >
             <Typography variant="h6">Custom Transport Plugin</Typography>
             <Typography variant="caption" gutterBottom>
               Transport plugins are created by implementing the &quot;connect&quot;,
               &quot;sendData&quot;, and &quot;close&quot; methods over JSON-RPC.
-             </Typography>
+            </Typography>
             <Grid container direction="column" spacing={1}>
               <Grid>
-                <InputBase placeholder="Plugin Name"
-                  onChange={
-                    (event: ChangeEvent<HTMLInputElement>) => {
-                      setCustomTransportName(event.target.value);
-                    }
-                  }
+                <InputBase
+                  placeholder="Plugin Name"
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    setCustomTransportName(event.target.value);
+                  }}
                   style={{
-                    display: "block",
-                    background: "rgba(0,0,0,0.1)",
-                    borderRadius: "4px",
-                    padding: "0px 10px",
-                    marginRight: "5px",
+                    display: 'block',
+                    background: 'rgba(0,0,0,0.1)',
+                    borderRadius: '4px',
+                    padding: '0px 10px',
+                    marginRight: '5px',
                   }}
                 />
               </Grid>
               <Grid>
-                <InputBase placeholder="Plugin URI"
-                  onChange={
-                    (event: ChangeEvent<HTMLInputElement>) => {
-                      setCustomTransportUri(event.target.value);
-                    }
-                  }
+                <InputBase
+                  placeholder="Plugin URI"
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    setCustomTransportUri(event.target.value);
+                  }}
                   style={{
-                    display: "block",
-                    background: "rgba(0,0,0,0.1)",
-                    borderRadius: "4px",
-                    padding: "0px 10px",
-                    marginRight: "5px",
+                    display: 'block',
+                    background: 'rgba(0,0,0,0.1)',
+                    borderRadius: '4px',
+                    padding: '0px 10px',
+                    marginRight: '5px',
                   }}
                 />
               </Grid>
               <Grid>
-                <Button
-                  variant="outlined"
-                  onClick={handleDialogCustomTransportClick}>
-                  {selectedCustomTransport ? selectedCustomTransport.name : "Select A Transport"}
+                <Button variant="outlined" onClick={handleDialogCustomTransportClick}>
+                  {selectedCustomTransport ? selectedCustomTransport.name : 'Select A Transport'}
                 </Button>
               </Grid>
             </Grid>
@@ -117,18 +129,23 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
               open={Boolean(dialogMenuAnchorEl)}
               onClose={handleDialogAnchorClose}
             >
-              {transports.filter((value) => value && value.type !== "plugin").map((transport) => (
-                <MenuItem
-                  key={transport.name}
-                  onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
-                >{transport.name}</MenuItem>
-              ))}
+              {transports
+                .filter((value) => value && value.type !== 'plugin')
+                .map((transport) => (
+                  <MenuItem
+                    key={transport.name}
+                    onClick={() => handleCustomTransportDialogMenuItemClick(transport)}
+                  >
+                    {transport.name}
+                  </MenuItem>
+                ))}
             </Menu>
             <Button
-              style={{ marginTop: "10px", marginBottom: "10px" }}
+              style={{ marginTop: '10px', marginBottom: '10px' }}
               onClick={handleSubmitCustomTransport}
               disabled={!customTransportName || !customTransportUri || !selectedCustomTransport}
-              variant="contained">
+              variant="contained"
+            >
               Add Transport
             </Button>
           </Grid>
@@ -136,22 +153,30 @@ export const TransportDropdown: React.FC<IProps> = ({ selectedTransport, transpo
       </Dialog>
       <Button
         style={{
-          marginRight: "10px",
-          marginLeft: "5px",
+          marginRight: '10px',
+          marginLeft: '5px',
         }}
         variant="outlined"
-        onClick={handleClick} endIcon={<div />}
-      >{selectedTransport && selectedTransport.name}</Button>
+        onClick={handleClick}
+        endIcon={<div />}
+      >
+        {selectedTransport && selectedTransport.name}
+      </Button>
       <Menu
-        id={"inspector-transport-menu"}
+        id={'inspector-transport-menu'}
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-       {transports?.filter((value) => value ).map((transport, index) => (<MenuItem key={`transport-sub-${index}`}>{transport.name}</MenuItem>))}
+        {transports
+          ?.filter((value) => value)
+          .map((transport, index) => (
+            <MenuItem key={`transport-sub-${index}`}>{transport.name}</MenuItem>
+          ))}
         <MenuItem key={`add-transport-menu-item`} onClick={() => setDialogOpen(true)}>
-         <AddIcon key={`add-transport-menu-item-icon`} style={{ marginRight: "5px" }} /><Typography variant="caption">Add Transport</Typography>
+          <AddIcon key={`add-transport-menu-item-icon`} style={{ marginRight: '5px' }} />
+          <Typography variant="caption">Add Transport</Typography>
         </MenuItem>
       </Menu>
     </div>

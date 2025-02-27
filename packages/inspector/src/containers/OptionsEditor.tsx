@@ -1,13 +1,13 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
-import * as monaco from "monaco-editor";
-import { JSONSchema, MethodObject } from "@open-rpc/meta-schema";
-import useWindowSize from "@rehooks/window-size";
-import { MonacoEditor, addDiagnostics } from "@open-rpc/monaco-editor-react";
-import useDarkMode from "use-dark-mode";
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import * as monaco from 'monaco-editor';
+import { JSONSchema, MethodObject } from '@open-rpc/meta-schema';
+import useWindowSize from '@rehooks/window-size';
+import { MonacoEditor, addDiagnostics } from '@open-rpc/monaco-editor-react';
+import useDarkMode from 'use-dark-mode';
 
 interface IProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: (newValue: any) => void;
   openrpcMethodObject?: MethodObject;
   schema?: JSONSchema;
@@ -26,15 +26,13 @@ const OptionsEditor: React.FC<IProps> = (props) => {
   }, [windowSize, editor]);
 
   useEffect(() => {
-
     if (!editor) {
       return;
-    } 
+    }
 
     editor.getModel()?.setValue(props.value);
-    editor.getModel()?.setLanguage("json");
-    addDiagnostics(editor.getModel()?.uri.toString() || "", props.schema, monaco);
-
+    editor.getModel()?.setLanguage('json');
+    addDiagnostics(editor.getModel()?.uri.toString() || '', props.schema, monaco);
   }, [props.schema, editor]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,18 +49,18 @@ const OptionsEditor: React.FC<IProps> = (props) => {
 
   return (
     <>
-      <div style={{ marginTop: "5px", background: "black" }}></div>
+      <div style={{ marginTop: '5px', background: 'black' }}></div>
       <MonacoEditor
         height="95%"
         width="100%"
         value={props.value}
         onMount={handleEditorDidMount}
         options={{
-          theme: darkMode.value ? "vs-dark" : "vs",
+          theme: darkMode.value ? 'vs-dark' : 'vs',
           minimap: {
             enabled: false,
           },
-          lineNumbers: "off",
+          lineNumbers: 'off',
           glyphMargin: false,
           folding: false,
           automaticLayout: true,
@@ -76,5 +74,3 @@ const OptionsEditor: React.FC<IProps> = (props) => {
 };
 
 export default OptionsEditor;
-
-

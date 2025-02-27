@@ -1,2 +1,2 @@
-import {default as Inspector} from "./containers/Inspector";
+import { default as Inspector } from './containers/Inspector';
 export default Inspector;
