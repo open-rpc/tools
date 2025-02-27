@@ -21,6 +21,10 @@ import Links from '../Links/Links';
 import Tags from '../Tags/Tags';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';
 import Box from '@mui/material/Box';
+import ErrorGroups, {
+  containsErrorGroup,
+  getErrorGroups,
+} from '../SupportedExtensions/ErrorGroups';
 
 const PREFIX = 'Methods';
 
@@ -174,12 +178,18 @@ const Methods: React.FC<IProps> = ({
                 />
               </AccordionDetails>
             )}
+
             {method.errors && method.errors.length > 0 && (
               <AccordionDetails key="errors">
                 <Errors
                   errors={method.errors as ErrorObject[]}
                   reactJsonOptions={reactJsonOptions}
                 />
+              </AccordionDetails>
+            )}
+            {containsErrorGroup(method) && (
+              <AccordionDetails key="errors-group">
+                <ErrorGroups errorGroups={getErrorGroups(method)} />
               </AccordionDetails>
             )}
             <ExamplePairings
