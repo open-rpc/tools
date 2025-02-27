@@ -172,7 +172,9 @@ export const TransportDropdown: React.FC<IProps> = ({
         {transports
           ?.filter((value) => value)
           .map((transport, index) => (
-            <MenuItem key={`transport-sub-${index}`}>{transport.name}</MenuItem>
+            <MenuItem key={`transport-sub-${index}`} onClick={() => onChange(transport)}>
+              {transport.name}
+            </MenuItem>
           ))}
         <MenuItem key={`add-transport-menu-item`} onClick={() => setDialogOpen(true)}>
           <AddIcon key={`add-transport-menu-item-icon`} style={{ marginRight: '5px' }} />
