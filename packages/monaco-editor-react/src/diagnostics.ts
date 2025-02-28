@@ -20,7 +20,7 @@ export function addDiagnostics(
 ): void {
   diagnosticSchemaMap[uri] = schema;
   const diagnosticOptions = {
-    enableSchemaRequest: true,
+    enableSchemaRequest: false,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     schemas: Object.entries(diagnosticSchemaMap).map(([u, s]: [string, any]) => {
       return {
