@@ -1,0 +1,32 @@
+.Extension-description {
+  margin-bottom: 16px;
+}
+
+.Extension-heading {
+  font-weight: 500;
+}
+
+.Extension-secondaryHeading {
+  font-weight: 400;
+}
+
+.Extension-restrictedChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.Extension-sectionTitle {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.Extension-sectionContent {
+  margin-bottom: 16px;
+}
+
+.Extension-externalDocButton {
+  margin-top: 8px;
+} 

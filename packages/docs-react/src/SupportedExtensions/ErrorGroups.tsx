@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid2';
 import ReactJson from '@uiw/react-json-view';
 import { ErrorObject, MethodObject } from '@open-rpc/meta-schema';
 
-const PREFIX = 'Errors';
+const PREFIX = 'SupportedExtensions-ErrorGroups';
 
 const classes = {
   code: `${PREFIX}-code`,
@@ -21,6 +21,23 @@ const classes = {
 const StyledGrid = styled(Grid)(({ theme }: { theme: Theme }) => ({
   [`& .${classes.code}`]: {
     marginLeft: theme.spacing(2),
+  },
+  [`& .${classes.code}`]: {
+    marginLeft: theme.spacing(2),
+  },
+  '& .MuiTableCell-root': {
+    color: theme.palette.text.primary,
+    borderBottomColor: theme.palette.divider,
+  },
+  '& .MuiTableCell-head': {
+    color: `${theme.palette.text.primary} !important`,
+    fontWeight: 500,
+  },
+  '& .MuiTypography-root': {
+    color: theme.palette.text.primary,
+  },
+  '& .MuiTable-root': {
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 

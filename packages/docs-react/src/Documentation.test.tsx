@@ -45,3 +45,53 @@ it('doesnt render contentDescriptors if uiSchema contentDescriptors hidden is pa
   );
   expect(screen.queryByText('ContentDescriptors')).not.toBeInTheDocument();
 });
+
+it('renders a single extension', () => {
+  render(
+    <Documentation
+      schema={
+        {
+          'x-extensions': [
+            {
+              name: 'x-test-extension',
+              version: '1.0.0',
+              summary: 'Test Extension',
+            },
+          ],
+        } as any
+      }
+    />
+  );
+  expect(screen.getByText('Extensions')).toBeInTheDocument();
+  expect(screen.getByText('x-test-extension')).toBeInTheDocument();
+  expect(screen.getByText('Test Extension')).toBeInTheDocument();
+  expect(screen.getByText('v1.0.0')).toBeInTheDocument();
+});
+
+it('renders multiple extensions', () => {
+  render(
+    <Documentation
+      schema={
+        {
+          'x-extensions': [
+            {
+              name: 'x-test-extension-1',
+              version: '1.0.0',
+              summary: 'Test Extension 1',
+            },
+            {
+              name: 'x-test-extension-2',
+              version: '2.0.0',
+              summary: 'Test Extension 2',
+            },
+          ],
+        } as any
+      }
+    />
+  );
+  expect(screen.getByText('Extensions')).toBeInTheDocument();
+  expect(screen.getByText('x-test-extension-1')).toBeInTheDocument();
+  expect(screen.getByText('Test Extension 1')).toBeInTheDocument();
+  expect(screen.getByText('x-test-extension-2')).toBeInTheDocument();
+  expect(screen.getByText('Test Extension 2')).toBeInTheDocument();
+});

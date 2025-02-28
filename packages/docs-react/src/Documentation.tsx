@@ -4,6 +4,7 @@ import Servers from './Servers/Servers';
 import Methods, { IMethodPluginProps, OnMethodToggle } from './Methods/Methods';
 import ContentDescriptors from './ContentDescriptors/ContentDescriptors';
 import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import Extensions from './Extensions/Extensions';
 
 interface IProps {
   schema?: OpenrpcDocument;
@@ -44,8 +45,11 @@ const Documentation: React.FC<IProps> = ({
         methodPlugins={methodPlugins}
       />
       {shouldShowContentDescriptors && (
-        <ContentDescriptors schema={schema} uiSchema={uiSchema}></ContentDescriptors>
+        <>
+          <ContentDescriptors schema={schema} uiSchema={uiSchema}></ContentDescriptors>
+        </>
       )}
+      <Extensions schema={schema} uiSchema={uiSchema}></Extensions>
     </>
   );
 };
