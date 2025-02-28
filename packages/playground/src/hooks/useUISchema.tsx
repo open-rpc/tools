@@ -1,7 +1,11 @@
-import { useState } from "react";
-import { IUISchema } from "../UISchema";
+import { useState } from 'react';
+import { IUISchema } from '../UISchema';
 
-type SetSectionType = ({ section, key, value }: {
+type SetSectionType = ({
+  section,
+  key,
+  value,
+}: {
   section: string;
   key: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

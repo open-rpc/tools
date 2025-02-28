@@ -1,5 +1,5 @@
-import { useState } from "react";
-import * as qs from "qs";
+import { useState } from 'react';
+import * as qs from 'qs';
 
 const useQueryParams = () => {
   const parse = () => {
@@ -10,10 +10,10 @@ const useQueryParams = () => {
         if (/^(\d+|\d*\.\d+)$/.test(str)) {
           return parseFloat(str);
         }
-        if (str === "false") {
+        if (str === 'false') {
           return false;
         }
-        if (str === "true") {
+        if (str === 'true') {
           return true;
         }
         return decodeURIComponent(str);

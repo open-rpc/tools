@@ -6,7 +6,7 @@ import Documentation from './Documentation';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { grey } from '@mui/material/colors';
-
+import { vscodeTheme as reactJsonDarkTheme } from '@uiw/react-json-view/vscode';
 // Create dark theme
 const darkTheme2 = createTheme({
   palette: {
@@ -25,63 +25,203 @@ const darkTheme2 = createTheme({
 });
 
 const schema: OpenrpcDocument = {
-  openrpc: "1.2.6",
-  info: {
-    title: "Example API",
-    version: "1.0.0",
-    description: "Example API demonstrating OpenRPC schema"
+  "openrpc": "1.2.6",
+  "externalDocs": {
+    "description": "nice",
+    "url": "http://super.nice"
   },
-  methods: [
-    {
-      name: "echo",
-      description: "Echo back the input params",
-      params: [
-        {
-          name: "message",
-          description: "Message to echo",
-          schema: { type: "string" }
-        }
-      ],
-      result: {
-        name: "echoResult",
-        description: "The echoed message",
-        schema: { type: "string" }
-      }
+  "servers": [
+  ],
+  "info": {
+    "title": "Minimal OpenRPC Example",
+    "version": "1.0.0",
+    "description": "Food",
+    "contact": {
+      "email": "hhh@h.com",
+      "name": "John",
+      "url": "Https://www.google.com"
     },
+    "license": {
+      "name": "aapp",
+      "url": "http:nada"
+    },
+    "termsOfService": "http://"
+  },
+  "methods": [
     {
-      name: "add",
-      description: "Add two numbers",
-      params: [
+      "name": "getExampleData",
+      "summary": "Retrieves example data from the API.",
+      "params": [
         {
-          name: "a",
-          description: "First number",
-          schema: { type: "number" }
-        },
-        {
-          name: "b", 
-          description: "Second number",
-          schema: { type: "number" }
+          "name": "dataId",
+          "schema": {
+            "type": "integer",
+            "description": "The ID of the data to retrieve."
+          },
+          "required": true
         }
       ],
-      result: {
-        name: "sum",
-        description: "The sum of the two numbers",
-        schema: { type: "number" }
-      }
+      "errors": [
+        { "$ref": "#/components/x-error-group/GasErrors/0" },
+        { "$ref": "#/components/x-error-group/GasErrors/1" }
+      ],
+      "x-error-group": [
+        {
+          "$ref": "#/components/x-error-group/GasErrors"
+        },
+        [
+          {
+            "code": 50000,
+            "message": "Other Not Found",
+            "data": "The requested data was not found."
+          },
+          {
+            "code": 50001,
+            "message": "Other Bad Request",
+            "data": "The request was invalid."
+          }
+        ]
+      ],
+      "result": {
+        "name": "exampleData",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "The ID of the data."
+            },
+            "data": {
+              "type": "string",
+              "description": "The content of the data."
+            }
+          },
+          "required": ["id", "data"]
+        },
+        "description": "The result object containing the requested data."
+      },
+      "examples": [
+        {
+          "name": "Example 1",
+          "params": [
+            {
+              "name": "dataId",
+              "value": 1
+            }
+          ]
+        }
+      ]
     }
   ],
-  components: {
-    schemas: {
-      Error: {
-        type: "object",
-        properties: {
-          code: { type: "integer" },
-          message: { type: "string" }
+  "x-extensions": [
+    {
+      "openrpcExtension": "0.0.0-development",
+      "name": "x-error-group",
+      "version": "0.0.1",
+      "description": "Describe an error group for OpenRPC methods",
+      "summary": "OpenRPC Error Groups",
+      "externalDocumentation": {
+        "description": "github",
+        "url": "https://github.com/open-rpc/specification-extensions-spec/examples/x-notification-openrpc-ext.json"
+      },
+      "restricted": ["methodObject"],
+      "schema": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "description": "The code of the error."
+                },
+                "message": {
+                  "type": "string",
+                  "description": "The message of the error."
+                },
+                "data": {
+                  "type": "string",
+                  "description": "The data of the error."
+                }
+              },
+              "required": ["code", "message"]
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "type": "string"
+              }
+            },
+            "required": ["$ref"]
+          }
+        ]
+      }
+    }
+    }
+  ],
+  "components": {
+    "x-error-group": {
+      "GasErrors": [
+        {
+          "code": -31999,
+          "message": "Gas too low",
+          "data": "The gas is too low."
+        },
+        {
+          "code": -31998,
+          "message": "out of gas",
+          "data": "The gas is out of gas."
+        }
+      ]
+    },
+    "schemas": {
+      "ErrorData": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "integer" },
+            "message": { "type": "string" },
+            "data": { "type": "string" }
+          },
+          "required": ["code", "message", "data"]
+        }
+      },
+      "GasErrors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "integer" },
+            "message": { "type": "string" },
+            "data": { "type": "string" }
+          },
+          "required": ["message", "data"],
+          "enum": [
+            {
+              "code": -31999,
+              "message": "Gas too low",
+              "data": "The gas is too low."
+            },
+            {
+              "code": -31998,
+              "message": "out of gas",
+              "data": "The gas is out of gas."
+            }
+          ]
         }
       }
     }
   }
 };
+
+
+
  const appBarUISchema = {
     appBar: {["ui:title"]: "Example API",
     ["ui:logoUrl"]: "https://example.com/logo.png",
@@ -103,7 +243,7 @@ const schema: OpenrpcDocument = {
   };
 
 const reactJsonOptions = {
-  theme: "summerfruit:inverted",
+  style: reactJsonDarkTheme,
   collapseStringsAfterLength: 25,  // <-- This is the culprit
   displayDataTypes: false,
   displayObjectSize: false,
@@ -150,7 +290,7 @@ export const darkTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: grey[400],
+          color: grey[200],
         },
       },
     },

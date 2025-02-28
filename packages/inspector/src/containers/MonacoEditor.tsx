@@ -68,12 +68,11 @@ const MonacoEditor: React.FC<MonacoEditorProps> = ({
 
   // Update the model if the value prop changes (controlled component)
   useEffect(() => {
-    
     if (!isMounted.current) return;
     const editor = editorRef.current;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!editor || (editor as any)._isDisposed) return;
-    
+
     const model = editor.getModel();
     if (!model || model.isDisposed()) return;
 

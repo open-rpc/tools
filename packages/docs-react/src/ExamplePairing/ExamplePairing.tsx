@@ -1,31 +1,25 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { styled } from '@mui/material/styles';
-import Grid from "@mui/material/Grid2";
-import { Card, CardContent, CardHeader, Theme } from "@mui/material";
-import ReactJson from "@uiw/react-json-view";
-import { ExampleObject, ExamplePairingObject } from "@open-rpc/meta-schema";
-import _ from "lodash";
-import MarkdownDescription from "../MarkdownDescription/MarkdownDescription";
+import Grid from '@mui/material/Grid2';
+import { Card, CardContent, CardHeader, Theme } from '@mui/material';
+import ReactJson from '@uiw/react-json-view';
+import { ExampleObject, ExamplePairingObject } from '@open-rpc/meta-schema';
+import _ from 'lodash';
+import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';
 
 const PREFIX = 'ExamplePairing';
 
 const classes = {
-  description: `${PREFIX}-description`
+  description: `${PREFIX}-description`,
 };
 
-const StyledGrid = styled(Grid)((
-  {
-    theme
-  }: {
-    theme: Theme
-  }
-) => ({
+const StyledGrid = styled(Grid)(({ theme }: { theme: Theme }) => ({
   [`& .${classes.description}`]: {
     color: theme.palette.text.primary,
-  }
+  },
 }));
 
-export type TParamStructure = "either" | "by-name" | "by-position";
+export type TParamStructure = 'either' | 'by-name' | 'by-position';
 
 interface IProps {
   examplePairing?: ExamplePairingObject;
@@ -39,23 +33,24 @@ interface IProps {
 
 class ExamplePairing extends Component<IProps, Record<string, never>> {
   public render() {
-    const { examplePairing, paramStructure,  methodName, uiSchema } = this.props;
+    const { examplePairing, paramStructure, methodName, uiSchema } = this.props;
     if (_.isUndefined(examplePairing)) {
       return null;
     }
     if (_.isUndefined(methodName)) {
       return null;
     }
-    const params = paramStructure === "by-name"
-      ? (examplePairing.params as ExampleObject[]).reduce(((memo, p) => {
-        memo[p.name] = p.value;
-        return memo;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }), {} as any)
-      : (examplePairing.params as ExampleObject[]).map(((p) => p.value));
+    const params =
+      paramStructure === 'by-name'
+        ? (examplePairing.params as ExampleObject[]).reduce((memo, p) => {
+            memo[p.name] = p.value;
+            return memo;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          }, {} as any)
+        : (examplePairing.params as ExampleObject[]).map((p) => p.value);
 
     return (
-      (<StyledGrid container spacing={10}>
+      <StyledGrid container spacing={10}>
         <Grid size={{ xs: 12 }}>
           <MarkdownDescription
             uiSchema={uiSchema}
@@ -67,12 +62,17 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
           <Card>
             <CardHeader title="Request"></CardHeader>
             <CardContent>
-              {examplePairing.params && <ReactJson value={{
-                id: 1,
-                jsonrpc: "2.0",
-                method: methodName,
-                params,
-              }} {...this.props.reactJsonOptions} />}
+              {examplePairing.params && (
+                <ReactJson
+                  value={{
+                    id: 1,
+                    jsonrpc: '2.0',
+                    method: methodName,
+                    params,
+                  }}
+                  {...this.props.reactJsonOptions}
+                />
+              )}
             </CardContent>
           </Card>
         </Grid>
@@ -80,17 +80,22 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
           <CardHeader title="Result"></CardHeader>
           <Card>
             <CardContent>
-              {examplePairing.result && <ReactJson value={{
-                id: 1,
-                jsonrpc: "2.0",
-                result: (examplePairing.result as ExampleObject).value,
-              }} {...this.props.reactJsonOptions} />}
+              {examplePairing.result && (
+                <ReactJson
+                  value={{
+                    id: 1,
+                    jsonrpc: '2.0',
+                    result: (examplePairing.result as ExampleObject).value,
+                  }}
+                  {...this.props.reactJsonOptions}
+                />
+              )}
             </CardContent>
           </Card>
         </Grid>
-      </StyledGrid>)
+      </StyledGrid>
     );
   }
 }
 
-export default (ExamplePairing);
+export default ExamplePairing;

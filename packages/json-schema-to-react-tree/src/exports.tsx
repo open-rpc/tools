@@ -1,2 +1,2 @@
-import {default as JSONSchemaTree} from "./containers/JSONSchemaTree";
+import { default as JSONSchemaTree } from './containers/JSONSchemaTree';
 export default JSONSchemaTree;

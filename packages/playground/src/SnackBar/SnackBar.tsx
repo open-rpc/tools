@@ -1,26 +1,26 @@
-import * as React from "react";
-import { ReactElement, forwardRef } from "react";
+import * as React from 'react';
+import { ReactElement, forwardRef } from 'react';
 import {
   Snackbar,
   SnackbarContent as MuiSnackbarContent,
   IconButton,
   styled,
   SnackbarContentProps,
-} from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CloseIcon from "@mui/icons-material/Close";
-import ErrorIcon from "@mui/icons-material/Error";
-import InfoIcon from "@mui/icons-material/Info";
-import WarningIcon from "@mui/icons-material/Warning";
-import { green, amber } from "@mui/material/colors";
-import { IUISchema } from "../UISchema";
+} from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CloseIcon from '@mui/icons-material/Close';
+import ErrorIcon from '@mui/icons-material/Error';
+import InfoIcon from '@mui/icons-material/Info';
+import WarningIcon from '@mui/icons-material/Warning';
+import { green, amber } from '@mui/material/colors';
+import { IUISchema } from '../UISchema';
 
 export enum NotificationType {
-  error = "error",
-  warn = "warning",
-  info = "info",
-  success = "success",
-  debug = "debug",
+  error = 'error',
+  warn = 'warning',
+  info = 'info',
+  success = 'success',
+  debug = 'debug',
 }
 const variantIcon = {
   [NotificationType.success]: CheckCircleIcon,
@@ -29,8 +29,6 @@ const variantIcon = {
   [NotificationType.info]: InfoIcon,
   [NotificationType.debug]: InfoIcon,
 } as const;
-
-
 
 // Base component that forwards refs
 const BaseSnackbarContent = forwardRef<HTMLDivElement, SnackbarContentProps>((props, ref) => (
@@ -63,8 +61,8 @@ const StyledSnackbarContent = styled(BaseSnackbarContent)(({ theme }) => ({
     marginRight: theme.spacing(2),
   },
   '& .message': {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
   },
   '& .close': {
     padding: theme.spacing(1),
@@ -91,41 +89,38 @@ interface ISnackBarContentProps extends Omit<SnackbarContentProps, 'ref' | 'vari
 }
 
 // Our main content component that also forwards refs
-const SnackBarContent = forwardRef<HTMLDivElement, ISnackBarContentProps>(({
-  message,
-  onClose,
-  notificationType,
-  ...other
-}, ref) => {
-  const IconComponent = variantIcon[notificationType] || InfoIcon;
-  
-  return (
-    <StyledSnackbarContent
-      ref={ref}
-      className={notificationType}
-      aria-describedby="client-snackbar"
-      message={
-        <span id="client-snackbar" className="message">
-          <IconComponent className="icon iconVariant" />
-          {message}
-        </span>
-      }
-      action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          className="close"
-          onClick={onClose}
-          size="small"
-        >
-          <CloseIcon className="icon" />
-        </IconButton>,
-      ]}
-      {...other}
-    />
-  );
-});
+const SnackBarContent = forwardRef<HTMLDivElement, ISnackBarContentProps>(
+  ({ message, onClose, notificationType, ...other }, ref) => {
+    const IconComponent = variantIcon[notificationType] || InfoIcon;
+
+    return (
+      <StyledSnackbarContent
+        ref={ref}
+        className={notificationType}
+        aria-describedby="client-snackbar"
+        message={
+          <span id="client-snackbar" className="message">
+            <IconComponent className="icon iconVariant" />
+            {message}
+          </span>
+        }
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className="close"
+            onClick={onClose}
+            size="small"
+          >
+            <CloseIcon className="icon" />
+          </IconButton>,
+        ]}
+        {...other}
+      />
+    );
+  }
+);
 SnackBarContent.displayName = 'SnackBarContent';
 
 const SnackBarWrapper: React.FC<IProps> = ({ notification, close }) => {
@@ -138,8 +133,8 @@ const SnackBarWrapper: React.FC<IProps> = ({ notification, close }) => {
       open
       autoHideDuration={10000}
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
+        vertical: 'bottom',
+        horizontal: 'left',
       }}
     >
       <SnackBarContent

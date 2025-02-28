@@ -1,17 +1,17 @@
-import React from "react";
-import { styled } from "@mui/material/styles";
-import { editor } from "monaco-editor";
+import React from 'react';
+import { styled } from '@mui/material/styles';
+import { editor } from 'monaco-editor';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledWrapper = styled('div')(({ theme }) => ({
-  maxHeight: "200px",
+  maxHeight: '200px',
 }));
 
 const StyledList = styled('ul')(({ theme }) => ({
   color: theme.palette.secondary.main,
-  height: "100%",
-  listStyle: "none",
-  overflow: "scroll",
+  height: '100%',
+  listStyle: 'none',
+  overflow: 'scroll',
 }));
 
 interface IProps {

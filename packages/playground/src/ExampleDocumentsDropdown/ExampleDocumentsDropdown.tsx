@@ -1,10 +1,10 @@
-import * as React from "react";
-import { Menu, MenuItem, Tooltip, Button, Typography } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import Grid from "@mui/material/Grid2";
+import * as React from 'react';
+import { Menu, MenuItem, Tooltip, Button, Typography } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Grid from '@mui/material/Grid2';
 export interface IExample {
-  name: "string";
-  url: "string";
+  name: 'string';
+  url: 'string';
 }
 
 interface IProps {
@@ -34,27 +34,26 @@ const ExampleDocumentsDropdown: React.FC<IProps> = ({ examples, onChange }) => {
 
   return (
     <>
-      <Tooltip title={process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE || "Example OpenRPC Documents"}>
+      <Tooltip
+        title={
+          process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE || 'Example OpenRPC Documents'
+        }
+      >
         <Button
           onClick={handleClick}
           variant="outlined"
           endIcon={<ArrowDropDownIcon />}
-          sx={{ 
-            height: "38px", 
-            fontSize: "11px", 
-            marginLeft: "10px" 
+          sx={{
+            height: '38px',
+            fontSize: '11px',
+            marginLeft: '10px',
           }}
         >
-          {process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT || "examples"}
+          {process.env.REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT || 'examples'}
         </Button>
       </Tooltip>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <div style={{ maxWidth: "525px" }}>
+      <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        <div style={{ maxWidth: '525px' }}>
           {examples.map((example: IExample) => (
             <MenuItem key={example.name} onClick={() => handleMenuItemClick(example)}>
               <Grid container spacing={0}>
@@ -62,7 +61,9 @@ const ExampleDocumentsDropdown: React.FC<IProps> = ({ examples, onChange }) => {
                   <Typography variant="subtitle1">{example.name}</Typography>
                 </Grid>
                 <Grid size={{ xs: 12 }}>
-                  <Typography variant="caption" sx={{ fontSize: "9px" }}>{example.url}</Typography>
+                  <Typography variant="caption" sx={{ fontSize: '9px' }}>
+                    {example.url}
+                  </Typography>
                 </Grid>
               </Grid>
             </MenuItem>

@@ -1,337 +1,336 @@
 import { it, expect } from 'vitest';
-import React from "react";
-import JSONSchemaFields from "./JSONSchemaFields";
-import { JSONSchema4 } from "json-schema";
+import React from 'react';
+import JSONSchemaFields from './JSONSchemaFields';
+import { JSONSchema4 } from 'json-schema';
 import { render, screen } from '@testing-library/react';
 
-it("renders empty with no schema", () => {
+it('renders empty with no schema', () => {
   render(<JSONSchemaFields />);
-  expect(document.body.textContent).toBe("");
+  expect(document.body.textContent).toBe('');
 });
 
-it("renders empty with empty schema", () => {
+it('renders empty with empty schema', () => {
   render(<JSONSchemaFields schema={{}} />);
-  expect(document.body.textContent).toBe("");
+  expect(document.body.textContent).toBe('');
 });
 
-it("renders with a schema", () => {
+it('renders with a schema', () => {
   const schema = {
-    type: "object",
+    type: 'object',
     properties: {
-      name: { type: "string" },
-      tag: { type: "string" },
+      name: { type: 'string' },
+      tag: { type: 'string' },
     },
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("name")).toBeInTheDocument();
-  expect(screen.getAllByText("string")).toHaveLength(2);
-  expect(screen.getByText("tag")).toBeInTheDocument();
+  expect(screen.getByText('name')).toBeInTheDocument();
+  expect(screen.getAllByText('string')).toHaveLength(2);
+  expect(screen.getByText('tag')).toBeInTheDocument();
 });
 
-it("renders with a schema required", () => {
+it('renders with a schema required', () => {
   const schema = {
     properties: {
-      name: { type: "string" },
+      name: { type: 'string' },
     },
-    required: ["name"],
+    required: ['name'],
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("true")).toBeInTheDocument();
+  expect(screen.getByText('true')).toBeInTheDocument();
 });
 
-it("renders with a schema without required", () => {
+it('renders with a schema without required', () => {
   const schema = {
     properties: {
-      name: { type: "string" },
+      name: { type: 'string' },
     },
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("false")).toBeInTheDocument();
+  expect(screen.getByText('false')).toBeInTheDocument();
 });
 
-it("renders with a nested schema object", () => {
+it('renders with a nested schema object', () => {
   const schema = {
     properties: {
       name: {
-        type: "object",
+        type: 'object',
         properties: {
           foo: {
-            type: "string"
-          }
-        }
+            type: 'string',
+          },
+        },
       },
     },
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getByText("string")).toBeInTheDocument();
-  expect(screen.getAllByText("object")).toHaveLength(2);
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getByText('string')).toBeInTheDocument();
+  expect(screen.getAllByText('object')).toHaveLength(2);
 });
 
-it("renders with a anyOf with nested objects", () => {
+it('renders with a anyOf with nested objects', () => {
   const schema = {
     anyOf: [
       {
-        title: "foo",
+        title: 'foo',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
-              potato: { type: "string" }
-            }
+              potato: { type: 'string' },
+            },
           },
         },
       },
       {
-        title: "bar",
+        title: 'bar',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
-              baz: { type: "string" }
-            }
+              baz: { type: 'string' },
+            },
           },
         },
-      }
-    ]
+      },
+    ],
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getByText("bar")).toBeInTheDocument();
-  expect(screen.getByText("baz")).toBeInTheDocument();
-  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getByText('bar')).toBeInTheDocument();
+  expect(screen.getByText('baz')).toBeInTheDocument();
+  expect(screen.getByText('potato')).toBeInTheDocument();
 });
 
-it("renders with a allOf with nested objects", () => {
+it('renders with a allOf with nested objects', () => {
   const schema = {
     allOf: [
       {
-        title: "foo",
+        title: 'foo',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
               potato: {
-                type: "string"
-              }
-            }
+                type: 'string',
+              },
+            },
           },
         },
       },
       {
-        title: "bar",
+        title: 'bar',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
               baz: {
-                type: "string"
-              }
-            }
+                type: 'string',
+              },
+            },
           },
         },
-      }
-    ]
+      },
+    ],
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getByText("bar")).toBeInTheDocument();
-  expect(screen.getByText("baz")).toBeInTheDocument();
-  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getByText('bar')).toBeInTheDocument();
+  expect(screen.getByText('baz')).toBeInTheDocument();
+  expect(screen.getByText('potato')).toBeInTheDocument();
 });
 
-
-it("renders with a oneOf with nested objects", () => {
+it('renders with a oneOf with nested objects', () => {
   const schema = {
     oneOf: [
       {
-        title: "foo",
+        title: 'foo',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
               potato: {
-                type: "string"
-              }
-            }
+                type: 'string',
+              },
+            },
           },
         },
       },
       {
-        title: "bar",
+        title: 'bar',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
               baz: {
-                type: "string"
-              }
-            }
+                type: 'string',
+              },
+            },
           },
         },
-      }
-    ]
+      },
+    ],
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getByText("bar")).toBeInTheDocument();
-  expect(screen.getByText("baz")).toBeInTheDocument();
-  expect(screen.getByText("potato")).toBeInTheDocument();
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getByText('bar')).toBeInTheDocument();
+  expect(screen.getByText('baz')).toBeInTheDocument();
+  expect(screen.getByText('potato')).toBeInTheDocument();
 });
 
-it("renders with a nested arrays of objects", () => {
+it('renders with a nested arrays of objects', () => {
   const schema = {
-    title: "MyPotatoObject",
-    type: "array",
+    title: 'MyPotatoObject',
+    type: 'array',
     items: [
       {
-        title: "foo",
+        title: 'foo',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
-              potato: { type: "string" }
-            }
+              potato: { type: 'string' },
+            },
           },
         },
       },
       {
-        title: "bar",
+        title: 'bar',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
               baz: {
-                type: "string"
-              }
-            }
+                type: 'string',
+              },
+            },
           },
         },
-      }
-    ]
+      },
+    ],
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getByText("bar")).toBeInTheDocument();
-  expect(screen.getByText("baz")).toBeInTheDocument();
-  expect(screen.getByText("potato")).toBeInTheDocument();
-  expect(screen.getAllByText("string")).toHaveLength(2);
-  expect(screen.getByText("MyPotatoObject")).toBeInTheDocument();
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getByText('bar')).toBeInTheDocument();
+  expect(screen.getByText('baz')).toBeInTheDocument();
+  expect(screen.getByText('potato')).toBeInTheDocument();
+  expect(screen.getAllByText('string')).toHaveLength(2);
+  expect(screen.getByText('MyPotatoObject')).toBeInTheDocument();
 });
 
-it("renders with a nested arrays of object", () => {
+it('renders with a nested arrays of object', () => {
   const schema = {
-    title: "MyPotatoObject",
-    type: "array",
+    title: 'MyPotatoObject',
+    type: 'array',
     items: {
-      title: "foo",
+      title: 'foo',
       properties: {
         name: {
-          type: "object",
+          type: 'object',
           properties: {
             potato: {
-              type: "string"
-            }
-          }
+              type: 'string',
+            },
+          },
         },
       },
-    }
+    },
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getAllByText("object")).toHaveLength(2);
-  expect(screen.getByText("potato")).toBeInTheDocument();
-  expect(screen.getByText("string")).toBeInTheDocument();
-  expect(screen.getByText("MyPotatoObject")).toBeInTheDocument();
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getAllByText('object')).toHaveLength(2);
+  expect(screen.getByText('potato')).toBeInTheDocument();
+  expect(screen.getByText('string')).toBeInTheDocument();
+  expect(screen.getByText('MyPotatoObject')).toBeInTheDocument();
 });
 
-it("renders with a nested arrays of object with name passed explicitly", () => {
+it('renders with a nested arrays of object with name passed explicitly', () => {
   const schema = {
-    type: "array",
+    type: 'array',
     items: {
-      title: "foo",
+      title: 'foo',
       properties: {
         name: {
-          type: "object",
+          type: 'object',
           properties: {
             potato: {
-              type: "string"
-            }
-          }
+              type: 'string',
+            },
+          },
         },
       },
-    }
+    },
   } as JSONSchema4;
-  
-  render(<JSONSchemaFields schema={schema} name={"My Name"} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getAllByText("object")).toHaveLength(2);
-  expect(screen.getByText("potato")).toBeInTheDocument();
-  expect(screen.getByText("string")).toBeInTheDocument();
-  expect(screen.getByText("My Name")).toBeInTheDocument();
+
+  render(<JSONSchemaFields schema={schema} name={'My Name'} />);
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getAllByText('object')).toHaveLength(2);
+  expect(screen.getByText('potato')).toBeInTheDocument();
+  expect(screen.getByText('string')).toBeInTheDocument();
+  expect(screen.getByText('My Name')).toBeInTheDocument();
 });
 
-it("renders with a nested arrays of objects with name passed explicitly", () => {
+it('renders with a nested arrays of objects with name passed explicitly', () => {
   const schema = {
-    type: "array",
+    type: 'array',
     items: [
       {
-        title: "foo",
+        title: 'foo',
         properties: {
           name: {
-            type: "object",
+            type: 'object',
             properties: {
               potato: {
-                type: "string"
-              }
-            }
+                type: 'string',
+              },
+            },
           },
         },
-      }
-    ]
+      },
+    ],
   } as JSONSchema4;
-  
-  render(<JSONSchemaFields schema={schema} name={"My Name"} />);
-  expect(screen.getByText("foo")).toBeInTheDocument();
-  expect(screen.getAllByText("object")).toHaveLength(2);
-  expect(screen.getByText("potato")).toBeInTheDocument();
-  expect(screen.getByText("string")).toBeInTheDocument();
-  expect(screen.getByText("My Name")).toBeInTheDocument();
+
+  render(<JSONSchemaFields schema={schema} name={'My Name'} />);
+  expect(screen.getByText('foo')).toBeInTheDocument();
+  expect(screen.getAllByText('object')).toHaveLength(2);
+  expect(screen.getByText('potato')).toBeInTheDocument();
+  expect(screen.getByText('string')).toBeInTheDocument();
+  expect(screen.getByText('My Name')).toBeInTheDocument();
 });
 
-it("renders with a nested oneOf with nested allOf", () => {
+it('renders with a nested oneOf with nested allOf', () => {
   const schema = {
-    title: "MyPotatoObject",
+    title: 'MyPotatoObject',
     oneOf: [
       {
-        title: "Apple",
+        title: 'Apple',
         allOf: [
           {
-            title: "Banana",
-            type: "string"
+            title: 'Banana',
+            type: 'string',
           },
           {
-            title: "Pear",
-            type: "string"
+            title: 'Pear',
+            type: 'string',
           },
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   } as JSONSchema4;
-  
+
   render(<JSONSchemaFields schema={schema} />);
-  expect(screen.getByText("MyPotatoObject")).toBeInTheDocument();
-  expect(screen.getByText("Apple")).toBeInTheDocument();
-  expect(screen.getByText("Banana")).toBeInTheDocument();
-  expect(screen.getAllByText("string")).toHaveLength(2);
-  expect(screen.getByText("Pear")).toBeInTheDocument();
+  expect(screen.getByText('MyPotatoObject')).toBeInTheDocument();
+  expect(screen.getByText('Apple')).toBeInTheDocument();
+  expect(screen.getByText('Banana')).toBeInTheDocument();
+  expect(screen.getAllByText('string')).toHaveLength(2);
+  expect(screen.getByText('Pear')).toBeInTheDocument();
 });

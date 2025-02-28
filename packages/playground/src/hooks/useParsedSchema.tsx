@@ -1,11 +1,14 @@
-import { useState, useEffect, Dispatch } from "react";
-import _ from "lodash";
-import refParser from "@apidevtools/json-schema-ref-parser";
-import { OpenrpcDocument } from "@open-rpc/meta-schema";
+import { useState, useEffect, Dispatch } from 'react';
+import _ from 'lodash';
+import refParser from '@apidevtools/json-schema-ref-parser';
+import { OpenrpcDocument } from '@open-rpc/meta-schema';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useParsedSchema = (defaultValue: object | any): [OpenrpcDocument | undefined, Dispatch<string>] => {
-  const [parsedSchema, setParsedSchema]: [OpenrpcDocument | undefined, Dispatch<OpenrpcDocument>] = useState();
+const useParsedSchema = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValue: object | any
+): [OpenrpcDocument | undefined, Dispatch<string>] => {
+  const [parsedSchema, setParsedSchema]: [OpenrpcDocument | undefined, Dispatch<OpenrpcDocument>] =
+    useState();
   const validateAndSetSchema = (schema: string) => {
     let maybeSchema: string | undefined;
     try {
@@ -20,7 +23,7 @@ const useParsedSchema = (defaultValue: object | any): [OpenrpcDocument | undefin
     refParser.dereference(maybeSchema).then((dereferencedSchema) => {
       setParsedSchema(dereferencedSchema as OpenrpcDocument);
       // set original non-dereff'd schema to localstorage
-      _.defer(() => window.localStorage.setItem("schema", schema as string));
+      _.defer(() => window.localStorage.setItem('schema', schema as string));
     });
   };
   useEffect(() => {

@@ -33,6 +33,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@microlink/react-json-view": "1.26.1",
     "@open-rpc/examples": "^1.6.1",
     "@open-rpc/json-schema-to-react-tree": "0.1.0",
     "@uiw/react-json-view": "^2.0.0-alpha.30",

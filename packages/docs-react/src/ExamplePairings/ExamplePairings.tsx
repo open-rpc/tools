@@ -1,8 +1,21 @@
-import React, { Component } from "react";
-import ExamplePairing from "../ExamplePairing/ExamplePairing";
-import { Typography, List, ListItem, ListItemText, MenuItem, Menu, AccordionDetails } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { MethodObject, ExamplePairingObject, ContentDescriptorObject, JSONSchemaObject } from "@open-rpc/meta-schema";
+import React, { Component } from 'react';
+import ExamplePairing from '../ExamplePairing/ExamplePairing';
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  MenuItem,
+  Menu,
+  AccordionDetails,
+} from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import {
+  MethodObject,
+  ExamplePairingObject,
+  ContentDescriptorObject,
+  JSONSchemaObject,
+} from '@open-rpc/meta-schema';
 
 interface IProps {
   method?: MethodObject;
@@ -21,21 +34,30 @@ interface IState {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isJSONSchemaObject = (schema: any): schema is JSONSchemaObject => {
-  return schema && typeof schema === "object" && !Array.isArray(schema);
+  return schema && typeof schema === 'object' && !Array.isArray(schema);
 };
 
 const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] => {
-  if (!method) { return []; }
-  if (!method.params) { return []; }
+  if (!method) {
+    return [];
+  }
+  if (!method.params) {
+    return [];
+  }
   const examples: ExamplePairingObject[] = [];
 
   (method.params as ContentDescriptorObject[]).forEach((param, _index: number) => {
-    if (param.schema && isJSONSchemaObject(param.schema) && param.schema.examples && param.schema.examples.length > 0) {
+    if (
+      param.schema &&
+      isJSONSchemaObject(param.schema) &&
+      param.schema.examples &&
+      param.schema.examples.length > 0
+    ) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       param.schema.examples.forEach((ex: any, i: number) => {
         if (!examples[i]) {
           examples.push({
-            name: "generated-example",
+            name: 'generated-example',
             params: [
               {
                 name: param.name,
@@ -43,7 +65,7 @@ const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] =>
               },
             ],
             result: {
-              name: "example-result",
+              name: 'example-result',
               value: null,
             },
           });
@@ -57,13 +79,18 @@ const getExamplesFromMethod = (method?: MethodObject): ExamplePairingObject[] =>
     }
   });
   const methodResult = method.result as ContentDescriptorObject;
-  if (methodResult && methodResult.schema && isJSONSchemaObject(methodResult.schema) && 
-      methodResult.schema.examples && methodResult.schema.examples.length > 0) {
+  if (
+    methodResult &&
+    methodResult.schema &&
+    isJSONSchemaObject(methodResult.schema) &&
+    methodResult.schema.examples &&
+    methodResult.schema.examples.length > 0
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     methodResult.schema.examples.forEach((ex: any, i: number) => {
       if (!examples[i]) {
         examples.push({
-          name: "generated-example",
+          name: 'generated-example',
           params: [],
           result: {
             name: methodResult.name,
@@ -101,13 +128,13 @@ class ExamplePairings extends Component<IProps, IState> {
     this.setState({
       anchorEl: event.currentTarget as Element,
     });
-  }
+  };
   public handleMenuItemClick = (event: React.MouseEvent, index: number) => {
     this.setState({ selectedIndex: index, anchorEl: null });
-  }
+  };
   public handleClose = () => {
     this.setState({ anchorEl: null });
-  }
+  };
   public render() {
     let { examples } = this.props;
     const { method, uiSchema } = this.props;
@@ -125,14 +152,16 @@ class ExamplePairings extends Component<IProps, IState> {
           <Grid size={{ xs: 12 }}>
             <List component="nav">
               <ListItem
-                component={"div"}
+                component={'div'}
                 aria-haspopup="true"
                 aria-controls="menu-menu"
                 aria-label="Method Examples"
-                onClick={this.handleClickListItem}>
+                onClick={this.handleClickListItem}
+              >
                 <ListItemText
                   primary={examples[this.state.selectedIndex].name}
-                  secondary={examples[this.state.selectedIndex].summary} />
+                  secondary={examples[this.state.selectedIndex].summary}
+                />
               </ListItem>
               <Menu
                 id="menu-menu"
@@ -153,13 +182,15 @@ class ExamplePairings extends Component<IProps, IState> {
             </List>
           </Grid>
           <Grid size={{ xs: 12 }}>
-            {examples &&
+            {examples && (
               <ExamplePairing
                 uiSchema={uiSchema}
                 paramStructure={this.props.method && this.props.method.paramStructure}
                 examplePairing={examples[this.state.selectedIndex]}
                 methodName={this.props.method && this.props.method.name}
-                reactJsonOptions={this.props.reactJsonOptions} />}
+                reactJsonOptions={this.props.reactJsonOptions}
+              />
+            )}
           </Grid>
         </Grid>
       </AccordionDetails>

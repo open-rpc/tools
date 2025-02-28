@@ -9,7 +9,7 @@ interface EditorProps {
   height?: string | number;
   width?: string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  options?: any; 
+  options?: any;
   onChange?: (value: string) => void;
   onMount?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
   children?: React.ReactNode;
@@ -89,7 +89,11 @@ const Editor: React.FC<EditorProps> = ({
     }
   }, [language]);
 
-  return <div ref={containerRef} style={{ height, width }}>{children}</div>;
+  return (
+    <div ref={containerRef} style={{ height, width }}>
+      {children}
+    </div>
+  );
 };
 
 export default Editor;
