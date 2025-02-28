@@ -6,7 +6,7 @@ import Documentation from './Documentation';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { grey } from '@mui/material/colors';
-
+import { vscodeTheme as reactJsonDarkTheme } from '@uiw/react-json-view/vscode';
 // Create dark theme
 const darkTheme2 = createTheme({
   palette: {
@@ -99,7 +99,18 @@ const schema: OpenrpcDocument = {
           "required": ["id", "data"]
         },
         "description": "The result object containing the requested data."
-      }
+      },
+      "examples": [
+        {
+          "name": "Example 1",
+          "params": [
+            {
+              "name": "dataId",
+              "value": 1
+            }
+          ]
+        }
+      ]
     }
   ],
   "x-extensions": [
@@ -232,7 +243,7 @@ const schema: OpenrpcDocument = {
   };
 
 const reactJsonOptions = {
-  theme: "summerfruit:inverted",
+  style: reactJsonDarkTheme,
   collapseStringsAfterLength: 25,  // <-- This is the culprit
   displayDataTypes: false,
   displayObjectSize: false,

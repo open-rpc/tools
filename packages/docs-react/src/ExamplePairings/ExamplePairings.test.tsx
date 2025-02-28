@@ -74,8 +74,7 @@ it('renders examples with only schema examples', async () => {
   }
 
   render(<ExamplePairings method={method} examples={method.examples as ExamplePairingObject[]} />);
-
-  expect(screen.getAllByText('test')).toHaveLength(3);
+  expect(screen.getAllByText(/test/)).toHaveLength(3);
 });
 
 it('renders examples with only schema examples with no params', async () => {

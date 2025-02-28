@@ -15,13 +15,6 @@ const classes = {
   table: `${PREFIX}-table`,
 };
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(({ theme }: { theme: Theme }) => ({
-  [`& .${classes.table}`]: {
-    background: theme.palette.grey[50],
-  },
-}));
-
 interface IProps {
   schema?: JSONSchema4;
   name?: string;
@@ -39,7 +32,7 @@ class JSONSchemaFields extends Component<IProps> {
       return null;
     }
     return (
-      <Root>
+      <>
         {!hideHeader && (
           <Table className={classes.table}>
             <TableHead>
@@ -58,7 +51,7 @@ class JSONSchemaFields extends Component<IProps> {
           </Table>
         )}
         {hideHeader && <SchemaRenderer schema={schema} required={required} name={name} />}
-      </Root>
+      </>
     );
   }
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid2';
 import { Card, CardContent, CardHeader, Theme } from '@mui/material';
-import ReactJson from '@microlink/react-json-view';
+import ReactJson from '@uiw/react-json-view';
+import { darkTheme as reactJsonDarkTheme } from '@uiw/react-json-view/dark';
 import { ExampleObject, ExamplePairingObject } from '@open-rpc/meta-schema';
 import _ from 'lodash';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';
@@ -64,7 +65,7 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
             <CardContent>
               {examplePairing.params && (
                 <ReactJson
-                  src={{
+                  value={{
                     id: 1,
                     jsonrpc: '2.0',
                     method: methodName,
@@ -82,8 +83,7 @@ class ExamplePairing extends Component<IProps, Record<string, never>> {
             <CardContent>
               {examplePairing.result && (
                 <ReactJson
-                  style={{ color: 'unset' }}
-                  src={{
+                  value={{
                     id: 1,
                     jsonrpc: '2.0',
                     result: (examplePairing.result as ExampleObject).value,

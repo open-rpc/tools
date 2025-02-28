@@ -41,19 +41,19 @@ const StyledTable = styled(Table)(({ theme }: { theme: Theme }) => ({
   // Add theme colors to all table components
   '& .MuiTableCell-root': {
     color: theme.palette.text.primary,
-    borderBottomColor: theme.palette.divider,
+    borderBottomColor: `${theme.palette.divider} !important`,
   },
 
   '& .MuiTableHead-root': {
     '& .MuiTableCell-root': {
-      color: theme.palette.text.primary,
+      color: `${theme.palette.text.primary} !important`,
       fontWeight: theme.typography.fontWeightMedium,
     },
   },
 
   '& .MuiTableBody-root': {
     '& .MuiTableCell-root': {
-      color: theme.palette.text.primary,
+      color: `${theme.palette.text.primary} !important`,
     },
   },
 }));

@@ -83,7 +83,6 @@ it('renders examples with params by-name', async () => {
       paramStructure={method.paramStructure || 'by-position'}
     />
   );
-
   expect(screen.getByText('foo')).toBeInTheDocument();
   expect(screen.getByText('bar')).toBeInTheDocument();
 });

@@ -5,7 +5,7 @@ import TableRow from '@mui/material/TableRow';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { ServerObject } from '@open-rpc/meta-schema';
-import ReactJson from '@microlink/react-json-view';
+import ReactJson from '@uiw/react-json-view';
 import ExpansionTable from '../ExpansionTable/ExpansionTable';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';
 
@@ -104,7 +104,7 @@ class Servers extends Component<IProps> {
                         </Typography>
                       )}
                       {server.variables && (
-                        <ReactJson src={server.variables} {...reactJsonOptions} />
+                        <ReactJson value={server.variables} {...reactJsonOptions} />
                       )}
                     </AccordionDetails>
                   </Accordion>

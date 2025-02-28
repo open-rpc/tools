@@ -36,9 +36,11 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.anyOf.map((p, i) => (
-            <JSONSchemaFields schema={p} key={i} />
-          ))}
+          <div>
+            {schema.anyOf.map((p, i) => (
+              <JSONSchemaFields schema={p} key={i} />
+            ))}
+          </div>
         </TableCell>
       </TableRow>
     );
@@ -58,9 +60,11 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.allOf.map((p, i) => (
-            <JSONSchemaFields schema={p} key={i} />
-          ))}
+          <div>
+            {schema.allOf.map((p, i) => (
+              <JSONSchemaFields schema={p} key={i} />
+            ))}
+          </div>
         </TableCell>
       </TableRow>
     );
@@ -77,9 +81,11 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.oneOf.map((p, i) => (
-            <JSONSchemaFields schema={p} key={i} />
-          ))}
+          <div>
+            {schema.oneOf.map((p, i) => (
+              <JSONSchemaFields schema={p} key={i} />
+            ))}
+          </div>
         </TableCell>
       </TableRow>
     );
@@ -99,9 +105,11 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          {schema.items.map((p, i) => (
-            <JSONSchemaFields schema={p} key={i} />
-          ))}
+          <div>
+            {schema.items.map((p, i) => (
+              <JSONSchemaFields schema={p} key={i} />
+            ))}
+          </div>
         </TableCell>
       </TableRow>
     );
@@ -121,7 +129,9 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          <JSONSchemaFields schema={schema.items} />
+          <div>
+            <JSONSchemaFields schema={schema.items} />
+          </div>
         </TableCell>
       </TableRow>
     );
@@ -142,36 +152,38 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
           </Typography>
         </TableCell>
         <TableCell colSpan={5}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Title</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Pattern</TableCell>
-                <TableCell>Required</TableCell>
-                <TableCell>Description</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {schema.properties &&
-                Object.entries(schema.properties).map(([n, prop]: [string, JSONSchema4]) => {
-                  return (
-                    <JSONSchemaFields
-                      key={n}
-                      schema={prop}
-                      name={n}
-                      hideHeader={true}
-                      required={
-                        schema.required &&
-                        isRequiredArray(schema.required) &&
-                        schema.required.includes(n)
-                      }
-                    />
-                  );
-                })}
-            </TableBody>
-          </Table>
+          <div>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Pattern</TableCell>
+                  <TableCell>Required</TableCell>
+                  <TableCell>Description</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {schema.properties &&
+                  Object.entries(schema.properties).map(([n, prop]: [string, JSONSchema4]) => {
+                    return (
+                      <JSONSchemaFields
+                        key={n}
+                        schema={prop}
+                        name={n}
+                        hideHeader={true}
+                        required={
+                          schema.required &&
+                          isRequiredArray(schema.required) &&
+                          schema.required.includes(n)
+                        }
+                      />
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </div>
         </TableCell>
       </TableRow>
     );

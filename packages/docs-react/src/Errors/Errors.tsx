@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import ReactJson from '@microlink/react-json-view';
+import ReactJson from '@uiw/react-json-view';
 import { ErrorObject } from '@open-rpc/meta-schema';
 
 const PREFIX = 'Errors';
@@ -77,7 +77,7 @@ const Errors: React.FC<IProps> = ({ errors, reactJsonOptions }) => {
                 <TableCell>{row.message}</TableCell>
                 <TableCell className={classes.code}>
                   {_.isObject(row.data) ? (
-                    <ReactJson src={row.data} {...reactJsonOptions} enableClipboard={false} />
+                    <ReactJson value={row.data} {...reactJsonOptions} enableClipboard={false} />
                   ) : (
                     row.data
                   )}

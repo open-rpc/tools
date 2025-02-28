@@ -9,7 +9,7 @@ import { LinkObject } from '@open-rpc/meta-schema';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpansionTable from '../ExpansionTable/ExpansionTable';
 import Servers from '../Servers/Servers';
-import ReactJson from '@microlink/react-json-view';
+import ReactJson from '@uiw/react-json-view';
 const PREFIX = 'Links';
 
 const classes = {
@@ -74,7 +74,7 @@ class Links extends Component<IProps> {
                         Params
                       </Typography>
                     )}
-                    {link.params && <ReactJson src={link.params} {...reactJsonOptions} />}
+                    {link.params && <ReactJson value={link.params} {...reactJsonOptions} />}
                     {link.server && (
                       <Typography variant="h6" gutterBottom className={classes.paramsMargin}>
                         Server
