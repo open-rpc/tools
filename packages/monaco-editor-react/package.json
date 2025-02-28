@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/monaco-editor-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "type": "module",
   "module": "./dist/index.es.js",

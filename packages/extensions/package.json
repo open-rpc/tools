@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/extensions",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "@OpenRPC - extensions repository",
   "type": "module",
   "main": "./dist/index.es.js",

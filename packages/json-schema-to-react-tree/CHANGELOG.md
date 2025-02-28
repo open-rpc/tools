@@ -1,8 +1,26 @@
-# @open-rpc/json-schema-to-react-tree 0.1.0 (2025-02-26)
+# @open-rpc/json-schema-to-react-tree 0.1.1 (2025-02-28)
 
 ## 🚀 Features
 
 * major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+
+## 🧹 Chores
+
+* version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
+
+# @open-rpc/json-schema-to-react-tree 0.1.0 (2025-02-26)
+
+## 0.1.1
+
+### Patch Changes
+
+- 2567741: This change fixes a few ux/ui changes as well as introduces a new extensions repo.
+  The extensions repo represents extensions to the open-rpc specification that are
+  recognized
+
+## 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
 
 ## [1.0.2](https://github.com/xops/json-schema-to-react-tree/compare/1.0.1...1.0.2) (2020-03-31)
 

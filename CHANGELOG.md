@@ -1,6 +1,6 @@
-# 1.0.0 (2025-02-26)
+# 1.0.0 (2025-02-28)
 
-## 🚀 Features
+# 🚀 Features
 
 * major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
 * use shared files and update to eslint ([3290d21](https://github.com/open-rpc/tools/commit/3290d21f55ec835f79868b06e76d69ec4eb94f54))
