@@ -1,12 +1,13 @@
 # OpenRPC Playground
+
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=open-rpc/playground)](https://dependabot.com)
 
 ![openrpc-playground-screenshot](https://user-images.githubusercontent.com/364566/60648033-ef5d6580-9df3-11e9-8b48-5e239f0c7574.png)
 
 This is a tool for editing, validating and previewing [OpenRPC documents](https://spec.open-rpc.org/#openrpc-document).
 
-
 ## What is it?
+
 This is meant to be an all-in-one developer portal for [OpenRPC documents](https://spec.open-rpc.org/#openrpc-document). It includes an editor and a live-preview of the documentation.
 
 This helps developers visualize the OpenRPC and iterate very quickly on creating [OpenRPC documents](https://spec.open-rpc.org/#openrpc-document) via the built in editor tooling.
@@ -29,18 +30,22 @@ Navigate to [playground.open-rpc.org](https://playground.open-rpc.org/) and star
 - `CMD + K + R` - replace meta schema
 
 ## Configuration via Query String Parameters
+
 The query string parameters can be used to configure the playground in different ways.
 
 ###### `uiSchema`
+
 `uiSchema` is used for UI layer configuration. here is its interface:
 
 ![image](https://user-images.githubusercontent.com/364566/63297271-d6b2ed00-c285-11e9-83ff-920e77b3c182.png)
 
 ###### `schemaUrl`
+
 `schemaUrl` - fetch schema by URL and display it as the content of the playground on startup.
 
 ###### `schema`
-`schema`  - JSON String used to  display it as the content of the playground on startup.
+
+`schema` - JSON String used to display it as the content of the playground on startup.
 
 examples:
 
@@ -59,13 +64,16 @@ examples:
 
 #### Pro tip
 
-If you want to use the content of a __Github Gist__ with the playground, you can:
+If you want to use the content of a **Github Gist** with the playground, you can:
+
 - use the _latest revision_ for a Gist file
+
 ```
 https://playground.open-rpc.org/?schemaUrl=https://gist.githubusercontent.com/[gist username]/[gist ID]/raw/[file name]
 ```
 
 - use a _specific revision_ for a Gist file:
+
 ```
 https://playground.open-rpc.org/?schemaUrl=https://gist.githubusercontent.com/[gist username]/[gist ID]/raw/[gist commit ID]/[file name]
 ```
@@ -74,27 +82,27 @@ https://playground.open-rpc.org/?schemaUrl=https://gist.githubusercontent.com/[g
 
 If you require to have different default values for the `uiSchema`, `schemaUrl` or some other labels in the page that are not part of the `uiSchema`, you can use the below environment variables in your desired `.env` files before starting the app or before building it:
 
-
-| Variable    | Description |
-| ----------- | ----------- |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_INPUT | Default value for `uiSchema[appBar][ui:input]` |
+| Variable                                              | Description                                               |
+| ----------------------------------------------------- | --------------------------------------------------------- |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_INPUT            | Default value for `uiSchema[appBar][ui:input]`            |
 | REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_INPUTPLACEHOLDER | Default value for `uiSchema[appBar][ui:inputPlaceholder]` |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_LOGOURL | Default value for `uiSchema[appBar][ui:logoUrl]` |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_SPLITVIEW | Default value for `uiSchema[appBar][ui:splitView]` |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_DARKMODE | Default value for `uiSchema[appBar][ui:darkMode]` |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_TITLE | Default value for `uiSchema[appBar][ui:title]` |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_LOGOURL          | Default value for `uiSchema[appBar][ui:logoUrl]`          |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_SPLITVIEW        | Default value for `uiSchema[appBar][ui:splitView]`        |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_DARKMODE         | Default value for `uiSchema[appBar][ui:darkMode]`         |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_TITLE            | Default value for `uiSchema[appBar][ui:title]`            |
 | REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_EXAMPLESDROPDOWN | Default value for `uiSchema[appBar][ui:examplesDropdown]` |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_EDIT | Default value for `uiSchema[appBar][ui:edit]` |
-| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_TRANSPORTS | Default value for `uiSchema[appBar][ui:transports]` |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_EDIT             | Default value for `uiSchema[appBar][ui:edit]`             |
+| REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_TRANSPORTS       | Default value for `uiSchema[appBar][ui:transports]`       |
 | REACT_APP_DEFAULT_UISCHEMA_METHODS_UI_DEFAULTEXPANDED | Default value for `uiSchema[methods][ui:defaultExpanded]` |
-| REACT_APP_DEFAULT_UISCHEMA_METHODS_UI_METHODPLUGINS | Default value for `uiSchema[methods][ui:methodPlugins]` |
-| REACT_APP_DEFAULT_UISCHEMA_PARAMS_UI_DEFAULTEXPANDED | Default value for `uiSchema[params][ui:defaultExpanded]` |
-| REACT_APP_DEFAULT_SCHEMAURL | Default value for `schemaUrl` |
-| REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE | Default title value for the examples drop-down |
-| REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT | Default text value for the examples drop-down |
-| REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_LIST | Default list of examples |
+| REACT_APP_DEFAULT_UISCHEMA_METHODS_UI_METHODPLUGINS   | Default value for `uiSchema[methods][ui:methodPlugins]`   |
+| REACT_APP_DEFAULT_UISCHEMA_PARAMS_UI_DEFAULTEXPANDED  | Default value for `uiSchema[params][ui:defaultExpanded]`  |
+| REACT_APP_DEFAULT_SCHEMAURL                           | Default value for `schemaUrl`                             |
+| REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TITLE            | Default title value for the examples drop-down            |
+| REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_TEXT             | Default text value for the examples drop-down             |
+| REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_LIST             | Default list of examples                                  |
 
-*.env.development for a view only case*
+_.env.development for a view only case_
+
 ```
 REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_INPUT=false
 REACT_APP_DEFAULT_UISCHEMA_APPBAR_UI_LOGOURL="https://www.shutterstock.com/image-vector/abstract-initial-letter-s-logo-260nw-1862762845.jpg"
@@ -123,7 +131,6 @@ REACT_APP_EXAMPLE_DOCUMENTS_DROPDOWN_LIST=[{"name":"Pet Store","url":"https://ra
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/)
 - [Microsoft/vscode](https://github.com/Microsoft/vscode)
 - [theia-ide/theia](https://github.com/theia-ide/theia)
-
 
 ## Contributing
 
@@ -161,6 +168,12 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+##### Deployment
+
+The playground is automatically deployed to GitHub Pages at [playground.open-rpc.org](https://playground.open-rpc.org/) after each successful release. The deployment is handled by a GitHub Action workflow that builds the playground and pushes the built files to the `gh-pages` branch.
+
+If you need to manually trigger a deployment, you can do so by running the "Deploy Playground to GitHub Pages" workflow from the Actions tab in the GitHub repository.
 
 ##### Contribution Resources
 
