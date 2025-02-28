@@ -28,6 +28,8 @@ import queryParamsStore from './stores/queryParamsStore';
 import { useDebounce } from 'use-debounce';
 import { initWorkers } from './monacoWorker';
 import NewPlaygroundSplitPane from './PlaygroundSplitPane';
+import { lightTheme as reactJsonLightTheme } from '@uiw/react-json-view/light';
+import { vscodeTheme as reactJsonDarkTheme } from '@uiw/react-json-view/vscode';
 
 const App: React.FC = () => {
   const [defaultValue, setDefaultValue] = useDefaultEditorValue();
@@ -78,7 +80,7 @@ const App: React.FC = () => {
   useEffect(() => {
     setReactJsonOptions({
       ...reactJsonOptions,
-      theme: UISchema.appBar['ui:darkMode'] ? 'summerfruit' : 'summerfruit:inverted',
+      style: UISchema.appBar['ui:darkMode'] ? reactJsonDarkTheme : reactJsonLightTheme,
     });
   }, [UISchema.appBar['ui:darkMode']]);
 
@@ -104,12 +106,11 @@ const App: React.FC = () => {
     setParsedSchema(defaultValue || '');
   }, [defaultValue]);
   const [reactJsonOptions, setReactJsonOptions] = useState({
-    theme: 'summerfruit:inverted',
-    collapseStringsAfterLength: 25,
+    style: reactJsonDarkTheme,
+    shortenTextAfterLength: 25,
     displayDataTypes: false,
     displayObjectSize: false,
     indentWidth: 2,
-    name: false,
   });
   const [transportList, setTransportList] = useState(defaultTransports);
   const getQueryTransport = () => {
@@ -234,7 +235,7 @@ const App: React.FC = () => {
                 uiSchema={UISchema}
                 reactJsonOptions={{
                   ...reactJsonOptions,
-                  theme: UISchema.appBar['ui:darkMode'] ? 'summerfruit' : 'summerfruit:inverted',
+                  style: UISchema.appBar['ui:darkMode'] ? reactJsonDarkTheme : reactJsonLightTheme,
                 }}
                 methodPlugins={
                   UISchema.methods['ui:methodPlugins']
