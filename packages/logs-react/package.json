@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/logs-react",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -48,7 +48,7 @@
     "style-loader": "^3.3.4",
     "typescript": "^5.4.2",
     "worker-loader": "^3.0.8",
-    "@open-rpc/monaco-editor-react": "0.1.0",
+    "@open-rpc/monaco-editor-react": "0.1.1",
     "monaco-editor": "0.52.2",
     "vite": "6.0.5",
     "@mui/icons-material": "6.3.1",
@@ -65,7 +65,7 @@
   "peerDependencies": {
     "react": ">=18.3.1",
     "react-dom": ">=18.3.1",
-    "@open-rpc/monaco-editor-react": "0.1.0",
+    "@open-rpc/monaco-editor-react": "0.1.1",
     "monaco-editor": ">=0.52.0",
     "@mui/icons-material": "6.3.1",
     "@mui/lab": "6.0.0-beta.22",

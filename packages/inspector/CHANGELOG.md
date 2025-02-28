@@ -1,35 +1,68 @@
-# @open-rpc/inspector 2.0.0 (2025-02-26)
+# @open-rpc/inspector 2.0.1 (2025-02-28)
 
 ## 🚀 Features
 
 * major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
-* use shared files and update to eslint ([3290d21](https://github.com/open-rpc/tools/commit/3290d21f55ec835f79868b06e76d69ec4eb94f54))
 
 ## 🐛 Bug Fixes
 
+* missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
 * wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
 * get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
 * **inspector:** fix eslint errors in useTabs ([8d00054](https://github.com/open-rpc/tools/commit/8d00054793ab874ba729aff7ab526709c4cfdc23))
 * **inspector:** fix eslint errors in Inspector ([1ff097f](https://github.com/open-rpc/tools/commit/1ff097ff13a8406d4736e6fa2d4ce5b8313ff269))
 * **inspector:** fix eslint errors in TransportDropdown ([b314ce1](https://github.com/open-rpc/tools/commit/b314ce1015b15e19baafbfb4148a90375fb8830d))
-* bump versions ([0217b38](https://github.com/open-rpc/tools/commit/0217b386c4663b2f9945b4c5f8920c979a1b80d5))
 
 ## 🧹 Chores
 
+* rm old  and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
+* fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
+* version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
 * adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
+
+# @open-rpc/inspector 2.0.0 (2025-02-26)
+
+## 2.0.1
+
+### Patch Changes
+
+- 2567741: This change fixes a few ux/ui changes as well as introduces a new extensions repo.
+  The extensions repo represents extensions to the open-rpc specification that are
+  recognized
+- Updated dependencies [2567741]
+  - @open-rpc/monaco-editor-react@0.1.1
+  - @open-rpc/logs-react@2.0.1
+
+## 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+- use shared files and update to eslint ([3290d21](https://github.com/open-rpc/tools/commit/3290d21f55ec835f79868b06e76d69ec4eb94f54))
+
+## 🐛 Bug Fixes
+
+- wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
+- get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
+- **inspector:** fix eslint errors in useTabs ([8d00054](https://github.com/open-rpc/tools/commit/8d00054793ab874ba729aff7ab526709c4cfdc23))
+- **inspector:** fix eslint errors in Inspector ([1ff097f](https://github.com/open-rpc/tools/commit/1ff097ff13a8406d4736e6fa2d4ce5b8313ff269))
+- **inspector:** fix eslint errors in TransportDropdown ([b314ce1](https://github.com/open-rpc/tools/commit/b314ce1015b15e19baafbfb4148a90375fb8830d))
+- bump versions ([0217b38](https://github.com/open-rpc/tools/commit/0217b386c4663b2f9945b4c5f8920c979a1b80d5))
+
+## 🧹 Chores
+
+- adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
 
 ## Other Changes
 
-* Merge branch 'master' into shanejonas/update-react-monaco-rewired ([8608613](https://github.com/open-rpc/tools/commit/86086134b8b9d368819e0553bba6fd92e33213be))
-* Update react, react-dom, and monaco-editor to latest versions ([88a4c4e](https://github.com/open-rpc/tools/commit/88a4c4e5f2fb3faf7e598b1e9fdb86ccc1761dc7))
-* Update `packages/inspector/package.json` and `packages/playground/package.json` to use `react-app-rewired` ([83954d2](https://github.com/open-rpc/tools/commit/83954d2a41a8cc90fc356484d3cce6274efa77fb))
-* Update React, Monaco, and replace rescripts with rewired ([3833861](https://github.com/open-rpc/tools/commit/3833861109ff735cb8f8f4bee64949189441b469))
-* Update dependencies and Node.js version ([0f962fd](https://github.com/open-rpc/tools/commit/0f962fda04de8cb86eeff88fa78ea6161014adf6))
-* Fix npm install error by removing monaco-vim and updating dependencies ([cae746e](https://github.com/open-rpc/tools/commit/cae746e92d5947bf0b573242b3e5df84ac39fdc3))
-* Update `package.json` files in `docs-react`, `inspector`, `logs-react`, and `playground` packages ([727ecfc](https://github.com/open-rpc/tools/commit/727ecfc3e02e498bf18e23962f53a69f64d6a1c8))
-* Add `engines` field to specify Node.js version ([4ef0267](https://github.com/open-rpc/tools/commit/4ef0267bfb8df57483439a5f9ae10f0d5bf799e9))
-* Update `@material-ui/icons` dependency in `packages/inspector/package.json` ([c96203e](https://github.com/open-rpc/tools/commit/c96203e715857b75682b0951d6d8ab817cbd758a))
-* Set up Turborepo and GitHub Actions ([7cd111a](https://github.com/open-rpc/tools/commit/7cd111a987961c90af872d847821990c4b4079ba))
+- Merge branch 'master' into shanejonas/update-react-monaco-rewired ([8608613](https://github.com/open-rpc/tools/commit/86086134b8b9d368819e0553bba6fd92e33213be))
+- Update react, react-dom, and monaco-editor to latest versions ([88a4c4e](https://github.com/open-rpc/tools/commit/88a4c4e5f2fb3faf7e598b1e9fdb86ccc1761dc7))
+- Update `packages/inspector/package.json` and `packages/playground/package.json` to use `react-app-rewired` ([83954d2](https://github.com/open-rpc/tools/commit/83954d2a41a8cc90fc356484d3cce6274efa77fb))
+- Update React, Monaco, and replace rescripts with rewired ([3833861](https://github.com/open-rpc/tools/commit/3833861109ff735cb8f8f4bee64949189441b469))
+- Update dependencies and Node.js version ([0f962fd](https://github.com/open-rpc/tools/commit/0f962fda04de8cb86eeff88fa78ea6161014adf6))
+- Fix npm install error by removing monaco-vim and updating dependencies ([cae746e](https://github.com/open-rpc/tools/commit/cae746e92d5947bf0b573242b3e5df84ac39fdc3))
+- Update `package.json` files in `docs-react`, `inspector`, `logs-react`, and `playground` packages ([727ecfc](https://github.com/open-rpc/tools/commit/727ecfc3e02e498bf18e23962f53a69f64d6a1c8))
+- Add `engines` field to specify Node.js version ([4ef0267](https://github.com/open-rpc/tools/commit/4ef0267bfb8df57483439a5f9ae10f0d5bf799e9))
+- Update `@material-ui/icons` dependency in `packages/inspector/package.json` ([c96203e](https://github.com/open-rpc/tools/commit/c96203e715857b75682b0951d6d8ab817cbd758a))
+- Set up Turborepo and GitHub Actions ([7cd111a](https://github.com/open-rpc/tools/commit/7cd111a987961c90af872d847821990c4b4079ba))
 
 ## [1.7.1](https://github.com/open-rpc/inspector/compare/1.7.0...1.7.1) (2022-09-29)
 

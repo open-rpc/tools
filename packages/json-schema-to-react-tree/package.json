@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/json-schema-to-react-tree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "",
   "description": "json-schema to react material-ui tree",
   "type": "module",
