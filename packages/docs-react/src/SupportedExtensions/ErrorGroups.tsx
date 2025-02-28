@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import ReactJson from '@uiw/react-json-view';
+import ReactJson from '@microlink/react-json-view';
 import { ErrorObject, MethodObject } from '@open-rpc/meta-schema';
 
 const PREFIX = 'Errors';

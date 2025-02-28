@@ -279,7 +279,7 @@ export const darkTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: grey[400],
+          color: grey[200],
         },
       },
     },

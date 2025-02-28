@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import Typography from '@mui/material/Typography';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Theme, styled } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { LinkObject } from '@open-rpc/meta-schema';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpansionTable from '../ExpansionTable/ExpansionTable';
 import Servers from '../Servers/Servers';
-import ReactJson from '@uiw/react-json-view';
-
+import ReactJson from '@microlink/react-json-view';
 const PREFIX = 'Links';
 
 const classes = {
@@ -20,75 +19,8 @@ const classes = {
   secondaryHeading: `${PREFIX}-secondaryHeading`,
 };
 
-const Root = styled(ExpansionTable)(({ theme }: { theme: Theme }) => ({
-  [`& .${classes.description}`]: {
-    color: theme.palette.text.primary,
-  },
-
-  [`& .${classes.heading}`]: {
-    flexBasis: '33.33%',
-    flexShrink: 0,
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.primary,
-  },
-
-  [`& .${classes.paramsMargin}`]: {
-    marginTop: theme.spacing(2),
-  },
-
-  [`& .${classes.secondaryHeading}`]: {
-    alignSelf: 'end',
-    color: theme.palette.text.secondary,
-    fontSize: theme.typography.pxToRem(15),
-  },
-
-  '& .MuiAccordion-root': {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.primary,
-  },
-
-  '& .MuiAccordionSummary-root': {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.primary,
-    '& .MuiTypography-root': {
-      color: theme.palette.text.primary,
-    },
-  },
-
-  '& .MuiAccordionSummary-expandIconWrapper': {
-    color: theme.palette.text.primary + ' !important',
-  },
-
-  '& .MuiAccordionSummary-expandIconWrapper svg': {
-    color: theme.palette.text.primary + ' !important',
-  },
-
-  '& .MuiAccordionDetails-root': {
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.primary,
-  },
-
-  '& .MuiTableCell-root': {
-    color: theme.palette.text.primary,
-    borderBottomColor: theme.palette.divider,
-  },
-
-  '& p': {
-    color: theme.palette.text.primary,
-  },
-
-  '& .MuiTableCell-head': {
-    color: theme.palette.text.primary + ' !important',
-  },
-
-  '& .method-summary-container': {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: '100%',
-    color: theme.palette.text.primary,
-  },
-}));
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Root = styled(ExpansionTable)(({ theme }: { theme: Theme }) => ({}));
 
 interface IProps {
   links?: LinkObject[];
@@ -118,7 +50,17 @@ class Links extends Component<IProps> {
                   <AccordionSummary
                     style={{ justifyContent: 'space-between' }}
                     key="links-header"
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ChevronRightIcon />}
+                    sx={{
+                      '& .MuiAccordionSummary-expandIconWrapper': {
+                        order: -1,
+                        marginRight: 1,
+                        marginLeft: 0,
+                      },
+                      [`& .MuiAccordionSummary-expandIconWrapper.Mui-expanded`]: {
+                        transform: 'rotate(90deg)',
+                      },
+                    }}
                   >
                     <div className="method-summary-container">
                       <Typography className={classes.heading}>{link.method}</Typography>
@@ -132,7 +74,7 @@ class Links extends Component<IProps> {
                         Params
                       </Typography>
                     )}
-                    {link.params && <ReactJson value={link.params} {...reactJsonOptions} />}
+                    {link.params && <ReactJson src={link.params} {...reactJsonOptions} />}
                     {link.server && (
                       <Typography variant="h6" gutterBottom className={classes.paramsMargin}>
                         Server

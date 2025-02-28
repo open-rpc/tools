@@ -4,7 +4,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Params from '../Params/Params';
 import ContentDescriptor from '../ContentDescriptor/ContentDescriptor';
 import ExamplePairings from '../ExamplePairings/ExamplePairings';
@@ -57,9 +57,18 @@ const MethodsContainer = styled(Box)(({ theme }: { theme: Theme }) => {
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(15),
     },
+    '& .MuiAccordion-Heading': {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    },
     '& .MuiAccordion-root': {
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,
+      borderColor: `${theme.palette.divider} !important`,
+      position: 'relative',
+      '&::before': {
+        backgroundColor: `${theme.palette.divider} !important`,
+      },
     },
     '& .MuiAccordionSummary-root': {
       backgroundColor: theme.palette.background.paper,
@@ -71,6 +80,15 @@ const MethodsContainer = styled(Box)(({ theme }: { theme: Theme }) => {
     },
     '& .MuiTypography-root': {
       color: theme.palette.text.primary,
+    },
+    '& .MuiAccordionSummary-expandIconWrapper': {
+      color: `${theme.palette.text.primary} !important`,
+    },
+    '& .MuiAccordionSummary-expandIconWrapper svg': {
+      color: `${theme.palette.text.primary} !important`,
+    },
+    '& .MuiSvgIcon-root': {
+      color: `${theme.palette.text.primary} !important`,
     },
   };
 });
@@ -134,7 +152,19 @@ const Methods: React.FC<IProps> = ({
                   uiSchema.methods['ui:defaultExpanded'][method.name] === true))
             }
           >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <AccordionSummary
+              expandIcon={<ChevronRightIcon />}
+              sx={{
+                '& .MuiAccordionSummary-expandIconWrapper': {
+                  order: -1,
+                  marginRight: 1,
+                  marginLeft: 0,
+                },
+                [`& .MuiAccordionSummary-expandIconWrapper.Mui-expanded`]: {
+                  transform: 'rotate(90deg)',
+                },
+              }}
+            >
               <Typography className={classes.heading}>{method.name}</Typography>
               <Typography className={classes.secondaryHeading}>{method.summary}</Typography>
             </AccordionSummary>

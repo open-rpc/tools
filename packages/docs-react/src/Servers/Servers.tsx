@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Theme, styled } from '@mui/material/styles';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { ServerObject } from '@open-rpc/meta-schema';
-import ReactJson from '@uiw/react-json-view';
+import ReactJson from '@microlink/react-json-view';
 import ExpansionTable from '../ExpansionTable/ExpansionTable';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';
 
@@ -74,7 +74,17 @@ class Servers extends Component<IProps> {
                     <AccordionSummary
                       style={{ justifyContent: 'space-between' }}
                       key="servers-header"
-                      expandIcon={<ExpandMoreIcon />}
+                      expandIcon={<ChevronRightIcon />}
+                      sx={{
+                        '& .MuiAccordionSummary-expandIconWrapper': {
+                          order: -1,
+                          marginRight: 1,
+                          marginLeft: 0,
+                        },
+                        [`& .MuiAccordionSummary-expandIconWrapper.Mui-expanded`]: {
+                          transform: 'rotate(90deg)',
+                        },
+                      }}
                     >
                       <Typography className={classes.heading}>{server.name}</Typography>
                       <Typography className={classes.secondaryHeading}>{server.url}</Typography>
@@ -94,7 +104,7 @@ class Servers extends Component<IProps> {
                         </Typography>
                       )}
                       {server.variables && (
-                        <ReactJson value={server.variables} {...reactJsonOptions} />
+                        <ReactJson src={server.variables} {...reactJsonOptions} />
                       )}
                     </AccordionDetails>
                   </Accordion>

@@ -33,6 +33,18 @@ const StyledTable = styled(Table)(({ theme }: { theme: Theme }) => ({
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(15),
   },
+
+  '& .MuiTableCell-root': {
+    color: theme.palette.text.primary,
+    borderBottomColor: theme.palette.divider,
+  },
+  '& .MuiTableCell-head': {
+    color: `${theme.palette.text.primary} !important`,
+    fontWeight: 500,
+  },
+  '& .MuiTableCell-alignRight': {
+    color: `${theme.palette.text.primary} !important`,
+  },
 }));
 
 interface IProps {
