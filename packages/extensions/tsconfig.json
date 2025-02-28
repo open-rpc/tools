@@ -1,0 +1,18 @@
+{
+   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "resolveJsonModule": true,
+    "declarationDir": "./dist",
+    "paths": {
+      "@/*": ["./src/exports"],
+      "@exports": ["./src/exports"]
+    }
+
+  },
+  "include": ["src/**/*", "src/**/*.json"]
+}

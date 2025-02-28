@@ -1,0 +1,47 @@
+{
+  "name": "@open-rpc/extensions",
+  "version": "0.0.0",
+  "description": "@OpenRPC - extensions repository",
+  "type": "module",
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "start": "vite",
+    "build:package": "vite build && tsc --emitDeclarationOnly",
+    "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-rpc/tools.git",
+    "directory": "packages/extensions"
+  },
+  "keywords": [
+    "@open-rpc",
+    "openrpc",
+    "extensions"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/open-rpc/tools/issues"
+  },
+  "homepage": "https://github.com/open-rpc/tools#readme",
+  "devDependencies": {
+    "eslint": "9.21.0",
+    "typescript": "^5.0.0"
+  }
+}
