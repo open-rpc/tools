@@ -61,7 +61,6 @@
     "@open-rpc/meta-schema": "^1.14.9",
     "@open-rpc/schema-utils-js": "2.1.2",
     "@rehooks/window-size": "^1.0.2",
-    "@uiw/react-json-view": "2.0.0-alpha.30",
     "acorn-dynamic-import": "^4.0.0",
     "events": "^3.3.0",
     "monaco-vim": "^0.4.2",
