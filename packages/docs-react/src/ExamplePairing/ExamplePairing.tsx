@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid2';
 import { Card, CardContent, CardHeader, Theme } from '@mui/material';
 import ReactJson from '@uiw/react-json-view';
-import { darkTheme as reactJsonDarkTheme } from '@uiw/react-json-view/dark';
 import { ExampleObject, ExamplePairingObject } from '@open-rpc/meta-schema';
 import _ from 'lodash';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';
