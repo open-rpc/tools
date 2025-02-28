@@ -105,10 +105,11 @@ const App: React.FC = () => {
   }, [defaultValue]);
   const [reactJsonOptions, setReactJsonOptions] = useState({
     theme: 'summerfruit:inverted',
-    shortenTextAfterLength: 25,
+    collapseStringsAfterLength: 25,
     displayDataTypes: false,
     displayObjectSize: false,
     indentWidth: 2,
+    name: false,
   });
   const [transportList, setTransportList] = useState(defaultTransports);
   const getQueryTransport = () => {

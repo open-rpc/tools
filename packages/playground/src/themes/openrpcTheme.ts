@@ -115,6 +115,12 @@ export const darkTheme: Theme = createTheme({
       styleOverrides: {
         root: {
           color: grey[100],
+          '& a': {
+            color: grey[100],
+          },
+          '& h1, & h2, & h3, & h4, & h5, & h6': {
+            color: grey[100],
+          },
         },
       },
     },
@@ -138,6 +144,13 @@ export const darkTheme: Theme = createTheme({
           },
         },
         content: {
+          color: grey[100],
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
           color: grey[100],
         },
       },
@@ -168,6 +181,43 @@ export const darkTheme: Theme = createTheme({
       styleOverrides: {
         root: {
           color: grey[100],
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          color: grey[100],
+        },
+        secondary: {
+          color: grey[400],
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+          '& .MuiTypography-root': {
+            color: grey[100],
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: grey[100],
+          '& .MuiSvgIcon-root': {
+            color: grey[100],
+          },
         },
       },
     },
