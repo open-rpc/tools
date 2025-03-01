@@ -1,6 +1,6 @@
-# @open-rpc/docs-react 2.1.0 (2025-02-28)
+# @open-rpc/docs-react 2.1.0 (2025-03-01)
 
-## 🚀 Features
+# 🚀 Features
 
 * add support for extensions in docs react and tests ([adc9195](https://github.com/open-rpc/tools/commit/adc9195bc44801d1afe3ba37aca3ea4033b73f73))
 * add support for supported extension error groups ([7d9a214](https://github.com/open-rpc/tools/commit/7d9a214716f4325275599efed3583a012c8120a3))

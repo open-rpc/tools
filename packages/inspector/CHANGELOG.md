@@ -1,6 +1,6 @@
-# @open-rpc/inspector 2.0.1 (2025-02-28)
+# @open-rpc/inspector 2.0.1 (2025-03-01)
 
-## 🚀 Features
+# 🚀 Features
 
 * major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
 
