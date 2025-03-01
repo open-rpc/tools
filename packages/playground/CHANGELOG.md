@@ -1,4 +1,4 @@
-# @open-rpc/playground 1.1.0 (2025-02-28)
+# @open-rpc/playground 1.1.1 (2025-03-01)
 
 ## 🚀 Features
 
@@ -6,6 +6,7 @@
 
 ## 🐛 Bug Fixes
 
+* caching issue on partially loaded or empty docs ([88c74bd](https://github.com/open-rpc/tools/commit/88c74bd03667a2b14719f13f5c612b1f50c412fc))
 * update themes for json syntax highlighting ([abe9c58](https://github.com/open-rpc/tools/commit/abe9c5866145d88a870b5b39a3eb4c847761a920))
 * relax styling constraints and add more styles to themes to match older playground ([a92f0b2](https://github.com/open-rpc/tools/commit/a92f0b271f26ec4038e7abd66f217e43ce925259))
 * guarantee update for changes to the document affects extensions ([dfe2a31](https://github.com/open-rpc/tools/commit/dfe2a31b880722fc9ced79f3cff4db97822e27c9))
@@ -17,10 +18,40 @@
 
 ## 🧹 Chores
 
+* version packages and generate changelog ([f0d32fe](https://github.com/open-rpc/tools/commit/f0d32fe39b6e1a11b80f3ee1e6f0a9e38f0c6f67))
 * add playground readme ([ba19e0e](https://github.com/open-rpc/tools/commit/ba19e0ef8badc6419bbb6150a53f884a70ca261e))
 * prettier linting update ([7fdb37b](https://github.com/open-rpc/tools/commit/7fdb37bd8033ead319dd7f1663687d4ac2722494))
-* version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
 * adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
+
+# @open-rpc/playground 1.1.0 (2025-02-28)
+
+## 1.1.1
+
+### Patch Changes
+
+- a687667: This patch fixes a minor issue that occurs because of caching or loading partial documents for the first time
+
+## 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+
+## 🐛 Bug Fixes
+
+- update themes for json syntax highlighting ([abe9c58](https://github.com/open-rpc/tools/commit/abe9c5866145d88a870b5b39a3eb4c847761a920))
+- relax styling constraints and add more styles to themes to match older playground ([a92f0b2](https://github.com/open-rpc/tools/commit/a92f0b271f26ec4038e7abd66f217e43ce925259))
+- guarantee update for changes to the document affects extensions ([dfe2a31](https://github.com/open-rpc/tools/commit/dfe2a31b880722fc9ced79f3cff4db97822e27c9))
+- wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
+- get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
+- **playground:** fix eslint errors in ExampleDocumentsDropdown ([d8c9b6c](https://github.com/open-rpc/tools/commit/d8c9b6cf9ea6dfbd6506327d67c11b71814c21e5))
+- **playground:** fix eslint errors in App ([ddd26bb](https://github.com/open-rpc/tools/commit/ddd26bbbad11c3818128288d0accfed8fecdfbf8))
+- **playground:** fix eslint errors in TransportDropdown ([1af92a8](https://github.com/open-rpc/tools/commit/1af92a88233b6b101ddf14393fc93dffd4ad1bd1))
+
+## 🧹 Chores
+
+- add playground readme ([ba19e0e](https://github.com/open-rpc/tools/commit/ba19e0ef8badc6419bbb6150a53f884a70ca261e))
+- prettier linting update ([7fdb37b](https://github.com/open-rpc/tools/commit/7fdb37bd8033ead319dd7f1663687d4ac2722494))
+- version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
+- adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
 
 # @open-rpc/playground 1.0.0 (2025-02-26)
 
