@@ -6,6 +6,7 @@ import { debounce } from 'lodash';
 import useDarkMode from 'use-dark-mode';
 import { initWorkers } from './monacoWorker';
 import { getDocumentExtendedMetaSchema } from '@open-rpc/schema-utils-js';
+import { convertToLocalJsonSchema } from './schema/tempLocalJsonSchemaUtils';
 
 interface IProps {
   onChange?: (newValue: string) => void;
@@ -50,7 +51,8 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
 
     try {
       const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
-      addDiagnostics(modelUriString, extendedMetaSchema, monaco);
+      const convertedSchema = convertToLocalJsonSchema(extendedMetaSchema);
+      addDiagnostics(modelUriString, convertedSchema, monaco);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       //console.warn('Invalid OpenRPC Document, skipping schema update');
