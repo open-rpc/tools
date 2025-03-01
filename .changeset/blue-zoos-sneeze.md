@@ -3,5 +3,6 @@
 ---
 
 A change to temporarily use local JSONSchema definition to resolve the
-issues surrounding CORS and https://meta.json-schema.tools where we host
-a JSONSchema specfication.
+issues surrounding CORS and https://meta.json-schema.tools. We host
+that JSONSchema specfication, but are running into issues with CORS.
+This works as a stop gap until it's fixed upstream.
