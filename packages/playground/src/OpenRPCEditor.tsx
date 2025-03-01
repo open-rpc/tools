@@ -83,7 +83,8 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
     if (modelRef.current) {
       try {
         const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(newValue));
-        addDiagnostics(modelRef.current.uri.toString(), extendedMetaSchema, monaco);
+        const convertedSchema = convertToLocalJsonSchema(extendedMetaSchema);
+        addDiagnostics(modelRef.current.uri.toString(), convertedSchema, monaco);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (e) {
         //console.warn('Invalid OpenRPC Document, skipping schema update');
