@@ -5,4 +5,4 @@
 '@open-rpc/inspector': patch
 ---
 
-This is a version re organization
+A quick release to fix external schema fetching
