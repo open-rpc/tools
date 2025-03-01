@@ -48,8 +48,13 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
     modelRef.current = monaco.editor.createModel(value || '', 'json', modelUri);
     editor.setModel(modelRef.current);
 
-    const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
-    addDiagnostics(modelUriString, extendedMetaSchema, monaco);
+    try {
+      const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
+      addDiagnostics(modelUriString, extendedMetaSchema, monaco);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      //console.warn('Invalid OpenRPC Document, skipping schema update');
+    }
     initWorkers();
 
     // Set up marker change subscription if needed
