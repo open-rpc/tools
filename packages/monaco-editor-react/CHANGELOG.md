@@ -1,4 +1,4 @@
-# @open-rpc/monaco-editor-react 0.1.1 (2025-03-01)
+# @open-rpc/monaco-editor-react 0.1.1 (2025-03-02)
 
 # 🚀 Features
 
