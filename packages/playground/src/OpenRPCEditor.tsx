@@ -55,13 +55,13 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
       addDiagnostics(modelUriString, convertedSchema, monaco);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-      //console.warn('Invalid OpenRPC Document, skipping schema update');
+      //console.warn('Invalid OpenRPC Document, skipping schema update', value);
     }
     initWorkers();
 
     // Set up marker change subscription if needed
     if (onMarkerChange) {
-      editor.onDidChangeModelDecorations(
+      editorRef.current?.onDidChangeModelDecorations(
         debounce(() => {
           const markers = monaco.editor.getModelMarkers({
             resource: modelUri,
