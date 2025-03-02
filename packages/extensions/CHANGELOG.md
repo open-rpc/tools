@@ -1,4 +1,4 @@
-# @open-rpc/extensions 0.0.1 (2025-03-01)
+# @open-rpc/extensions 0.0.1 (2025-03-02)
 
 # 🚀 Features
 

@@ -1,4 +1,4 @@
-# @open-rpc/docs-react 2.1.0 (2025-03-01)
+# @open-rpc/docs-react 2.1.0 (2025-03-02)
 
 # 🚀 Features
 
