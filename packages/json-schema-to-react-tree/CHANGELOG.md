@@ -1,4 +1,4 @@
-# @open-rpc/json-schema-to-react-tree 0.1.1 (2025-03-02)
+# @open-rpc/json-schema-to-react-tree 0.1.1 (2025-03-03)
 
 # 🚀 Features
 

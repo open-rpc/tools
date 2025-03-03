@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/playground",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "homepage": "https://playground.open-rpc.org/",
   "bin": {
     "open-rpc-playground": "./bin/cli.js"
@@ -22,7 +22,7 @@
     "@mui/material": "6.3.1",
     "@open-rpc/docs-react": "2.1.0",
     "@open-rpc/examples": "^1.3.3",
-    "@open-rpc/inspector": "2.0.1",
+    "@open-rpc/inspector": "2.0.2",
     "@open-rpc/meta-schema": "^1.14.9",
     "@open-rpc/monaco-editor-react": "0.1.1",
     "@open-rpc/schema-utils-js": "2.1.2",
