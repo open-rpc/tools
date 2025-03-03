@@ -1,15 +1,35 @@
-# @open-rpc/inspector 2.0.2 (2025-03-03)
+# @open-rpc/inspector 2.0.3 (2025-03-03)
 
 ## 🐛 Bug Fixes
 
+* tsconfig to output to dist for inspector ([75bd680](https://github.com/open-rpc/tools/commit/75bd680b503fbdab606133da387ff7ab9a87b233))
 * add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
 * missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
 
 ## 🧹 Chores
 
-* version packages and generate changelog ([f9b60fb](https://github.com/open-rpc/tools/commit/f9b60fb6a338f6550d1dcc4b4fbb3a18bdb867c7))
+* version packages and generate changelog ([90adaeb](https://github.com/open-rpc/tools/commit/90adaeb28bbb5a2fb4aca758ce9dc29eca21e16a))
 * rm old  and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
 * fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
+
+# @open-rpc/inspector 2.0.2 (2025-03-03)
+
+## 2.0.3
+
+### Patch Changes
+
+- 75bd680: Correct the build output to include types
+
+## 🐛 Bug Fixes
+
+- add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
+- missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
+
+## 🧹 Chores
+
+- version packages and generate changelog ([f9b60fb](https://github.com/open-rpc/tools/commit/f9b60fb6a338f6550d1dcc4b4fbb3a18bdb867c7))
+- rm old and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
+- fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
 
 # @open-rpc/inspector 2.0.1 (2025-03-02)
 
