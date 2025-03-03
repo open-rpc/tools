@@ -1,8 +1,4 @@
-# @open-rpc/playground 1.1.4 (2025-03-02)
-
-## 🚀 Features
-
-* major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+# @open-rpc/playground 1.1.5 (2025-03-03)
 
 ## 🐛 Bug Fixes
 
@@ -16,10 +12,39 @@
 
 ## 🧹 Chores
 
-* version packages and generate changelog ([130be6b](https://github.com/open-rpc/tools/commit/130be6bd742816ab6cdfb929242e8872a10591a9))
+* version packages and generate changelog ([f9b60fb](https://github.com/open-rpc/tools/commit/f9b60fb6a338f6550d1dcc4b4fbb3a18bdb867c7))
 * add playground readme ([ba19e0e](https://github.com/open-rpc/tools/commit/ba19e0ef8badc6419bbb6150a53f884a70ca261e))
 * prettier linting update ([7fdb37b](https://github.com/open-rpc/tools/commit/7fdb37bd8033ead319dd7f1663687d4ac2722494))
-* adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
+
+# @open-rpc/playground 1.1.4 (2025-03-02)
+
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies [c9288ba]
+  - @open-rpc/inspector@2.0.2
+
+## 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+
+## 🐛 Bug Fixes
+
+- this change temporarily points schema resolution to a local copy This change is temporary. Earlier patches did not fully resolve the meta-schema locally and caused recursive schema definition errors. ([a077f12](https://github.com/open-rpc/tools/commit/a077f12c21ec6915062e6630e54beccb3e6feba2))
+- change supports local schema for document change update signal ([9bbf9ce](https://github.com/open-rpc/tools/commit/9bbf9ceeaba107e6d7844c481e76bc337984ed7f))
+- temp. use local JSONSchema definition ([9d66e8a](https://github.com/open-rpc/tools/commit/9d66e8acd73143aa4cb44d9bcbf075d3767ca4a5))
+- caching issue on partially loaded or empty docs ([88c74bd](https://github.com/open-rpc/tools/commit/88c74bd03667a2b14719f13f5c612b1f50c412fc))
+- update themes for json syntax highlighting ([abe9c58](https://github.com/open-rpc/tools/commit/abe9c5866145d88a870b5b39a3eb4c847761a920))
+- relax styling constraints and add more styles to themes to match older playground ([a92f0b2](https://github.com/open-rpc/tools/commit/a92f0b271f26ec4038e7abd66f217e43ce925259))
+- guarantee update for changes to the document affects extensions ([dfe2a31](https://github.com/open-rpc/tools/commit/dfe2a31b880722fc9ced79f3cff4db97822e27c9))
+
+## 🧹 Chores
+
+- version packages and generate changelog ([130be6b](https://github.com/open-rpc/tools/commit/130be6bd742816ab6cdfb929242e8872a10591a9))
+- add playground readme ([ba19e0e](https://github.com/open-rpc/tools/commit/ba19e0ef8badc6419bbb6150a53f884a70ca261e))
+- prettier linting update ([7fdb37b](https://github.com/open-rpc/tools/commit/7fdb37bd8033ead319dd7f1663687d4ac2722494))
+- adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
 
 # @open-rpc/playground 1.1.3 (2025-03-01)
 

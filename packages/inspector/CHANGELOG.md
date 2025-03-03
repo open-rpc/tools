@@ -1,24 +1,43 @@
-# @open-rpc/inspector 2.0.1 (2025-03-02)
-
-# 🚀 Features
-
-* major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+# @open-rpc/inspector 2.0.2 (2025-03-03)
 
 ## 🐛 Bug Fixes
 
+* add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
 * missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
-* wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
-* get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
-* **inspector:** fix eslint errors in useTabs ([8d00054](https://github.com/open-rpc/tools/commit/8d00054793ab874ba729aff7ab526709c4cfdc23))
-* **inspector:** fix eslint errors in Inspector ([1ff097f](https://github.com/open-rpc/tools/commit/1ff097ff13a8406d4736e6fa2d4ce5b8313ff269))
-* **inspector:** fix eslint errors in TransportDropdown ([b314ce1](https://github.com/open-rpc/tools/commit/b314ce1015b15e19baafbfb4148a90375fb8830d))
 
 ## 🧹 Chores
 
+* version packages and generate changelog ([f9b60fb](https://github.com/open-rpc/tools/commit/f9b60fb6a338f6550d1dcc4b4fbb3a18bdb867c7))
 * rm old  and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
 * fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
-* version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
-* adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
+
+# @open-rpc/inspector 2.0.1 (2025-03-02)
+
+## 2.0.2
+
+### Patch Changes
+
+- c9288ba: Fix this re exports the missing types for inspector
+
+# 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+
+## 🐛 Bug Fixes
+
+- missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
+- wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
+- get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
+- **inspector:** fix eslint errors in useTabs ([8d00054](https://github.com/open-rpc/tools/commit/8d00054793ab874ba729aff7ab526709c4cfdc23))
+- **inspector:** fix eslint errors in Inspector ([1ff097f](https://github.com/open-rpc/tools/commit/1ff097ff13a8406d4736e6fa2d4ce5b8313ff269))
+- **inspector:** fix eslint errors in TransportDropdown ([b314ce1](https://github.com/open-rpc/tools/commit/b314ce1015b15e19baafbfb4148a90375fb8830d))
+
+## 🧹 Chores
+
+- rm old and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
+- fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
+- version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
+- adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
 
 # @open-rpc/inspector 2.0.0 (2025-02-26)
 
