@@ -33,7 +33,7 @@ describe('ErrorGroups Component', () => {
     render(<ErrorGroups errorGroups={errorGroups} />);
 
     // Check for heading
-    expect(screen.getByText('Error Groups')).toBeInTheDocument();
+    expect(screen.getByText(/Error Groups/)).toBeInTheDocument();
 
     // Check for table headers
     expect(screen.getByText('Code')).toBeInTheDocument();

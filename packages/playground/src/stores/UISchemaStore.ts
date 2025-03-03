@@ -52,6 +52,11 @@ export default createStore(() => {
         ? process.env.REACT_APP_DEFAULT_UISCHEMA_PARAMS_UI_DEFAULTEXPANDED.toLowerCase() === 'true'
         : false,
     },
+    extensions: {
+      'ui:hidden': process.env.REACT_APP_DEFAULT_UISCHEMA_EXTENSIONS_UI_HIDDEN
+        ? process.env.REACT_APP_DEFAULT_UISCHEMA_EXTENSIONS_UI_HIDDEN.toLowerCase() === 'true'
+        : false,
+    },
   };
   return useUISchema(mergeUISchema(defaultUISchema, query.uiSchema));
 });

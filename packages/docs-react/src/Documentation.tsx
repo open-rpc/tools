@@ -33,6 +33,12 @@ const Documentation: React.FC<IProps> = ({
     uiSchema.contentDescriptors['ui:hidden'] === true
   );
 
+  const shouldShowExtensions = !(
+    uiSchema &&
+    uiSchema.extensions &&
+    uiSchema.extensions['ui:hidden'] === true
+  );
+
   return (
     <>
       <Info schema={schema} />
@@ -49,7 +55,7 @@ const Documentation: React.FC<IProps> = ({
           <ContentDescriptors schema={schema} uiSchema={uiSchema}></ContentDescriptors>
         </>
       )}
-      <Extensions schema={schema} uiSchema={uiSchema}></Extensions>
+      {shouldShowExtensions && <Extensions schema={schema} uiSchema={uiSchema}></Extensions>}
     </>
   );
 };
