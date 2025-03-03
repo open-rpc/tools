@@ -95,3 +95,24 @@ it('renders multiple extensions', () => {
   expect(screen.getByText('x-test-extension-2')).toBeInTheDocument();
   expect(screen.getByText('Test Extension 2')).toBeInTheDocument();
 });
+
+it('doesnt render extensions if uiSchema extensions hidden is passed', () => {
+  render(
+    <Documentation
+      schema={
+        {
+          'x-extensions': [
+            {
+              name: 'x-test-extension-1',
+              version: '1.0.0',
+              summary: 'Test Extension 1',
+            },
+          ],
+        } as any
+      }
+      uiSchema={{ extensions: { 'ui:hidden': true } }}
+    />
+  );
+  expect(screen.queryByText('Extensions')).not.toBeInTheDocument();
+  expect(screen.queryByText('x-test-extension-1')).not.toBeInTheDocument();
+});

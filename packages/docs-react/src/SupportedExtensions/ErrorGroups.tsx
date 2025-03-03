@@ -68,7 +68,7 @@ class ErrorGroups extends Component<IProps> {
     return (
       <StyledGrid container>
         <Grid component="div" size={{ xs: 12 }}>
-          <Typography variant="h5">Error Groups</Typography>
+          <Typography variant="h5">Errors (Error Groups)</Typography>
         </Grid>
         <Grid component="div" size={{ xs: 12 }}>
           <Table>
