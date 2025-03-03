@@ -1,6 +1,6 @@
 # @open-rpc/inspector 2.0.3 (2025-03-03)
 
-## 🐛 Bug Fixes
+# 🐛 Bug Fixes
 
 * tsconfig to output to dist for inspector ([75bd680](https://github.com/open-rpc/tools/commit/75bd680b503fbdab606133da387ff7ab9a87b233))
 * add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
