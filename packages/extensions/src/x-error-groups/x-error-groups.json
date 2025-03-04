@@ -2,11 +2,11 @@
   "openrpcExtension": "0.0.0-development",
   "name": "x-error-group",
   "version": "0.0.1",
-  "description": "Describe an error group for OpenRPC methods",
-  "summary": "OpenRPC Error Groups",
+  "description": "Enables grouping and organization of JSON-RPC errors in OpenRPC methods. Unlike the standard Errors array, this extension allows defining reusable error collections that can be referenced across methods. Error groups can be combined through references, creating a union of all individual errors in the referenced arrays. This promotes better error organization, reusability, and consistency across API documentation.",
+  "summary": "Group, organize, and reuse JSON-RPC error definitions across OpenRPC methods via references",
   "externalDocumentation": {
     "description": "github",
-    "url": "https://github.com/open-rpc/specification-extension-spec/blob/master/src/examples/x-error-group-ext.json"
+    "url": "https://github.com/open-rpc/tools/tree/main/packages/extensions/src/x-error-groups"
   },
   "restricted": [
     "methodObject"
