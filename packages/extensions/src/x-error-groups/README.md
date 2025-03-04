@@ -85,58 +85,85 @@ Methods can reference these error groups and combine them with additional errors
 {
   "openrpc": "1.2.6",
   "info": {
-    "title": "Example API with Error Groups",
+    "title": "Example API",
     "version": "1.0.0"
   },
   "methods": [
     {
-      "name": "getExampleData",
-      "summary": "Retrieves example data from the API.",
-      "params": [
-        {
-          "name": "dataId",
-          "schema": {
-            "type": "integer"
-          },
-          "required": true
-        }
-      ],
+      "name": "exampleMethod",
       "x-error-group": [
         {
-          "$ref": "#/components/x-error-group/GasErrors"
-        },
-        [
-          {
-            "code": 50000,
-            "message": "Not Found",
-            "data": "The requested data was not found."
-          }
-        ]
-      ],
-      "result": {
-        "name": "exampleData",
-        "schema": {
-          "type": "object"
+          "$ref": "#/components/x-error-group/CommonErrors"
         }
-      }
+      ]
     }
   ],
   "components": {
     "x-error-group": {
-      "GasErrors": [
+      "CommonErrors": [
         {
-          "code": -31999,
-          "message": "Gas too low",
-          "data": "The gas is too low."
+          "code": -32000,
+          "message": "Server error",
+          "data": "An unexpected error occurred"
         },
         {
-          "code": -31998,
-          "message": "Out of gas",
-          "data": "The gas is out of gas."
+          "code": -32800,
+          "message": "Parse error",
+          "data": "An unexpected parse error occurred"
         }
       ]
     }
-  }
+  },
+  "x-extensions": [
+    {
+      "openrpcExtension": "0.0.0-development",
+      "name": "x-error-group",
+      "version": "0.0.1",
+      "description": "Enables grouping and organization of JSON-RPC errors in OpenRPC methods.",
+      "summary": "Group, organize, and reuse JSON-RPC error definitions across OpenRPC methods via references",
+      "externalDocumentation": {
+        "description": "github",
+        "url": "https://github.com/open-rpc/tools/tree/main/packages/extensions/src/x-error-groups"
+      },
+      "restricted": ["methodObject"],
+      "schema": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "integer",
+                    "description": "The code of the error."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "The message of the error."
+                  },
+                  "data": {
+                    "description": "The data of the error."
+                  }
+                },
+                "required": ["code", "message"]
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$ref": {
+                  "type": "string"
+                }
+              },
+              "required": ["$ref"]
+            }
+          ]
+        }
+      }
+    }
+  ]
 }
 ```
 
