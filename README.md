@@ -37,7 +37,7 @@ The OpenRPC specification provides a way to describe JSON-RPC 2.0 APIs in a mach
 | [@open-rpc/extensions](./packages/extensions)                               | Collection of OpenRPC Specification Extensions         | [README](./packages/extensions/README.md)                |
 | [@open-rpc/playground](./packages/playground)                               | Editor and live-preview for OpenRPC documents          | [README](./packages/playground/README.md)                |
 | [@open-rpc/logs-react](./packages/logs-react)                               | React component for displaying JSON-RPC logs           | [README](./packages/logs-react/README.md)                |
-| [@xops.net/json-schema-to-react-tree](./packages/json-schema-to-react-tree) | React component to visually display JSON Schemas       | [README](./packages/json-schema-to-react-tree/README.md) |
+| [@open-rpc/json-schema-to-react-tree](./packages/json-schema-to-react-tree) | React component to visually display JSON Schemas       | [README](./packages/json-schema-to-react-tree/README.md) |
 | [@open-rpc/monaco-editor-react](./packages/monaco-editor-react)             | Monaco editor with OpenRPC support                     | [README](./packages/monaco-editor-react/README.md)       |
 
 ## Installation
