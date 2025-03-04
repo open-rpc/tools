@@ -1,4 +1,4 @@
-# @open-rpc/inspector 2.0.3 (2025-03-03)
+# @open-rpc/inspector 2.0.3 (2025-03-04)
 
 # 🐛 Bug Fixes
 

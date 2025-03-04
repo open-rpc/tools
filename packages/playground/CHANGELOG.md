@@ -1,6 +1,6 @@
-# @open-rpc/playground 1.1.7 (2025-03-03)
+# @open-rpc/playground 1.1.7 (2025-03-04)
 
-## 🐛 Bug Fixes
+# 🐛 Bug Fixes
 
 * add support for hiding extensions and for merging error groups into errors for documentation ([2ef3dd3](https://github.com/open-rpc/tools/commit/2ef3dd31fd513d86253bc78faebe98aadec1671e))
 * this change temporarily points schema resolution to a local copy This change is temporary. Earlier patches did not fully resolve the meta-schema locally and caused recursive schema definition errors. ([a077f12](https://github.com/open-rpc/tools/commit/a077f12c21ec6915062e6630e54beccb3e6feba2))
