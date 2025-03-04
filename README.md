@@ -109,7 +109,7 @@ The changeset will be added to the `.changeset` directory and should be committe
 If your PR doesn't require a version change, you can create an empty changeset:
 
 ```sh
-npm run changeset -- empty
+npm run changeset -- --empty
 ```
 
 This creates a special changeset that satisfies the PR validation check without triggering a version bump.
