@@ -1,6 +1,6 @@
-# @open-rpc/extensions 0.0.2 (2025-03-04)
+# @open-rpc/extensions 0.0.2 (2025-04-25)
 
-## 🚀 Features
+# 🚀 Features
 
 * initial extensions repo ([3a8894e](https://github.com/open-rpc/tools/commit/3a8894e91cfcf139a786da0ff99491f00d726506))
 
