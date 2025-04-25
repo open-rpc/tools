@@ -108,10 +108,12 @@ const PlaygroundSplitPane: React.FC<IProps> = ({
       <Panel defaultSize={initialVerticalLayout[1]}>
         <div
           style={{
-            height: '94%',
+            height: '100%',
             width: '100%',
-            paddingBottom: '58px',
-            overflowY: 'auto',
+            minHeight: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'auto',
           }}
         >
           {inspectorComponent}
