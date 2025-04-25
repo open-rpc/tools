@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/playground",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "homepage": "https://playground.open-rpc.org/",
   "bin": {
     "open-rpc-playground": "./bin/cli.js"
