@@ -37,6 +37,7 @@ export default defineConfig({
         '@mui/icons-material',
         '@mui/lab',
         'monaco-editor',
+        '@open-rpc/monaco-editor-react',
       ],
     },
   },
