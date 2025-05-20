@@ -189,6 +189,13 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
     );
   }
 
+  const formatType = (type?: JSONSchema4['type']) => {
+    if (Array.isArray(type)) {
+      return type.join(' | ');
+    }
+    return type;
+  };
+
   const colorMap: { [k: string]: string } = {
     any: grey[500],
     array: blue[300],
@@ -198,6 +205,7 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
     number: purple[500],
     string: green[500],
     undefined: grey[500],
+    union: grey[500],
   };
   return (
     <TableRow key={schema.title}>
@@ -211,10 +219,10 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
         style={{
           ...styles.cellWidth,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          color: colorMap[schema.type as any],
+          color: Array.isArray(schema.type) ? colorMap.union : colorMap[schema.type as any],
         }}
       >
-        {schema.type}
+        {formatType(schema.type)}
       </TableCell>
       <TableCell style={styles.cellWidth}>{schema.pattern}</TableCell>
       <TableCell style={styles.cellWidth}>{required ? 'true' : 'false'}</TableCell>
