@@ -9,6 +9,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { v4 as uuid } from 'uuid';
 
+const formatType = (type?: JSONSchema7['type']) => {
+  if (Array.isArray(type)) {
+    return type.join(' | ');
+  }
+  return type;
+};
+
 const colorMap: { [k: string]: string } = {
   any: grey[500],
   array: blue[400],
@@ -25,6 +32,7 @@ const colorMap: { [k: string]: string } = {
   anyof: blue[200],
   allof: blue.A700,
   enum: green[900],
+  union: grey[500],
 };
 
 interface IProps {
@@ -301,7 +309,13 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
                 type
               </Typography>
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              <Typography style={{ color: colorMap[schema.type as any] }}>{schema.type}</Typography>
+              <Typography
+                style={{
+                  color: Array.isArray(schema.type) ? colorMap.union : colorMap[schema.type as any],
+                }}
+              >
+                {formatType(schema.type)}
+              </Typography>
             </Grid>
           }
           itemId={uuid()}
