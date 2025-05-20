@@ -20,7 +20,6 @@
       "cache": false
     },
     "test": {
-      "dependsOn": ["^build:package"],
       "outputs": ["coverage/**"],
       "inputs": ["src/**", "test/**"],
       "cache": false
