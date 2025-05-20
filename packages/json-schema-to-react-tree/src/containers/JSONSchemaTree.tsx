@@ -151,8 +151,7 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
           return (
             <>
               <RenderNodes schema={s as JSONSchema7} />
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {schema && schema.items && i !== (schema.items as any).length - 1 ? (
+              {Array.isArray(schema.items) && i !== schema.items.length - 1 ? (
                 <Divider
                   style={{
                     width: '100px',
@@ -300,8 +299,15 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
               >
                 type
               </Typography>
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              <Typography style={{ color: colorMap[schema.type as any] }}>{schema.type}</Typography>
+              <Typography
+                style={{
+                  color: Array.isArray(schema.type)
+                    ? colorMap.any
+                    : colorMap[schema.type as keyof typeof colorMap],
+                }}
+              >
+                {Array.isArray(schema.type) ? schema.type.join(' | ') : schema.type}
+              </Typography>
             </Grid>
           }
           itemId={uuid()}

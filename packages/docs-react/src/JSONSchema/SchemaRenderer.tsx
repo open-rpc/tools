@@ -210,11 +210,12 @@ const SchemaRenderer: React.FC<IProps> = ({ schema, required, name }) => {
       <TableCell
         style={{
           ...styles.cellWidth,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          color: colorMap[schema.type as any],
+          color: Array.isArray(schema.type)
+            ? colorMap.any
+            : colorMap[schema.type as keyof typeof colorMap],
         }}
       >
-        {schema.type}
+        {Array.isArray(schema.type) ? schema.type.join(' | ') : schema.type}
       </TableCell>
       <TableCell style={styles.cellWidth}>{schema.pattern}</TableCell>
       <TableCell style={styles.cellWidth}>{required ? 'true' : 'false'}</TableCell>
