@@ -300,8 +300,9 @@ const RenderNodes: React.FC<IRenderNodes> = ({ schema, required }) => {
               >
                 type
               </Typography>
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              <Typography style={{ color: colorMap[schema.type as any] }}>{schema.type}</Typography>
+              <Typography style={{ color: Array.isArray(schema.type) ? colorMap.any : colorMap[schema.type as any] }}>
+                {Array.isArray(schema.type) ? schema.type.join(' | ') : schema.type}
+              </Typography>
             </Grid>
           }
           itemId={uuid()}
