@@ -42,7 +42,7 @@ The OpenRPC specification provides a way to describe JSON-RPC 2.0 APIs in a mach
 
 ## Installation
 
-This project requires Node.js version 20 or higher.
+This project requires Node.js version 20.11.1 or higher.
 
 To install all dependencies and build all packages:
 
