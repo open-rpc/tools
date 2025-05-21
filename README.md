@@ -12,6 +12,7 @@ A collection of developer tools for the [OpenRPC](https://open-rpc.org) ecosyste
 ## Table of Contents
 
 - [Overview](#overview)
+- [Architecture](#architecture)
 - [Packages](#packages)
 - [Installation](#installation)
 - [Development](#development)
@@ -27,6 +28,27 @@ A collection of developer tools for the [OpenRPC](https://open-rpc.org) ecosyste
 OpenRPC Tools is a monorepo containing various tools and utilities for working with the OpenRPC specification. These tools help developers create, validate, document, and interact with JSON-RPC APIs using the OpenRPC standard.
 
 The OpenRPC specification provides a way to describe JSON-RPC 2.0 APIs in a machine-readable format, similar to how OpenAPI/Swagger works for REST APIs. This repository contains React components, utilities, and applications that make working with OpenRPC documents easier.
+
+## Architecture
+
+The following diagram illustrates how the major packages in this repository work together and where external systems interact.
+
+```mermaid
+graph TD
+  A[OpenRPC Document] --> B[docs-react]
+  A --> C[playground]
+  C --> D[monaco-editor-react]
+  C --> E[inspector]
+  E --> F[JSON-RPC Server]
+  E --> G[logs-react]
+  A --> H[json-schema-to-react-tree]
+  A --> I[extensions]
+  B --> J[Browser]
+  D --> J
+  G --> J
+  H --> J
+  I --> J
+```
 
 ## Packages
 
