@@ -1,20 +1,44 @@
-# @open-rpc/playground 1.1.7 (2025-03-04)
+# @open-rpc/playground 1.1.8 (2025-05-21)
 
-# 🐛 Bug Fixes
+## 🐛 Bug Fixes
 
+* overflow issue with inspector popout ([f800257](https://github.com/open-rpc/tools/commit/f80025739b966e44dac03ec5d14417c0a0d0a1bf))
 * add support for hiding extensions and for merging error groups into errors for documentation ([2ef3dd3](https://github.com/open-rpc/tools/commit/2ef3dd31fd513d86253bc78faebe98aadec1671e))
 * this change temporarily points schema resolution to a local copy This change is temporary. Earlier patches did not fully resolve the meta-schema locally and caused recursive schema definition errors. ([a077f12](https://github.com/open-rpc/tools/commit/a077f12c21ec6915062e6630e54beccb3e6feba2))
 * change supports local schema for document change update signal ([9bbf9ce](https://github.com/open-rpc/tools/commit/9bbf9ceeaba107e6d7844c481e76bc337984ed7f))
 * temp. use local JSONSchema definition ([9d66e8a](https://github.com/open-rpc/tools/commit/9d66e8acd73143aa4cb44d9bcbf075d3767ca4a5))
-* caching issue on partially loaded or empty docs ([88c74bd](https://github.com/open-rpc/tools/commit/88c74bd03667a2b14719f13f5c612b1f50c412fc))
-* update themes for json syntax highlighting ([abe9c58](https://github.com/open-rpc/tools/commit/abe9c5866145d88a870b5b39a3eb4c847761a920))
-* relax styling constraints and add more styles to themes to match older playground ([a92f0b2](https://github.com/open-rpc/tools/commit/a92f0b271f26ec4038e7abd66f217e43ce925259))
 
 ## 🧹 Chores
 
-* version packages and generate changelog ([5906111](https://github.com/open-rpc/tools/commit/5906111dc3c7f4d94084a173d1a7dbb541220afd))
-* add playground readme ([ba19e0e](https://github.com/open-rpc/tools/commit/ba19e0ef8badc6419bbb6150a53f884a70ca261e))
-* prettier linting update ([7fdb37b](https://github.com/open-rpc/tools/commit/7fdb37bd8033ead319dd7f1663687d4ac2722494))
+* version packages and generate changelog ([07cc7fd](https://github.com/open-rpc/tools/commit/07cc7fd85c3e034cca4973b4a003c6535e6bbb13))
+
+# @open-rpc/playground 1.1.7 (2025-03-04)
+
+## 1.1.8
+
+### Patch Changes
+
+- 56afcab: fix overflow issue on inspector splitter
+- Updated dependencies [5154cbd]
+- Updated dependencies [edf3b8e]
+  - @open-rpc/docs-react@2.1.2
+  - @open-rpc/inspector@2.0.4
+
+# 🐛 Bug Fixes
+
+- add support for hiding extensions and for merging error groups into errors for documentation ([2ef3dd3](https://github.com/open-rpc/tools/commit/2ef3dd31fd513d86253bc78faebe98aadec1671e))
+- this change temporarily points schema resolution to a local copy This change is temporary. Earlier patches did not fully resolve the meta-schema locally and caused recursive schema definition errors. ([a077f12](https://github.com/open-rpc/tools/commit/a077f12c21ec6915062e6630e54beccb3e6feba2))
+- change supports local schema for document change update signal ([9bbf9ce](https://github.com/open-rpc/tools/commit/9bbf9ceeaba107e6d7844c481e76bc337984ed7f))
+- temp. use local JSONSchema definition ([9d66e8a](https://github.com/open-rpc/tools/commit/9d66e8acd73143aa4cb44d9bcbf075d3767ca4a5))
+- caching issue on partially loaded or empty docs ([88c74bd](https://github.com/open-rpc/tools/commit/88c74bd03667a2b14719f13f5c612b1f50c412fc))
+- update themes for json syntax highlighting ([abe9c58](https://github.com/open-rpc/tools/commit/abe9c5866145d88a870b5b39a3eb4c847761a920))
+- relax styling constraints and add more styles to themes to match older playground ([a92f0b2](https://github.com/open-rpc/tools/commit/a92f0b271f26ec4038e7abd66f217e43ce925259))
+
+## 🧹 Chores
+
+- version packages and generate changelog ([5906111](https://github.com/open-rpc/tools/commit/5906111dc3c7f4d94084a173d1a7dbb541220afd))
+- add playground readme ([ba19e0e](https://github.com/open-rpc/tools/commit/ba19e0ef8badc6419bbb6150a53f884a70ca261e))
+- prettier linting update ([7fdb37b](https://github.com/open-rpc/tools/commit/7fdb37bd8033ead319dd7f1663687d4ac2722494))
 
 # @open-rpc/playground 1.1.6 (2025-03-03)
 

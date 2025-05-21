@@ -1,16 +1,34 @@
-# @open-rpc/inspector 2.0.3 (2025-03-04)
+# @open-rpc/inspector 2.0.4 (2025-05-21)
 
-# 🐛 Bug Fixes
+## 🐛 Bug Fixes
 
 * tsconfig to output to dist for inspector ([75bd680](https://github.com/open-rpc/tools/commit/75bd680b503fbdab606133da387ff7ab9a87b233))
 * add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
-* missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
 
 ## 🧹 Chores
 
-* version packages and generate changelog ([90adaeb](https://github.com/open-rpc/tools/commit/90adaeb28bbb5a2fb4aca758ce9dc29eca21e16a))
-* rm old  and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
-* fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
+* enforce Node 20.11.1 ([5154cbd](https://github.com/open-rpc/tools/commit/5154cbd37e5f96fe36d446747852f7d85ce2364e))
+* version packages and generate changelog ([07cc7fd](https://github.com/open-rpc/tools/commit/07cc7fd85c3e034cca4973b4a003c6535e6bbb13))
+
+# @open-rpc/inspector 2.0.3 (2025-03-04)
+
+## 2.0.4
+
+### Patch Changes
+
+- 5154cbd: Align minimum Node.js version to 20.11.1 across packages and documentation.
+
+# 🐛 Bug Fixes
+
+- tsconfig to output to dist for inspector ([75bd680](https://github.com/open-rpc/tools/commit/75bd680b503fbdab606133da387ff7ab9a87b233))
+- add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
+- missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
+
+## 🧹 Chores
+
+- version packages and generate changelog ([90adaeb](https://github.com/open-rpc/tools/commit/90adaeb28bbb5a2fb4aca758ce9dc29eca21e16a))
+- rm old and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
+- fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
 
 # @open-rpc/inspector 2.0.2 (2025-03-03)
 
