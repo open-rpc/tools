@@ -2,7 +2,7 @@ import localJsonSchema from './localJsonSchema.json';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function convertToLocalJsonSchema(schema: any): any {
   if (!schema) return schema;
-  const schemaCopy = JSON.parse(JSON.stringify(schema));
+  const schemaCopy = structuredClone(schema);
 
   if (!schemaCopy.definitions) {
     schemaCopy.definitions = {};
@@ -13,13 +13,13 @@ export function convertToLocalJsonSchema(schema: any): any {
   const resolvedDefinitions: Record<string, any> = {};
 
   Object.entries(schemaCopy.definitions).forEach(([key, def]) => {
-    resolvedDefinitions[key] = JSON.parse(JSON.stringify(def));
+    resolvedDefinitions[key] = structuredClone(def);
   });
 
   // Process each definition from localJsonSchema
   Object.entries(localJsonSchema.definitions).forEach(([key, def]) => {
     // Deep clone the definition
-    resolvedDefinitions[key] = JSON.parse(JSON.stringify(def));
+    resolvedDefinitions[key] = structuredClone(def);
   });
 
   // Function to recursively replace "#" refs with inline schema
