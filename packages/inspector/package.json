@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "vite",
-    "test": "",
+    "test": "vitest run",
     "build:package": "vite build && tsc --emitDeclarationOnly",
     "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
