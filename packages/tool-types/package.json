@@ -19,7 +19,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@open-rpc/schema-utils-js": "2.2.0",
+    "@open-rpc/schema-utils-js": "2.2.1",
     "@open-rpc/spec-types": "0.0.1"
   },
   "devDependencies": {

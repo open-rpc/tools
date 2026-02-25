@@ -49,6 +49,6 @@
     "minimatch": "3.1.2"
   },
   "dependencies": {
-    "@open-rpc/schema-utils-js": "2.2.0"
+    "@open-rpc/schema-utils-js": "2.2.1"
   }
 }

@@ -23,13 +23,3 @@ export type TagObject = V1_4.TagObject | V1_3.TagObject;
 export type ErrorObject = V1_4.ErrorObject | V1_3.ErrorObject;
 export type ServerObject = V1_4.ServerObject | V1_3.ServerObject;
 export type LinkObject = V1_4.LinkObject | V1_3.LinkObject;
-
-export type RefNode = { $ref: string };
-
-export type NoRefs<T> = T extends RefNode
-  ? never
-  : T extends (infer U)[]
-    ? NoRefs<U>[]
-    : T extends object
-      ? { [K in keyof T]: NoRefs<T[K]> }
-      : T;

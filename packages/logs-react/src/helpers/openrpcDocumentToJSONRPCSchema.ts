@@ -4,7 +4,6 @@ import {
   OpenrpcDocument,
   ExampleObject,
   MethodOrReference,
-  NoRefs,
 } from '@open-rpc/tool-types';
 
 const isMethodObject = (method: MethodOrReference): method is MethodObject => {
