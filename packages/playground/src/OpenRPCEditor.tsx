@@ -49,12 +49,9 @@ const OpenRPCEditor: React.FC<IProps> = ({ onChange, editorDidMount, onMarkerCha
     modelRef.current = monaco.editor.createModel(value || '', 'json', modelUri);
     editor.setModel(modelRef.current);
 
-    console.log('handleEditorDidMount called, value length:', value?.length);
     try {
-      console.log("here's the document we get", JSON.parse(value));
       const extendedMetaSchema = getDocumentExtendedMetaSchema(JSON.parse(value));
       const convertedSchema = convertToLocalJsonSchema(extendedMetaSchema);
-      console.log('convertedSchema', convertedSchema);
       addDiagnostics(modelUriString, convertedSchema, monaco);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
