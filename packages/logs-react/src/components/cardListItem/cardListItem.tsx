@@ -23,7 +23,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import './cardListItem.css';
 import Alert from '../alert/alert';
 import copy from 'copy-to-clipboard';
-import { JSONSchema, OpenrpcDocument } from '@open-rpc/meta-schema';
+import { JSONSchema, OpenrpcDocument } from '@open-rpc/tool-types';
 import openrpcDocumentToJSONRPCSchema from '../../helpers/openrpcDocumentToJSONRPCSchema';
 import openrpcDocumentToJSONRPCSchemaResult from '../../helpers/openrpcDocumentToJSONRPCSchemaResult';
 import * as monaco from 'monaco-editor';

@@ -15,7 +15,7 @@ import {
   ExamplePairingObject,
   ContentDescriptorObject,
   JSONSchemaObject,
-} from '@open-rpc/meta-schema';
+} from '@open-rpc/tool-types';
 
 interface IProps {
   method?: MethodObject;

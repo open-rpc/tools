@@ -11,11 +11,24 @@
     "composite": true
   },
   "references": [
-    { "path": "../json-schema-to-react-tree" },
-    { "path": "../inspector" },
-    { "path": "../logs-react" },
-    { "path": "../monaco-editor-react" },
-    { "path": "../docs-react" }
+    {
+      "path": "../tool-types"
+    },
+    {
+      "path": "../json-schema-to-react-tree"
+    },
+    {
+      "path": "../inspector"
+    },
+    {
+      "path": "../logs-react"
+    },
+    {
+      "path": "../monaco-editor-react"
+    },
+    {
+      "path": "../docs-react"
+    }
   ],
   "include": [
     "src/**/*.ts",

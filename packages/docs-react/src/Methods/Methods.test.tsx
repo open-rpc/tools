@@ -1,7 +1,7 @@
 import { it, expect, vi } from 'vitest';
 import React from 'react';
 import Methods, { IMethodPluginProps } from './Methods';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 import { render, screen, fireEvent } from '@testing-library/react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 

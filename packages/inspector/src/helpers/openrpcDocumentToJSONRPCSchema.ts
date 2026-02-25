@@ -3,7 +3,7 @@ import {
   ContentDescriptorObject,
   OpenrpcDocument,
   ExampleObject,
-} from '@open-rpc/meta-schema';
+} from '@open-rpc/tool-types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const schema: any = {

@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Theme, styled } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { LinkObject } from '@open-rpc/meta-schema';
+import { LinkObject } from '@open-rpc/tool-types';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpansionTable from '../ExpansionTable/ExpansionTable';
 import Servers from '../Servers/Servers';

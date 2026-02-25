@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Extension from '../Extension/Extension';
 import { Typography } from '@mui/material';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 
 interface IProps {
   schema?: OpenrpcDocument;

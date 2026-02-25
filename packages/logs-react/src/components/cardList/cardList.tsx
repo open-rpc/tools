@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IJSONRPCLog } from '../logsReact/logsReact';
 import CardListItem from '../cardListItem/cardListItem';
 import './cardList.css';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 
 interface IProps {
   logs: IJSONRPCLog[];

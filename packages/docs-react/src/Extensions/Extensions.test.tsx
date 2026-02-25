@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest';
 import React from 'react';
 import Extensions from './Extensions';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 import { render, screen } from '@testing-library/react';
 
 it('renders without crashing', () => {

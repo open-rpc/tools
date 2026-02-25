@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import * as monaco from 'monaco-editor';
 import { MonacoEditor, addDiagnostics } from '@open-rpc/monaco-editor-react';
-import { MethodObject, OpenrpcDocument } from '@open-rpc/meta-schema';
+import { MethodObject, OpenrpcDocument } from '@open-rpc/tool-types';
 import useWindowSize from '@rehooks/window-size';
 import openrpcDocumentToJSONRPCSchema from '../helpers/openrpcDocumentToJSONRPCSchema';
 import useDarkMode from 'use-dark-mode';

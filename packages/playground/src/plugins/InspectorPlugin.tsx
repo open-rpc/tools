@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Tooltip } from '@mui/material';
 //import { IMethodPluginProps } from "@open-rpc/docs-react/dist/Methods/Methods";
 import searchBarStore from '../stores/searchBarStore';
-import { MethodObject } from '@open-rpc/meta-schema';
-import { ExamplePairingObject, ExampleObject } from '@open-rpc/meta-schema';
+import { MethodObject } from '@open-rpc/tool-types';
+import { ExamplePairingObject, ExampleObject } from '@open-rpc/tool-types';
 import useInspectorActionStore from '../stores/inspectorActionStore';
 export type TParamStructure = 'either' | 'by-name' | 'by-position';
 

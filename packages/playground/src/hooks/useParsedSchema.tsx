@@ -1,7 +1,7 @@
 import { useState, useEffect, Dispatch } from 'react';
 import _ from 'lodash';
 import refParser from '@apidevtools/json-schema-ref-parser';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 
 const useParsedSchema = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

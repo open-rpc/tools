@@ -3,7 +3,7 @@ import Info from './Info/Info';
 import Servers from './Servers/Servers';
 import Methods, { IMethodPluginProps, OnMethodToggle } from './Methods/Methods';
 import ContentDescriptors from './ContentDescriptors/ContentDescriptors';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 import Extensions from './Extensions/Extensions';
 
 interface IProps {

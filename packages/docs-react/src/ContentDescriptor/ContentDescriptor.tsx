@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { JSONSchemaTree } from '@open-rpc/json-schema-to-react-tree';
-import { ContentDescriptorObject } from '@open-rpc/meta-schema';
+import { ContentDescriptorObject } from '@open-rpc/tool-types';
 import { JSONSchema7 } from 'json-schema';
 import './ContentDescriptor.css';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';

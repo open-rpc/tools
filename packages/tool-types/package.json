@@ -1,0 +1,31 @@
+{
+  "name": "@open-rpc/tool-types",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared OpenRPC types for tools monorepo",
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build:package": "tsc",
+    "clean:package": "rm -rf dist && rm -rf tsconfig.tsbuildinfo",
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@open-rpc/schema-utils-js": "2.2.0",
+    "@open-rpc/spec-types": "0.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.11.1"
+  }
+}

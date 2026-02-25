@@ -13,6 +13,7 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
   },
     "references": [
+      { "path": "../tool-types" },
       { "path": "../json-schema-to-react-tree" }
     ],
   "include": ["src/**/*", "src/**/*.css"],

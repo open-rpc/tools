@@ -1,4 +1,4 @@
-import { MethodObject, ContentDescriptorObject, OpenrpcDocument } from '@open-rpc/meta-schema';
+import { MethodObject, ContentDescriptorObject, OpenrpcDocument } from '@open-rpc/tool-types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const schema: any = {
