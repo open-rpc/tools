@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, Dispatch, useEffect } from 'react';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 import { IJSONRPCLog } from '@open-rpc/logs-react';
 
 export interface ITab {

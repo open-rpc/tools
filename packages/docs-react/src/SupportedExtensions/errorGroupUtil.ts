@@ -1,4 +1,4 @@
-import { ErrorObject } from '@open-rpc/meta-schema';
+import { ErrorObject } from '@open-rpc/tool-types';
 import { isEqual } from 'lodash';
 
 export const mergeErrors = (

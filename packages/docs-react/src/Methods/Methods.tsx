@@ -16,7 +16,7 @@ import {
   ErrorObject,
   ExamplePairingObject,
   LinkObject,
-} from '@open-rpc/meta-schema';
+} from '@open-rpc/tool-types';
 import Links from '../Links/Links';
 import Tags from '../Tags/Tags';
 import MarkdownDescription from '../MarkdownDescription/MarkdownDescription';

@@ -37,7 +37,7 @@ import createPersistedState from 'use-persisted-state';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { JSONRPCError } from '@open-rpc/client-js/build/Error';
-import { OpenrpcDocument, ExampleObject } from '@open-rpc/meta-schema';
+import { OpenrpcDocument, ExampleObject } from '@open-rpc/tool-types';
 import useTabs, { ITab } from '../hooks/useTabs';
 import { useDebounce } from 'use-debounce';
 import { green } from '@mui/material/colors';

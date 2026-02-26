@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 import Documentation from './Documentation';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';

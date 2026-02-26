@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import * as monaco from 'monaco-editor';
-import schema from '@open-rpc/meta-schema';
+import { getExtendedMetaSchema } from '@open-rpc/tool-types';
+
+const defaultSchema = getExtendedMetaSchema('1.4');
 
 // Monaco Replace Meta Schema:
 // Press Chord Ctrl-K, Ctrl-R => the action will run if it is enabled
 const useMonacoReplaceMetaSchema = (editor: monaco.editor.IStandaloneCodeEditor) => {
-  const [metaSchema, setMetaSchema] = useState(schema);
+  const [metaSchema, setMetaSchema] = useState(defaultSchema);
 
   useEffect(() => {
     if (!editor) {

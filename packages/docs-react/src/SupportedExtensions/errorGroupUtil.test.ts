@@ -1,6 +1,6 @@
 import { mergeErrors } from './errorGroupUtil';
 import { expect, describe, test } from 'vitest';
-import { ErrorObject } from '@open-rpc/meta-schema';
+import { ErrorObject } from '@open-rpc/tool-types';
 
 describe('errorGroupUtil', () => {
   describe('mergeErrors', () => {

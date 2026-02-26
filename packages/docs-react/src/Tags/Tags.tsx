@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TagObject } from '@open-rpc/meta-schema';
+import { TagObject } from '@open-rpc/tool-types';
 import { Chip } from '@mui/material';
 import * as hashColor from '../util/hashColor';
 

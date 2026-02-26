@@ -3,7 +3,7 @@ import {
   ContentDescriptorObject,
   OpenrpcDocument,
   MethodOrReference,
-} from '@open-rpc/meta-schema';
+} from '@open-rpc/tool-types';
 
 const isMethodObject = (method: MethodOrReference): method is MethodObject => {
   return 'name' in method && 'params' in method;
@@ -38,7 +38,7 @@ const openrpcDocumentToJSONRPCSchemaResult = (
   if (!openrpcDocument) {
     return schema;
   }
-  const methodObject = openrpcDocument.methods
+  const methodObject = (openrpcDocument.methods as MethodOrReference[])
     .filter(isMethodObject)
     .find((method) => method.name === methodName);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

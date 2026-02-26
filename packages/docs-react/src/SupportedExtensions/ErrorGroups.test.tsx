@@ -2,7 +2,7 @@ import { it, expect, describe } from 'vitest';
 import React from 'react';
 import ErrorGroups, { containsErrorGroup, getErrorGroups } from './ErrorGroups';
 import { render, screen } from '@testing-library/react';
-import { ErrorObject, MethodObject } from '@open-rpc/meta-schema';
+import { ErrorObject, MethodObject } from '@open-rpc/tool-types';
 
 describe('ErrorGroups Component', () => {
   it('renders without crashing', () => {

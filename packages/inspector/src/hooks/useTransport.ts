@@ -8,7 +8,7 @@ import {
 } from '@open-rpc/client-js';
 import { Transport } from '@open-rpc/client-js/build/transports/Transport';
 import { IJSONRPCData, IJSONRPCNotificationResponse } from '@open-rpc/client-js/build/Request';
-import { JSONSchema } from '@open-rpc/meta-schema';
+import { JSONSchema } from '@open-rpc/tool-types';
 
 export type TTransport = 'http' | 'websocket' | 'postmessagewindow' | 'postmessageiframe';
 

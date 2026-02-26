@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import * as monaco from 'monaco-editor';
-import { JSONSchema, MethodObject } from '@open-rpc/meta-schema';
+import { JSONSchema, MethodObject } from '@open-rpc/tool-types';
 import useWindowSize from '@rehooks/window-size';
 import { MonacoEditor, addDiagnostics } from '@open-rpc/monaco-editor-react';
 import useDarkMode from 'use-dark-mode';

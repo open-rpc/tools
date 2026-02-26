@@ -58,8 +58,8 @@
   "dependencies": {
     "@open-rpc/client-js": "^1.6.3",
     "@open-rpc/logs-react": "2.0.1",
-    "@open-rpc/meta-schema": "^1.14.9",
-    "@open-rpc/schema-utils-js": "2.1.2",
+    "@open-rpc/tool-types": "*",
+    "@open-rpc/schema-utils-js": "2.2.1",
     "@rehooks/window-size": "^1.0.2",
     "acorn-dynamic-import": "^4.0.0",
     "events": "^3.3.0",

@@ -3,7 +3,7 @@ import React from 'react';
 import ExamplePairings from './ExamplePairings';
 import examples from '@open-rpc/examples';
 import refParser from '@apidevtools/json-schema-ref-parser';
-import { OpenrpcDocument, ExamplePairingObject, MethodObject } from '@open-rpc/meta-schema';
+import { OpenrpcDocument, ExamplePairingObject, MethodObject } from '@open-rpc/tool-types';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

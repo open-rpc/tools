@@ -9,6 +9,7 @@
     "composite": true
   },
   "references": [
+    { "path": "../tool-types" },
     { "path": "../logs-react" },
     { "path": "../monaco-editor-react" }
   ],

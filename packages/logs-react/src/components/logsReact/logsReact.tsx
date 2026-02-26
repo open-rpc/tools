@@ -3,7 +3,7 @@ import { useState, useRef, useLayoutEffect } from 'react';
 import CardList from '../cardList/cardList';
 import clsx from 'clsx';
 import { Theme, styled } from '@mui/material/styles';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 //import '../../utils/monacoWorker';
 
 const PREFIX = 'JSONRPCLogger';

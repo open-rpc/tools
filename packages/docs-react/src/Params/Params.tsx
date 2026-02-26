@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import ContentDescriptor from '../ContentDescriptor/ContentDescriptor';
-import { ContentDescriptorObject } from '@open-rpc/meta-schema';
+import { ContentDescriptorObject } from '@open-rpc/tool-types';
 
 const PREFIX = 'Params';
 

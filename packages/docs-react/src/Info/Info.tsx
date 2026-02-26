@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Typography, Chip, Button } from '@mui/material';
 import { Theme, styled } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { OpenrpcDocument } from '@open-rpc/meta-schema';
+import { OpenrpcDocument } from '@open-rpc/tool-types';
 
 const PREFIX = 'Info';
 

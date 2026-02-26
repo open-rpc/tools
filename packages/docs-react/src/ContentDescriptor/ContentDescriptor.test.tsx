@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest';
 import React from 'react';
 import ContentDescriptor from './ContentDescriptor';
-import { ContentDescriptorObject } from '@open-rpc/meta-schema';
+import { ContentDescriptorObject } from '@open-rpc/tool-types';
 import { render, screen } from '@testing-library/react';
 
 it('renders without crashing', () => {
