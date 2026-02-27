@@ -1,19 +1,51 @@
-# @open-rpc/docs-react 2.1.1 (2025-03-04)
-
-# 🚀 Features
-
-* add support for extensions in docs react and tests ([adc9195](https://github.com/open-rpc/tools/commit/adc9195bc44801d1afe3ba37aca3ea4033b73f73))
-* add support for supported extension error groups ([7d9a214](https://github.com/open-rpc/tools/commit/7d9a214716f4325275599efed3583a012c8120a3))
+# @open-rpc/docs-react 2.1.2 (2026-02-27)
 
 ## 🐛 Bug Fixes
 
+* replace meta-schema with internal union types from spec ([5784475](https://github.com/open-rpc/tools/commit/57844750242dc714cd0b7a62ab6faf1976afbd15))
 * add support for hiding extensions and for merging error groups into errors for documentation ([2ef3dd3](https://github.com/open-rpc/tools/commit/2ef3dd31fd513d86253bc78faebe98aadec1671e))
-* roll back react-json view change ([da1792a](https://github.com/open-rpc/tools/commit/da1792ac02ed5f702c01024dc7f17663fbad2e17))
-* update ux to match more of the old playground ([957afee](https://github.com/open-rpc/tools/commit/957afeebada73c0f893953f62324b41611bd7ae9))
+
+## 📝 Documentation
+
+* require changesets ([38e1e51](https://github.com/open-rpc/tools/commit/38e1e5112537c1fb0e6364899cdabae3b9ea8f6d))
 
 ## 🧹 Chores
 
-* lint ([a0da8b6](https://github.com/open-rpc/tools/commit/a0da8b64a47942f1e2ca9f0037e02d72b70f6205))
+* enforce Node 20.11.1 ([5154cbd](https://github.com/open-rpc/tools/commit/5154cbd37e5f96fe36d446747852f7d85ce2364e))
+* version packages and generate changelog ([07cc7fd](https://github.com/open-rpc/tools/commit/07cc7fd85c3e034cca4973b4a003c6535e6bbb13))
+
+## Other Changes
+
+* fix docs-react union type display ([edf3b8e](https://github.com/open-rpc/tools/commit/edf3b8e8ac1b3e78ac3f52dfa46c9d85ccf33d24))
+
+# @open-rpc/docs-react 2.1.1 (2025-03-04)
+
+## 2.1.2
+
+### Patch Changes
+
+- a4bb1f5: This change here reflects new stricter adherence to the OpenRPC spec and allows tooling to accurately support multiple versions
+- 5784475: chore: replace @open-rpc/meta-schema with internal @open-rpc/tool-types package providing versioned union types (V1_3 | V1_4) from @open-rpc/spec-types.
+- 5154cbd: Align minimum Node.js version to 20.11.1 across packages and documentation.
+- edf3b8e: Fix display of union schema types by joining array types with " | " instead of concatenating.
+- Updated dependencies [5154cbd]
+- Updated dependencies [edf3b8e]
+  - @open-rpc/json-schema-to-react-tree@0.1.2
+
+# 🚀 Features
+
+- add support for extensions in docs react and tests ([adc9195](https://github.com/open-rpc/tools/commit/adc9195bc44801d1afe3ba37aca3ea4033b73f73))
+- add support for supported extension error groups ([7d9a214](https://github.com/open-rpc/tools/commit/7d9a214716f4325275599efed3583a012c8120a3))
+
+## 🐛 Bug Fixes
+
+- add support for hiding extensions and for merging error groups into errors for documentation ([2ef3dd3](https://github.com/open-rpc/tools/commit/2ef3dd31fd513d86253bc78faebe98aadec1671e))
+- roll back react-json view change ([da1792a](https://github.com/open-rpc/tools/commit/da1792ac02ed5f702c01024dc7f17663fbad2e17))
+- update ux to match more of the old playground ([957afee](https://github.com/open-rpc/tools/commit/957afeebada73c0f893953f62324b41611bd7ae9))
+
+## 🧹 Chores
+
+- lint ([a0da8b6](https://github.com/open-rpc/tools/commit/a0da8b64a47942f1e2ca9f0037e02d72b70f6205))
 
 # @open-rpc/docs-react 2.1.0 (2025-03-03)
 

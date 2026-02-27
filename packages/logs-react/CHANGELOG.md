@@ -1,20 +1,38 @@
-# @open-rpc/logs-react 2.0.1 (2025-03-03)
-
-# 🚀 Features
-
-* major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+# @open-rpc/logs-react 2.0.2 (2026-02-27)
 
 ## 🐛 Bug Fixes
 
-* wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
-* get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
-* **logs-react:** fix eslint errors in cardList and LogChips ([d8b70aa](https://github.com/open-rpc/tools/commit/d8b70aa28c673598dd05633e2f16137299db772c))
+* change add support for schema versioning ([cc7b62c](https://github.com/open-rpc/tools/commit/cc7b62ce25cca1a986ca9a34525fa8fcf9905bfe))
+* replace meta-schema with internal union types from spec ([5784475](https://github.com/open-rpc/tools/commit/57844750242dc714cd0b7a62ab6faf1976afbd15))
+
+## 📝 Documentation
+
+* require changesets ([38e1e51](https://github.com/open-rpc/tools/commit/38e1e5112537c1fb0e6364899cdabae3b9ea8f6d))
+
+# @open-rpc/logs-react 2.0.1 (2025-03-03)
+
+## 2.0.2
+
+### Patch Changes
+
+- a4bb1f5: This change here reflects new stricter adherence to the OpenRPC spec and allows tooling to accurately support multiple versions
+- 5784475: chore: replace @open-rpc/meta-schema with internal @open-rpc/tool-types package providing versioned union types (V1_3 | V1_4) from @open-rpc/spec-types.
+
+# 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+
+## 🐛 Bug Fixes
+
+- wip build to use esmodules instead ([2ea552c](https://github.com/open-rpc/tools/commit/2ea552c4bbf09d8ddaff44ae2ae7660841db5efb))
+- get build:package working ([b334b05](https://github.com/open-rpc/tools/commit/b334b050fa22564ceb21af136c86180c6b7d5103))
+- **logs-react:** fix eslint errors in cardList and LogChips ([d8b70aa](https://github.com/open-rpc/tools/commit/d8b70aa28c673598dd05633e2f16137299db772c))
 
 ## 🧹 Chores
 
-* prettier linting ([bab6d14](https://github.com/open-rpc/tools/commit/bab6d14d83bcf34dedcc2035b8369afdd01246c2))
-* version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
-* adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
+- prettier linting ([bab6d14](https://github.com/open-rpc/tools/commit/bab6d14d83bcf34dedcc2035b8369afdd01246c2))
+- version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
+- adjust package.json to properly reflect package repos ([91eef52](https://github.com/open-rpc/tools/commit/91eef5201fc431aa11bfd4d5b542fb37a1330278))
 
 # @open-rpc/logs-react 2.0.0 (2025-02-26)
 
