@@ -1,6 +1,6 @@
 {
   "name": "@open-rpc/inspector",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "OpenRPC Inspector",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@open-rpc/client-js": "^1.6.3",
-    "@open-rpc/logs-react": "2.0.1",
+    "@open-rpc/logs-react": "2.0.2",
     "@open-rpc/tool-types": "*",
     "@open-rpc/schema-utils-js": "2.2.1",
     "@rehooks/window-size": "^1.0.2",

@@ -1,12 +1,29 @@
-# @open-rpc/json-schema-to-react-tree 0.1.1 (2025-03-03)
-
-# 🚀 Features
-
-* major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+# @open-rpc/json-schema-to-react-tree 0.1.2 (2026-02-27)
 
 ## 🧹 Chores
 
-* version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
+* enforce Node 20.11.1 ([5154cbd](https://github.com/open-rpc/tools/commit/5154cbd37e5f96fe36d446747852f7d85ce2364e))
+
+## Other Changes
+
+* fix docs-react union type display ([edf3b8e](https://github.com/open-rpc/tools/commit/edf3b8e8ac1b3e78ac3f52dfa46c9d85ccf33d24))
+
+# @open-rpc/json-schema-to-react-tree 0.1.1 (2025-03-03)
+
+## 0.1.2
+
+### Patch Changes
+
+- 5154cbd: Align minimum Node.js version to 20.11.1 across packages and documentation.
+- edf3b8e: Fix display of union schema types by joining array types with " | " instead of concatenating.
+
+# 🚀 Features
+
+- major update to use esm, material 6.xx and react 18 ([850046f](https://github.com/open-rpc/tools/commit/850046fa4b226f1fca3d02d83620618102e9a992))
+
+## 🧹 Chores
+
+- version packages and generate changelog ([3fb58d0](https://github.com/open-rpc/tools/commit/3fb58d00d4676b4de0cf60c8aefffeb2a77ae883))
 
 # @open-rpc/json-schema-to-react-tree 0.1.0 (2025-02-26)
 

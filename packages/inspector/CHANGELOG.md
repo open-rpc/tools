@@ -1,16 +1,42 @@
-# @open-rpc/inspector 2.0.3 (2025-03-04)
+# @open-rpc/inspector 2.0.4 (2026-02-27)
 
-# 🐛 Bug Fixes
+## 🐛 Bug Fixes
 
+* change add support for schema versioning ([cc7b62c](https://github.com/open-rpc/tools/commit/cc7b62ce25cca1a986ca9a34525fa8fcf9905bfe))
+* replace meta-schema with internal union types from spec ([5784475](https://github.com/open-rpc/tools/commit/57844750242dc714cd0b7a62ab6faf1976afbd15))
 * tsconfig to output to dist for inspector ([75bd680](https://github.com/open-rpc/tools/commit/75bd680b503fbdab606133da387ff7ab9a87b233))
 * add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
-* missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
 
 ## 🧹 Chores
 
-* version packages and generate changelog ([90adaeb](https://github.com/open-rpc/tools/commit/90adaeb28bbb5a2fb4aca758ce9dc29eca21e16a))
-* rm old  and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
-* fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
+* bump schema utils to latest 2.2.0 ([0582e8b](https://github.com/open-rpc/tools/commit/0582e8b23c1c7d1b75523c6b6d114acf4c38d36a))
+* enforce Node 20.11.1 ([5154cbd](https://github.com/open-rpc/tools/commit/5154cbd37e5f96fe36d446747852f7d85ce2364e))
+* version packages and generate changelog ([07cc7fd](https://github.com/open-rpc/tools/commit/07cc7fd85c3e034cca4973b4a003c6535e6bbb13))
+
+# @open-rpc/inspector 2.0.3 (2025-03-04)
+
+## 2.0.4
+
+### Patch Changes
+
+- a4bb1f5: This change here reflects new stricter adherence to the OpenRPC spec and allows tooling to accurately support multiple versions
+- 5784475: chore: replace @open-rpc/meta-schema with internal @open-rpc/tool-types package providing versioned union types (V1_3 | V1_4) from @open-rpc/spec-types.
+- 5154cbd: Align minimum Node.js version to 20.11.1 across packages and documentation.
+- Updated dependencies [a4bb1f5]
+- Updated dependencies [5784475]
+  - @open-rpc/logs-react@2.0.2
+
+# 🐛 Bug Fixes
+
+- tsconfig to output to dist for inspector ([75bd680](https://github.com/open-rpc/tools/commit/75bd680b503fbdab606133da387ff7ab9a87b233))
+- add missing types ([c9288ba](https://github.com/open-rpc/tools/commit/c9288ba814e32076a243c07017f17da926df766a))
+- missing onChange transport event ([b671928](https://github.com/open-rpc/tools/commit/b671928d644d364c54171f02612cb83af663346a))
+
+## 🧹 Chores
+
+- version packages and generate changelog ([90adaeb](https://github.com/open-rpc/tools/commit/90adaeb28bbb5a2fb4aca758ce9dc29eca21e16a))
+- rm old and add updated react-json-view ([c6f9aac](https://github.com/open-rpc/tools/commit/c6f9aac69415c38092181f92b6817c7281c67303))
+- fix typo ([914a66e](https://github.com/open-rpc/tools/commit/914a66ee41bac7fcc84742283824e5298a0bedd7))
 
 # @open-rpc/inspector 2.0.2 (2025-03-03)
 
