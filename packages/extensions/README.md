@@ -51,6 +51,12 @@ Group, organize, and reuse JSON-RPC error definitions across OpenRPC methods via
 
 [View Documentation](./src/x-error-groups/README.md)
 
+### x-implemented-by
+
+Declare which logical participant(s) are expected to handle each JSON-RPC method. This extension supports multi-participant RPC APIs and defaults to `["server"]` when omitted.
+
+[View Documentation](./src/x-implemented-by/README.md)
+
 ## Using Extensions
 
 To use an extension in your OpenRPC document, you must:

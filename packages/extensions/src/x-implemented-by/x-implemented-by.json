@@ -1,0 +1,39 @@
+{
+  "openrpcExtension": "0.0.0-development",
+  "name": "x-implemented-by",
+  "version": "0.0.1",
+  "summary": "OpenRPC Implemented By",
+  "description": "## Semantics\n\n`x-implemented-by` declares which logical participant(s) are responsible for handling a JSON-RPC method.\n\nA participant listed in `x-implemented-by` is expected to receive and process inbound requests for that method. Participants not listed are not expected to handle inbound requests.\n\nIf `x-implemented-by` is omitted, tooling **SHOULD** assume `[\"server\"]` for backward compatibility with existing OpenRPC documents.\n\n## Tooling Behavior (recommended)\n\n- Tools operating as a given participant SHOULD accept inbound requests only for methods where `x-implemented-by` includes that participant.\n- Tools MAY expose outbound helpers or emitters for methods implemented by other participants.\n- Documentation tooling SHOULD group or label methods by their `x-implemented-by` value.\n- Mock tooling MAY provide mechanisms to manually trigger methods implemented by other participants.\n\n## Conventions\n\n- Common role identifiers include `server` and `client`.\n- Role identifiers are free-form strings and are not restricted to a fixed vocabulary.\n- Tools MUST treat unknown role identifiers as valid labels.",
+  "externalDocumentation": {
+    "description": "github",
+    "url": "https://github.com/open-rpc/specification-extension-spec"
+  },
+  "restricted": [
+    "methodObject"
+  ],
+  "default": [
+    "server"
+  ],
+  "schema": {
+    "description": "A list of role identifiers representing the endpoint(s) responsible for handling this method.",
+    "type": "array",
+    "minItems": 1,
+    "uniqueItems": true,
+    "items": {
+      "type": "string",
+      "minLength": 1
+    },
+    "examples": [
+      [
+        "server"
+      ],
+      [
+        "client"
+      ],
+      [
+        "client",
+        "server"
+      ]
+    ]
+  }
+}
