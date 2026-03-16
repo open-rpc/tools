@@ -49,7 +49,7 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
         const responseObjs: IJSONRPCLog[] = [];
         // if batched
         if (requestBodyObj.length) {
-          for (const [reqObj] of requestBodyObj) {
+          for (const reqObj of requestBodyObj) {
             requestObjs.push({
               type: 'request',
               method: reqObj.method,
@@ -73,7 +73,7 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
         responseTime.setMilliseconds(responseTime.getMilliseconds() + request.time);
         // if batched
         if (responseBodyObj.length) {
-          for (const [j, resObj] of responseBodyObj) {
+          responseBodyObj.forEach((resObj, j) => {
             responseObjs.push({
               type: 'response',
               method: requestBodyObj[j].method,
@@ -81,7 +81,7 @@ const useWebRequest = (): [IJSONRPCLog[], Dispatch<IJSONRPCLog[]>] => {
               payload: resObj,
               batchId: batchIdCount,
             });
-          }
+          });
           batchIdCount += 1;
         } else {
           responseObjs.push({
