@@ -63,7 +63,7 @@
     "@rehooks/window-size": "^1.0.2",
     "acorn-dynamic-import": "^4.0.0",
     "events": "^3.3.0",
-    "monaco-vim": "^0.4.2",
+    "monaco-vim": "^0.4.4",
     "qs": "^6.11.0",
     "react-resizable-panels": "^2.1.7",
     "semantic-release": "^15.13.21",
