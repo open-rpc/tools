@@ -59,7 +59,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/x-tree-view": "7.23.2",
+    "@mui/x-tree-view": "9.0.4",
     "@types/json-schema": "^7.0.4",
     "@types/uuid": "^7.0.2",
     "json-schema": "^0.2.5",
