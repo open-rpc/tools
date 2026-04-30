@@ -34,14 +34,14 @@
     "@types/react": "18.3.18",
     "eslint": "9.21.0",
     "typescript": "^5.0.0",
-    "@mui/icons-material": "6.3.1",
+    "@mui/icons-material": "9.0.0",
     "@mui/material": "6.3.1",
     "vite": "6.0.5"
   },
   "peerDependencies": {
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "@mui/icons-material": "6.3.1",
+    "@mui/icons-material": "9.0.0",
     "@mui/material": "6.3.1"
   },
   "browserslist": {
