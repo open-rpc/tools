@@ -12,7 +12,7 @@
   display: flex;
 }
 
-.call-box.hidden a{
+.call-box.hidden {
   display: none;
 }
 
